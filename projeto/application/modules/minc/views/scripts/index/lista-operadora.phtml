@@ -1,0 +1,41 @@
+<table width="95%" border="0" align="center" cellpadding="8" cellspacing="0" class="footer-headline">
+    <tr>
+        <td align="center">Lista de Operadoras<br><font style="font-size: 8pt">Total: <?php echo count($this->operadorasAtivas) ?></td>
+    </tr>
+    <!--tr>
+        <td align="center"><button class="btn btn-large btn btn-inverse " type="submit" name="submit" value="Submit">IMPRIMIR LISTA</button>&nbsp;&nbsp;</td>    
+    </tr-->
+</table>
+<br>
+<table width="95%" border="0" cellpadding="0" cellspacing="0" align="center">
+    <tr style="background-color: #eee;">
+        <th width="247" align="left" style="padding: 3px">Nome</th>
+        <th width="775" align="left" style="padding: 3px">Recebedoras desta Operadora</th>
+        <th align="left" width="207" style="padding: 3px">Telefone SAC - Serviço de Atendimento ao Cliente</th>
+    </tr>
+    <?php if (count($this->operadorasAtivas) > 0) { ?>
+        <?php foreach ($this->operadorasAtivas as $operadora) { ?>
+            <tr style="border-bottom: 1px #ccc solid;">
+                <td><?php echo $operadora['nmFantasia']; ?></td>
+				<?php $urlSite = isset($operadora['dsSite'])  && $operadora['dsSite']  ?  $operadora['dsSite'] : ''; ?>				
+				<?php $urlCompleta =  $urlSite ? "$urlSite/valecultura/recebedoras" : "";?>
+                <td><a href="<?php echo 'http://'.$urlCompleta; ?>" target="_blank" style="color:#543927"><?php echo $urlCompleta; ?></a></td>
+                <td>
+                    <?php foreach($operadora['telefones'] as $tel): ?>
+                    <?php echo $tel['cdDDD'] != '' ? '('.$tel['cdDDD'].')':''; ?>
+                    <?php echo $tel['nrTelefone']; ?>
+                    <?php echo $tel['dsTelefone'] != '' ? $tel['dsTelefone'].'<br />' : '<br />'; ?>
+                    <?php endforeach; ?>
+                </td>
+            </tr>
+     
+        <?php } ?>
+        <?php } else { ?>
+            <tr>
+                <td colspan="2">Nenhuma Operadora</td>
+            </tr>
+        <?php } ?>
+</table>
+
+
+

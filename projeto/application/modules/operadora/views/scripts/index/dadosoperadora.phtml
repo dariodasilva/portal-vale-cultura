@@ -1,0 +1,300 @@
+
+<div class="container-fluid-full">
+    <div class="row-fluid">
+
+        <!-- start: Main Menu -->
+        <div id="sidebar-left" class="span2">
+            <div class="row-fluid actions">
+                <input type="text" class="search span12" placeholder="O que deseja buscar?" />
+            </div>	
+            <?php include_once 'menu.phtml'; ?>
+        </div>
+        <!-- end: Main Menu -->
+
+        <!-- start: Content -->
+        <div id="content" class="span10">
+            <div class="row-fluid">
+                <div class="box span12">
+                    <div class="box-header">
+                        <h2><i class="icon-edit"></i>Gerenciar Operadora</h2>
+                        <div class="box-icon">
+
+                        </div>
+                    </div>
+                    <div class="box-content">
+                        <fieldset>
+                            <div id="conteudo">
+                                <form id="dadosEmpresa" method="POST" action="<?php echo $this->url(array('module' => 'operadora', 'controller' => 'index', 'action' => 'atualizar-dados-operadora')); ?>" >
+                                    <table class="table table-striped table-bordered bootstrap-datatable ">
+                                        <tr>
+                                            <th colspan="3">Dados da Empresa Operadora</th>
+                                        </tr>
+                                        <tr>
+                                           <td class="destacar bold">CNPJ:</td>
+                                            <td class="destacar bold" colspan="2">Raz&atilde;o Social:</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="text" disabled="true" class="input_simples w150 cnpj" name="nrCnpj" id="nrCnpj" value="<?php echo $this->operadora['nrCnpj']; ?>">
+                                            </td>
+                                            <td colspan="2">
+                                                <?php echo $this->operadora['nmRazaoSocial']; ?>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3" class="destacar bold">E-mail institucional:</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                <input type="hidden" name="ID_EMAIL_INSTITUCIONAL" id="ID_EMAIL_INSTITUCIONAL" value="<?php echo empty($this->emailInstitucional) ? '' : $this->emailInstitucional['ID_EMAIL']; ?>">
+                                                <input type="text" class="input_simples w500" size="70" maxlength="100" name="EMAIL_INSTITUCIONAL" id="EMAIL_INSTITUCIONAL" value="<?php echo empty($this->emailInstitucional) ? '' : $this->emailInstitucional['DS_EMAIL']; ?>">
+                                                <label for="EMPRESA_CEP" id="EMAIL_INSTITUCIONAL_VALIDADOR" class="error" style="display: none"></label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="destacar bold">Nome Fantasia:</td>
+                                            <td class="destacar bold" colspan="2">CEP:</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <?php echo $this->operadora['nmFantasia']; ?>
+                                            </td>
+                                            <td colspan="2">
+                                                <input type="text" class="input_simples w150 cep" name="cep" id="cep" onchange="buscaCep(this)" value="<?php echo $this->operadora['cep']; ?>">
+                                                <label for="EMPRESA_CEP" id="EMPRESA_CEP_VALIDADOR" class="error" style="display: none"></label>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="destacar bold">Bairro:</td>
+                                            <td class="destacar bold" colspan="2">Endere&ccedil;o:</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <select class="input_simples w150" disabled="disabled" name="nmBairro" id="nmBairro">
+                                                    <option value="<?php echo $this->operadora['nmBairro']; ?>"> <?php echo $this->operadora['nmBairro']; ?> </option>
+                                                </select>
+                                            </td>
+                                            <td colspan="2">
+                                                <input type="text" class="input_simples w150" disabled="disabled" name="logradouro" id="logradouro" value="<?php echo $this->operadora['logradouro']; ?>">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="destacar bold">Complemento:</td>
+                                            <td class="destacar bold" colspan="2">Número:</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="text" class="input_simples w150" name="dsComplementoEndereco" maxlength="50" id="dsComplementoEndereco" value="<?php echo $this->operadora['dsComplementoEndereco']; ?>">
+                                            </td>
+                                            <td colspan="2">
+                                                <input type="text" class="input_simples w150" name="nrComplemento" maxlength="10" id="nrComplemento" value="<?php echo $this->operadora['nrComplemento']; ?>">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="destacar bold">Pa&iacute;s:</td>
+                                            <td class="destacar bold">Estado:</td>
+                                            <td class="destacar bold">Munic&iacute;pio:</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input disabled="true" type="text"  disabled="disabled" class="input_simples w150" name="Pais" id="Pais" value="<?php echo $this->operadora['Pais']; ?>">
+                                            </td>
+                                            <td>
+                                                <select disabled="disabled" class="input_simples w150" name="Estado" id="Estado">
+                                                    <option value="<?php echo $this->operadora['sgUF']; ?>"> <?php echo $this->operadora['nmUf']; ?> </option>
+                                                </select> 
+                                            </td>
+                                            <td>
+                                                <select disabled="disabled" class="input_simples w150" name="Municipio" id="Municipio">
+                                                    <option value="<?php echo $this->operadora['idMunicipio']; ?>"> <?php echo $this->operadora['nmMunicipio']; ?> </option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                Natureza Jur&iacute;dica:
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3">
+                                                <?php echo @$this->operadora['dsNaturezaJuridica']; ?>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table class="table table-striped table-bordered bootstrap-datatable ">
+                                        <div class="box-header">
+                                            <h2><i class="icon-edit"></i>Hist&oacute;rico de Status</h2>
+                                            <div class="box-icon"></div>
+                                        </div>
+                                        <tr>
+                                            <td class="destacar bold"><strong>Status</strong></td>
+                                            <td class="destacar bold"><strong>Data da atualiza&ccedil;&atilde;o</strong></td>
+                                            <td class="destacar bold"><strong>Justificativa</strong></td>
+                                        </tr>
+                                        <?php foreach ($this->historico as $h): ?>
+                                            <tr>
+                                                <td class=""><?php echo $h['dsTipoSituacao']; ?></td>
+                                                <td class=""><?php echo $h['dtSituacao']; ?></td>
+                                                <td class=""><?php echo $h['dsJustificativa']; ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </table>
+                            </div>
+                                
+                                                       
+                            
+                            <div class="form-actions">
+                                <a id="btnAprovar" onclick="$('#dadosEmpresa').submit();" class="btn btn-primary">Atualizar</a>
+                                <a id="btnVoltar"   class="btn">Voltar</a>
+                            </div>
+
+                            <br clear="all" />
+                    </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end: Content -->
+
+</div><!--/fluid-row-->
+
+
+<div class="clearfix"></div>
+<br>
+
+</div>
+
+<script>
+
+                                                    jQuery(document).ready(function() {
+                                                        buscaCep($('#cep'));
+
+                                                        $(".data").mask("99/99/9999");
+                                                        $(".cpf").mask("999.999.999-99");
+                                                        $(".cnpj").mask("99.999.999/9999-99");
+                                                        $(".telefone").mask("(99) 9999-9999");
+                                                        $(".cep").mask("99999-999");
+                                                        $("#dadosEmpresa").validate({
+                                                            rules: {
+                                                                EMPRESA_CNPJ: {
+                                                                    required: true
+                                                                },
+                                                                nmRazaoSocial: {
+                                                                    required: true
+                                                                },
+                                                                nmFantasia: {
+                                                                    required: true
+                                                                },
+                                                                EMPRESA_CEP: {
+                                                                    required: true
+                                                                },
+                                                                logradouro: {
+                                                                    required: true
+                                                                }
+                                                            },
+                                                            messages: {
+                                                                EMPRESA_CNPJ: {
+                                                                    required: "Informe o CNPJ"
+                                                                },
+                                                                nmRazaoSocial: {
+                                                                    required: "Informe a razão social"
+                                                                },
+                                                                nmFantasia: {
+                                                                    required: "Informe o nome fantasia"
+                                                                },
+                                                                EMPRESA_CEP: {
+                                                                    required: "Informe o CEP"
+                                                                },
+                                                                logradouro: {
+                                                                    required: "Informe o endereço"
+                                                                }
+                                                            },
+                                                        });
+                                                    });
+
+
+                                                    function buscaCep(obj) {
+                                                        var cep = $(obj).val();
+                                                        if (cep.length >= 9) {
+                                                            $.ajax({
+                                                                type: "POST",
+                                                                url: '<?php echo $this->url(array('module' => 'operadora', 'controller' => 'cadastro', 'action' => 'buscaenderecoporcep')); ?>',
+                                                                data: {CEP: $(obj).val()},
+                                                                dataType: 'json',
+                                                                success: function(data) {
+                                                                    carregaEndereco(data);
+                                                                }
+                                                            });
+                                                        } else {
+                                                            cepInvalido();
+                                                        }
+                                                    }
+
+                                                    function carregaEndereco(data) {
+                                                        if (!data.error) {
+                                                            $('#EMPRESA_CEP_VALIDADOR').fadeOut();
+                                                            if (data.dados.TPCEP != 0) {
+                                                                if (data.dados.NM_LOGRADOURO.length > 0) {
+                                                                    $('#logradouro').val(data.dados.DS_TIPO_LOGRADOURO + ' ' + data.dados.NM_LOGRADOURO);
+                                                                    if (data.dados.DS_TIPO_LOGRADOURO !== 'M' && data.dados.DS_TIPO_LOGRADOURO !== 'D' && data.dados.DS_TIPO_LOGRADOURO !== 'P') {
+                                                                        $('#logradouro').attr('disabled', 'true');
+                                                                    } else {
+                                                                        $('#logradouro').removeAttr('disabled');
+                                                                    }
+                                                                }
+
+                                                                if (data.dados.DS_COMPLEMENTO.length > 2) {
+                                                                    $('#dsComplementoEndereco').val(data.dados.DS_COMPLEMENTO);
+                                                                    $('#dsComplementoEndereco').attr('disabled', 'true');
+                                                                }
+
+                                                                $('#nmBairro').html('');
+                                                                for (var i = 0; i < data.dados.bairros.length; i++) {
+                                                                    var complemento = '';
+
+                                                                    if (i == 0) {
+                                                                        complemento = 'selected';
+                                                                    }
+
+                                                                    var option = "<option value='" + data.dados.bairros[i].ID_BAIRRO + "' " + complemento + ">" + data.dados.bairros[i].NM_BAIRRO + "</option>";
+                                                                    $('#nmBairro').append(option);
+                                                                }
+
+                                                                if (data.dados.bairros.length > 1) {
+                                                                    $('#nmBairro').removeAttr('disabled');
+                                                                } else {
+                                                                    $('#nmBairro').attr('disabled', 'true');
+                                                                }
+
+                                                                $('#Estado').html('');
+                                                                var option = "<option value='" + data.dados.SG_UF + "' selected >" + data.dados.NM_UF + "</option>";
+                                                                $('#Estado').append(option);
+                                                                $('#Estado').attr('disabled', 'true');
+                                                                $('#Municipio').html('');
+                                                                var option = "<option value='" + data.dados.ID_MUNICIPIO + "' selected >" + data.dados.NM_MUNICIPIO + "</option>";
+                                                                $('#Municipio').append(option);
+                                                                $('#Municipio').attr('disabled', 'true');
+                                                            } else {
+                                                                //libera campos para preenchimento
+                                                                $('#nmBairro').removeAttr('disabled');
+                                                                $('#logradouro').removeAttr('disabled');
+                                                            }
+                                                        } else {
+                                                            cepInvalido();
+                                                        }
+                                                    }
+
+                                                    function cepInvalido() {
+                                                        //CEP INVALIDO
+                                                        $('#EMPRESA_CEP_VALIDADOR').html('CEP inválido');
+                                                        $('#EMPRESA_CEP_VALIDADOR').fadeIn();
+                                                        var option = "<option> - Informe o CEP - </option>";
+                                                        $('#nmBairro').html(option);
+                                                        $('#Estado').html(option);
+                                                        $('#Municipio').html(option);
+                                                        $('#logradouro').val('');
+                                                        $('#dsComplementoEndereco').val('');
+                                                    }
+
+</script>

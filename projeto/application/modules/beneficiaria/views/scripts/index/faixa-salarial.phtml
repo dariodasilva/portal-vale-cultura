@@ -1,0 +1,146 @@
+<div class="container-fluid-full">
+    <div class="row-fluid">
+
+        <!-- start: Main Menu -->
+        <div id="sidebar-left" class="span2">
+            <div class="row-fluid actions">
+                <input type="text" class="search span12" placeholder="O que deseja buscar?" />
+            </div>	
+            <?php include_once 'menu.phtml'; ?>
+        </div>
+        <!-- end: Main Menu -->
+
+        <!-- start: Content -->
+        <div id="content" class="span10">
+            <div class="row-fluid">
+                <div class="box span12">
+                    <div class="box-header">
+                        <h2><i class="icon-edit"></i>Faixa salarial da empresa</h2>
+                        <div class="box-icon"></div>
+                    </div>
+                    <div class="box-content">
+                        
+                        <div id="Error" class="alert alert-error hide">Error</div>
+                        <br />
+                        <fieldset>
+                            <table id="dadosFaixas" width="100%" class="table table-striped table-bordered bootstrap-datatable ">
+                                <tr>
+                                    <th class="destacar bold">Faixa Salarial:</th>
+                                    <th class="destacar bold">Quantidade:</th>
+                                    <th class="destacar bold" style="text-align: center; width: 100px;">Atualizar:</th>
+                                </tr>
+                                <?php $total = 0;?>
+                                <?php foreach($this->dadosFaixas as $df):?>
+                                <?php $total += $df['qtTrabalhadorFaixaSalarial'];?>
+                                <tr>
+                                    <td class=""><?php echo $df['dsTipoFaixaSalarial']; ?></td>
+                                    <td class="">
+                                        <input type="text" onkeyup="num(this);" maxlength="8" id_btn="<?php echo $df['idTipoFaixaSalarial']; ?>" valor="<?php echo $df['qtTrabalhadorFaixaSalarial']; ?>" class="nrFuncionarios input_simples w150 txt_qtd" name="qtTrabalhadorFaixaSalarial" id="qtd_<?php echo $df['idTipoFaixaSalarial']; ?>" value="<?php echo $df['qtTrabalhadorFaixaSalarial']; ?>" >
+                                    </td>
+                                    <td style="text-align: center;" id="msg_<?php echo $df['idTipoFaixaSalarial']; ?>">
+                                        <img class="imgConfirm" id="img_<?php echo $df['idTipoFaixaSalarial']; ?>" src="<?php echo $this->baseUrl('/img/confirm.png');?>" width="25" />
+                                        <a id="<?php echo $df['idTipoFaixaSalarial']; ?>" class="btn brn-atualizar-valor">Atualizar</a>
+                                    </td>
+                                </tr>
+                                <?php endforeach; ?>
+                                <tr>
+                                    <th class="">Total de funcionários: </th>
+                                    <th id="totalFuncionarios" colspan="2">
+                                        <?php echo $total;?>
+                                    </th>
+                                </tr>
+                            </table>
+                            
+                            <br clear="all" />
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end: Content -->
+
+</div><!--/fluid-row-->
+
+
+<div class="clearfix"></div>
+
+<script>
+    
+    function num(dom){
+            dom.value=dom.value.replace(/\D/g,'');
+    }
+    
+    $('.nrFuncionarios').change(function() {
+        calculaTotalFuncionarios();
+    });
+    
+    function calculaTotalFuncionarios() {
+
+        var totalFuncionaios;
+        totalFuncionaios = 0;
+        $("#dadosFaixas").find('.nrFuncionarios').each(function() {
+            if (eval($(this).val()) > 0) {
+                totalFuncionaios = eval(totalFuncionaios) + eval($(this).val());
+            }
+        });
+
+        $('#totalFuncionarios').html(totalFuncionaios);
+    }
+    
+    jQuery(document).ready(function() {
+        
+        $(".brn-atualizar-valor").hide();
+        $(".imgConfirm").hide();
+        
+        $(".txt_qtd").keyup(function(){
+            
+            $('#Error').hide();
+            
+            $(".imgConfirm").hide();
+            var id_btn = $(this).attr('id_btn');
+            var valorOriginal = parseInt($(this).attr('valor'));
+            var valorReal = parseInt($(this).val());
+            
+            if(valorReal != valorOriginal){
+                $("#"+id_btn).show();
+            }
+            
+        });
+        
+        $(".brn-atualizar-valor").click(function(){
+            var id_btn = $(this).attr('id');
+            var valor = $('#qtd_'+id_btn).val();
+        
+            var total = $('#totalFuncionarios').html();
+            
+            if(total == '0'){
+                $('#Error').html('Informar pelo menos uma faixa salarial');
+                $('#Error').show();
+                return false;
+            }
+            $.ajax({
+                type: "POST",
+                url: "<?php echo $this->url(array('module' => 'beneficiaria', 'controller' => 'index', 'action' => 'alterar-faixa-salarial')); ?>",
+                data: {idTipoFaixaSalarial: id_btn, qtTrabalhadorFaixaSalarial:valor },
+                dataType: 'json',
+                success: function(json) {
+            
+                    if(json.msg = 'confirm'){
+                        $('#'+id_btn).hide();
+                        $('#qtd_'+id_btn).attr('valor',json.id);
+                        $('#img_'+id_btn).show();
+                    }
+            
+                },error: function(){
+                    alert('Erro ao atualizar!');
+                }
+            });
+        
+        
+        
+            return false;
+        });
+        
+    });
+</script>

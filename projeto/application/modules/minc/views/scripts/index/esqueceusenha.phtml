@@ -1,0 +1,53 @@
+
+<div id="conteudo">
+    <form method="post" id="recuperarSenha" action="<?php echo $this->url(array('module' => 'minc', 'controller' => 'index', 'action' => 'recuperar-senha')); ?>">
+        <tr>
+            <th colspan="3"><h3 class="footer-headline"><span>Recupere sua Senha</span></h3></th>
+        </tr>
+        <td>
+        <center>
+            <table width="50%" height="116" align="center" background="<?php echo $this->baseUrl('img/senha.png') ?>" class="tabela">
+                <tr>
+                    <td class="destacar bold w150" align="lefth">CPF:    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <input class="input_simples cpf" type="text" name="CPF" id="CPF"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="destacar bold w150" align="right">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td><button class="btn btn-large btn btn-inverse " type="submit" style="float:center;" name="submit" value="Submit">Recuperar Senha</button></td>
+                </tr>
+
+            </table>
+        </center>
+        </td>
+        </tr>
+        </table>
+    </form>
+
+</div>
+
+<script>
+    jQuery(document).ready(function() {
+        
+        $(".cpf").mask("999.999.999-99");
+        
+        $("#recuperarSenha").validate({
+            rules: {
+                CPF: {
+                    required: true
+                }
+            },
+            messages: {
+                CPF: {
+                    required: "Informe o CPF"
+                }
+            },
+        });
+    });
+</script>

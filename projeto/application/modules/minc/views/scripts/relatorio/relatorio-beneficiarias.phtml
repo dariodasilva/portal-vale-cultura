@@ -1,0 +1,391 @@
+<?php
+// Esta view está sendo reutilizada em projeto/application/modules/minc/views/scripts/relatorio/detalhamento-de-beneficiarias.phtml
+// por isso está pegando a action dinamicamente
+$action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
+?>
+<script>
+    $(document).ready(function() {
+        
+        $(".data").mask("99/99/9999");
+        $(".cnpj").mask("99.999.999/9999-99");
+        
+        $("#listaBeneficiarias").tablesorter({headers: {5: {sorter:"currency"}}});
+        
+        $('#btn_enviar').click(function() {
+            $('#txtenviar').val('');
+            $('#form').attr('action','<?php echo $this->url(array('module' => 'minc', 'controller' => 'relatorio', 'action' => $action), '', true); ?>');
+            $('#form').attr('target','');
+            $('#form').submit();
+        });
+        
+        $('.html').click(function() {
+            $('#txtenviar').val('');
+            $('#form').attr('action','<?php echo $this->url(array('module' => 'minc', 'controller' => 'relatorio', 'action' => 'relatorio-html'), '', true); ?>');
+            $('#form').attr('target','_blank');
+            $('#form').submit();
+        });
+        
+        $('.imprimir').click(function() {
+            $('#imgLogo').show();
+            $('#CorpoHTML').html($('#corpoImprime').html());
+            $('#cabecalho').html($('#cabecaImprime').html());
+            $('#formImprime').attr('action','<?php echo $this->url(array('module' => 'minc', 'controller' => 'relatorio', 'action' => 'gerar-pdf'), '', true); ?>');
+            $('#form').attr('target','');
+            $('#formImprime').submit();
+        });
+
+        $('.excel').click(function() {
+            <?php
+            $url = isset($this->detalhamentoDeBeneficiariasExelUrl) ?
+                    $this->detalhamentoDeBeneficiariasExelUrl :
+                    $this->url(array('module' => 'minc', 'controller' => 'relatorio', 'action' => 'exportar-excel'), '', true);
+            ?>
+            $('#form').attr('action', '<?php echo $url; ?>');
+            $('#form').attr('target','');
+            $('#form').submit();
+        });
+        
+         // Função para carregar as ufs
+        $("#regiao").change(function(){
+
+            var id = $(this).val();
+            var url = '../relatorio/uf-por-regiao/sgregiao/'+id;
+            $('#municipio').attr('disabled', true);
+
+            $.ajax({
+                    url: url,
+                    success: function(data) {
+                        $('#uf').html(data);
+                    }
+                    ,error: function(){
+                        alert('Erro ao carregar as UFs');
+                    }
+            });
+            
+        });
+
+        // Função para carregar os municipios
+        $("#uf").change(function(){
+
+            var id = $(this).val();
+            var url = '../relatorio/municipio-por-uf/sguf/'+id;
+            $('#municipio').attr('disabled', true);
+            
+            $.ajax({
+                    url: url,
+                    success: function(data) {
+                        $('#municipio').html(data);
+                        $('#municipio').attr('disabled', false);
+                    }
+                    ,error: function(){
+                        alert('Erro ao carregar os Municípios');
+                        $('#municipio').attr('disabled', true);
+                    }
+            });
+            
+        });
+
+        var regiao      = '<?php echo $this->regiao; ?>';
+        var uf          = '<?php echo $this->uf; ?>';
+        var municipio   = '<?php echo $this->municipio; ?>';
+
+        if(regiao != ''){
+            
+            $.ajax({
+                url: '../relatorio/uf-por-regiao/sgregiao/'+regiao+'/uf/'+uf,
+                success: function(data) {
+                    $('#uf').html(data);
+                },error: function(){
+                    alert('Erro ao carregar as UFs');
+                }
+            });
+        }
+
+        if(municipio != ''){
+            $.ajax({
+                url: '../relatorio/municipio-por-uf/sguf/'+uf+'/municipio/'+municipio,
+                success: function(data) {
+                    $('#municipio').html(data);
+                    $('#municipio').attr('disabled', false);
+                },error: function(){
+                    alert('Erro ao carregar os Municípios');
+                    $('#municipio').attr('disabled', true);
+                }
+            });
+        }else{
+            $('#municipio option[value="0"]').attr('selected', true);
+        }
+
+        $(".enviar").click(function(){
+            var valor = $(this).attr('valor');
+            $('#txtenviar').val(valor);
+            $('#form').attr('action','<?php echo $this->url(array('module' => 'minc', 'controller' => 'relatorio', 'action' => 'relatorio-beneficiarias'), '', true); ?>');
+            $('#form').submit();
+        });
+    });
+</script>
+<style>
+    .ocuta{
+        display: none;
+    }
+
+    .cresceFonte{
+        font-size: 10pt;
+    }
+</style>
+<div class="container-fluid-full">
+    <div class="row-fluid">
+
+        <!-- start: Main Menu -->
+        <div id="sidebar-left" class="span2">
+
+            <div class="row-fluid actions">
+
+                <input type="text" class="search span12" placeholder="O que deseja buscar?" />
+
+            </div>	
+            <?php
+            if ($this->admin) {
+                include_once 'menuAdmin.phtml';
+            } else {
+                include_once 'menuConsulta.phtml';
+            }
+            ?>
+
+        </div>
+        <!-- end: Main Menu -->
+
+        <!-- start: Content -->
+        <div id="content" class="span10">
+            <div class="row-fluid" >
+                <div class="box span12">
+                    <form id="form" action="<?php echo $this->url(array('module' => 'minc', 'controller' => 'relatorio', 'action' => 'relatorio-beneficiarias')); ?>" method="POST" >
+                        <input type="hidden" id="txtenviar" name="pagina" value="<?php echo $this->pagina; ?>" />
+                        <table class="table table-striped table-bordered bootstrap-datatable ">
+                            <tr>
+                                <td>Região administrativa</td>
+                                <td>UF</td>
+                                <td>Município</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <select name="REGIAO" id="regiao">
+                                        <option value="">- SELECIONE -</option>
+                                        <?php foreach ($this->regioes as $reg): ?>
+                                            <option value="<?php echo $reg['SG_REGIAO']; ?>" <?php echo $reg['SG_REGIAO'] == $this->regiao ? "selected" : '' ?>>
+                                                <?php echo $reg['NM_REGIAO']; ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="UF" id="uf">
+                                        <option value="">- SELECIONE -</option>
+                                        <?php foreach ($this->ufs as $uf): ?>
+                                            <option value="<?php echo $uf['SG_UF'] ?>" <?php echo $uf['SG_UF'] == $this->uf ? "selected" : '' ?>>
+                                                <?php echo $uf['NM_UF']; ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="MUNICIPIO" id="municipio" disabled="disabled">
+                                        <option value="0">- SELECIONE -</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Operadora</td>
+                                <td>Status</td>
+                                <td>CNPJ</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <select name="OPERADORA">
+                                        <option value="0">- SELECIONE -</option>
+                                        <?php foreach ($this->operadorasAtivas as $operadoras): ?>
+                                            <option value="<?php echo $operadoras['idOperadora'] ?>" <?php echo $operadoras['idOperadora'] == $this->operadora ? "selected" : '' ?>>
+                                                <?php echo $operadoras['nmFantasia']; ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="SITUACAO">
+                                        <option value="0">- SELECIONE -</option>
+                                        <?php foreach ($this->situacoes as $situacao): ?>
+                                            <option value="<?php echo $situacao['ID_TIPO_SITUACAO'] ?>" <?php echo $situacao['ID_TIPO_SITUACAO'] == $this->situacao ? "selected" : '' ?>>
+                                                <?php echo $situacao['DS_TIPO_SITUACAO']; ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" name="CNPJ" id="CNPJ" value="<?php echo $this->cnpj ?>" class="input_simples w200 cnpj" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1">
+                                    Data de Cadastro (Mínima)
+                                </td>
+                                <td colspan="2">
+                                    Data de Cadastro (Máxima)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="1">
+                                    <input type="text" name="DTINICIO" id="DTINICIO" value="<?php echo $this->dtInicio ?>" class="data" />
+                                </td>
+                                <td colspan="2">
+                                    <input type="text" name="DTFIM" id="DTFIM" value="<?php echo $this->dtFim ?>" class="data" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <button type="button" id="btn_enviar" class="btn btn-primary aprovar">Filtrar</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                    <?php if (count($this->beneficiarias) > 0): ?>
+                        <br><br>
+                        <center>
+                            <button class="btn btn-primary aprovar html">Imprimir</button>
+                            <!--button class="btn btn-primary aprovar imprimir">Gerar PDF</button-->
+                            <button class="btn btn-primary aprovar excel">Gerar Planilha</button>
+                        </center>
+                        <br><br>
+                        <?php $img = '../../img/Coat_of_arms_of_Brazil.gif'; ?>
+
+                        <div class="box-header">
+                            <h2>
+                                <i class="icon-edit"></i>
+                                <?php echo $this->tituloRelatorio ? : 'Relatório de Acompanhamento de Inscrição de Empresas Beneficiárias'; ?>
+                            </h2>
+                            <div class="box-icon"></div>
+                        </div>
+                        <div id="corpoImprime" style="border:0px solid #000" >
+                            <table id="listaBeneficiarias" width="100%" cellpadding="0"  class="tablesorter" border="0" style="font-size: 7pt;">
+
+                                <thead>
+                                    <tr class="ocuta">
+                                        <td align="center" colspan="7" valign="top" height="140px">
+                                            <div id="imgLogo">
+                                                <img src="<?php echo $img ?>" width="60px" /><br><br>
+                                            </div>
+                                            MINIST&Eacute;RIO DA CULTURA<br>
+                                            SECRETARIA DE FOMENTO E INCENTIVO &Agrave; CULTURA - SEFIC<BR>
+                                            PROGRAMA DE CULTURA DO TRABALHADOR - VALE-CULTURA<BR>
+                                            RELATÓRIO DE ACOMPANHAMENTO DE INSCRIÇÃO DE EMPRESAS BENEFICIÁRIAS
+
+                                        </td>
+                                    </tr>
+                                    <tr  class="ocuta">
+                                        <td></td>
+                                        <td colspan="6" align="right"><?php echo date('d/m/Y H:i:s') ?></td>
+                                    </tr>
+                                    <tr class="cresceFonte">
+                                        <th width="23%" bgcolor="#ccc">
+                                            <strong><b>Nome da Empresa</b></strong>
+                                        </th>
+                                        <th id="titulo2" class="destacar bold centro" width="15%" bgcolor="#ccc">
+                                            <strong><b>Municipio / UF</b></strong>
+                                        </th>
+                                        <th id="titulo3" class="destacar bold centro" width="9%" bgcolor="#ccc">
+                                            <strong><b>Data de Cadastro</b></strong>
+                                        </th>
+                                        <th id="titulo4"  class="destacar bold centro" width="13%" bgcolor="#ccc">
+                                            <strong><b>Status</b></strong>
+                                        </th>
+                                        <th id="titulo5"  class="destacar bold centro" width="25%" bgcolor="#ccc">
+                                            <strong><b>Natureza Juridica</b></strong>
+                                        </th>
+                                        <th id="titulo6"  class="destacar bold centro" width="5%" bgcolor="#ccc">
+                                            <strong><b>Qtd. Func.</b></strong>
+                                        </th>
+                                        <th id="titulo6"  class="destacar bold centro" width="10%" bgcolor="#ccc">
+                                            <strong><b>Operadora</b></strong>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <!-- #QUEBRAPAGINA# -->
+                                <tbody>
+                                    <?php foreach ($this->beneficiarias as $b): ?>
+                                        <tr class="cresceFonte">
+                                            <td height="30px" style="border-bottom: 1px solid #eee">
+                                                <?php echo $b->nmRazaoSocial; ?>
+                                            </td>
+                                            <td style="border-bottom: 1px solid #eee">
+                                                <?php echo ucfirst(strtolower_iso8859_1($b->nmMunicipio)) ?> / <?php echo $b->sgUF ?>
+                                            </td>
+                                            <td style="border-bottom: 1px solid #eee">
+                                                <?php echo $b->dtInscricao ?>
+                                            </td>
+                                            <td style="border-bottom: 1px solid #eee">
+                                                <?php echo $this->verificarSituacao($b->situacao, 'st', 'B'); ?>
+                                            </td>
+                                            <td style="border-bottom: 1px solid #eee">
+                                                <?php echo ucfirst(strtolower_iso8859_1($b->dsNaturezaJuridica)) ?>
+                                            </td>
+                                            <td style="border-bottom: 1px solid #eee">
+                                                <?php
+                                                $qtdFuncionarios = $b->qtdFuncionarios > 0 ? $b->qtdFuncionarios : 0;
+                                                echo number_format($qtdFuncionarios, 0, ',', '.');
+                                                ?>
+                                            </td>
+                                            <td style="border-bottom: 1px solid #eee">
+                                                <?php echo $b->operadora ?>
+                                            </td>
+                                        </tr>
+                                        <?php endforeach; ?>
+                            </table>
+                            <!-- #QUEBRAPAGINA# -->
+                            <table id="listaBeneficiarias" width="100%" cellpadding="0"  class="tablesorter" border="0" style="font-size: 7pt;">
+                                <tr>
+                                    <td colspan="7">
+                                        <br>
+                                <center>
+                                    <b>
+                                        <?php echo 'Total de '.number_format($this->qtdFuncionarios, 0, ',', '.'); ?> Funcionários
+                                        <br>
+                                        <?php echo 'Total de '.$this->qtdBeneficiarias; ?> Empresas Beneficiárias
+                                    </b>
+                                </center>
+                                </td>
+                                </tr>
+                                </tbody>  
+
+                            </table>
+                        </div>
+                        <?php echo $this->paginationControl($this->beneficiarias, 'Sliding', 'paginar.phtml'); ?>
+                        <br><br>
+                        <center>
+                            <button class="btn btn-primary aprovar html">Imprimir</button>
+                            <!--button class="btn btn-primary aprovar imprimir">Gerar PDF</button-->
+                            <button class="btn btn-primary aprovar excel">Gerar Planilha</button>
+                        </center>
+                        <br><br>
+                    <?php else: ?>
+                        <table class="table table-bordered">
+                            <tr>
+                                <td style="text-align: center;">NENHUM REGISTRO ENCONTRADO!</td>
+                            </tr>
+                        </table>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+        <!-- end: Content -->
+
+    </div><!--/fluid-row-->
+    <div id="retorno" style="display: none">
+        <form action="<?php echo $this->url(array('module' => 'minc', 'controller' => 'relatorio', 'action' => 'gerar-pdf')); ?>" id="formImprime" method="POST">
+            <textarea name="HTML" id="CorpoHTML"></textarea>
+            <textarea name="cabecalho" id="cabecalho"></textarea>
+            <input type="hidden" name="nomeArquivo" value="relatorioBeneficiarias" />
+        </form>
+        <iframe id="iframe" name="iframe" />
+    </div>
+
+</body>
+</html>
