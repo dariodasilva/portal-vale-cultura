@@ -402,9 +402,14 @@ blockquote small {
     background-image:url('../img/sunglasses.png');
     height:auto;
     width:100%;
-    padding:80px 0 0 0;
+    padding:10px 0 0 0;
     color:#ffffff;
 }
+
+#contact .back-home a {
+    text-decoration: none;
+}
+
 .progress {
     background-color: #555555;
     background-image:none!important;
