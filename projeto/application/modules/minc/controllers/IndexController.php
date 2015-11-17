@@ -181,15 +181,15 @@ class Minc_IndexController extends GenericController {
                 if ($modelEmail->enviarEmail('valecultura@cultura.gov.br', 'Contato via sistema - Vale Cultura', $htmlEmail)) {
                     $retorno['mensagem'] = '<b>E-mail enviado com sucesso!</b>';
                 } else {
-                    $retorno['mensagem'] = '<b style="color: #f00">Erro no envido do E-mail</b>';
+                    $retorno['mensagem'] = '<b style="color: #f00">Erro no envio do E-mail</b>';
                 }
                 
             } catch (Exception $exc) {
                 echo $exc->getTraceAsString();
-                $retorno['mensagem'] = '<b style="color: #f00">Erro no envido do E-mail</b>';
+                $retorno['mensagem'] = '<b style="color: #f00">Erro no envio do E-mail</b>';
             }
         } else {
-            $retorno['mensagem'] = '<b style="color: #f00">Erro no envido do E-mail</b>';
+            $retorno['mensagem'] = '<b style="color: #f00">Erro no envio do E-mail</b>';
         }
 
         echo json_encode($retorno);
