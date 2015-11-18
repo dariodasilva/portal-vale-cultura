@@ -9,17 +9,14 @@
 <br>
 <table width="95%" border="0" cellpadding="0" cellspacing="0" align="center">
     <tr style="background-color: #eee;">
-        <th width="247" align="left" style="padding: 3px">Nome</th>
-        <th width="775" align="left" style="padding: 3px">Recebedoras desta Operadora</th>
+        <th width="500" align="left" style="padding: 3px">Nome</th>
         <th align="left" width="207" style="padding: 3px">Telefone SAC - Serviço de Atendimento ao Cliente</th>
     </tr>
     <?php if (count($this->operadorasAtivas) > 0) { ?>
         <?php foreach ($this->operadorasAtivas as $operadora) { ?>
             <tr style="border-bottom: 1px #ccc solid;">
 				<?php $urlSite = isset($operadora['dsSite'])  && $operadora['dsSite']  ?  $operadora['dsSite'] : ''; ?>				
-				<?php $urlCompleta =  $urlSite ? "$urlSite/valecultura/recebedoras" : "";?>
                 <td><a href="<?php echo 'http://' . $urlSite; ?>/valecultura" target="_blank" style="color:#543927"><?php echo $operadora['nmFantasia']; ?></a></td>                                                   
-                <td><a href="<?php echo 'http://'.$urlCompleta; ?>" target="_blank" style="color:#543927"><?php echo $urlCompleta; ?></a></td>
                 <td>
                     <?php foreach($operadora['telefones'] as $tel): ?>
                     <?php echo $tel['cdDDD'] != '' ? '('.$tel['cdDDD'].')':''; ?>
