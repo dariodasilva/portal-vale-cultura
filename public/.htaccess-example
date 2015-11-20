@@ -1,4 +1,4 @@
-SetEnv APPLICATION_ENV desenvolvimento
+SetEnv APPLICATION_ENV desenvolvimento|homologacao|producao
 
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} -s [OR]
