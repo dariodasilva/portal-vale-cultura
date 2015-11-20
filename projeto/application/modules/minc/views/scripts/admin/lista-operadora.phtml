@@ -77,6 +77,7 @@
                                         <td class="destacar bold centro"><strong>CNPJ</strong></td>
                                         <td class="destacar bold centro"><strong>Nome</strong></td>
                                         <td class="destacar bold centro" style="text-align: center;"><strong>Data de Cadastro</strong></td>
+                                        <td class="destacar bold centro" style="text-align: center;"><strong>In&iacute;cio da comercializa&ccedil;&atilde;o</strong></td>
                                         <td class="destacar bold centro" style="text-align: center;"><strong>Situa&ccedil;&atilde;o</strong></td>
                                         <td class="destacar bold centro" style="text-align: center;"><strong>Analisar</strong></td>  
                                         <td class="destacar bold centro" style="text-align: center;"><strong>Editar</strong></td>  
@@ -86,6 +87,7 @@
                                         <td class="centro"><?php echo $this->mascara($op->nrCnpj, 'cnpj'); ?></td>
                                         <td><?php echo $op->nmFantasia; ?></td>
                                         <td class="centro" style="text-align: center;"><?php echo $op->dtInscricao; ?></td>
+                                        <td class="centro" style="text-align: center;"><?php echo $op->dtInicioComercializacao; ?></td>					
                                         <td style="text-align: center; color: <?php echo $this->verificarSituacao($op->situacao, 'cor', 'O'); ?>">
                                             <?php echo $this->verificarSituacao($op->situacao, 'st', 'O'); ?>
                                         </td>                    

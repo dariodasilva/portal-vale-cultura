@@ -1,3 +1,5 @@
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/jquery-ui-1.11.4.min.js') ?>"></script>
+<link rel="stylesheet" href="/css/jquery-ui-datepicker.css" />
 <style>
     .errorAjax{
         background-color: #e8a4a4; 
@@ -345,6 +347,20 @@
 
         <table width="95%" align="center" class="tabela">
             <tr>
+                <th><h3 class="footer-headline"><span>Início da comercialização</span></h3></th>
+            </tr>
+            <tr>
+                <th colspan="2" valign="top" class="destacar bold">Data de início da comercialização</th>
+            </tr>
+            <tr>
+                <td valign="top" colspan="2">
+                    <input name="INICIO_COMERCIALIZACAO" id="INICIO_COMERCIALIZACAO" type="text" class="input_datsimples w400" />
+                </td>
+            </tr>    
+        </table>
+
+        <table width="95%" align="center" class="tabela">
+            <tr>
                 <th><h3 class="footer-headline"><span>Veracidade</span></h3></th>
             </tr>
             <tr>
@@ -461,7 +477,10 @@
                 },
                 RESPONSAVEL_FONE: {
                     required: true
-                }
+                },
+		INICIO_COMERCIALIZACAO: {
+                    required: true
+                }		
             },
             messages: {
                 EMPRESA_CNPJ: {
@@ -482,10 +501,28 @@
                 },
                 RESPONSAVEL_FONE: {
                     required: "Campo obrigat&oacute;rio"
+                },
+                INICIO_COMERCIALIZACAO: {
+                    required: "Informe a data de início da comercialização"
                 }
             }
         });
-
+	
+        $("#INICIO_COMERCIALIZACAO").datepicker({
+            //format: 'dd/mm/yyyy',
+            language: 'pt-BR',
+            separator: ' ',
+            minDate: new Date(),
+            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+            nextText: 'Próximo',
+            prevText: 'Anterior',
+            dateFormat: 'dd/mm/yy'
+        });
+	
         // Vamos buscar os dados do CNPJ Agora!
         $('#EMPRESA_CNPJ').focusout(function(){
 

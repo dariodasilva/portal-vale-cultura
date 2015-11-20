@@ -42,8 +42,6 @@ class Operadora_CadastroController extends GenericController {
     }
 
     public function cadastrarAction() {
-        #Jesse
-		#print_r( $this->getRequest()->getParam('DS_SITE'));
         if ($_POST) {
 
             $this->getHelper('layout')->disableLayout();
@@ -56,7 +54,6 @@ class Operadora_CadastroController extends GenericController {
             $modelPessoaVinculada   = new Application_Model_PessoaVinculada();
             $modelTelefone          = new Application_Model_Telefone();
             $modelEmail             = new Application_Model_Email();
-			#Jesse
 			$modelSite              = new Application_Model_Site();
             $modelUsuario           = new Application_Model_Usuario();
             $modelUsuarioPerfil     = new Application_Model_UsuarioPerfil();
@@ -81,13 +78,12 @@ class Operadora_CadastroController extends GenericController {
             $NRTELEFONE             = (int) substr(str_replace('-', '', (str_replace(' ', '', str_replace('(', '', str_replace(')', '', $this->getRequest()->getParam('RESPONSAVEL_FONE')))))), 2);
             $DSEMAIL                = $this->getRequest()->getParam('RESPONSAVEL_EMAIL');
             $DSEMAILINSTITUCIONAL   = $this->getRequest()->getParam('INSTITUCIONAL_EMAIL');
-			#Jesse
 			$DSSITE                 = $this->getRequest()->getParam('DS_SITE');
             $CDCBO                  = $this->getRequest()->getParam('RESPONSAVEL_CARGO');
             $SAC_TELEFONE           = $this->getRequest()->getParam('SAC_TELEFONE');
             $DDD_SAC                = $this->getRequest()->getParam('SAC_DDD');
             $COMPLEMENTO_SAC        = $this->getRequest()->getParam('SAC_COMPLEMENTO');
-
+            $INICIO_COMERCIALIZACAO = date('Y-m-d', strtotime(str_replace('/', '-', $this->getRequest()->getParam('INICIO_COMERCIALIZACAO'))));
             
             // Validando Form
             $ERROR = array();
@@ -131,6 +127,10 @@ class Operadora_CadastroController extends GenericController {
                 $ERROR['LEI'] = 'Confirme a veracidade de todas as informa&ccedil;&otilde;es';
             }
 
+            if (strlen($this->getRequest()->getParam('INICIO_COMERCIALIZACAO')) != 10 || !$this->isValidDate($INICIO_COMERCIALIZACAO)) {
+                $ERROR['INICIO_COMERCIALIZACAO'] = 'Data inv&aacute;lida';
+            }
+            
             $where = array('NR_CEP = ?' => "" . $NRCEP . "");
             $logradouro = $modelLogradouro->selectEndereco($where);
             if (count($logradouro) < 1 || strlen($NRCEP) != 8) {
@@ -299,9 +299,12 @@ class Operadora_CadastroController extends GenericController {
                     }
 					#Jesse - FIM
 
-                    $Cols = array('ID_OPERADORA' => $idPessoaJuridica);
+                    $Cols = array(
+                        'ID_OPERADORA' => $idPessoaJuridica,
+                        'DT_INICIO_COMERCIALIZACAO' => $INICIO_COMERCIALIZACAO
+                    );
                     $modelOperadora->insert($Cols);
-
+                    
                     //Incluir Arquivo Operadora
                     //SALVAR  UPLOAD
                     $uploaddir = defined('UPLOAD_DIR') ? UPLOAD_DIR : "/var/arquivos/arquivos-valecultura/";
@@ -842,6 +845,15 @@ class Operadora_CadastroController extends GenericController {
         }
     }
 
+    function isValidDate($date, $format = 'Y-m-d') {
+        if (is_numeric(str_replace('-', '', $date))) {
+            $d = DateTime::createFromFormat($format, $date);
+            return $d && $d->format($format) == $date;
+        } else {
+            return false;
+        }
+    }
+    
     function isCnpjValid($cnpj) {
         // Etapa 1: Cria um array com apenas os digitos numéricos, 
         // Isso permite receber o cnpj em diferentes formatos como:

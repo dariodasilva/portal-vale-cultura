@@ -41,6 +41,7 @@ class Application_Model_Operadora {
                               'CONVERT(VARCHAR(10),o.dt_Inscricao ,103) as dtInscricao',
                               'nrComprovanteInscricao' => 'o.nr_Comprovante_Inscricao',
                               'nrCertificado' => 'o.nr_Certificado',
+                              'dtInicioComercializacao' => 'o.dt_inicio_comercializacao',                        
                               'situacao' =>  new Zend_Db_Expr('(' . $selectSituacao . ')'))
         );
 
