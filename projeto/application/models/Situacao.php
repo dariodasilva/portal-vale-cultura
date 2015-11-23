@@ -70,6 +70,8 @@ class Application_Model_Situacao {
         );
 
         $selectOperadora->where(new Zend_Db_Expr('(' . $selectSituacao->assemble() . ')') . ' = ?', '2');
+        $selectOperadora->where('CONVERT(datetime, op.DT_INICIO_COMERCIALIZACAO) <= GETDATE()');
+        
         $selectOperadora->order('NM_FANTASIA');
         
 //        xd($selectOperadora->assemble());

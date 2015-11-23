@@ -99,6 +99,7 @@ class Operadora_IndexController extends GenericController {
             $dadosOperadora['nrComprovanteInscricao']   = $op->nrComprovanteInscricao;
             $dadosOperadora['nrCertificado']            = $op->nrCertificado;
             $dadosOperadora['situacao']                 = $op->situacao;
+            $dadosOperadora['inicioComercializacao']    = $op->dtInicioComercializacao;            
             //tbPessoa
             $dadosOperadora['idpessoa']                 = $op->idPessoa;
             $dadosOperadora['dtregistro']               = $op->dtRegistro;
