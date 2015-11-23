@@ -26,6 +26,7 @@
 	top: 2px;
 	width: 6em;
 	height: 1.8em;
+	cursor: pointer;
 }
 .ui-datepicker .ui-datepicker-prev-hover,
 .ui-datepicker .ui-datepicker-next-hover {
