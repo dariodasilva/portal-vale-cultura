@@ -415,7 +415,11 @@ blockquote small {
     height:auto;
     width:100%;
     padding:10px 0 0 0;
-    margin-top: -20px;
+}
+
+html.contact {
+    background-color:#2A5327;
+    background-image:url('../img/sunglasses.png');
 }
 
 #contact .span8, #contact label, #contact address {
