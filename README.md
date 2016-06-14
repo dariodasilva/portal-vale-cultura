@@ -23,8 +23,9 @@ Portal Vale Cultura
     # abra o arquivo .htaccess e escolha qual o ambiente. Ex:
     SetEnv APPLICATION_ENV homologacao
 
-4) Dê permissões de escrita às pastas necessárias:
+4) Crie e dê permissões de escrita às pastas necessárias:
 
+    mkdir [base_dir]/public/images/captcha
     chmod 775 [base_dir]/public/images/captcha
 
 5) Crie ou dê acesso de escrita à pasta dos arquivos enviados ao vale-cultura
