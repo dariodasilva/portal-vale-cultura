@@ -25,8 +25,8 @@ Portal Vale Cultura
 
 4) Crie e dê permissões de escrita às pastas necessárias:
 
-    mkdir [base_dir]/public/images/captcha
-    chmod 775 [base_dir]/public/images/captcha
+    mkdir [base_dir]/public/imagens/captcha
+    chmod 775 [base_dir]/public/imagens/captcha
 
 5) Crie ou dê acesso de escrita à pasta dos arquivos enviados ao vale-cultura
 
