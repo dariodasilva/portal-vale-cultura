@@ -17,9 +17,9 @@
             <tr style="border-bottom: 1px #ccc solid;">
 				<?php $urlSite = isset($operadora['dsSite'])  && $operadora['dsSite']  ?  $operadora['dsSite'] : ''; ?>
                 <?php if ($urlSite != '') : ?>
-                <td><a href="<?php echo 'http://' . $urlSite; ?>/valecultura" target="_blank" style="color:#843927"><?php echo $operadora['nmFantasia']; ?></a></td>
+                <td><a href="<?php echo 'http://' . $urlSite; ?>/valecultura" target="_blank" style="color:#843927"><?php echo ($operadora['nmFantasia'] === ' ') ?  $operadora['nmRazaoSocial'] : $operadora['nmFantasia']; ?></a></td>
                 <?php else : ?>
-                <td><?php echo $operadora['nmFantasia']; ?></td>
+                <td><?php echo ($operadora['nmFantasia'] === ' ') ?  $operadora['nmRazaoSocial'] : $operadora['nmFantasia']; ?></td>
                  <?php endif; ?>                                                    
                 <td>
                     <?php foreach($operadora['telefones'] as $tel): ?>

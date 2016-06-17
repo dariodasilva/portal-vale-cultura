@@ -62,6 +62,7 @@ class Application_Model_Situacao {
 
         $selectOperadora->joinInner(array('pj' => 'CORPORATIVO.S_PESSOA_JURIDICA'), 'pj.ID_PESSOA_JURIDICA = ID_OPERADORA', 
                                     array('nmFantasia' => 'NM_FANTASIA', 
+                                          'nmRazaoSocial' => 'NM_RAZAO_SOCIAL', 
                                           'nrCNPJ' => 'NR_CNPJ')
         );
 
