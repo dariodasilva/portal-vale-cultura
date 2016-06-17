@@ -1,5 +1,6 @@
 projeto/application/configs/application.ini
 projeto/application/configs/db.ini
 public/.htaccess
+public/imagens
 *~
 \#*
