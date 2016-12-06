@@ -29,7 +29,7 @@ class Beneficiaria_CadastroController extends GenericController {
         $CBOs                   = $modelCBO->select(array(), 'NM_CBO');
         $faixasSalarial         = $modelFaixaSalaria->select();
         $operadorasAtivas       = $modelSituacao->selecionaOperadorasAtivas();
-        $tipoLucro              = $modelTipoLucro->select(array(), 'DS_TIPO_LUCRO');
+        $tipoLucro              = $modelTipoLucro->select(array('ID_TIPO_LUCRO != ?' => 2), 'DS_TIPO_LUCRO');
         $CNAEPrincipal          = $modelCNAE->select(array('NR_NIVEL_HIERARQUIA = ?' => 1), 'ID_CNAE');
         $NaturezaJuridica       = $modelNaturezaJuridica->select(array(), 'DS_NATUREZA_JURIDICA');
 
@@ -162,7 +162,7 @@ class Beneficiaria_CadastroController extends GenericController {
 
             if (isset($_POST['captcha'])) {
 
-                // Instancia novamente um captcha para validar os dados enviados 
+                // Instancia novamente um captcha para validar os dados enviados
                 $captcha = new Zend_Captcha_Image();
 
                 if ($captcha->isValid($this->getRequest()->getParam('captcha'))) {
@@ -271,7 +271,7 @@ class Beneficiaria_CadastroController extends GenericController {
                         }
                     }
 
-                    // Passo 6 - Salvando o Telefone 
+                    // Passo 6 - Salvando o Telefone
                     if ($NRTELEFONE) {
                         $where = array(
                             'ID_PESSOA = ?' => $idPessoaFisica,
@@ -297,7 +297,7 @@ class Beneficiaria_CadastroController extends GenericController {
                         }
                     }
 
-                    // Passo 7 - Salvando o Fax 
+                    // Passo 7 - Salvando o Fax
                     if ($NRFAX) {
                         $where = array(
                             'ID_PESSOA = ?' => $idPessoaFisica,
@@ -322,7 +322,7 @@ class Beneficiaria_CadastroController extends GenericController {
                         }
                     }
 
-                    // Passo 8 - Salvando o Email 
+                    // Passo 8 - Salvando o Email
                     if ($DSEMAIL) {
                         $where = array(
                             'ID_PESSOA = ?' => $idPessoaFisica,
@@ -450,19 +450,19 @@ class Beneficiaria_CadastroController extends GenericController {
 
     public function gerarcaptchaAction() {
         $this->getHelper('layout')->disableLayout();
-        $captcha = new Zend_Captcha_Image(); // Este é o nome da classe, no secrets...  
-        $captcha->setWordlen(5) // quantidade de letras, tente inserir outros valores  
-                ->setImgDir('imagens/captcha')// o caminho para armazenar as imagens  
-                ->setGcFreq(10)//especifica a cada quantas vezes o garbage collector vai rodar para eliminar as imagens inválidas  
-                ->setExpiration(600000)// tempo de expiração em segundos.  
-                ->setHeight(70) // tamanho da imagem de captcha  
-                ->setWidth(200)// largura da imagem  
-                ->setLineNoiseLevel(1) // o nivel das linhas, quanto maior, mais dificil fica a leitura  
-                ->setDotNoiseLevel(2)// nivel dos pontos, experimente valores maiores  
-                ->setFontSize(15)//tamanho da fonte em pixels  
-                ->setFont('font/arial.ttf'); // caminho para a fonte a ser usada  
-        $this->view->idCaptcha = $captcha->generate(); // passamos aqui o id do captcha para a view  
-        $this->view->captcha = $captcha->render($this->view); // e o proprio captcha para a view   
+        $captcha = new Zend_Captcha_Image(); // Este é o nome da classe, no secrets...
+        $captcha->setWordlen(5) // quantidade de letras, tente inserir outros valores
+                ->setImgDir('imagens/captcha')// o caminho para armazenar as imagens
+                ->setGcFreq(10)//especifica a cada quantas vezes o garbage collector vai rodar para eliminar as imagens inválidas
+                ->setExpiration(600000)// tempo de expiração em segundos.
+                ->setHeight(70) // tamanho da imagem de captcha
+                ->setWidth(200)// largura da imagem
+                ->setLineNoiseLevel(1) // o nivel das linhas, quanto maior, mais dificil fica a leitura
+                ->setDotNoiseLevel(2)// nivel dos pontos, experimente valores maiores
+                ->setFontSize(15)//tamanho da fonte em pixels
+                ->setFont('font/arial.ttf'); // caminho para a fonte a ser usada
+        $this->view->idCaptcha = $captcha->generate(); // passamos aqui o id do captcha para a view
+        $this->view->captcha = $captcha->render($this->view); // e o proprio captcha para a view
     }
 
     public function recuperaSegundoNivelCnaeAction() {
