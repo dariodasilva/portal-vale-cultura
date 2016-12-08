@@ -46,6 +46,7 @@ class Beneficiaria_CadastroController extends GenericController {
 
             $this->getHelper('layout')->disableLayout();
 
+            $modelPessoaJuridica = new Application_Model_PessoaJuridica();
             $modelPessoaJuridicaLucro = new Application_Model_PessoaJuridicaLucro();
             $modelEndereco = new Application_Model_Endereco();
             $modelLogradouro = new Application_Model_Logradouro();
@@ -79,6 +80,7 @@ class Beneficiaria_CadastroController extends GenericController {
             $DSEMAIL = trim($this->getRequest()->getParam('RESPONSAVEL_EMAIL'));
             $CDCBO = (int) $this->getRequest()->getParam('RESPONSAVEL_CARGO');
             $IDTIPOLUCRO = $this->getRequest()->getParam('EMPRESA_TIPO_LUCRO');
+            $NMFANTASIA = $this->getRequest()->getParam('EMPRESA_NMFANTASIA');
             $IDOPERADORA = $this->getRequest()->getParam('EMPRESA_OPERADORA');
             $FAIXASALARIAL = $this->getRequest()->getParam('IDFAIXASALARIAL');
             $AUTORIZO_OPERADORA = $this->getRequest()->getParam('AUTORIZO_OPERADORA');
@@ -186,6 +188,13 @@ class Beneficiaria_CadastroController extends GenericController {
 
                     // O ID já vem do cadastro
                     $idPessoaJuridica = $IDPJ;
+
+                    // Passo 0 - Alterar nome fantasia
+                    $Cols = array(
+                        'NM_FANTASIA' => $NMFANTASIA
+                    );
+
+                    $modelPessoaJuridica->update($Cols, array('ID_PESSOA_JURIDICA = ?' => $idPessoaJuridica));
 
                     // Passo 1 - Pessoa Juridica Lucro
                     $where = array('ID_PESSOA_JURIDICA = ?' => $idPessoaJuridica);

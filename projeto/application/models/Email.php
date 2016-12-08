@@ -30,15 +30,15 @@ class Application_Model_Email {
 
         $select = $this->getTable()->select();
         $select->setIntegrityCheck(false);
-        
-        $select->from(array('e' => 'CORPORATIVO.S_EMAIL'), 
+
+        $select->from(array('e' => 'CORPORATIVO.S_EMAIL'),
                         array('e.ID_EMAIL',
                               'dsEmail' => 'e.DS_EMAIL',
                               'e.ID_TIPO_EMAIL',
                               'e.ST_EMAIL_PRINCIPAL')
         );
 
-        $select->joinInner(array('te' => 'CORPORATIVO.S_TIPO_EMAIL'), 'e.ID_TIPO_EMAIL = te.ID_TIPO_EMAIL', 
+        $select->joinInner(array('te' => 'CORPORATIVO.S_TIPO_EMAIL'), 'e.ID_TIPO_EMAIL = te.ID_TIPO_EMAIL',
                             array('te.DS_TIPO_EMAIL')
         );
 
@@ -59,7 +59,7 @@ class Application_Model_Email {
     public function insert(array $request) {
         return $this->getTable()->createRow()->setFromArray($request)->save();
     }
-    
+
     public function update(array $request, $id) {
         if (is_array($id)) {
             $where = $id;
@@ -87,7 +87,7 @@ class Application_Model_Email {
                 ,@body_format          = 'HTML'
                 ,@subject              = '" . $assunto . "'
                 ,@exclude_query_output = 1;";
-        
+
         try {
             $this->getTable()->getAdapter()->query($sql);
             return true;
