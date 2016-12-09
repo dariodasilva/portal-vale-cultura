@@ -26,19 +26,19 @@ class Operadora_CadastroController extends GenericController {
 
     public function gerarcaptchaAction() {
         $this->getHelper('layout')->disableLayout();
-        $captcha = new Zend_Captcha_Image(); // Este Ã© o nome da classe, no secrets...  
-        $captcha->setWordlen(5) // quantidade de letras, tente inserir outros valores  
-                ->setImgDir('imagens/captcha')// o caminho para armazenar as imagens  
-                ->setGcFreq(10)//especifica a cada quantas vezes o garbage collector vai rodar para eliminar as imagens inválidas  
-                ->setExpiration(1200)// tempo de expiração em segundos.  
-                ->setHeight(70) // tamanho da imagem de captcha  
-                ->setWidth(200)// largura da imagem  
-                ->setLineNoiseLevel(1) // o nivel das linhas, quanto maior, mais dificil fica a leitura  
-                ->setDotNoiseLevel(2)// nivel dos pontos, experimente valores maiores  
-                ->setFontSize(15)//tamanho da fonte em pixels  
-                ->setFont('font/arial.ttf'); // caminho para a fonte a ser usada  
-        $this->view->idCaptcha = $captcha->generate(); // passamos aqui o id do captcha para a view  
-        $this->view->captcha = $captcha->render($this->view); // e o proprio captcha para a view   
+        $captcha = new Zend_Captcha_Image(); // Este Ã© o nome da classe, no secrets...
+        $captcha->setWordlen(5) // quantidade de letras, tente inserir outros valores
+                ->setImgDir('imagens/captcha')// o caminho para armazenar as imagens
+                ->setGcFreq(10)//especifica a cada quantas vezes o garbage collector vai rodar para eliminar as imagens inválidas
+                ->setExpiration(1200)// tempo de expiração em segundos.
+                ->setHeight(70) // tamanho da imagem de captcha
+                ->setWidth(200)// largura da imagem
+                ->setLineNoiseLevel(1) // o nivel das linhas, quanto maior, mais dificil fica a leitura
+                ->setDotNoiseLevel(2)// nivel dos pontos, experimente valores maiores
+                ->setFontSize(15)//tamanho da fonte em pixels
+                ->setFont('font/arial.ttf'); // caminho para a fonte a ser usada
+        $this->view->idCaptcha = $captcha->generate(); // passamos aqui o id do captcha para a view
+        $this->view->captcha = $captcha->render($this->view); // e o proprio captcha para a view
     }
 
     public function cadastrarAction() {
@@ -46,7 +46,8 @@ class Operadora_CadastroController extends GenericController {
 
             $this->getHelper('layout')->disableLayout();
             set_time_limit('120');
-            
+
+            $modelPessoaJuridica    = new Application_Model_PessoaJuridica();
             $modelEndereco          = new Application_Model_Endereco();
             $modelLogradouro        = new Application_Model_Logradouro();
             $modelOperadora         = new Application_Model_Operadora();
@@ -60,7 +61,7 @@ class Operadora_CadastroController extends GenericController {
             $modelSituacao          = new Application_Model_Situacao();
             $modelCBOPessoaFisica   = new Application_Model_CBOPessoaFisica();
             $modelDDD               = new Application_Model_DDD();
-            
+
             //Recuperando form
             $IDPJ                   = $this->getRequest()->getParam('IDPJ');
             $IDPF                   = $this->getRequest()->getParam('IDPF');
@@ -68,6 +69,7 @@ class Operadora_CadastroController extends GenericController {
             $NRCEP                  = str_replace('-', '', $this->getRequest()->getParam('EMPRESA_CEP'));
             $NRCPF                  = str_replace('.', '', str_replace('-', '', $this->getRequest()->getParam('RESPONSAVEL_CPF')));
             $NRCNPJ                 = str_replace('/', '', str_replace('.', '', str_replace('-', '', $this->getRequest()->getParam('EMPRESA_CNPJ'))));
+            $NMFANTASIA             = $this->getRequest()->getParam('EMPRESA_NMFANTASIA');
             $DSCOMPLEMENTOENDERECO  = trim($this->getRequest()->getParam('EMPRESA_COMPLEMENTO'));
             $NRCOMPLEMENTO          = trim($this->getRequest()->getParam('EMPRESA_NUMERO'));
             $IDBAIRRO               = $this->getRequest()->getParam('EMPRESA_BAIRRO');
@@ -84,41 +86,41 @@ class Operadora_CadastroController extends GenericController {
             $DDD_SAC                = $this->getRequest()->getParam('SAC_DDD');
             $COMPLEMENTO_SAC        = $this->getRequest()->getParam('SAC_COMPLEMENTO');
             $INICIO_COMERCIALIZACAO = date('Y-m-d', strtotime(str_replace('/', '-', $this->getRequest()->getParam('INICIO_COMERCIALIZACAO'))));
-            
+
             // Validando Form
             $ERROR = array();
 
             if ($IDPJ == '0') {
                 $ERROR['BENEFICIÁRIA'] = 'CNPJ não encontrado!';
             }
-            
+
             if ($IDPF == '0') {
                 $ERROR['RESPONSÁVEL'] = 'CPF não encontrado!';
             }
-            
+
             if($CDDDD){
                 $verificaDDD = $modelDDD->select(array('CD_DDD = ?' => $CDDDD));
                 if(count($verificaDDD) == 0 ){
                     $ERROR['DDDRESPONSAVEL'] = 'DDD do responsável é inv&aacute;lido!';
                 }
             }
-            
+
             if($DDD_SAC){
-                
+
                 $verificaDDD = $modelDDD->select(array('CD_DDD = ?' => $DDD_SAC));
                 if(count($verificaDDD) == 0 ){
                     $ERROR['DDD'] = 'DDD inv&aacute;lido!';
                 }
             }
-            
+
             if (!$DSEMAILINSTITUCIONAL) {
                 $ERROR['EMAILINSTITUCIONAL'] = 'Informe o e-mail institucional';
             }
-            
+
             if (!validaEmail($DSEMAILINSTITUCIONAL)) {
                 $ERROR['EMAILINSTITUCIONAL'] = 'Email institucional inválido!';
             }
-            
+
             if (!$this->getRequest()->getParam('Confirmo_mais_de_3_anos')) {
                 $ERROR['MINIMO'] = 'A empresa deve declarar ter qualifica&ccedil;&atilde;o t&eacute;cnica nos termos do inciso II do Art. 5&ordm; do Decreto n&ordm; 8.084 de 2013 e do Art. 4º da Instrução Normativa nº 02';
             }
@@ -130,7 +132,7 @@ class Operadora_CadastroController extends GenericController {
             if (strlen($this->getRequest()->getParam('INICIO_COMERCIALIZACAO')) != 10 || !$this->isValidDate($INICIO_COMERCIALIZACAO)) {
                 $ERROR['INICIO_COMERCIALIZACAO'] = 'Data inv&aacute;lida';
             }
-            
+
             $where = array('NR_CEP = ?' => "" . $NRCEP . "");
             $logradouro = $modelLogradouro->selectEndereco($where);
             if (count($logradouro) < 1 || strlen($NRCEP) != 8) {
@@ -152,7 +154,7 @@ class Operadora_CadastroController extends GenericController {
             if (!$DSEMAIL) {
                 $ERROR['EMAIL'] = 'Informe o e-mail';
             }
-            
+
             if (!validaEmail($DSEMAIL)) {
                 $ERROR['EMAIL'] = 'Email inválido!';
             }
@@ -189,7 +191,7 @@ class Operadora_CadastroController extends GenericController {
 
             if (isset($_POST['captcha'])) {
 
-                $captcha = new Zend_Captcha_Image(); // instancia novamente um captcha para validar os dados enviados  
+                $captcha = new Zend_Captcha_Image(); // instancia novamente um captcha para validar os dados enviados
 
                 if ($captcha->isValid($this->getRequest()->getParam('captcha'))) {
                     //$this->view->assign('msg', 'captcha ok');
@@ -207,11 +209,17 @@ class Operadora_CadastroController extends GenericController {
 
                 $db = Zend_Db_Table::getDefaultAdapter();
                 $db->beginTransaction();
-                
+
                 try{
                     // O ID já vem do cadastro
                     $idPessoaJuridica = $IDPJ;
-                    
+
+                    $Cols = array(
+                        'NM_FANTASIA' => $NMFANTASIA
+                    );
+
+                    $modelPessoaJuridica->update($Cols, array('ID_PESSOA_JURIDICA = ?' => $idPessoaJuridica));
+
                     $Cols = array(
                         'ID_PESSOA'               => $idPessoaJuridica,
                         'CD_TIPO_ENDERECO'        => '01',
@@ -230,7 +238,7 @@ class Operadora_CadastroController extends GenericController {
                     }else{
                         $modelEndereco->update($Cols, $IDENDERECO);
                     }
-                        
+
                     if($SAC_TELEFONE){
 
                         //Verifica se já existe esse número cadastrado
@@ -242,7 +250,7 @@ class Operadora_CadastroController extends GenericController {
                             'CD_DDD = ?'            => $DDD_SAC == '' ? new Zend_Db_Expr('NULL') : $DDD_SAC
                         );
                         $existeFone = $modelTelefone->select($where);
-                        
+
                         if(count($existeFone) == 0){
                             //Inserindo na model Telefone
                             $Cols = array(
@@ -256,18 +264,18 @@ class Operadora_CadastroController extends GenericController {
                             $modelTelefone->insert($Cols);
                         }
                     }
-                    
+
                     // Verificar se já existe o email
                     $where = array(
                         'ID_PESSOA      = ?'    => $idPessoaJuridica,
                         'DS_EMAIL       = ?'    => $DSEMAIL,
                         'ID_TIPO_EMAIL  = ?'    => 2
                     );
-                    
+
                     $existeEmailInstitucional = $modelEmail->select($where);
-                    
+
                     if(count($existeEmailInstitucional) == 0){
-                        
+
                         //Inserindo Email do responsavel
                         $Cols = array(
                             'ID_PESSOA'             => $idPessoaJuridica,
@@ -275,7 +283,7 @@ class Operadora_CadastroController extends GenericController {
                             'ID_TIPO_EMAIL'         => 2,
                             'ST_EMAIL_PRINCIPAL'    => 'S'
                         );
-                        
+
                         $modelEmail->insert($Cols);
                     }
 					#Jesse - INICIO
@@ -284,17 +292,17 @@ class Operadora_CadastroController extends GenericController {
                         'ID_PESSOA      = ?'    => $idPessoaJuridica,
                         'DS_SITE       = ?'    => $DSSITE
                     );
-                    
+
                     $existeSite = $modelSite->select($where);
-                    
+
                     if(count($existeSite) == 0){
-                        
+
                         //Inserindo Email do responsavel
                         $Cols = array(
                             'ID_PESSOA'             => $idPessoaJuridica,
                             'DS_SITE'              => $DSSITE
                         );
-                        
+
                         $modelSite->insert($Cols);
                     }
 					#Jesse - FIM
@@ -304,7 +312,7 @@ class Operadora_CadastroController extends GenericController {
                         'DT_INICIO_COMERCIALIZACAO' => $INICIO_COMERCIALIZACAO
                     );
                     $modelOperadora->insert($Cols);
-                    
+
                     //Incluir Arquivo Operadora
                     //SALVAR  UPLOAD
                     $uploaddir = defined('UPLOAD_DIR') ? UPLOAD_DIR : "/var/arquivos/arquivos-valecultura/";
@@ -330,7 +338,7 @@ class Operadora_CadastroController extends GenericController {
                             }
                         }
                     }
-                    
+
                     // Vincular o responsável
                     // Pega o IDPF da página de cadastro
                     $idPessoaFisica = $IDPF;
@@ -357,7 +365,7 @@ class Operadora_CadastroController extends GenericController {
 
                         $modelTelefone->insert($Cols);
                     }
-                    
+
                     if (strlen($NRFAX) > 7) {
                         //Verifica se já existe esse número cadastrado
                         $where = array(
@@ -388,11 +396,11 @@ class Operadora_CadastroController extends GenericController {
                         'DS_EMAIL = ?'              => $DSEMAIL,
                         'ID_TIPO_EMAIL = ?'         => 2
                     );
-                    
+
                     $existeEmail = $modelEmail->select($where);
-                    
+
                     if(count($existeEmail) == 0){
-                        
+
                         //Inserindo Email do responsavel
                         $Cols = array(
                             'ID_PESSOA'             => $idPessoaFisica,
@@ -400,14 +408,14 @@ class Operadora_CadastroController extends GenericController {
                             'ID_TIPO_EMAIL'         => 2,
                             'ST_EMAIL_PRINCIPAL'    => 'S'
                         );
-                        
+
                         $modelEmail->insert($Cols);
-                        
+
                     }
 
                     //Inserindo CBO do responsavel
                     if ($CDCBO) {
-                        
+
                         // Verifica se já existe esse registro para não duplicar
                         $whereCDCBO = array(
                                 'ID_PESSOA_FISICA = ?'   => $idPessoaFisica,
@@ -418,13 +426,13 @@ class Operadora_CadastroController extends GenericController {
                         $existeCDCBO = $modelCBOPessoaFisica->select($whereCDCBO);
 
                         if(count($existeCDCBO) == 0){
-                            
+
                             $Cols = array(
                                 'ID_PESSOA_FISICA'   => $idPessoaFisica,
                                 'ID_PESSOA_JURIDICA' => $idPessoaJuridica,
                                 'CD_CBO'             => $CDCBO
                             );
-                            
+
                             $modelCBOPessoaFisica->insert($Cols);
                         }
                     }
@@ -436,9 +444,9 @@ class Operadora_CadastroController extends GenericController {
                         'ID_PESSOA_VINCULADA = ?'    => $idPessoaFisica,
                         'ID_TIPO_VINCULO_PESSOA = ?' => 17
                     );
-                    
+
                     $vinculo = $modelPessoaVinculada->select($where);
-                    
+
                     if (count($vinculo) < 1) {
                         $Cols = array(
                             'ID_PESSOA'                 => $idPessoaJuridica,
@@ -512,7 +520,7 @@ class Operadora_CadastroController extends GenericController {
                     $sucesso['CADASTRO'] = "Operadora cadastrada com sucesso!";
                     $sucesso['DSEMAIL'] = $DSEMAIL;
                     $this->view->sucesso = $sucesso;
-                    
+
                 } catch (Exception $exc) {
                     $db->rollBack();
                     xd($exc->getMessage());
@@ -563,9 +571,9 @@ class Operadora_CadastroController extends GenericController {
             echo json_encode($retorno);
         }
     }
-    
+
     public function buscaPessoaJuridicaAction() {
-        
+
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
 
@@ -575,7 +583,7 @@ class Operadora_CadastroController extends GenericController {
         $modelEndereco       = new Application_Model_Endereco();
         $modelCNAE           = new Application_Model_PessoaJuridicaCNAE();
         $servicos            = new Servicos();
-        
+
         $retorno = array();
         $erro    = 0;
         $cnpj    = str_replace('/', '', str_replace('.', '', str_replace('-', '', $this->getRequest()->getParam('EMPRESA_CNPJ'))));
@@ -590,9 +598,9 @@ class Operadora_CadastroController extends GenericController {
 
                 // Busca a PJ por CNPJ
                 $pj = $modelPessoaJuridica->buscarPessoaJuridica(array('p.NR_CNPJ = ?' => $cnpj));
-                
+
                 if (count($pj) == 0) {
-                    
+
                     $buscaReceita = $servicos->consultarPessoaReceitaFederal($cnpj, 'Juridica', false);
 
                     if(!$buscaReceita){
@@ -601,11 +609,11 @@ class Operadora_CadastroController extends GenericController {
                     }else{
                         $pj = $modelPessoaJuridica->buscarPessoaJuridica(array('p.NR_CNPJ = ?' => $cnpj));
                     }
-                    
+
                 }
-                    
+
                 if($erro == 0 && count($pj) > 0){
-                    
+
                     $msg = '';
                     $idPessoa = $pj[0]['ID_PESSOA_JURIDICA'];
 
@@ -698,9 +706,9 @@ class Operadora_CadastroController extends GenericController {
 
         echo json_encode($retorno);
     }
-    
+
     public function buscaPessoaFisicaAction() {
-        
+
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
 
@@ -708,13 +716,13 @@ class Operadora_CadastroController extends GenericController {
         $modelPessoaFisica      = new Application_Model_PessoaFisica();
         $modelPessoaVinculada   = new Application_Model_PessoaVinculada();
         $servicos               = new Servicos();
-        
+
         $retorno        = array();
         $cpf            = str_replace('.', '', str_replace('-', '', $this->getRequest()->getParam('RESPONSAVEL_CPF')));
         $tipoVinculo    = $this->getRequest()->getParam('TIPO_VINCULO');
         $idEmpresa      = $this->getRequest()->getParam('idEmpresa');
         $erro           = 0;
-        
+
         try {
 
             if (!validaCPF($cpf)) {
@@ -726,7 +734,7 @@ class Operadora_CadastroController extends GenericController {
                 $pf = $modelPessoaFisica->select(array('NR_CPF = ?' => $cpf));
 
                 if (count($pf) == 0) {
-                    
+
                     $buscaReceita = $servicos->consultarPessoaReceitaFederal($cpf, 'Fisica', false);
 
                     if(empty($buscaReceita)){
@@ -735,11 +743,11 @@ class Operadora_CadastroController extends GenericController {
                     }else{
                         $pf = $modelPessoaFisica->select(array('NR_CPF = ?' => $cpf));
                     }
-                    
+
                 }
-                
+
                 if($erro == 0 && count($pf) > 0){
-                    
+
                     $idPessoa = $pf[0]['ID_PESSOA_FISICA'];
                     $retorno['dados']['idpf']            = $pf[0]['ID_PESSOA_FISICA'];
                     $retorno['dados']['nome']            = utf8_encode($pf[0]['NM_PESSOA_FISICA']);
@@ -807,7 +815,7 @@ class Operadora_CadastroController extends GenericController {
                 }else{
                     $retorno['error'] = utf8_encode('Pessoa não encontrada!');
                 }
-                
+
             }
 
         } catch (InvalidArgumentException $exc) {
@@ -819,15 +827,15 @@ class Operadora_CadastroController extends GenericController {
         echo json_encode($retorno);
     }
 
-    function validaCPF($cpf) { 
-        
+    function validaCPF($cpf) {
+
         // Verifica se o número digitado contém todos os digitos
         $cpf = str_pad(preg_replace('[^0-9]', '', $cpf), 11, '0', STR_PAD_LEFT);
 
         if (strlen($cpf) != 11 || $cpf == '00000000000' || $cpf == '11111111111' || $cpf == '22222222222' || $cpf == '33333333333' || $cpf == '44444444444' || $cpf == '55555555555' || $cpf == '66666666666' || $cpf == '77777777777' || $cpf == '88888888888' || $cpf == '99999999999') {
             return false;
-        } else {   
-            
+        } else {
+
             // Calcula os números para verificar se o CPF são verdadeiro
             for ($t = 9; $t < 11; $t++) {
                 for ($d = 0, $c = 0; $c < $t; $c++) {
@@ -853,9 +861,9 @@ class Operadora_CadastroController extends GenericController {
             return false;
         }
     }
-    
+
     function isCnpjValid($cnpj) {
-        // Etapa 1: Cria um array com apenas os digitos numéricos, 
+        // Etapa 1: Cria um array com apenas os digitos numéricos,
         // Isso permite receber o cnpj em diferentes formatos como:
         // "00.000.000/0000-00", "00000000000000", "00 000 000 0000 00" etc...
         $num = array();
@@ -871,13 +879,13 @@ class Operadora_CadastroController extends GenericController {
         if (count($num) != 14) {
             return false;
         }
-        
+
         //Etapa 3: O número 00000000000 embora não seja um cnpj real resultaria um cnpj válido
         // após o calculo dos dígitos verificares e por isso precisa ser filtradas nesta etapa.
         if ($num[0] == 0 && $num[1] == 0 && $num[2] == 0 && $num[3] == 0 && $num[4] == 0 && $num[5] == 0 && $num[6] == 0 && $num[7] == 0 && $num[8] == 0 && $num[9] == 0 && $num[10] == 0 && $num[11] == 0) {
             return false;
         }
-        
+
         //Etapa 4: Calcula e compara o primeiro dígito verificador.
         else {
             $j = 5;
@@ -902,7 +910,7 @@ class Operadora_CadastroController extends GenericController {
                 return false;
             }
         }
-        
+
         //Etapa 5: Calcula e compara o segundo dígito verificador.
         if (!isset($isCnpjValid)) {
             $j = 6;
