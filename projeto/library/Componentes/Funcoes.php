@@ -24,9 +24,9 @@ function x($obj) {
 }
 
 function gerarSenha() {
-    
+
     $senha = '12345678';
-    
+
     if (APPLICATION_ENV == 'producao') {
 
         $lmin = 'abcdefghijklmnopqrstuvwxyz';
@@ -51,7 +51,7 @@ function gerarCodigo() {
     $caracteres = $lmin . $lmai . $num;
 
     $senha = '';
-    
+
     for ($n = 0; $n < 15; $n++) {
         $rand = mt_rand(1, strlen($caracteres));
         $senha .= $caracteres[$rand - 1];
@@ -115,7 +115,7 @@ function addMascara($str = '', $tipo = 'cnpj') {
             $str = substr($str, 0, 5) . '-' . substr($str, 5);
 
             break;
-        
+
         case 'telefone':
             if(strlen($str) > 10){
                 $str = '('.substr($str, 0, 2).') '.substr($str, 2, 5).'-'.substr($str, 7);
@@ -273,7 +273,7 @@ function strtolower_iso8859_1($s){
         }
     }
     return strtolower($s);
-} 
+}
 
 function carregaHTMLCertificado() {
 
@@ -331,7 +331,7 @@ function carregaHTMLCertificado() {
             </tr>
             <tr>
                 <td colspan="3" height="10">
-                    
+
                 </td>
             </tr>
             <tr>
@@ -355,7 +355,7 @@ function carregaHTMLCertificado() {
             </tr>
             <tr>
                 <td colspan="3" height="10">
-                    
+
                 </td>
             </tr>
             <tr>
@@ -379,7 +379,7 @@ function carregaHTMLCertificado() {
             </tr>
             <tr>
                 <td colspan="3" height="10">
-                    
+
                 </td>
             </tr>
             <tr>
@@ -449,7 +449,7 @@ function carregaHTMLCertificadoBeneficiaria() {
             </tr>
             <tr>
                 <td colspan="3" height="10">
-                    
+
                 </td>
             </tr>
             <tr>
@@ -473,7 +473,7 @@ function carregaHTMLCertificadoBeneficiaria() {
             </tr>
             <tr>
                 <td colspan="3" height="10">
-                    
+
                 </td>
             </tr>
             <tr>
@@ -497,7 +497,7 @@ function carregaHTMLCertificadoBeneficiaria() {
             </tr>
             <tr>
                 <td colspan="3" height="10">
-                    
+
                 </td>
             </tr>
             <tr>
@@ -507,7 +507,7 @@ function carregaHTMLCertificadoBeneficiaria() {
             </tr>
             <tr>
                 <td colspan="3" height="10">
-                    
+
                 </td>
             </tr>
             <tr>
@@ -577,7 +577,7 @@ function emailNoSenhaHTML() {
                         Em breve você receberá uma nova mensagem sobre a avaliação do seu cadastro.
                         <br><br>
                         Para acessar o sistema utilize os dados:<br>
-             
+
                         URL: #URL#<br>
                         A sua senha já foi enviada anteriormente, para alterá-la acesse http://vale.cultura.gov.br/ e clique em "Esqueceu a senha?"<br>
 
@@ -677,7 +677,7 @@ function emailAprovacaoHTML(){
                         <h3>Vale-Cultura</h3>
                         Foi apovado o cadastro da #PERFIL# #NOMEEMPRESA#.<br><br>
                         Para consultar o certificado acesse #URL# <br><br>
-             
+
                         <b>Ministério da Cultura</b>
                     </body>
                 </html>';
@@ -717,21 +717,52 @@ function emailAprovacaoBeneficiariaHTML(){
                         <br><br>
                         A sua participação estimula o desenvolvimento cultural e social dos trabalhadores de sua empresa e do País.
                         <br><br>
-                        A sua decisão de conceder o Vale-Cultura no valor fixo mensal de R$50,00 aos seus empregados vai permitir que eles comprem instrumentos 
-                        musicais, CDs, DVDs, livros, revistas e jornais , ingressos para teatro, cinema, museus, 
+                        A sua decisão de conceder o Vale-Cultura no valor fixo mensal de R$50,00 aos seus empregados vai permitir que eles comprem instrumentos
+                        musicais, CDs, DVDs, livros, revistas e jornais , ingressos para teatro, cinema, museus,
                         e também paguem mensalidades de cursos de artes, audiovisual, dança, circo, fotografia, música, literatura ou teatro.
                         <br><br>
                         Esqueceu sua senha? <a href="#URL#">Clique aqui</a>
                         <br><br>
-                        O próximo passo é entrar em contato com a operadora de sua preferência, escolhida no ato do cadastro, 
+                        O próximo passo é entrar em contato com a operadora de sua preferência, escolhida no ato do cadastro,
                         para que ela possa emitir os cartões Vale-Cultura que serão utilizados pelos empregados da sua empresa.
                         <br><br>
                         No seu cadastro, você já escolheu a operadora #NOMEOPERADORA# e o telefone de contato dela é #SAC#.
                         <br><br>
-                        Caso não esteja satisfeito com a operadora escolhida, você pode optar por outra. 
+                        Caso não esteja satisfeito com a operadora escolhida, você pode optar por outra.
                         Há uma lista das credenciadas pelo MinC na página inicial do sistema Vale-Cultura: <a href="#URL#">#URL#</a>
                         <br><br>
                         Em caso de dúvidas, sugestões, reclamações ou denúncias, envie e-mail para <a href="mailto:valecultura@cultura.gov.br">valecultura@cultura.gov.br</a>.
+                        <br><br>
+                        <b>Secretaria de Fomento e Incentivo à Cultura</b>
+                        <br>
+                        <b>Ministério da Cultura</b>
+                    </body>
+                </html>';
+    return $html;
+}
+
+function emailReprovacaoBeneficiariaHTML(){
+    $html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+                <html xmlns="http://www.w3.org/1999/xhtml">
+                    <head>
+                        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+                        <title>Vale-Cultura</title>
+                    </head>
+                    <body>
+                        Olá #NOMERESPONSAVEL#,
+                        <br><br>
+                        Informamos que foram detectadas inconsistências no seu cadastro, por isso
+                        ele foi reprovado.
+                        <br>
+                        Portanto, pedimos que acesse o sistema novamente para corrigir e/ou
+                        complementar as informações necessárias.
+                        <br>
+                        Entre no site: http://vale.cultura.gov.br
+                        <br>
+                        Com a intenção de ter sua empresa em nosso programa, ficaremos no aguardo
+                        para prosseguir com a análise.
+                        <br><br>
+                        Atenciosamente,
                         <br><br>
                         <b>Secretaria de Fomento e Incentivo à Cultura</b>
                         <br>
@@ -762,8 +793,8 @@ function emailAprovacaoBeneficiariaParaOperadoraHTML(){
 }
 
 /*
- * Função para verificar se a empresa é operadora ou beneficiária 
- * 
- * 
+ * Função para verificar se a empresa é operadora ou beneficiária
+ *
+ *
  *  */
 ?>
