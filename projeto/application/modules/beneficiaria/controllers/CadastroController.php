@@ -116,6 +116,10 @@ class Beneficiaria_CadastroController extends GenericController {
                 }
             }
 
+            if (!$this->getRequest()->getParam('AutorizaMinc')) {
+                $ERROR['AUTORIZACAO'] = 'Autorizar o MinC a divulgar que é empresa beneficiária cadastrada junto ao Programa de Cultura do Trabalhador';
+            }
+
             if (!$this->getRequest()->getParam('ConfimaLei')) {
                 $ERROR['LEI'] = 'Confirme a veracidade de todas as informações';
             }
