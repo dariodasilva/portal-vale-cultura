@@ -9,7 +9,7 @@ class Minc_IndexController extends GenericController {
         $this->view->layout()->setLayout('layout');
         // Título
         $this->view->assign('titulo', 'Minc');
-        
+
         parent::init();
     }
 
@@ -78,9 +78,9 @@ class Minc_IndexController extends GenericController {
     }
 
     public function novasenhaAction() {
-        
+
         $modelUsuario = new Application_Model_Usuario();
-        
+
         $session        = new Zend_Session_Namespace('user');
         $atualizaSenha  = false;
         $cod            = $this->getRequest()->getParam('cod');
@@ -130,7 +130,7 @@ class Minc_IndexController extends GenericController {
 
     public function alterarsenhaactionAction() {
         if ($_POST) {
-            
+
             $modelUsuario   = new Application_Model_Usuario;
             $session        = new Zend_Session_Namespace('user');
 
@@ -177,13 +177,13 @@ class Minc_IndexController extends GenericController {
                 $htmlEmail = str_replace('#EMAIL#', $email, $htmlEmail);
                 $htmlEmail = str_replace('#ASSUNTO#', $assunto, $htmlEmail);
                 $htmlEmail = str_replace('#MENSAGEM#', $mensagem, $htmlEmail);
-                
+
                 if ($modelEmail->enviarEmail('valecultura@cultura.gov.br', 'Contato via sistema - Vale Cultura', $htmlEmail)) {
                     $retorno['mensagem'] = '<b>E-mail enviado com sucesso!</b>';
                 } else {
                     $retorno['mensagem'] = '<b style="color: #f00">Erro no envio do E-mail</b>';
                 }
-                
+
             } catch (Exception $exc) {
                 echo $exc->getTraceAsString();
                 $retorno['mensagem'] = '<b style="color: #f00">Erro no envio do E-mail</b>';
@@ -196,28 +196,28 @@ class Minc_IndexController extends GenericController {
     }
 
     public function listaOperadoraAction() {
-        
+
         $this->getHelper('layout')->disableLayout();
-        
+
         $modelSituacao = new Application_Model_Situacao();
         $modelTelefone = new Application_Model_Telefone();
-        
+
         $listaOperadoras  = array();
         $operadorasAtivas = $modelSituacao->selecionaOperadorasAtivas();
         $i = 0;
         foreach($operadorasAtivas as $op){
-            
+
             $listaOperadoras[$i]['idOperadora']  = $op['idOperadora'];
             $listaOperadoras[$i]['nrCNPJ']       = addMascara($op['nrCNPJ']);
             $listaOperadoras[$i]['nmFantasia']   = $op['nmFantasia'];
             $listaOperadoras[$i]['nmRazaoSocial'] = $op['nmRazaoSocial'];
             $listaOperadoras[$i]['idSituacaoXX'] = $op['idSituacaoXX'];
             $listaOperadoras[$i]['dsSite']       = $op['dsSite'];
-            
+
             $listaTelefones = array();
             $t = 0;
             $telefones = $modelTelefone->buscarTelefones(array('ID_PESSOA = ?' => $op['idOperadora'], 'tt.ID_TIPO_TELEFONE = ?' => 7));
-            
+
             if(count($telefones) > 0){
                 foreach($telefones as $tel){
                     $listaTelefones[$t]['idTipoTelefone']   = $tel['idTipoTelefone'];
@@ -228,19 +228,19 @@ class Minc_IndexController extends GenericController {
                     $t++;
                 }
             }
-            
+
             $listaOperadoras[$i]['telefones'] = $listaTelefones;
             $i++;
         }
-        
+
         $this->view->assign('operadorasAtivas', $listaOperadoras);
-        
+
     }
-    
+
     public function listaBeneficiariaAction() {
         $where = array();
         if($_POST){
-            
+
             $CNPJ       = $this->getRequest()->getParam('CNPJ');
             $NOME       = $this->getRequest()->getParam('NOME');
             $OPERADORA  = $this->getRequest()->getParam('OPERADORA');
@@ -277,7 +277,7 @@ class Minc_IndexController extends GenericController {
             $this->view->assign('cnpj', $CNPJ);
             $this->view->assign('nome', $NOME);
             $this->view->assign('operadora', $OPERADORA);
-            
+
             if (is_array($DTINICIO)) {
                 $this->view->assign('dtInicio', $DTINICIO[0] . '/' . $DTINICIO[1] . '/' . $DTINICIO[2]);
             } else {
@@ -301,24 +301,24 @@ class Minc_IndexController extends GenericController {
                     parent::message('Data de Cadastro (Máxima) inválida.', '/minc/admin/lista-beneficiarios/', 'error');
                 }
             }
-            
+
         } else {
-            
+
             $this->view->assign('cnpj', '');
             $this->view->assign('nome', '');
             $this->view->assign('operadora', '');
             $this->view->assign('dtInicio', '');
             $this->view->assign('dtFim', '');
         }
-        
+
         $this->getHelper('layout')->disableLayout();
         $modelSituacao          = new Application_Model_Situacao();
         $beneficiariasAtivas    = $modelSituacao->selecionaBeneficiariasAtivas($where);
         $operadoras             = $modelSituacao->selecionaOperadorasAtivasInativas();
-        
-        $this->view->assign('beneficiariasAtivas', $beneficiariasAtivas);
+
+        //$this->view->assign('beneficiariasAtivas', $beneficiariasAtivas);
         $this->view->assign('operadorasAtivas', $operadoras);
     }
-    
+
 }
 

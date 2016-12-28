@@ -3,7 +3,7 @@
 <!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
-<!--[if gt IE 8]> <html class="no-js" lang="pt"> <![endif]-->     
+<!--[if gt IE 8]> <html class="no-js" lang="pt"> <![endif]-->
 <head>
     <meta charset="iso-8859-1">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="<?php echo $this->baseUrl('/js/mosaic/hover.zoom.css') ?>" type="text/css" media="screen" />
     <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/style.css') ?>" />
     <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/colorpicker.css') ?>" />
-    
+
 
 
 
@@ -42,20 +42,20 @@
     <link rel="apple-touch-icon-precomposed" href="<?php echo $this->baseUrl('/ico/logo.png') ?>">
     <style type="text/css">
     #apDiv1 {
-	 position: absolute; 
+	 position: absolute;
 	float: left;
 	left: 525px;
 	top: 19px;
 	width: 875px;
 	height: 337px;
 	z-index: 11;
-	
-	
+
+
 }
 
     </style>
-    
-    
+
+
     <!-- Piwik -->
     <!--script type="text/javascript">
         var _paq = _paq || [];
@@ -75,9 +75,9 @@
         })();
     </script-->
     <!-- End Piwik Code -->
-    
+
         <!-- Placed at the end of the document so the pages load faster -->
-    <script src="<?php echo $this->baseUrl('js/jquery-min.js') ?>"></script>    
+    <script src="<?php echo $this->baseUrl('js/jquery-min.js') ?>"></script>
 
 </head>
 
@@ -85,13 +85,13 @@
     <div style="width: 100%; position: absolute; z-index: 10; margin: 3px;">
         <?php include_once ('mensagem.phtml') ?>
     </div>
-    
-    <canvas id="c1" width="480" height="200"></canvas>  	 
+
+    <canvas id="c1" width="480" height="200"></canvas>
     <!-- Menu de Cores - Foi retirado -->
     <img class="yeti" alt="" src="<?php echo $this->baseUrl('img/yeti.png') ?>">
     <!--<div id="wheel"></div> -->
     <div id="section-1" class="header-section">
-        <canvas id="projector" width="1347"></canvas>  
+        <canvas id="projector" width="1347"></canvas>
 
     </div>
 
@@ -103,7 +103,7 @@
 
             <!--<h2>Posso Colocar um texto abaixo da logo</h2>-->
         </div>
-        <ul class="menu-ribbon">      
+        <ul class="menu-ribbon">
 
             <li class="current">
                 <a href="#home" id="btnCadastroBeneficiaria" link="<?php echo $this->baseUrl('beneficiaria/cadastro') ?>" title="Empresa Empregadora" rel="modal">Cadastrar Benefici&aacute;ria</a>
@@ -113,9 +113,6 @@
             </li>
             <li class="current">
                 <a href="#home" link="<?php echo $this->baseUrl('minc/index/esqueceusenha') ?>" rel="modal">Esqueceu a senha?</a>
-            </li>
-            <li class="current">
-                <a href="#home" link="<?php echo $this->baseUrl('minc/index/lista-beneficiaria') ?>" rel="modal">Lista das Benefici&aacute;rias</a>
             </li>
             <li class="current">
                 <a href="#home" link="<?php echo $this->baseUrl('minc/index/lista-operadora') ?>" rel="modal">Lista das Operadoras</a>
@@ -136,7 +133,7 @@
             <img src="<?php echo $this->baseUrl('img/logoMincPreta.png') ?>" />
             </li>
         </ul>
-        
+
     </div>
     <div class="btn-group hidden-desktop hidden-tablet" style="position:fixed;right:10px;top:30px;z-index:99999;">
         <button data-toggle="dropdown" class="btn primary btn-inverse dropdown-toggle">
@@ -156,9 +153,6 @@
                 <a href="#home" link="<?php echo $this->baseUrl('minc/index/esqueceusenha') ?>" rel="modal">Esqueceu a senha?</a>
             </li>
             <li>
-                <a href="#home" link="<?php echo $this->baseUrl('minc/index/lista-beneficiaria') ?>" rel="modal">Lista das Benefici&aacute;ria</a>
-            </li>
-            <li>
                 <a href="#home" link="<?php echo $this->baseUrl('minc/index/lista-operadora') ?>" rel="modal">Lista das Operadoras</a>
             </li>
             <li>
@@ -169,53 +163,53 @@
     <div id="home">
         <div id="city1"></div>
         <div id="sky"></div>
-        <div id="city2"></div>	
+        <div id="city2"></div>
 
 
         <div class="container-fluid wrapper">
-        
+
             <div class="row-fluid page-one">
 
                 <!-- <img src="<?php echo $this->baseUrl('img/logoMinc.png') ?>" /><br><br><br>-->
                 <div class="span12">
                     <div class="about-me">
-                       
-                        
+
+
                         <p class="social">
                     <form  class="form-2" method="post" style="text-align:center" action="<?php echo $this->url(array('module' => 'minc', 'controller' => 'login', 'action' => 'auth'), null, true); ?>">
-				
+
 					<h1><span class="log-in">Acesso ao Sistema de</span><span class="sign-up">Cadastro</span></h1>
-					
+
 					  <div class="control-group">
-                           <label for="Name" class="control-label" style="text-align:left">						   
+                           <label for="Name" class="control-label" style="text-align:left">
                            <input name="acessologin" class="cpf" type="text" placeholder="Digite seu CPF">
                         </label></div>
-					
+
 					<p>
 						<div class="control-group">
-                           <label for="Name" class="control-label" style="text-align:left">							
+                           <label for="Name" class="control-label" style="text-align:left">
                         <input name="acessopsw" type="password" placeholder="Digite sua senha">
                         </label></div>
 					</p>
-					<p class="clearfix"> 
-						   
+					<p class="clearfix">
+
 						<input type="submit" name="submit" value="Confirmar">
 					</p>
-				
-			
 
-                         
-                      
+
+
+
+
                     </form>
   </div>
-   <h1>Seja bem-vindo ao Vale-Cultura</h1>                         
+   <h1>Seja bem-vindo ao Vale-Cultura</h1>
                         <div style="color:#FFF">O Vale-Cultura &eacute; um benef&iacute;cio destinado prioritariamente aos  trabalhadores que recebem at&eacute; cinco sal&aacute;rios m&iacute;nimos. <br> O objetivo &eacute; possibilitar  meios de acesso a bens e servi&ccedil;os culturais. <br>Caso tenha d&uacute;vidas <a href="http://www.cultura.gov.br/valecultura" target="_blank">clique aqui!</a>
                     </div>
-                        
+
                             </p>
 
                     </div>
-                    
+
 
 
 
@@ -242,7 +236,7 @@
                     <address>
                         <strong>Minist&eacute;rio da Cultura</strong>
                         <br>&#160;
-                        <i class="icon-map-marker"></i>&#160;&#160; Esplanada dos Minist&eacute;rios, Bloco B, T&eacute;rreo, 
+                        <i class="icon-map-marker"></i>&#160;&#160; Esplanada dos Minist&eacute;rios, Bloco B, T&eacute;rreo,
                         <br>
                         <i class="icon-road"></i>&#160; &#160;CEP: 70068-900 Bras&iacute;lia/Distrito Federal
                         <br>
@@ -303,16 +297,16 @@
     <script type="text/javascript" src="<?php echo $this->baseUrl('js/waypoints.js') ?>"></script>
     <script type="text/javascript" src="<?php echo $this->baseUrl('js/jquery.scrollTo.js') ?>"></script>
     <script type="text/javascript" src="<?php echo $this->baseUrl('js/jquery.nav.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/sticky-menu-custom.js') ?>"></script>		
+    <script type="text/javascript" src="<?php echo $this->baseUrl('js/sticky-menu-custom.js') ?>"></script>
     <script type="text/javascript" src="<?php echo $this->baseUrl('js/stellar.js') ?>"></script>
     <!-- Photo id circular slider -->
     <script type="text/javascript" src="<?php echo $this->baseUrl('js/circle/modernizr.custom.js') ?>"></script>
     <script type="text/javascript" src="<?php echo $this->baseUrl('js/circle/jquery.flipshow.js') ?>"></script>
     <script type="text/javascript" src="<?php echo $this->baseUrl('js/woomark/jquery.wookmark.js') ?>"></script>
     <!-- Portfolio iamge gallery -->
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/filter/jquery.prettyPhoto.js') ?>"></script> 
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/filter/jquery.easing.1.3.js') ?>"></script> 
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/filter/script.js') ?>"></script> 
+    <script type="text/javascript" src="<?php echo $this->baseUrl('js/filter/jquery.prettyPhoto.js') ?>"></script>
+    <script type="text/javascript" src="<?php echo $this->baseUrl('js/filter/jquery.easing.1.3.js') ?>"></script>
+    <script type="text/javascript" src="<?php echo $this->baseUrl('js/filter/script.js') ?>"></script>
 
     <!-- G map Address -->
     <!--script type="text/javascript" src="<?php // echo $this->baseUrl('js/maps.api.js') ?>"></script-->
@@ -320,9 +314,9 @@
     <!-- Color Picker for unlimited theme color -->
     <script type="text/javascript" src="<?php echo $this->baseUrl('js/colorpicker.js') ?>"></script>
     <!-- Snow Ball effect -->
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/particle.js') ?>"></script> 
+    <script type="text/javascript" src="<?php echo $this->baseUrl('js/particle.js') ?>"></script>
     <!-- Animation -->
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/animation/jquery.spritely-0.1.js') ?>"></script>		
+    <script type="text/javascript" src="<?php echo $this->baseUrl('js/animation/jquery.spritely-0.1.js') ?>"></script>
     <script type="text/javascript" src="<?php echo $this->baseUrl('js/animation/iioEngine.js') ?>"></script>
     <script type="text/javascript" src="<?php echo $this->baseUrl('js/animation/scooter.js') ?>"></script>
 
@@ -333,17 +327,17 @@
     <!-- Script Jquery modal - Janelas -->
 
     <script type="text/javascript">
-        
+
         function legislacao(){
             window.open("http://www.cultura.gov.br/documents/10883/663683/Legisla%C3%A7%C3%A3o+Vale-Cultura/2b0aabdf-1dd9-4980-be33-1d24d6b424ef", "_blank");
         }
-        
+
         function manual(){
             window.open("<?php echo $this->baseUrl('downloads/Manual_Vale_Cultura_v6.0.pdf');?>", "_blank");
         }
-        
+
         function abrirCadastroBeneficiaria(){
-     
+
             fechaModal();
 
             $('#btnCadastroBeneficiaria').click();
@@ -425,7 +419,7 @@
 
                 $(id).css({'top': top, 'left': left});
 
-                //inserido 
+                //inserido
                 href = $(this).attr("link");
 
                 $('#janelaLoad').html('<br /><br /><br /><div style="text-align:center;">Aguarde, carregando...</div>');
@@ -465,7 +459,7 @@
             //Photo Id circullar slider
             $('#fc-slideshow').flipshow({
                 speed: 700, // default transition speed (ms)
-                easing: 'cubic-bezier(.29,1.44,.86,1.06)'// default transition easing			
+                easing: 'cubic-bezier(.29,1.44,.86,1.06)'// default transition easing
             });
 
             //parallax effect
@@ -483,7 +477,7 @@
                 $('#menu').css('left', '-130px');
             }, 100);
 
-            //color switcher               			
+            //color switcher
             $('#colorSelector').ColorPicker({
                 color: '#0000ff',
                 onShow: function(colpkr) {
@@ -530,7 +524,7 @@
         <div id="janelaLoad" style="overflow-y: auto; width: 100%;"></div>
     </div>
 
-    <!-- mascara para cobrir o site -->	
+    <!-- mascara para cobrir o site -->
     <div id="mascara"></div>
 
 </body>
