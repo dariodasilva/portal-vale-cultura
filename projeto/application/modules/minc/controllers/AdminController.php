@@ -26,6 +26,21 @@ class Minc_AdminController extends GenericController {
         // Manter Autenticado
         parent::autenticar(array('A','R','C'));
 
+        if(in_array($this->_sessao['PerfilGeral'], array('R'))){
+            $idResponsavel = $this->_sessao["idPessoa"];
+
+            $modelBeneficiaria = new Application_Model_Beneficiaria();
+
+            $where = array(
+                'pv.ID_PESSOA_VINCULADA = ?' => $idResponsavel,
+                'pv.ST_PESSOA_VINCULADA = ?' => 'A',
+                'pv.ID_TIPO_VINCULO_PESSOA = ?' => 16
+            );
+
+            $beneficiarias = $modelBeneficiaria->buscarBeneficiariasDoResponsavel($where, "b.dt_Inscricao desc");
+            $this->view->beneficiarias = $beneficiarias;
+        }
+
     }
 
     public function listarOperadorasResponsavelAction() {

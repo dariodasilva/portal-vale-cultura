@@ -1240,7 +1240,38 @@ class Beneficiaria_IndexController extends GenericController {
 
     }
 
+    public function autorizarDivulgacaoMincAction() {
+        $modelBeneficiaria = new Application_Model_Beneficiaria();
 
+        $idBeneficiaria = $this->getRequest()->getParam('beneficiaria');
+        $autorizacao = $this->getRequest()->getParam('autorizacao');
+
+        if($this->validarAcessoBeneficiadora($idBeneficiaria, $this->_sessao['idPessoa'])){
+            $where = array(
+                'ID_BENEFICIARIA = ?'   => $idBeneficiaria
+            );
+            $beneficiaria = $modelBeneficiaria->select($where);
+
+            if($autorizacao === "AUTORIZO"){
+                $Cols = array(
+		            'ST_AUTORIZA_MINC' => 1
+                );
+
+                $modelBeneficiaria->update($Cols, $idBeneficiaria);
+                parent::message('Divulgação autorizada!', '/minc/admin', 'confirm');
+            }else if($autorizacao === "NÃO AUTORIZO"){
+                $Cols = array(
+		            'ST_AUTORIZA_MINC' => 2
+                );
+
+                $modelBeneficiaria->update($Cols, $idBeneficiaria);
+                parent::message('Divulgação não autorizada!', '/minc/admin', 'confirm');
+            }
+        }else {
+            parent::message('Beneficiária não foi localizada!', '/minc/admin', 'error');
+        }
+
+    }
 
 }
 

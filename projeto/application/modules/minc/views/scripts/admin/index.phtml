@@ -8,24 +8,44 @@
 
                 <input type="text" class="search span12" placeholder="O que deseja buscar?" />
 
-            </div>	
-            
-            <?php 
+            </div>
+
+            <?php
                 if($this->usuarioLogado['PerfilGeral'] == 'C'){
                     include_once 'menuConsulta.phtml';
                 } else {
                     include_once 'menu.phtml';
                 }
             ?>
-            
+
         </div>
         <!-- end: Main Menu -->
 
         <!-- start: Content -->
         <div id="content" class="span10">
-
+            <?php foreach($this->beneficiarias as $b) {
+                if(!$b->stAutorizaMinc){ ?>
+                    <div class="box span8" ontablet="span12" ondesktop="span8">
+                        <div class="box-header">
+                            <h2>AUTORIZAÇÃO PARA DIVULGAÇÃO DOS DADOS</h2>
+                        </div>
+                        <div class="box-content" style="height:120px">
+                            <div class="span12" style="height:120px">
+                                Na qualidade de titular da empresa beneficiária junto ao Ministério, <b>AUTORIZO</b> a divulgação do nome da empresa (<?php echo $b->nmRazaoSocial ?>) dentre os demais participantes do Programa ao público em geral. A presente autorização é concedida a título gratuito e em todo território nacional e no exterior <br><br>
+                                <div class="row-fluid">
+                                    <form method="POST" action="<?php echo $this->url(array('module' => 'beneficiaria', 'controller' => 'index', 'action' => 'autorizar-divulgacao-minc')); ?>">
+                                        <input type="hidden" name="beneficiaria" value="<?php echo $b->idBeneficiaria ?>">
+                                        <input type="submit" name="autorizacao" value="AUTORIZO" class="btn btn-primary">
+                                        <input type="submit" name="autorizacao" value="NÃO AUTORIZO" class="btn">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php break;
+                }
+            } ?>
             <div class="row-fluid">
-
                 <div class="box span8" ontablet="span12" ondesktop="span8">
                     <div class="box-header">
                         <h2>COMUNICADO</h2>
@@ -38,14 +58,12 @@ Com o intuito de que o benef&iacute;cio chegue em primeira m&atilde;o aos trabal
 A partir do dia 7 de outubro, as empresas que desejam oferecer o benef&iacute;cio aos seus funcion&aacute;rios j&aacute; podem se habilitar no sistema de credenciamento que estar&aacute; dispon&iacute;vel no site do Minist&eacute;rio da Cultura. Neste momento, a empresa dever&aacute; indicar a operadora que quer trabalhar.<br><br>
 
 S&atilde;o as operadoras que v&atilde;o produzir e distribuir os cart&otilde;es. S&atilde;o elas tamb&eacute;m que habilitar&atilde;o os estabelecimentos que quiserem aceitar o Vale-Cultura. A taxa de administra&ccedil;&atilde;o cobrada pela operadora aos comerciantes ser&aacute; de no m&aacute;ximo 6%.<br><br></div>
-                    </div>	
+                    </div>
                 </div>
             </div>
         </div>
         <!-- end: Content -->
 
     </div><!--/fluid-row-->
-
-
 </body>
 </html>

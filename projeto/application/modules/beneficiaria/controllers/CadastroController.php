@@ -84,6 +84,7 @@ class Beneficiaria_CadastroController extends GenericController {
             $IDOPERADORA = $this->getRequest()->getParam('EMPRESA_OPERADORA');
             $FAIXASALARIAL = $this->getRequest()->getParam('IDFAIXASALARIAL');
             $AUTORIZO_OPERADORA = $this->getRequest()->getParam('AUTORIZO_OPERADORA');
+            $AUTORIZO_MINC = $this->getRequest()->getParam('AUTORIZO_MINC');
 
             // Validando Form
             $ERROR = array();
@@ -114,10 +115,6 @@ class Beneficiaria_CadastroController extends GenericController {
                 if (count($verificaDDD) == 0) {
                     $ERROR['DDD'] = 'DDD inv&aacute;lido!';
                 }
-            }
-
-            if (!$this->getRequest()->getParam('AutorizaMinc')) {
-                $ERROR['AUTORIZACAO'] = 'Autorizar o MinC a divulgar que é empresa beneficiária cadastrada junto ao Programa de Cultura do Trabalhador';
             }
 
             if (!$this->getRequest()->getParam('ConfimaLei')) {
@@ -240,7 +237,8 @@ class Beneficiaria_CadastroController extends GenericController {
                     $Cols = array(
                         'ID_BENEFICIARIA' => $idPessoaJuridica,
                         'ID_OPERADORA' => $IDOPERADORA == 'N' ? new Zend_Db_Expr('NULL') : $IDOPERADORA,
-                        'ST_DIVULGAR_DADOS' => (int) $AUTORIZO_OPERADORA
+                        'ST_DIVULGAR_DADOS' => (int) $AUTORIZO_OPERADORA,
+                        'ST_AUTORIZA_MINC' => $AUTORIZO_MINC ? 1 : 2
                     );
                     $modelBeneficiaria->insert($Cols);
 
