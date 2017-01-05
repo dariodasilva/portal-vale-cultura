@@ -26,6 +26,8 @@ class Minc_AdminController extends GenericController {
         // Manter Autenticado
         parent::autenticar(array('A','R','C'));
 
+        $beneficiarias = array();
+
         if(in_array($this->_sessao['PerfilGeral'], array('R'))){
             $idResponsavel = $this->_sessao["idPessoa"];
 
@@ -38,8 +40,8 @@ class Minc_AdminController extends GenericController {
             );
 
             $beneficiarias = $modelBeneficiaria->buscarBeneficiariasDoResponsavel($where, "b.dt_Inscricao desc");
-            $this->view->beneficiarias = $beneficiarias;
         }
+        $this->view->beneficiarias = $beneficiarias;
 
     }
 
