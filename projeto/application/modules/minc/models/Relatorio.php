@@ -82,7 +82,8 @@ class Minc_Model_Relatorio
         $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>CNAE Primário</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
         $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>CEP</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
         $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>Região</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
-        $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>Município/UF</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
+        $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>Município</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
+        $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>UF</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
         $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>Bairro</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
         $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>Complemento</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
         $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>Número</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
@@ -113,7 +114,8 @@ class Minc_Model_Relatorio
 
             $html .= '<td>' . $beneficiaria->nrCep . '</td>';
             $html .= '<td>' . $beneficiaria->nmRegiao . '</td>';
-            $html .= '<td>' . $beneficiaria->nmMunicipio . '/' . $beneficiaria->sgUF . '</td>';
+            $html .= '<td>' . $beneficiaria->nmMunicipio . '</td>';
+            $html .= '<td>' . $beneficiaria->sgUF . '</td>';
             $html .= '<td>' . $beneficiaria->nmBairro . '</td>';
             $html .= '<td>' . $beneficiaria->dsComplementoEndereco . '</td>';
             $html .= '<td>' . $beneficiaria->nrComplemento . '</td>';

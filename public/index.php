@@ -7,7 +7,7 @@ defined('APPLICATION_PATH')
 
 // Define application environment
 defined('APPLICATION_ENV')
-    || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'homologacao'));
+    || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'desenvolvimento'));
 
 //DEFINE CONSTANTES DO SISTEMA VALE CULTURA
         define('ID_SITUACAO_AGUARDANDO_ANALISE', 1);

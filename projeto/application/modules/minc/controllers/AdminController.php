@@ -5,7 +5,7 @@ include_once 'GenericController.php';
 class Minc_AdminController extends GenericController {
 
     private $session;
-    
+
     public function init() {
 
         // Layout Padrão
@@ -13,7 +13,7 @@ class Minc_AdminController extends GenericController {
 
         // Título
         $this->view->assign('titulo', 'Minc');
-        
+
         // Sessão
         $session = new Zend_Session_Namespace('user');
         $this->_sessao = $session->usuario;
@@ -25,40 +25,40 @@ class Minc_AdminController extends GenericController {
     public function indexAction() {
         // Manter Autenticado
         parent::autenticar(array('A','R','C'));
-        
+
     }
 
     public function listarOperadorasResponsavelAction() {
         parent::autenticar(array('R'));
-        
+
         $idResponsavel = $this->_sessao["idPessoa"];
         // Listar todas as operadoras
         $modelOperadoras = new Application_Model_Operadora();
-        
+
         $where = array(
-            'pv.ID_PESSOA_VINCULADA = ?' => $idResponsavel, 
+            'pv.ID_PESSOA_VINCULADA = ?' => $idResponsavel,
             'pv.ST_PESSOA_VINCULADA = ?' => 'A',
             'pv.ID_TIPO_VINCULO_PESSOA = ?' => 17
         );
-        
+
         $operadoras = $modelOperadoras->buscarOperadorasDoResponsavel($where, "o.dt_Inscricao desc");
         $this->view->operadoras = $operadoras;
     }
-    
+
     public function listarBeneficiariasResponsavelAction() {
         parent::autenticar(array('R'));
-        
+
         $idResponsavel = $this->_sessao["idPessoa"];
-       
+
         // Listar todas as operadoras
         $modelBeneficiaria = new Application_Model_Beneficiaria();
-        
+
         $where = array(
-            'pv.ID_PESSOA_VINCULADA = ?' => $idResponsavel, 
+            'pv.ID_PESSOA_VINCULADA = ?' => $idResponsavel,
             'pv.ST_PESSOA_VINCULADA = ?' => 'A',
             'pv.ID_TIPO_VINCULO_PESSOA = ?' => 16
         );
-        
+
         $beneficiarias = $modelBeneficiaria->buscarBeneficiariasDoResponsavel($where, "b.dt_Inscricao desc");
         $this->view->beneficiarias = $beneficiarias;
 
@@ -85,6 +85,7 @@ class Minc_AdminController extends GenericController {
             $modelEmail = new Application_Model_Email();
             $modelTelefone = new Application_Model_Telefone();
             $modelPessoaJuridica = new Application_Model_PessoaJuridica();
+            $modelPessoaFisica = new Application_Model_PessoaFisica();
 
 //            xd($this->getRequest()->getParams());
             $dados = array('ID_PESSOA' => $id,
@@ -248,6 +249,21 @@ class Minc_AdminController extends GenericController {
                             $enviarEmail = $modelEmail->enviarEmail($email['DS_EMAIL'], 'Acesso ao sistema Vale Cultura', $htmlEmailOperadora);
                         }
                     }
+                } else if ($idTipoSituacao == 3) { // Caso o cadastro da empresa seja reprovado
+                    $responsaveis = $modelPessoaVinculada->select(array('ID_PESSOA = ?' => $id, 'ST_PESSOA_VINCULADA = ?' => 'A'));
+
+                    foreach ($responsaveis as $respB) {
+                        $pessoa = $modelPessoaFisica->select(array('ID_PESSOA_FISICA = ?' => $respB['ID_PESSOA_VINCULADA']));
+
+                        $eamils = $modelEmail->select(array('ID_PESSOA = ?' => $respB['ID_PESSOA_VINCULADA']));
+
+                        $htmlEmail = emailReprovacaoBeneficiariaHTML();
+                        $htmlEmail = str_replace('#NOMERESPONSAVEL#', $pessoa[0]['NM_PESSOA_FISICA'], $htmlEmail);
+
+                        foreach ($eamils as $email) {
+                            $enviarEmail = $modelEmail->enviarEmail($email['DS_EMAIL'], 'Acesso ao sistema Vale Cultura', $htmlEmail);
+                        }
+                    }
                 }
 
                 parent::message('Operação realizada com sucesso!', '/minc/admin/avaliar-beneficiaria/beneficiaria/' . $id, 'success');
@@ -262,14 +278,14 @@ class Minc_AdminController extends GenericController {
     }
 
     public function listaOperadoraAction() {
-        
+
         // Manter Autenticado
         parent::autenticar(array('A'));
 
         $modelOperadoras    = new Application_Model_Operadora();
         $modelSituacoes     = new Application_Model_TipoSituacao();
         $where              = array();
-                
+
         if ($_POST) {
 
             $CNPJ       = $this->getRequest()->getParam('CNPJ');
@@ -308,7 +324,7 @@ class Minc_AdminController extends GenericController {
             $this->view->assign('cnpj', $CNPJ);
             $this->view->assign('nome', $NOME);
             $this->view->assign('situacao', $SITUACAO);
-            
+
             if (is_array($DTINICIO)) {
                 $this->view->assign('dtInicio', $DTINICIO[0] . '/' . $DTINICIO[1] . '/' . $DTINICIO[2]);
             } else {
@@ -332,7 +348,7 @@ class Minc_AdminController extends GenericController {
                     parent::message('Data de Cadastro (Máxima) inválida.', '/minc/consulta/lista-beneficiarios/', 'error');
                 }
             }
-            
+
         } else {
             $this->view->assign('cnpj', '');
             $this->view->assign('nome', '');
@@ -340,12 +356,12 @@ class Minc_AdminController extends GenericController {
             $this->view->assign('dtInicio', '');
             $this->view->assign('dtFim', '');
         }
-        
+
         // Listar todas as operadoras
         $operadoras         = $modelOperadoras->buscarDados($where, array('situacao',"o.DT_INSCRICAO asc"));
         $this->view->assign('operadoras', $operadoras);
         $this->view->assign('qtdOperadoras', count($operadoras));
-        
+
         $situacoes = $modelSituacoes->select();
         $this->view->assign('situacoes', $situacoes);
     }
@@ -354,7 +370,7 @@ class Minc_AdminController extends GenericController {
 
         // Manter Autenticado
         parent::autenticar(array('A'));
-        
+
         // Onde são montado os dados da operadora
         $dadosOperadora = array();
 
@@ -368,7 +384,7 @@ class Minc_AdminController extends GenericController {
 
         $modelSituacao      = new Application_Model_Situacao();
         $modelOperadoras    = new Application_Model_Operadora();
-        
+
         // Dados da operadora
         $operadora = $modelOperadoras->buscarDados(array('o.ID_OPERADORA = ?' => $idOperadora));
         // Situação atual da operadora
@@ -412,27 +428,27 @@ class Minc_AdminController extends GenericController {
 
         // Dados do responsável da operadora
         $modelPessoaVinculada = new Application_Model_PessoaVinculada();
-        
+
         $where = array(
-            'pv.ID_TIPO_VINCULO_PESSOA = ?' => 17, 
-            'pv.id_Pessoa = ?'              => $idOperadora, 
-            'up.id_Perfil = ?'              => 3, 
+            'pv.ID_TIPO_VINCULO_PESSOA = ?' => 17,
+            'pv.id_Pessoa = ?'              => $idOperadora,
+            'up.id_Perfil = ?'              => 3,
             'up.st_Usuario_Perfil = ?'      => 'A'
         );
-        
+
         $responsavel = $modelPessoaVinculada->buscarDadosResponsavel($where);
 
         $listaResponsaveis = array();
         $r = 0;
         foreach ($responsavel as $re){
-            
+
             $listaResponsaveis[$r]['idResponsavel']    = $re->idPessoaVinculada;
             $listaResponsaveis[$r]['nmResponsavel']    = $re->nmPessoaFisica;
             $listaResponsaveis[$r]['nrCpfResponsavel'] = $re->nrCpf;
             $listaResponsaveis[$r]['cargoResponsavel'] = $re->nmCbo;
             $listaResponsaveis[$r]['stAtivo']          = $re->ST_PESSOA_VINCULADA;
-            
-            
+
+
             // Email do responsável da operadora
             $modelEmail = new Application_Model_Email();
             $listaEmailsResponsaveis = array();
@@ -442,10 +458,10 @@ class Minc_AdminController extends GenericController {
                 $listaEmailsResponsaveis[$em]['emailResponsavel'] = $e->dsEmail;
                 $em++;
             }
-            
+
             $listaResponsaveis[$r]['emailsResponsavel'] = $listaEmailsResponsaveis;
 
-            
+
             // Telefones do responsável da operadora
             $modelTelefone  = new Application_Model_Telefone();
             $telefones      = $modelTelefone->buscarTelefones(array('ID_PESSOA = ?' => $re->idPessoaVinculada));
@@ -463,14 +479,14 @@ class Minc_AdminController extends GenericController {
                 }
                 $tel++;
             }
-            
+
             $listaResponsaveis[$r]['telefonesResponsavel'] = $listaTelefonesResponsaveis;
-            
+
             $r++;
         }
-        
+
         $dadosOperadora['responsaveis'] = $listaResponsaveis;
-        
+
         // Email Institucional
         $emailInstitucional = array();
         $modelEmail = new Application_Model_Email();
@@ -479,7 +495,7 @@ class Minc_AdminController extends GenericController {
             $emailInstitucional = $email[0];
         }
         $this->view->assign('emailInstitucional', $emailInstitucional);
-        
+
         // Arquivos da operadora
         $modelArquivos = new Application_Model_ArquivoOperadora();
         $arquivos = $modelArquivos->buscarArquivos(array('ID_OPERADORA = ?' => $idOperadora));
@@ -494,11 +510,11 @@ class Minc_AdminController extends GenericController {
     public function listaBeneficiariosAction() {
         // Manter Autenticado
         parent::autenticar(array('A'));
-        
+
         // Listar todas as operadoras
         $modelBeneficiaria = new Application_Model_Beneficiaria();
         $modelSituacoes = new Application_Model_TipoSituacao();
-        
+
         $pagina = intval($this->_getParam('pagina'));
         $session = new Zend_Session_Namespace('postFiltro');
         $where = array();
@@ -565,7 +581,7 @@ class Minc_AdminController extends GenericController {
         $this->view->assign('cnpj', $CNPJ);
         $this->view->assign('nome', $NOME);
         $this->view->assign('situacao', $SITUACAO);
-        
+
         if (is_array($DTINICIO)) {
             $this->view->assign('dtInicio', $DTINICIO[0] . '/' . $DTINICIO[1] . '/' . $DTINICIO[2]);
         } else {
@@ -591,7 +607,7 @@ class Minc_AdminController extends GenericController {
         }
 
         $beneficiarias = $modelBeneficiaria->buscarDados($where, array('situacao','b.dt_Inscricao desc'));
-        
+
         $paginator = Zend_Paginator::factory($beneficiarias);
         // Seta a quantidade de registros por página
         $paginator->setItemCountPerPage(50);
@@ -610,7 +626,7 @@ class Minc_AdminController extends GenericController {
     public function avaliarBeneficiariaAction() {
         // Manter Autenticado
         parent::autenticar(array('A'));
-        
+
         // onde são montado os dados da operadora
         $dadosBeneficiaria = array();
 
@@ -680,7 +696,7 @@ class Minc_AdminController extends GenericController {
             $whereS = array('p.ID_PESSOA_JURIDICA = ?' => $b->idPessoa, 'p.ST_CNAE = ?' => 'S');
             $cnaeSecundarios = $modelCNAE->listarCnae($whereS);
             $dadosBeneficiaria['cnaeSecundarios'] = $cnaeSecundarios;
-            
+
             $modelFaixaSalarial = new Application_Model_FaixaSalarialBeneficiaria();
             $faixaSalarial = $modelFaixaSalarial->listaFaixas(array('ID_BENEFICIARIA = ?' => $b->idPessoa), 'idTipoFaixaSalarial asc');
 
@@ -689,26 +705,26 @@ class Minc_AdminController extends GenericController {
 
         // Dados do responsável da operadora
         $modelPessoaVinculada = new Application_Model_PessoaVinculada();
-        
+
         $where = array(
                 'pv.ID_TIPO_VINCULO_PESSOA = ?' => 16,
-                'pv.id_Pessoa = ?'              => $idBeneficiaria, 
-                'up.id_Perfil = ?'              => 2, 
+                'pv.id_Pessoa = ?'              => $idBeneficiaria,
+                'up.id_Perfil = ?'              => 2,
                 'up.st_Usuario_Perfil = ?'      => 'A'
             );
-        
+
         $responsavel = $modelPessoaVinculada->buscarDadosResponsavel($where);
 
         $listaResponsaveis = array();
         $r = 0;
         foreach ($responsavel as $re){
-            
+
             $listaResponsaveis[$r]['idResponsavel']    = $re->idPessoaVinculada;
             $listaResponsaveis[$r]['nmResponsavel']    = $re->nmPessoaFisica;
             $listaResponsaveis[$r]['nrCpfResponsavel'] = $re->nrCpf;
             $listaResponsaveis[$r]['cargoResponsavel'] = $re->nmCbo;
-            
-            
+
+
             // Email do responsável da operadora
             $modelEmail = new Application_Model_Email();
             $listaEmailsResponsaveis = array();
@@ -718,10 +734,10 @@ class Minc_AdminController extends GenericController {
                 $listaEmailsResponsaveis[$em]['emailResponsavel'] = $e->dsEmail;
                 $em++;
             }
-            
+
             $listaResponsaveis[$r]['emailsResponsavel'] = $listaEmailsResponsaveis;
 
-            
+
             // Telefones do responsável da operadora
             $modelTelefone  = new Application_Model_Telefone();
             $telefones      = $modelTelefone->buscarTelefones(array('ID_PESSOA = ?' => $re->idPessoaVinculada));
@@ -739,12 +755,12 @@ class Minc_AdminController extends GenericController {
                 }
                 $tel++;
             }
-            
+
             $listaResponsaveis[$r]['telefonesResponsavel'] = $listaTelefonesResponsaveis;
-            
+
             $r++;
         }
-        
+
         $dadosBeneficiaria['responsaveis'] = $listaResponsaveis;
 
         // Dados da Operadora (Bandeira)
@@ -761,7 +777,7 @@ class Minc_AdminController extends GenericController {
         }
 
         $ultimaSituacaoCadastral = $modelBeneficiaria->ultimaSituacaoCadastral($idBeneficiaria);
-        
+
         $dadosBeneficiaria['dataSituacaoCadastral'] = empty($ultimaSituacaoCadastral) ? '' : $ultimaSituacaoCadastral['DT_SITUACAO_CADASTRAL'];
         $dadosBeneficiaria['descricaoSituacaoCadastral'] = empty($ultimaSituacaoCadastral) ? '' : $ultimaSituacaoCadastral['DS_SITUACAO_CADASTRAL'];
 
@@ -787,15 +803,15 @@ class Minc_AdminController extends GenericController {
     }
 
     public function alterarsenhaAction() {
-        
+
     }
 
     public function alterarsenhaactionAction() {
         if ($_POST) {
-            
+
             $modelUsuario = new Application_Model_Usuario;
             $idUsuario = $this->_sessao["idUsuario"];
-            
+
             $NOVA_SENHA          = $this->getRequest()->getParam('NOVA_SENHA');
             $NOVA_SENHA_CONFIRMA = $this->getRequest()->getParam('NOVA_SENHA_CONFIMA');
             $SENHA_ATUAL         = $this->getRequest()->getParam('SENHA');
@@ -833,7 +849,7 @@ class Minc_AdminController extends GenericController {
     public function relatorioBeneficiariasAction() {
         // Manter Autenticado
         parent::autenticar(array('A'));
-        
+
         // Listar todas as operadoras
         $modelBeneficiaria  = new Application_Model_Beneficiaria();
         $modelSituacoes     = new Application_Model_TipoSituacao();
@@ -860,11 +876,11 @@ class Minc_AdminController extends GenericController {
             if ($SITUACAO > 0) {
                 $where['ID_SITUACAO = ?'] = $SITUACAO;
             }
-            
+
             if ($UF) {
                 $where['uf.SG_Uf = ?'] = $UF;
             }
-            
+
             if ($OPERADORA > 0) {
                 $where['b.ID_OPERADORA = ?'] = $OPERADORA;
             }
@@ -881,12 +897,12 @@ class Minc_AdminController extends GenericController {
             $this->view->assign('uf', '');
             $this->view->assign('operadora', '');
         }
-        
+
         $beneficiarias      = $modelBeneficiaria->buscarDados($where, array("pj.nmFantasia asc"));
         $situacoes          = $modelSituacoes->select();
         $ufs                = $modelUf->select(array(),'NM_Uf asc');
         $operadorasAtivas   = $modelSituacao->selecionaOperadorasAtivas();
-        
+
         $this->view->assign('beneficiarias', $beneficiarias);
         $this->view->assign('situacoes', $situacoes);
         $this->view->assign('ufs', $ufs);
@@ -897,12 +913,12 @@ class Minc_AdminController extends GenericController {
     public function gerarPdfAction() {
         // Manter Autenticado
         parent::autenticar(array('A'));
-        
+
         $this->getHelper('layout')->disableLayout();
         if ($_POST) {
             $html = $this->getRequest()->getParam('HTML');
             $url = substr($_SERVER['SCRIPT_FILENAME'], 0, strpos($_SERVER['SCRIPT_FILENAME'], 'index.php'));
-            
+
             $html = utf8_encode(str_replace('../../', $url, $html));
             $html = explode('#QUEBRAPAGINA#', $html);
             //$cabecalho = utf8_encode($cabecalho);
@@ -930,7 +946,7 @@ class Minc_AdminController extends GenericController {
     {
         $url = "/admin/avaliar-beneficiaria/beneficiaria/{$this->getRequest()->getParam('beneficiaria')}";
         try {
-            
+
             $servicos = new Servicos();
             $servicos->consultarPessoaReceitaFederal($this->getRequest()->getParam('cnpj'), 'Juridica', true);
             parent::message('Operação realizada com sucesso!', $url, 'success');

@@ -105,7 +105,7 @@
                                             <?php foreach ($this->beneficiarias as $b): ?>
                                                 <tr>
                                                     <td class="centro" width="150px"><?php echo $this->mascara($b->nrCnpj, 'cnpj'); ?></td>
-                                                    <td><?php echo uc_latin1($b->nmRazaoSocial); ?></td>
+                                                    <td><?php echo ($b->nmFantasia===" ") ? $b->nmRazaoSocial : $b->nmFantasia; ?></td>
                                                     <td class="centro" style="text-align: center;"><?php echo $b->dtInscricao; ?></td>
                                                     <td style="text-align: center; color: <?php echo $this->verificarSituacao($b->situacao, 'cor', 'B'); ?>">
                                                         <?php echo $this->verificarSituacao($b->situacao, 'st', 'B'); ?>
@@ -140,7 +140,7 @@
 
     <div class="modal hide fade" id="myModal">
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">×</button>
+            <button type="button" class="close" data-dismiss="modal">ï¿½</button>
             <h3>Settings</h3>
         </div>
         <div class="modal-body">

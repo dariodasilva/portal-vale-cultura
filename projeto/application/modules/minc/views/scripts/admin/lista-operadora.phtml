@@ -85,7 +85,7 @@
                                     <?php foreach ($this->operadoras as $op): ?>
                                     <tr>
                                         <td class="centro"><?php echo $this->mascara($op->nrCnpj, 'cnpj'); ?></td>
-                                        <td><?php echo $op->nmFantasia; ?></td>
+                                        <td><?php echo ($op->nmFantasia===" ") ? $op->nmRazaoSocial : $op->nmFantasia; ?></td>
                                         <td class="centro" style="text-align: center;"><?php echo $op->dtInscricao; ?></td>
                                         <td class="centro" style="text-align: center;"><?php echo $op->dtInicioComercializacao; ?></td>					
                                         <td style="text-align: center; color: <?php echo $this->verificarSituacao($op->situacao, 'cor', 'O'); ?>">

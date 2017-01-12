@@ -210,6 +210,7 @@ class Minc_IndexController extends GenericController {
             $listaOperadoras[$i]['idOperadora']  = $op['idOperadora'];
             $listaOperadoras[$i]['nrCNPJ']       = addMascara($op['nrCNPJ']);
             $listaOperadoras[$i]['nmFantasia']   = $op['nmFantasia'];
+            $listaOperadoras[$i]['nmRazaoSocial'] = $op['nmRazaoSocial'];
             $listaOperadoras[$i]['idSituacaoXX'] = $op['idSituacaoXX'];
             $listaOperadoras[$i]['dsSite']       = $op['dsSite'];
 

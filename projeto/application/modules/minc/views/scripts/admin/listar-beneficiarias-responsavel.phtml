@@ -8,7 +8,7 @@
 
                 <input type="text" class="search span12" placeholder="O que deseja buscar?" />
 
-            </div>	
+            </div>
             <?php include_once 'menu.phtml'; ?>
         </div>
         <!-- end: Main Menu -->
@@ -45,15 +45,15 @@
                                             <?php foreach ($this->beneficiarias as $b): ?>
                                                 <tr>
                                                     <td class="centro" width="150px"><?php echo $this->mascara($b->nrCnpj, 'cnpj'); ?></td>
-                                                    <td><?php echo uc_latin1($b->nmRazaoSocial); ?></td>
+                                                    <td><?php echo ($b->nmFantasia===" ") ? $b->nmRazaoSocial : $b->nmFantasia; ?></td>
                                                     <td class="centro" style="text-align: center;"><?php echo $b->dtInscricao; ?></td>
                                                     <td style="text-align: center; color: <?php echo $this->verificarSituacao($b->situacao, 'cor', 'B'); ?>">
                                                         <?php echo $this->verificarSituacao($b->situacao, 'st', 'B'); ?>
-                                                    </td> 
+                                                    </td>
                                                     <td class="centro" style="text-align: center;">
                                                         <a class="btn btn-success" title="Gerênciar" href="<?php echo $this->url(array('module' => 'beneficiaria', 'controller' => 'index', 'action' => 'index', 'beneficiaria' => $b->idBeneficiaria, 'operadora' => $b->idOperadora)); ?>">
-                                                            <i class="icon-ambulance"></i>  
-                                                        </a>                           
+                                                            <i class="icon-ambulance"></i>
+                                                        </a>
                                                     </td>
                                                 </tr>
                                             <?php endforeach; ?>
@@ -62,7 +62,7 @@
                                 </form>
                             </div>
                         </fieldset>
-                        </form>   
+                        </form>
 
                     </div>
                 </div>

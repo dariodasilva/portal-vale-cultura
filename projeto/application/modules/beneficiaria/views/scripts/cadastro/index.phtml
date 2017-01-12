@@ -1,6 +1,6 @@
 <style>
     .errorAjax{
-        background-color: #e8a4a4; 
+        background-color: #e8a4a4;
         border: 2px solid #e06767;
         height: auto;
         font-family: arial;
@@ -43,7 +43,7 @@
                         Este cadastro é específico para empresas interessadas em oferecer o Vale-Cultura aos seus funcionários.
                     </p>
                     <p style="font-size: 16px; color: red;">
-                        Trabalhador, se deseja receber o Vale-Cultura 
+                        Trabalhador, se deseja receber o Vale-Cultura
                         <a
                             style="color: #000; font-weight: bold;"
                             href="http://www.cultura.gov.br/por-dentro-do-vale-cultura1/-/asset_publisher/ElnqtJzm0xST/content/para-o-trabalhador/10895?redirect=http%3A%2F%2Fwww.cultura.gov.br%2Fpor-dentro-do-vale-cultura1%3Fp_p_id%3D101_INSTANCE_ElnqtJzm0xST%26p_p_lifecycle%3D0%26p_p_state%3Dnormal%26p_p_mode%3Dview%26p_p_col_id%3Dcolumn-2%26p_p_col_pos%3D1%26p_p_col_count%3D2"
@@ -91,9 +91,9 @@
             <tr class="descEmpresa">
                 <td>
                     <select name="EMPRESA_TIPO_LUCRO" id="EMPRESA_TIPO_LUCRO" class="select_simples w200">
-                        <option value=""> - Selecione - </option>     
+                        <option value=""> - Selecione - </option>
                         <?php foreach ($this->tipoLucro as $lucro) { ?>
-                            <option value="<?php echo $lucro['ID_TIPO_LUCRO'] ?>"> <?php echo $lucro['DS_TIPO_LUCRO'] ?> </option>     
+                            <option value="<?php echo $lucro['ID_TIPO_LUCRO'] ?>"> <?php echo $lucro['DS_TIPO_LUCRO'] ?> </option>
                         <?php } ?>
                     </select>
                 </td>
@@ -101,13 +101,13 @@
                     <select name="EMPRESA_OPERADORA" id="EMPRESA_OPERADORA" class="select_simples">
                         <option value=""> - Selecione - </option>
                         <?php foreach ($this->operadorasAtivas as $operadora) { ?>
-                            <option value="<?php echo $operadora['idOperadora'] ?>"> <?php echo $operadora['nmFantasia'] ?> </option>     
+                            <option value="<?php echo $operadora['idOperadora'] ?>"> <?php echo $operadora['nmFantasia'] ?> </option>
                         <?php } ?>
                     </select>
                 </td>
             </tr>
         </table>
-        
+
         <table align="center" border="0" class="tabela" width="95%" background="<?php echo $this->baseUrl('img/benificiario.png') ?>">
             <tr>
                 <td colspan="3" style="text-align: center;"><h3 class="footer-headline">Endere&ccedil;o comercial</h3></td>
@@ -187,7 +187,7 @@
                 <td><input type="text" id="totalFuncionarios" disabled="true" class="input_simples" /></td>
             </tr>
         </table>
-        
+
         <table width="95%" align="center" class="tabela">
             <tr>
                 <th colspan="3" style="text-align: center;"><h3 class="footer-headline"><span>RESPONSÁVEL PELA GESTÃO DO PROGRAMA JUNTO AO MINC</span></h3></th>
@@ -287,7 +287,7 @@
         </table>
 
         <br clear="all" />
-    
+
         <table id="btFechar" style="display:none" class="tabela">
             <tr></tr>
         </table>
@@ -300,11 +300,11 @@
         <!--button type="button" class="close" onclick="$('#mascara2').fadeOut();" data-dismiss="alert">&times;</button-->
         <strong>ATENÇÃO!</strong> <br><br>
         Prezado Beneficiário,
-        
-        Você não está autorizando a liberação do seu contato para nenhuma empresa operadora. 
-        Isto poderá dificultar o contato da operadora com a sua empresa.  
+
+        Você não está autorizando a liberação do seu contato para nenhuma empresa operadora.
+        Isto poderá dificultar o contato da operadora com a sua empresa.
         Favor entrar em contato com a empresa operadora de sua preferência para viabilizar a contratação dos serviços.
-        <br><br>									
+        <br><br>
         <button class="btn btn-mini btn-success" onclick="enviarForm()" value="Submit">Confirmar</button>
         <button class="btn btn-mini btn-warning" onclick="$('#myModal').fadeOut(); $('#mascara2').fadeOut();">Cancelar</button>
     </div>
@@ -312,24 +312,24 @@
 <div class="mascara" id="mascara2"></div>
 
 <script>
-    
+
     function num(dom){
         dom.value=dom.value.replace(/\D/g,'');
     }
-    
+
     var confirmado = false;
-    
+
     jQuery(document).ready(function() {
-        
+
         $(".cep").mask("99999-999");
         $(".data").mask("99/99/9999");
         $(".cpf").mask("999.999.999-99");
         $(".cnpj").mask("99.999.999/9999-99");
         $(".telefone").mask("(99) 9999-9999?9");
-        
+
         gerarCaptcha();
         calculaTotalFuncionarios();
-        
+
         $('#btnResetar').click(function(){
             $('#IDPJ').val('');
             $('#EMPRESA_RAZAOSOCIAL').html('');
@@ -342,18 +342,18 @@
             $('#EMPRESA_CEP').val('');
             $('#EMPRESA_CEP').attr('valor','');
             $('#ID_ENDERECO').val('0');
-            
+
             $('#EMPRESA_UF').html('<option> - Informe o CEP - </option>');
             $('#EMPRESA_MUNICIPIO').html('<option> - Informe o CEP - </option>');
             $('#EMPRESA_BAIRRO').html('<option> - Informe o CEP - </option>');
             $('#EMPRESA_ENDERECO').html('- Informe o CEP -');
-                        
+
             $('#msgAjaxPJ').html('');
             $('#msgAjaxPJ').show();
             $('#msgAjaxPF').html('');
             $('#msgAjaxPF').show();
         });
-        
+
         // Vamos buscar os dados do CNPJ Agora!
         $('#EMPRESA_CNPJ').focusout(function(){
 
@@ -368,26 +368,26 @@
             $('#EMPRESA_CEP').val('');
             $('#EMPRESA_CEP').attr('valor','');
             $('#ID_ENDERECO').val('0');
-                                
+
 //            $('.descEmpresa').hide();
             $('#msgAjaxPJ').html('');
             $('#imgPJ').show();
-            
+
             bloqueaCadastro();
-                            
+
             var txt = $(this).val();
-            
+
             if(txt == '__.___.___/____-__'){
                 $('#imgPJ').hide();
             }else{
-                
+
                 $.ajax({
                     type: "POST",
                     url: '<?php echo $this->url(array('module' => 'operadora', 'controller' => 'cadastro', 'action' => 'busca-pessoa-juridica')); ?>',
                     data: {EMPRESA_CNPJ: $(this).val(), tipoPJ: 'B'},
                     dataType: 'json',
                     success: function(data) {
-                        
+
                         $('#imgPJ').hide();
                         if(data.error != ''){
                             $('#msgAjaxPJ').html(data.error);
@@ -396,7 +396,11 @@
                             // Preenche os dados
                             $('#IDPJ').val(data.dados.idpj);
                             $('#EMPRESA_RAZAOSOCIAL').html(data.dados.razaosocial);
-                            $('#EMPRESA_NOMEFANTASIA').html(data.dados.nomefantasia);
+                            if(data.dados.nomefantasia===" "){
+                                $('#EMPRESA_NOMEFANTASIA').html('<input name="EMPRESA_NMFANTASIA" id="EMPRESA_NMFANTASIA" type="text" class="input_simples w200 block" />');
+                            }else{
+                                $('#EMPRESA_NOMEFANTASIA').html(data.dados.nomefantasia);
+                            }
                             $('#NATUREZA_JURIDICA').html(data.dados.naturezajuridica);
                             $('#CNAE_PRIMARIO').html(data.dados.CNAEPrimario);
                             $('#CNAE_SECUNDARIOS').html(data.dados.CNAESecundarios);
@@ -420,7 +424,7 @@
                             $('.descEmpresa').show();
                             desbloqueaCadastro();
                         }
-                        
+
                     },error: function(data) {
                         $('#msgAjaxPJ').html(data.error);
                         $('#msgAjaxPJ').show();
@@ -428,10 +432,10 @@
                     }
                 });
             }
-            
+
         });
-        
-        
+
+
         // Vamos buscar os dados do CNPJ Agora!
         $('#RESPONSAVEL_CPF').focusout(function(){
 
@@ -439,20 +443,20 @@
             $('#RESPONSAVEL_NOME').val('');
             $('#msgAjax').hide();
             $('#imgPF').show();
-                            
+
             var txt = $(this).val();
-            
+
             if(txt == '___.___.___-__'){
                 $('#imgPF').hide();
             }else{
-                
+
                 $.ajax({
                     type: "POST",
                     url: '<?php echo $this->url(array('module' => 'operadora', 'controller' => 'cadastro', 'action' => 'busca-pessoa-fisica')); ?>',
                     data: {RESPONSAVEL_CPF: $(this).val(), TIPO_VINCULO: 'B'},
                     dataType: 'json',
                     success: function(data) {
-                        
+
                         if(data.error != ''){
                             $('#msgAjax').html(data.error);
                             $('#msgAjax').show();
@@ -464,7 +468,7 @@
                             $('#RESPONSAVEL_CARGO').focus();
                             $('#imgPF').hide();
                         }
-                        
+
                     },error: function(data) {
                         $('#msgAjax').html(data.error);
                         $('#msgAjax').show();
@@ -472,20 +476,20 @@
                     }
                 });
             }
-            
+
         });
-        
-        
+
+
         $('.nrFuncionarios').change(function() {
             calculaTotalFuncionarios();
         });
-        
+
         $(".numerico").keyup(function() {
             if (isNaN($(this).val())) {
                 $(this).val(0);
             }
         });
-        
+
         $('.telefone').focusout(function() {
             var phone, element;
             element = $(this);
@@ -497,8 +501,8 @@
                 element.mask("(99) 9999-9999?9");
             }
         }).trigger('focusout');
-        
-        
+
+
         $("#cadastroBeneficiaria").validate({
             rules: {
                 EMPRESA_CNPJ: {
@@ -572,7 +576,7 @@
 
         $('#myModal').css({'top': top, 'left': left});
         $('#mascara2').css({'width': $('.window').width() + 10, 'height': $('.window').height() + 10});
-        
+
         $('#AUTORIZO_TODAS_OPERADORAS').change(function(){
             if($(this).is(":checked")){
                 $('#AUTORIZO_OPERADORA_SELECIONADA').attr("checked",true);
@@ -582,10 +586,10 @@
                 $('#AUTORIZO_OPERADORA_SELECIONADA').removeAttr("disabled");
             }
         });
-        
-        
+
+
     });
-    
+
     jQuery.validator.addMethod('emailcheck', function(value, element) {
         if ($('#RESPONSAVEL_EMAIL_COMFIRMA').val() != $('#RESPONSAVEL_EMAIL').val()) {
             return false;
@@ -619,14 +623,14 @@
     }
 
     function buscaCep(obj) {
-        
+
         valor       = $(obj).attr('valor');
         valorAtual  = $(obj).val().replace("-", "");
-        
+
         if((valor != '') && valor == valorAtual){
             return false;
         }
-        
+
         $('#EMPRESA_COMPLEMENTO').val('');
         $('#EMPRESA_NUMERO').val('');
         $.ajax({
@@ -771,8 +775,8 @@
         return text;
 
     }
-    
-    
+
+
     function bloqueaCadastro(){
         // Dados da empresa
         $('#EMPRESA_TIPO_LUCRO').attr('disabled', true);
@@ -792,7 +796,7 @@
         // Botão de Salvar
         $('#btnSalvar').hide();
     }
-    
+
     function desbloqueaCadastro(){
         // Dados da empresa
         $('#EMPRESA_TIPO_LUCRO').attr('disabled', false);

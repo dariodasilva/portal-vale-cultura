@@ -7,9 +7,9 @@
             <div class="row-fluid actions">
                 <input type="text" class="search span12" placeholder="O que deseja buscar?" />
             </div>
-            
+
             <?php include_once 'menu.phtml'; ?>
-            
+
         </div>
         <!-- end: Main Menu -->
 
@@ -41,20 +41,20 @@
                                             <td class="destacar bold centro"><strong>Nome</strong></td>
                                             <td class="destacar bold centro" style="text-align: center;"><strong>Data de Cadastro</strong></td>
                                             <td class="destacar bold centro" style="text-align: center;"><strong>Situa&ccedil;&atilde;o</strong></td>
-                                            <td class="destacar bold centro" style="text-align: center;"><strong>Gerênciar</strong></td>  
+                                            <td class="destacar bold centro" style="text-align: center;"><strong>Gerênciar</strong></td>
                                         </tr>
                                         <?php foreach ($this->operadoras as $op): ?>
                                         <tr>
                                             <td class="centro"><?php echo $this->mascara($op->nrCnpj, 'cnpj'); ?></td>
-                                            <td><?php echo $op->nmFantasia; ?></td>
+                                            <td><?php echo ($op->nmFantasia===" ") ? $op->nmRazaoSocial : $op->nmFantasia; ?></td>
                                             <td class="centro" style="text-align: center;"><?php echo $op->dtInscricao; ?></td>
                                             <td style="text-align: center; color: <?php echo $this->verificarSituacao($op->situacao, 'cor', 'O'); ?>">
                                                 <?php echo $this->verificarSituacao($op->situacao, 'st', 'O'); ?>
-                                            </td>                    
+                                            </td>
                                             <td class="centro" style="text-align: center;">
                                                 <a class="btn btn-success" title="Gerênciar" href="<?php echo $this->url(array('module' => 'operadora', 'controller' => 'index', 'action' => 'index', 'operadora' => $op->idOperadora)); ?>">
-                                                    <i class="icon-ambulance"></i>  
-                                                </a>                           
+                                                    <i class="icon-ambulance"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                         <?php endforeach; ?>
@@ -63,7 +63,7 @@
                                 </form>
                             </div>
                         </fieldset>
-                        </form>   
+                        </form>
 
                     </div>
                 </div>

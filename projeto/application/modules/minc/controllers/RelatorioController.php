@@ -5,7 +5,7 @@ include_once 'GenericController.php';
 class Minc_RelatorioController extends GenericController {
 
     private $session;
-    
+
     public function init() {
 
         // Layout Padrão
@@ -16,7 +16,7 @@ class Minc_RelatorioController extends GenericController {
 
         // Manter Autenticado
         parent::autenticar(array('C','A'));
-        
+
         $this->view->assign('admin', false);
         if ($this->_sessao["PerfilGeral"] == 'A') {
             $this->view->assign('admin', true);
@@ -37,7 +37,7 @@ class Minc_RelatorioController extends GenericController {
         $pagina             = intval($this->_getParam('pagina'));
 
         $where = array();
-        
+
         if ($_POST) {
 
             $CNPJ       = $this->getRequest()->getParam('CNPJ');
@@ -49,7 +49,7 @@ class Minc_RelatorioController extends GenericController {
             $OPERADORA  = $this->getRequest()->getParam('OPERADORA');
             $DTINICIO   = $this->getRequest()->getParam('DTINICIO');
             $DTFIM      = $this->getRequest()->getParam('DTFIM');
-            
+
             if ($CNPJ) {
                 $where['pj.NR_CNPJ = ?'] = str_replace('/', '', str_replace('-', '', str_replace('.', '', $CNPJ)));
             }
@@ -69,7 +69,7 @@ class Minc_RelatorioController extends GenericController {
             if ($UF) {
                 $where['uf.sg_Uf = ?'] = $UF;
             }
-            
+
             if ($MUNICIPIO) {
                 $where['mu.ID_MUNICIPIO = ?'] = $MUNICIPIO;
             }
@@ -118,7 +118,7 @@ class Minc_RelatorioController extends GenericController {
                     parent::message('Data de Cadastro (Máxima) inválida.', '/minc/relatorio/relatorio-beneficiarias/', 'error');
                 }
             }
-            
+
         } else {
             $this->view->assign('cnpj', '');
             $this->view->assign('nome', '');
@@ -132,7 +132,7 @@ class Minc_RelatorioController extends GenericController {
         }
 
         $order = array("pj.NM_FANTASIA", "mu.NM_MUNICIPIO", "uf.SG_UF", "p.DT_REGISTRO", "pj.CD_NATUREZA_JURIDICA", "pjO.NM_FANTASIA");
-        
+
         $beneficiarias      = $modelBeneficiaria->buscarDados($where, $order);
         $situacoes          = $modelSituacoes->select();
         $ufs                = $modelUf->select(array(), 'nm_Uf asc');
@@ -168,7 +168,7 @@ class Minc_RelatorioController extends GenericController {
 
     public function relatorioHtmlAction() {
         $this->getHelper('layout')->disableLayout();
-        
+
         // Listar todas as operadoras
         $modelBeneficiaria  = new Application_Model_Beneficiaria();
         $modelSituacoes     = new Application_Model_TipoSituacao();
@@ -177,9 +177,9 @@ class Minc_RelatorioController extends GenericController {
         $modelSituacao      = new Application_Model_Situacao();
 
         $where = array();
-        
+
         if ($_POST) {
-            
+
             $CNPJ       = $this->getRequest()->getParam('CNPJ');
             $NOME       = $this->getRequest()->getParam('NOME');
             $SITUACAO   = $this->getRequest()->getParam('SITUACAO');
@@ -189,7 +189,7 @@ class Minc_RelatorioController extends GenericController {
             $OPERADORA  = $this->getRequest()->getParam('OPERADORA');
             $DTINICIO   = $this->getRequest()->getParam('DTINICIO');
             $DTFIM      = $this->getRequest()->getParam('DTFIM');
-            
+
             if ($CNPJ) {
                 $where['pj.NR_CNPJ = ?'] = str_replace('/', '', str_replace('-', '', str_replace('.', '', $CNPJ)));
             }
@@ -209,7 +209,7 @@ class Minc_RelatorioController extends GenericController {
             if ($UF) {
                 $where['uf.sg_Uf = ?'] = $UF;
             }
-            
+
             if ($MUNICIPIO) {
                 $where['mu.ID_MUNICIPIO = ?'] = $MUNICIPIO;
             }
@@ -244,12 +244,12 @@ class Minc_RelatorioController extends GenericController {
                     parent::message('Data de Cadastro (Máxima) inválida.', '/minc/relatorio/relatorio-beneficiarias/', 'error');
                 }
             }
-            
+
         }
 
         $order = array("pj.NM_FANTASIA", "mu.NM_MUNICIPIO", "uf.SG_UF", "p.DT_REGISTRO", "pj.CD_NATUREZA_JURIDICA", "pjO.NM_FANTASIA");
-        
-        
+
+
         $beneficiarias      = $modelBeneficiaria->buscarDados($where, $order);
         $situacoes          = $modelSituacoes->select();
         $ufs                = $modelUf->select(array(), 'nm_Uf asc');
@@ -264,18 +264,18 @@ class Minc_RelatorioController extends GenericController {
             $i = $i+$p->qtdFuncionarios;
         }
         $this->view->qtdFuncionarios = $i;
-        
+
         $this->view->assign('situacoes', $situacoes);
         $this->view->assign('ufs', $ufs);
         $this->view->assign('regioes', $regioes);
         $this->view->assign('operadorasAtivas', $operadorasAtivas);
         $this->view->assign('qtdBeneficiarias', count($beneficiarias));
-        
+
     }
 
     public function gerarPdfAction() {
         $this->getHelper('layout')->disableLayout();
-        
+
         if ($_POST) {
             $html = $this->getRequest()->getParam('HTML');
             $url = substr($_SERVER['SCRIPT_FILENAME'], 0, strpos($_SERVER['SCRIPT_FILENAME'], 'index.php'));
@@ -344,19 +344,19 @@ class Minc_RelatorioController extends GenericController {
         }
         exit();
         die;
-         
+
     }
-    
+
 
     public function gerarPdfCompletoAction() {
         $this->getHelper('layout')->disableLayout();
         header("Content-type: text/html; charset=iso-8859-1");
-        
+
         $modelBeneficiaria  = new Application_Model_Beneficiaria();
         $where = array();
-        
+
         if($_POST){
-            
+
             $SITUACAO   = $this->getRequest()->getParam('SITUACAO');
             $REGIAO     = $this->getRequest()->getParam('REGIAO');
             $UF         = $this->getRequest()->getParam('UF');
@@ -364,7 +364,7 @@ class Minc_RelatorioController extends GenericController {
             $OPERADORA  = $this->getRequest()->getParam('OPERADORA');
             $DTINICIO   = $this->getRequest()->getParam('DTINICIO');
             $DTFIM      = $this->getRequest()->getParam('DTFIM');
-            
+
             if ($SITUACAO > 0) {
                 $where['ID_SITUACAO = ?'] = $SITUACAO;
             }
@@ -376,7 +376,7 @@ class Minc_RelatorioController extends GenericController {
             if ($UF) {
                 $where['uf.sg_Uf = ?'] = $UF;
             }
-            
+
             if ($MUNICIPIO) {
                 $where['mu.ID_MUNICIPIO = ?'] = $MUNICIPIO;
             }
@@ -411,12 +411,12 @@ class Minc_RelatorioController extends GenericController {
                     parent::message('Data de Cadastro (Máxima) inválida.', '/minc/relatorio/relatorio-beneficiarias/', 'error');
                 }
             }
-            
-        } 
-        
+
+        }
+
         $order = array("pj.NM_FANTASIA", "mu.NM_MUNICIPIO", "uf.SG_UF", "p.DT_REGISTRO", "pj.CD_NATUREZA_JURIDICA", "pjO.NM_FANTASIA");
         $beneficiarias      = $modelBeneficiaria->buscarDados($where, $order, 100);
-        
+
         $html = '<table autosize="2.4" border="1">';
         $html .= '<thead>';
         $html .= '<tr>';
@@ -443,14 +443,14 @@ class Minc_RelatorioController extends GenericController {
         $html .= '</tr>';
         endforeach;
         $html .= '</tbody>';
-        
+
         $html .= '</table>';
-        
+
         $nomeDoc = date("ymdhis").'_projeto_li.pdf';
-        
+
         include('MPDF/mpdf.php');
 //        $mpdf= new mPDF('L');
-        
+
         $mpdf = new mPDF(
                 '',    // mode - default ''
                 '',    // format - A4, for example, default ''
@@ -467,7 +467,7 @@ class Minc_RelatorioController extends GenericController {
         $mpdf->SetDisplayMode('fullpage');
         $mpdf->allow_charset_conversion=true;
         $mpdf->charset_in='iso-8859-1';
-        
+
         $mpdf->SetFooter('{DATE j/m/Y}|{PAGENO}/{nb}|MINC / VALE CULTURA');
 
         $mpdf->WriteHTML($html);
@@ -475,16 +475,16 @@ class Minc_RelatorioController extends GenericController {
         $mpdf->Output($nomeDoc,'D');
         exit();
     }
-    
+
     public function gerarPdfCompletoFpdfAction() {
         $this->getHelper('layout')->disableLayout();
         header("Content-type: text/html; charset=iso-8859-1");
-        
+
         $modelBeneficiaria  = new Application_Model_Beneficiaria();
         $where = array();
-        
+
         if($_POST){
-            
+
             $SITUACAO   = $this->getRequest()->getParam('SITUACAO');
             $REGIAO     = $this->getRequest()->getParam('REGIAO');
             $UF         = $this->getRequest()->getParam('UF');
@@ -492,7 +492,7 @@ class Minc_RelatorioController extends GenericController {
             $OPERADORA  = $this->getRequest()->getParam('OPERADORA');
             $DTINICIO   = $this->getRequest()->getParam('DTINICIO');
             $DTFIM      = $this->getRequest()->getParam('DTFIM');
-            
+
             if ($SITUACAO > 0) {
                 $where['ID_SITUACAO = ?'] = $SITUACAO;
             }
@@ -504,7 +504,7 @@ class Minc_RelatorioController extends GenericController {
             if ($UF) {
                 $where['uf.sg_Uf = ?'] = $UF;
             }
-            
+
             if ($MUNICIPIO) {
                 $where['mu.ID_MUNICIPIO = ?'] = $MUNICIPIO;
             }
@@ -539,14 +539,14 @@ class Minc_RelatorioController extends GenericController {
                     parent::message('Data de Cadastro (Máxima) inválida.', '/minc/relatorio/relatorio-beneficiarias/', 'error');
                 }
             }
-            
-        } 
-        
+
+        }
+
         $order = array("pj.NM_FANTASIA", "mu.NM_MUNICIPIO", "uf.SG_UF", "p.DT_REGISTRO", "pj.CD_NATUREZA_JURIDICA", "pjO.NM_FANTASIA");
         $beneficiarias      = $modelBeneficiaria->buscarDados($where, $order);
-        
+
         include('FPDF/fpdf.php');
-        
+
         $pdf= new FPDF("L","pt","A4");
         $pdf->AddPage();
 
@@ -567,9 +567,9 @@ class Minc_RelatorioController extends GenericController {
 
         //linhas da tabela
         $pdf->SetFont('arial','',10);
-        
+
         foreach($beneficiarias as $b){
-            
+
             $pdf->Cell(140,20,$b->nmRazaoSocial,1,0,"L");
             $pdf->Cell(140,20,$b->nmMunicipio.'/'.$b->sgUF,1,0,"L");
             $pdf->Cell(70,20,$b->dtInscricao,1,0,"C");
@@ -579,55 +579,55 @@ class Minc_RelatorioController extends GenericController {
             $pdf->Cell(95,20,number_format($qtdFuncionarios, 0, ',', '.'),1,0,"C");
             $pdf->Cell(0,20,$b->operadora,1,1,"L");
         }
-            
+
         $pdf->Output("arquivo.pdf","D");
-        
+
         exit();
     }
-    
+
     // Buscar UF por regiao
     public function ufPorRegiaoAction() {
         $this->_helper->layout->disableLayout();
     	$this->_helper->viewRenderer->setNoRender(true);
-        
+
         $modelUF    = new Application_Model_Uf;
         $sgRegiao   = $this->getParam('sgregiao');
         $duf        = $this->getParam('uf');
-        
+
         if($sgRegiao != ''){
             $where['SG_REGIAO = ?'] = $sgRegiao;
         }
         $ufs = $modelUF->select($where);
 
     	$data = '<option value="">- SELECIONE -</option>';
-        
+
     	foreach ($ufs as $uf) {
-            
+
             if($uf['SG_UF'] == $duf){
                 $data .= '<option value="' . $uf['SG_UF'] . '" selected="selected">' . $uf['NM_UF'] . '</option>';
             }else{
                 $data .= '<option value="' . $uf['SG_UF'] . '">' . $uf['NM_UF'] . '</option>';
             }
     	}
-        
+
     	echo $data;
     }
-    
+
     // Buscar Municipio por uf
     public function municipioPorUfAction() {
         $this->_helper->layout->disableLayout();
     	$this->_helper->viewRenderer->setNoRender(true);
-        
+
         $modelMunicipio = new Application_Model_Municipio();
         $sgUF           = $this->getParam('sguf');
         $dmunicipio     = $this->getParam('municipio');
-        
+
         if($sgUF == ''){
             $data = '<option value="">- SELECIONE -</option>';
         }else{
             $where['SG_UF = ?'] = $sgUF;
             $where['TP_LOCALIDADE = ?'] = 'M';
-            
+
             $municipio = $modelMunicipio->select($where);
 
             $data = '<option value="">- SELECIONE -</option>';
@@ -641,11 +641,11 @@ class Minc_RelatorioController extends GenericController {
                 }
             }
         }
-        
+
     	echo $data;
-        
+
     }
-    
+
     public function exportarExcelAction()
     {
         $modelBeneficiaria = new Application_Model_Beneficiaria();
@@ -723,7 +723,8 @@ class Minc_RelatorioController extends GenericController {
         $html .= '<tr>';
         $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>Nome da empresa</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
         $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>Cnpj</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
-        $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>Município/UF</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
+        $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>Município</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
+        $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>UF</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
         $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>Data de cadastro</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
         $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>Status</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
         $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>Natureza Jurídica</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
@@ -734,7 +735,8 @@ class Minc_RelatorioController extends GenericController {
             $html .= '<tr>';
             $html .= '<td>' . $b->nmRazaoSocial . '</td>';
             $html .= '<td>' . $this->view->mascara($b->nrCnpj, 'cnpj') . '</td>';
-            $html .= '<td>' . $b->nmMunicipio . '/' . $b->sgUF . '</td>';
+            $html .= '<td>' . $b->nmMunicipio . '</td>';
+            $html .= '<td>' . $b->sgUF . '</td>';
             $html .= '<td>' . $b->dtInscricao . '</td>';
             $html .= '<td>' . $this->view->verificarSituacao($b->situacao, 'st', 'B') . '</td>';
             $html .= '<td>' . $b->dsNaturezaJuridica . '</td>';

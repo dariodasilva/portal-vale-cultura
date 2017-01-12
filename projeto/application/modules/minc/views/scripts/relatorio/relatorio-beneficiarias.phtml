@@ -5,26 +5,26 @@ $action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
 ?>
 <script>
     $(document).ready(function() {
-        
+
         $(".data").mask("99/99/9999");
         $(".cnpj").mask("99.999.999/9999-99");
-        
+
         $("#listaBeneficiarias").tablesorter({headers: {5: {sorter:"currency"}}});
-        
+
         $('#btn_enviar').click(function() {
             $('#txtenviar').val('');
             $('#form').attr('action','<?php echo $this->url(array('module' => 'minc', 'controller' => 'relatorio', 'action' => $action), '', true); ?>');
             $('#form').attr('target','');
             $('#form').submit();
         });
-        
+
         $('.html').click(function() {
             $('#txtenviar').val('');
             $('#form').attr('action','<?php echo $this->url(array('module' => 'minc', 'controller' => 'relatorio', 'action' => 'relatorio-html'), '', true); ?>');
             $('#form').attr('target','_blank');
             $('#form').submit();
         });
-        
+
         $('.imprimir').click(function() {
             $('#imgLogo').show();
             $('#CorpoHTML').html($('#corpoImprime').html());
@@ -44,7 +44,7 @@ $action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
             $('#form').attr('target','');
             $('#form').submit();
         });
-        
+
          // Função para carregar as ufs
         $("#regiao").change(function(){
 
@@ -61,7 +61,7 @@ $action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
                         alert('Erro ao carregar as UFs');
                     }
             });
-            
+
         });
 
         // Função para carregar os municipios
@@ -70,7 +70,7 @@ $action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
             var id = $(this).val();
             var url = '../relatorio/municipio-por-uf/sguf/'+id;
             $('#municipio').attr('disabled', true);
-            
+
             $.ajax({
                     url: url,
                     success: function(data) {
@@ -82,7 +82,7 @@ $action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
                         $('#municipio').attr('disabled', true);
                     }
             });
-            
+
         });
 
         var regiao      = '<?php echo $this->regiao; ?>';
@@ -90,7 +90,7 @@ $action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
         var municipio   = '<?php echo $this->municipio; ?>';
 
         if(regiao != ''){
-            
+
             $.ajax({
                 url: '../relatorio/uf-por-regiao/sgregiao/'+regiao+'/uf/'+uf,
                 success: function(data) {
@@ -143,7 +143,7 @@ $action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
 
                 <input type="text" class="search span12" placeholder="O que deseja buscar?" />
 
-            </div>	
+            </div>
             <?php
             if ($this->admin) {
                 include_once 'menuAdmin.phtml';
@@ -289,21 +289,24 @@ $action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
                                             <strong><b>Nome da Empresa</b></strong>
                                         </th>
                                         <th id="titulo2" class="destacar bold centro" width="15%" bgcolor="#ccc">
-                                            <strong><b>Municipio / UF</b></strong>
+                                            <strong><b>Município</b></strong>
                                         </th>
-                                        <th id="titulo3" class="destacar bold centro" width="9%" bgcolor="#ccc">
+                                        <th id="titulo3" class="destacar bold centro" width="5%" bgcolor="#ccc">
+                                            <strong><b>UF</b></strong>
+                                        </th>
+                                        <th id="titulo4" class="destacar bold centro" width="9%" bgcolor="#ccc">
                                             <strong><b>Data de Cadastro</b></strong>
                                         </th>
-                                        <th id="titulo4"  class="destacar bold centro" width="13%" bgcolor="#ccc">
+                                        <th id="titulo5"  class="destacar bold centro" width="13%" bgcolor="#ccc">
                                             <strong><b>Status</b></strong>
                                         </th>
-                                        <th id="titulo5"  class="destacar bold centro" width="25%" bgcolor="#ccc">
+                                        <th id="titulo6"  class="destacar bold centro" width="25%" bgcolor="#ccc">
                                             <strong><b>Natureza Juridica</b></strong>
                                         </th>
-                                        <th id="titulo6"  class="destacar bold centro" width="5%" bgcolor="#ccc">
+                                        <th id="titulo7"  class="destacar bold centro" width="5%" bgcolor="#ccc">
                                             <strong><b>Qtd. Func.</b></strong>
                                         </th>
-                                        <th id="titulo6"  class="destacar bold centro" width="10%" bgcolor="#ccc">
+                                        <th id="titulo8"  class="destacar bold centro" width="10%" bgcolor="#ccc">
                                             <strong><b>Operadora</b></strong>
                                         </th>
                                     </tr>
@@ -316,7 +319,10 @@ $action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
                                                 <?php echo $b->nmRazaoSocial; ?>
                                             </td>
                                             <td style="border-bottom: 1px solid #eee">
-                                                <?php echo ucfirst(strtolower_iso8859_1($b->nmMunicipio)) ?> / <?php echo $b->sgUF ?>
+                                                <?php echo ucfirst(strtolower_iso8859_1($b->nmMunicipio)) ?>
+                                            </td>
+                                            <td style="border-bottom: 1px solid #eee">
+                                                <?php echo $b->sgUF ?>
                                             </td>
                                             <td style="border-bottom: 1px solid #eee">
                                                 <?php echo $b->dtInscricao ?>
@@ -353,7 +359,7 @@ $action = Zend_Controller_Front::getInstance()->getRequest()->getActionName();
                                 </center>
                                 </td>
                                 </tr>
-                                </tbody>  
+                                </tbody>
 
                             </table>
                         </div>
