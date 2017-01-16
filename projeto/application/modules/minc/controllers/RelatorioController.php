@@ -166,6 +166,128 @@ class Minc_RelatorioController extends GenericController {
         }
     }
 
+    public function relatorioOperadorasAction() {
+        // Listar todas as operadoras
+        $modelOperadora     = new Application_Model_Operadora();
+        $modelSituacoes     = new Application_Model_TipoSituacao();
+        $modelUf            = new Application_Model_Uf();
+        $modelRegiao        = new Application_Model_Regiao();
+        $modelSituacao      = new Application_Model_Situacao();
+        $pagina             = intval($this->_getParam('pagina'));
+
+        $where = array();
+
+        if ($_POST) {
+
+            $CNPJ       = $this->getRequest()->getParam('CNPJ');
+            $NOME       = $this->getRequest()->getParam('NOME');
+            $SITUACAO   = $this->getRequest()->getParam('SITUACAO');
+            $REGIAO     = $this->getRequest()->getParam('REGIAO');
+            $UF         = $this->getRequest()->getParam('UF');
+            $MUNICIPIO  = $this->getRequest()->getParam('MUNICIPIO');
+            $DTINICIO   = $this->getRequest()->getParam('DTINICIO');
+            $DTFIM      = $this->getRequest()->getParam('DTFIM');
+
+            if ($CNPJ) {
+                $where['pj.NR_CNPJ = ?'] = str_replace('/', '', str_replace('-', '', str_replace('.', '', $CNPJ)));
+            }
+
+            if ($NOME) {
+                $where['pj.nmFantasia like ?'] = '%' . $NOME . '%';
+            }
+
+            if ($SITUACAO > 0) {
+                $where['ID_SITUACAO = ?'] = $SITUACAO;
+            }
+
+            if ($REGIAO) {
+                $where['reg.SG_REGIAO = ?'] = $REGIAO;
+            }
+
+            if ($UF) {
+                $where['uf.sg_Uf = ?'] = $UF;
+            }
+
+            if ($MUNICIPIO) {
+                $where['mu.ID_MUNICIPIO = ?'] = $MUNICIPIO;
+            }
+
+            if (strlen($DTINICIO) == 10) {
+                $DTINICIO = explode('/', $DTINICIO);
+                if (checkdate($DTINICIO[1], $DTINICIO[0], $DTINICIO[2])) {
+                    $where['dt_Inscricao >= ?'] = $DTINICIO[2] . '-' . $DTINICIO[1] . '-' . $DTINICIO[0];
+                }
+            }
+
+            if (strlen($DTFIM) == 10) {
+                $DTFIM = explode('/', $DTFIM);
+                if (checkdate($DTFIM[1], $DTFIM[0], $DTFIM[2])) {
+                    $DTFIMQuery = explode('/', date('d/m/Y', strtotime("+1 days", strtotime($DTFIM[0] . '-' . $DTFIM[1] . '-' . $DTFIM[2]))));
+                    $where['dt_Inscricao < ?'] = $DTFIMQuery[2] . '-' . $DTFIMQuery[1] . '-' . $DTFIMQuery[0];
+                }
+            }
+
+            $this->view->assign('cnpj', $CNPJ);
+            $this->view->assign('nome', $NOME);
+            $this->view->assign('situacao', $SITUACAO);
+            $this->view->assign('regiao', $REGIAO);
+            $this->view->assign('uf', $UF);
+            $this->view->assign('municipio', $MUNICIPIO);
+            if (isset($DTINICIO) && is_array($DTINICIO)) {
+                $this->view->assign('dtInicio', $DTINICIO[0] . '/' . $DTINICIO[1] . '/' . $DTINICIO[2]);
+            }
+            if (isset($DTFIM) && is_array($DTFIM)) {
+                $this->view->assign('dtFim', $DTFIM[0] . '/' . $DTFIM[1] . '/' . $DTFIM[2]);
+            }
+
+            if (is_array($DTINICIO)) {
+                if (!checkdate($DTINICIO[1], $DTINICIO[0], $DTINICIO[2])) {
+                    parent::message('Data de Cadastro (Mínima) inválida.', '/minc/relatorio/relatorio-beneficiarias/', 'error');
+                }
+            }
+
+            if (is_array($DTFIM)) {
+                if (!checkdate($DTFIM[1], $DTFIM[0], $DTFIM[2])) {
+                    parent::message('Data de Cadastro (Máxima) inválida.', '/minc/relatorio/relatorio-beneficiarias/', 'error');
+                }
+            }
+
+        } else {
+            $this->view->assign('cnpj', '');
+            $this->view->assign('nome', '');
+            $this->view->assign('situacao', '');
+            $this->view->assign('regiao', '');
+            $this->view->assign('uf', '');
+            $this->view->assign('municipio', '');
+            $this->view->assign('dtInicio', '');
+            $this->view->assign('dtFim', '');
+        }
+
+        $operadoras         = $modelOperadora->buscarDados($where);
+        $situacoes          = $modelSituacoes->select();
+        $ufs                = $modelUf->select(array(), 'nm_Uf asc');
+        $regioes            = $modelRegiao->select();
+
+        // Paginação
+        $paginator = Zend_Paginator::factory($operadoras);
+        // Seta a quantidade de registros por página
+        $paginator->setItemCountPerPage(200);
+        // numero de paginas que serão exibidas
+        $paginator->setPageRange(7);
+        // Seta a página atual
+        $paginator->setCurrentPageNumber($pagina);
+        // Passa o paginator para a view
+        $this->view->operadoras = $paginator;
+
+        $this->view->assign('situacoes', $situacoes);
+        $this->view->assign('ufs', $ufs);
+        $this->view->assign('regioes', $regioes);
+        $this->view->assign('qtdOperadoras', count($operadoras));
+        if($pagina){
+            $this->view->assign('pagina', $pagina);
+        }
+    }
+
     public function relatorioHtmlAction() {
         $this->getHelper('layout')->disableLayout();
 
@@ -826,6 +948,53 @@ class Minc_RelatorioController extends GenericController {
 
             echo $relatorio->detalhamentoDeBeneficiariasExportarExel(
                     $cnpj, $situacao, $regiao, $uf, $municipio, $operadora, $dataInicilFormatada, $dataFimFormatada
+            );
+            return;
+        }
+    }
+
+    public function detalhamentoDeOperadorasAction()
+    {
+        $this->relatorioOperadorasAction();
+        $this->view->detalhamentoDeOperadorasExcelUrl = $this->view->url(
+                array('module' => 'minc', 'controller' => 'relatorio', 'action' => 'detalhamento-de-operadoras-exportar-excel'),
+                null,
+                true
+                );
+    }
+
+    public function detalhamentoDeOperadorasExportarExcelAction()
+    {
+        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_helper->layout->disableLayout();
+        if ($this->getRequest()->isPost()) {
+            $cnpj = $this->getRequest()->getParam('CNPJ');
+            $situacao = $this->getRequest()->getParam('SITUACAO');
+            $regiao = $this->getRequest()->getParam('REGIAO');
+            $uf = $this->getRequest()->getParam('UF');
+            $municipio = $this->getRequest()->getParam('MUNICIPIO');
+            $dataInicil = $this->getRequest()->getParam('DTINICIO');
+            $dataFim = $this->getRequest()->getParam('DTFIM');
+            $relatorio = new Minc_Model_Relatorio();
+
+            try {
+                $dataMensagem = 'Mínima';
+                $dataInicilFormatada = $relatorio->formatarData($dataInicil);
+                $dataMensagem = 'Máxima';
+                $dataFimFormatada = $relatorio->formatarData($dataFim, true);
+            } catch (InvalidArgumentException $ex) {
+                parent::message(
+                        "Data de Cadastro ({$dataMensagem}) inválida.",
+                        "/{$this->getRequest()->getModuleName()}/{$this->getRequest()->getControllerName()}/detalhamentoDeOperadoras/",
+                        'error'
+                        );
+            }
+
+            // Configura o header da requisição e o nome do arquivo que será feito download
+            $relatorio->configuraHeader('detalhamento_de_operadoras.xls');
+
+            echo $relatorio->detalhamentoDeOperadorasExportarExcel(
+                    $cnpj, $situacao, $regiao, $uf, $municipio, $dataInicilFormatada, $dataFimFormatada
             );
             return;
         }
