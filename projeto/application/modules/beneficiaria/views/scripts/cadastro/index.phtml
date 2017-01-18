@@ -593,6 +593,14 @@
             }
         });
 
+        $("#AUTORIZO_MINC").change(function(){
+            if(!$(this).is(':checked')){
+                var c = confirm('Tem certeza que não quer ter o nome da sua empresa no rol de beneficiárias que concedem o Vale-Cultura aos seus trabalhadores?');
+                if(c == false){
+                    $(this).prop('checked', true);
+                }
+            }
+        });
 
     });
 
