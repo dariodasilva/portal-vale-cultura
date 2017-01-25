@@ -279,4 +279,140 @@ class Minc_Model_Relatorio
         return $html;
     }
 
+    /**
+     * Monta e retorna o html do relatório de detalhamento de operadoras
+     * @return string
+     */
+    public function detalhamentoDeOperadorasExportarExcel(
+        $cnpj, $situacao, $regiao, $uf, $municipio, $dataInicio, $dataFim
+    )
+    {
+        set_time_limit(0);
+
+        $modelOperadora = new Application_Model_Operadora();
+        $modelPessoaVinculada = new Application_Model_PessoaVinculada();
+        $modelEmail = new Application_Model_Email();
+        $modelTelefone = new Application_Model_Telefone();
+
+        $where = array(
+            'ID_SITUACAO = ?' => $situacao,
+            'reg.SG_REGIAO = ?' => $regiao,
+            'uf.sg_Uf = ?' => $uf,
+            'mu.ID_MUNICIPIO = ?' => $municipio,
+            'dt_Inscricao >= ?' => $dataInicio,
+            'dt_Inscricao < ?' => $dataFim,
+        );
+        if (!empty($cnpj)) {
+            $where['pj.NR_CNPJ = ?'] = str_replace('/', '', str_replace('-', '', str_replace('.', '', $cnpj)));
+        }
+        $whereFiltrado = array_filter($where);
+        //$order = array("pj.NM_FANTASIA", "mu.NM_MUNICIPIO", "uf.SG_UF", "p.DT_REGISTRO", "pj.CD_NATUREZA_JURIDICA", "pjO.NM_FANTASIA");
+        $operadoras = $modelOperadora->buscarDados($whereFiltrado);
+
+        $html = '<table border="1">';
+        $html .= '<tr>';
+        $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>CNPJ</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
+        $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>Razão Social</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
+        $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>Nome Fantasia</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
+        $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>CNAE Primário</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
+        $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>CEP</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
+        $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>Região</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
+        $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>Município</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
+        $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>UF</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
+        $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>Bairro</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
+        $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>Complemento</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
+        $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>Número</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
+        $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>Natureza Jurídica</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
+        $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>Data de início da comercialização</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
+        $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>Responsáveis ativos</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
+        $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>Status</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
+        $html .= '</tr>';
+        foreach ($operadoras as $operadora) {
+            $html .= '<tr>';
+            $html .= '<td>' . addMascara($operadora->nrCnpj, 'cnpj') . '</td>';
+            $html .= '<td>' . $operadora->nmRazaoSocial . '</td>';
+            $html .= '<td>' . $operadora->nmFantasia . '</td>';
+
+            // CNAE Principal
+            $modelCNAE = new Application_Model_PessoaJuridicaCNAE();
+            $whereP = array('p.ID_PESSOA_JURIDICA = ?' => $operadora->idPessoa, 'p.ST_CNAE = ?' => 'P');
+            $cnaePrincipal = $modelCNAE->listarCnae($whereP);
+
+            $cnae = 'Não encontrada';
+            if (count($cnaePrincipal) > 0) {
+                $cnae = $cnaePrincipal[0]['dsCNAE'] == '' ? 'Não encontrada' : $cnaePrincipal[0]['dsCNAE'];
+            }
+
+            $html .= '<td>' . $cnae . '</td>'; // CNAE
+
+            $html .= '<td>' . $operadora->nrCep . '</td>';
+            $html .= '<td>' . $operadora->nmRegiao . '</td>';
+            $html .= '<td>' . $operadora->nmMunicipio . '</td>';
+            $html .= '<td>' . $operadora->sgUF . '</td>';
+            $html .= '<td>' . $operadora->nmBairro . '</td>';
+            $html .= '<td>' . $operadora->dsComplementoEndereco . '</td>';
+            $html .= '<td>' . $operadora->nrComplemento . '</td>';
+            $html .= '<td>' . $operadora->dsNaturezaJuridica . '</td>';
+            $html .= '<td>' . $operadora->dtInicioComercializacao . '</td>';
+
+            // Dados do responsável da operadora
+            $where = array(
+                'pv.ID_TIPO_VINCULO_PESSOA = ?' => 17,
+                'pv.id_Pessoa = ?' => $operadora->idOperadora,
+                'up.id_Perfil = ?' => 3,
+                'up.st_Usuario_Perfil = ?' => 'A',
+                'pv.ST_PESSOA_VINCULADA = ?' => 'A'
+            );
+
+            $responsaveis = $modelPessoaVinculada->buscarDadosResponsavel($where);
+
+            $listaResponsaveis = '';
+            foreach ($responsaveis as $responsavel) {
+
+                $listaResponsaveis .= 'CPF: ' . addMascara($responsavel->nrCpf, 'cpf') . '<br>';
+                $listaResponsaveis .= $responsavel->nmPessoaFisica . '<br>';
+
+                // Email do responsável da operadora
+                $emails = $modelEmail->buscarEmails(array('ID_PESSOA = ?' => $responsavel->idPessoaVinculada));
+                foreach ($emails as $email) {
+                    $listaResponsaveis .= $email->dsEmail . '<br>';
+                }
+
+                // Telefones do responsável da operadora
+                $telefones = $modelTelefone->buscarTelefones(array('ID_PESSOA = ?' => $responsavel->idPessoaVinculada));
+                foreach ($telefones as $telefones) {
+                    $listaResponsaveis .= addMascara($telefones->cdDDD . $telefones->nrTelefone, 'telefone') . '<br>';
+                }
+
+                $listaResponsaveis .= '<p>- - - - - - - - - - </p>';
+            }
+
+            $html .= '<td>' . $listaResponsaveis . '</td>';
+
+            $html .= '<td>' . Zend_Layout::getMvcInstance()->getView()->verificarSituacao($operadora->situacao, 'st', 'B') . '</td>';
+            $html .= '</tr>';
+        }
+        $colspanCount = 14;
+        $html .= '<tr>';
+        $html .= '<td colspan=' . $colspanCount . '" style="background: #fff;">&nbsp;</td>';
+        $html .= '</tr>';
+
+        $html .= '<tr>';
+        $html .= '<td colspan="' . $colspanCount . '" style="background: #f3f3f3; text-align: center; height: 30px; line-height: 30px;"><br /><b>Total de ' . number_format($this->getQuantidadeFuncionarios(), 0, ',', '.') . ' Funcionários</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
+        $html .= '</tr>';
+
+        $html .= '<tr>';
+        $html .= '<td colspan="' . $colspanCount . '" style="background: #fff;">&nbsp;</td>';
+        $html .= '</tr>';
+
+        $html .= '<tr>';
+        $html .= '<td colspan="' . $colspanCount . '" style="background: #f3f3f3; text-align: center; height: 30px;"><br /><b>Total de ' . count($operadoras) . ' Empresas Beneficiárias</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
+        $html .= '</tr>';
+
+        $html .= '</table>';
+
+        // Envia o conteúdo do arquivo
+        return $html;
+    }
+
 }

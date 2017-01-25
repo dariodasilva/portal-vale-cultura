@@ -242,6 +242,12 @@
                 <td colspan="2"></td>
             </tr>
             <tr>
+                <td colspan="3" valign="top">
+                    <input type="checkbox" name="AUTORIZO_MINC" id="AUTORIZO_MINC" checked="checked"/>
+                    Autorizo o MinC a divulgar que sou empresa beneficiária cadastrada junto ao Programa de Cultura do Trabalhador.
+                </td>
+            </tr>
+            <tr>
                 <td colspan="3" valign="top" class="destacar bold">
                     <input type="radio" value="1" name="AUTORIZO_OPERADORA" checked="checked">
                     Autorizo o MinC a divulgar meus dados de contato a operadora selecionada.
@@ -263,7 +269,7 @@
             <tr>
                 <td>
                     <input type="checkbox" name="ConfimaLei" id="ConfimaLei" style="float:left" />
-                    <div style="float: left;">&nbsp; Confirmo sob pena de lei a veracidade de todas as informa&ccedil;&otilde;es prestadas neste cadastro.</div>
+                    <div>&nbsp; Confirmo sob pena de lei a veracidade de todas as informa&ccedil;&otilde;es prestadas neste cadastro.</div>
                 </td>
             </tr>
             <tr>
@@ -587,6 +593,14 @@
             }
         });
 
+        $("#AUTORIZO_MINC").change(function(){
+            if(!$(this).is(':checked')){
+                var c = confirm('Tem certeza que não quer ter o nome da sua empresa no rol de beneficiárias que concedem o Vale-Cultura aos seus trabalhadores?');
+                if(c == false){
+                    $(this).prop('checked', true);
+                }
+            }
+        });
 
     });
 

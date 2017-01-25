@@ -25,7 +25,7 @@ class Application_Model_Operadora {
 
         $selectSituacao = $this->getTable()->select();
         $selectSituacao->setIntegrityCheck(false);
-        $selectSituacao->from(array('si' => 'vale_cultura.S_Situacao'), 
+        $selectSituacao->from(array('si' => 'vale_cultura.S_Situacao'),
                                 array('si.id_Tipo_Situacao')
         );
 
@@ -36,16 +36,16 @@ class Application_Model_Operadora {
 
         $select = $this->getTable()->select();
         $select->setIntegrityCheck(false);
-        $select->from(array('o' => 'vale_cultura.S_OPERADORA'), 
+        $select->from(array('o' => 'vale_cultura.S_OPERADORA'),
                         array('idOperadora' => 'o.id_Operadora',
                               'CONVERT(VARCHAR(10),o.dt_Inscricao ,103) as dtInscricao',
                               'nrComprovanteInscricao' => 'o.nr_Comprovante_Inscricao',
                               'nrCertificado' => 'o.nr_Certificado',
-                              'dtInicioComercializacao' => 'o.dt_inicio_comercializacao',                        
+                              'CONVERT(VARCHAR(10),o.dt_inicio_comercializacao,103) as dtInicioComercializacao',
                               'situacao' =>  new Zend_Db_Expr('(' . $selectSituacao . ')'))
         );
 
-        $select->joinInner(array('p' => 'corporativo.S_PESSOA'), 'o.id_Operadora = p.id_pessoa', 
+        $select->joinInner(array('p' => 'corporativo.S_PESSOA'), 'o.id_Operadora = p.id_pessoa',
                             array('idPessoa' => 'p.id_pessoa',
                                   'dtRegistro' => 'CONVERT(VARCHAR(10),p.dt_registro ,103)')
         );
@@ -63,7 +63,7 @@ class Application_Model_Operadora {
                             array('dsNaturezaJuridica' => 'na.DS_NATUREZA_JURIDICA',
                                   'cdNaturezaJuridica' => 'na.CD_NATUREZA_JURIDICA')
         );
-        
+
         $select->joinLeft(array('en' => 'CORPORATIVO.S_ENDERECO'), 'p.ID_PESSOA = en.ID_PESSOA AND en.CD_TIPO_ENDERECO = 01 AND en.ID_SERVICO = 1',
                             array('dsComplementoEndereco' => 'en.DS_COMPLEMENTO_ENDERECO',
                                   'nrComplemento' => 'en.NR_COMPLEMENTO',
@@ -71,22 +71,22 @@ class Application_Model_Operadora {
                                   'idBairro' => 'en.ID_BAIRRO',
                                   'nmBairro' => 'en.DS_BAIRRO_ENDERECO',
                                   'dsBairroEndereco' => 'en.DS_BAIRRO_ENDERECO')
-        );        
-        
+        );
+
         $select->joinLeft(array('lo' => 'CORPORATIVO.S_LOGRADOURO'), 'en.ID_LOGRADOURO = lo.ID_LOGRADOURO',
                             array('nmLogradouro' => 'lo.NM_LOGRADOURO',
                                   'dsTipoLogradouro' => 'lo.DS_TIPO_LOGRADOURO',
                                   'nrCep' => 'lo.NR_CEP')
         );
-        
+
         $select->joinLeft(array('ba' => 'CORPORATIVO.S_BAIRRO'), 'en.ID_BAIRRO = ba.ID_BAIRRO',
                             array('ba.NM_BAIRRO')
         );
-        
+
         $select->joinLeft(array('mu' => 'CORPORATIVO.S_MUNICIPIO'), 'lo.ID_MUNICIPIO = mu.ID_MUNICIPIO',
                             array('nmMunicipio' => 'mu.NM_MUNICIPIO','idMunicipio' => 'mu.ID_MUNICIPIO')
         );
-        
+
         $select->joinLeft(array('st' => 'CORPORATIVO.S_SITE'), 'p.ID_PESSOA = ST.ID_PESSOA',
                             array('dsSite' => 'st.DS_SITE')
         );
@@ -94,7 +94,12 @@ class Application_Model_Operadora {
         $select->joinLeft(array('uf' => 'CORPORATIVO.S_UF'), 'mu.SG_UF = uf.SG_UF',
                             array('nmUF' => 'uf.NM_UF', 'sgUF' => 'uf.SG_UF')
         );
-        
+
+        $select->joinLeft(array('reg' => 'CORPORATIVO.S_REGIAO'), 'reg.SG_REGIAO = uf.SG_REGIAO',
+                            array('sgRegiao' => 'reg.SG_REGIAO',
+                                  'nmRegiao' => 'reg.NM_REGIAO')
+        );
+
         $select->joinLeft(array('pais' => 'CORPORATIVO.S_PAIS'), 'mu.SG_PAIS = pais.SG_PAIS',
                             array('nmPais' => 'pais.NM_PAIS')
         );
@@ -121,7 +126,7 @@ class Application_Model_Operadora {
 
         $selectSituacao = $this->getTable()->select();
         $selectSituacao->setIntegrityCheck(false);
-        $selectSituacao->from(array('si' => 'vale_cultura.S_Situacao'), 
+        $selectSituacao->from(array('si' => 'vale_cultura.S_Situacao'),
                                 array('si.id_Tipo_Situacao')
         );
 
@@ -133,7 +138,7 @@ class Application_Model_Operadora {
         $select = $this->getTable()->select();
         $select->setIntegrityCheck(false);
         $select->from(array('pv' => 'CORPORATIVO.S_PESSOA_VINCULADA'));
-        
+
         $select->joinInner(array('o' => 'VALE_CULTURA.S_OPERADORA'),'o.ID_OPERADORA = pv.ID_PESSOA',
                         array('idOperadora' => 'o.id_Operadora',
                               'CONVERT(VARCHAR(10),o.dt_Inscricao ,103) as dtInscricao',
@@ -142,7 +147,7 @@ class Application_Model_Operadora {
                               'situacao' =>  new Zend_Db_Expr('(' . $selectSituacao . ')'))
         );
 
-        $select->joinInner(array('p' => 'corporativo.S_PESSOA'), 'o.id_Operadora = p.id_pessoa', 
+        $select->joinInner(array('p' => 'corporativo.S_PESSOA'), 'o.id_Operadora = p.id_pessoa',
                             array('idPessoa' => 'p.id_pessoa',
                                   'dtRegistro' => 'CONVERT(VARCHAR(10),p.dt_registro ,103)')
         );
@@ -160,33 +165,33 @@ class Application_Model_Operadora {
                             array('dsNaturezaJuridica' => 'na.DS_NATUREZA_JURIDICA',
                                   'cdNaturezaJuridica' => 'na.CD_NATUREZA_JURIDICA')
         );
-        
+
         $select->joinLeft(array('en' => 'CORPORATIVO.S_ENDERECO'), 'p.ID_PESSOA = en.ID_PESSOA AND en.CD_TIPO_ENDERECO = 01 AND en.ID_SERVICO = 1',
                             array('dsComplementoEndereco' => 'en.DS_COMPLEMENTO_ENDERECO',
                                   'nrComplemento' => 'en.NR_COMPLEMENTO',
                                   'dsLograEndereco' => 'en.DS_LOGRA_ENDERECO',
                                   'nmBairro' => 'en.DS_BAIRRO_ENDERECO',
                                   'dsBairroEndereco' => 'en.DS_BAIRRO_ENDERECO')
-        );        
-        
+        );
+
         $select->joinLeft(array('lo' => 'CORPORATIVO.S_LOGRADOURO'), 'en.ID_LOGRADOURO = lo.ID_LOGRADOURO',
                             array('nmLogradouro' => 'lo.NM_LOGRADOURO',
                                   'dsTipoLogradouro' => 'lo.DS_TIPO_LOGRADOURO',
                                   'nrCep' => 'lo.NR_CEP')
         );
-        
+
         $select->joinLeft(array('ba' => 'CORPORATIVO.S_BAIRRO'), 'en.ID_BAIRRO = ba.ID_BAIRRO',
                             array('ba.NM_BAIRRO')
         );
-        
+
         $select->joinLeft(array('mu' => 'CORPORATIVO.S_MUNICIPIO'), 'lo.ID_MUNICIPIO = mu.ID_MUNICIPIO',
                             array('nmMunicipio' => 'mu.NM_MUNICIPIO','idMunicipio' => 'mu.ID_MUNICIPIO')
         );
-        
+
         $select->joinLeft(array('uf' => 'CORPORATIVO.S_UF'), 'mu.SG_UF = uf.SG_UF',
                             array('nmUF' => 'uf.NM_UF', 'sgUF' => 'uf.SG_UF')
         );
-        
+
         $select->joinLeft(array('pais' => 'CORPORATIVO.S_PAIS'), 'mu.SG_PAIS = pais.SG_PAIS',
                             array('nmPais' => 'pais.NM_PAIS')
         );
@@ -218,7 +223,7 @@ class Application_Model_Operadora {
         return $this->getTable()->fetchAll($select);
     }
 
-    
+
     public function find($id) {
         return $this->getTable()->find($id)->current();
     }
