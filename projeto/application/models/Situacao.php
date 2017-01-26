@@ -81,7 +81,7 @@ class Application_Model_Situacao {
     }
 
 
-        public function selecionaOperadorasAtivasInativas() {
+    public function selecionaOperadorasAtivasInativas() {
 
         $selectSituacao = $this->
                         getTable()->

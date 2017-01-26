@@ -199,11 +199,12 @@ class Minc_IndexController extends GenericController {
 
         $this->getHelper('layout')->disableLayout();
 
-        $modelSituacao = new Application_Model_Situacao();
         $modelTelefone = new Application_Model_Telefone();
+        $modelOperadora = new Application_Model_Operadora();
+
+        $operadorasAtivas = $modelOperadora->buscarOperadorasAtuando();
 
         $listaOperadoras  = array();
-        $operadorasAtivas = $modelSituacao->selecionaOperadorasAtivas();
         $i = 0;
         foreach($operadorasAtivas as $op){
 
@@ -211,7 +212,6 @@ class Minc_IndexController extends GenericController {
             $listaOperadoras[$i]['nrCNPJ']       = addMascara($op['nrCNPJ']);
             $listaOperadoras[$i]['nmFantasia']   = $op['nmFantasia'];
             $listaOperadoras[$i]['nmRazaoSocial'] = $op['nmRazaoSocial'];
-            $listaOperadoras[$i]['idSituacaoXX'] = $op['idSituacaoXX'];
             $listaOperadoras[$i]['dsSite']       = $op['dsSite'];
 
             $listaTelefones = array();

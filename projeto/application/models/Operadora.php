@@ -88,7 +88,7 @@ class Application_Model_Operadora {
         );
 
         $select->joinLeft(array('st' => 'CORPORATIVO.S_SITE'), 'p.ID_PESSOA = ST.ID_PESSOA',
-                            array('dsSite' => 'st.DS_SITE')
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      array('dsSite' => 'st.DS_SITE')
         );
 
         $select->joinLeft(array('uf' => 'CORPORATIVO.S_UF'), 'mu.SG_UF = uf.SG_UF',
@@ -219,6 +219,31 @@ class Application_Model_Operadora {
         $select->limit($limit);
 
 //       xd($select->assemble());
+
+        return $this->getTable()->fetchAll($select);
+    }
+
+        public function buscarOperadorasAtuando() {
+        $select = $this->getTable()->select();
+        $select->setIntegrityCheck(false);
+
+        $select->distinct();
+
+        $select->from(array('c' => 'VALE_CULTURA.S_CARGA_CARTAO_TRABALHADOR'),
+                            array('idOperadora' => 'c.ID_OPERADORA'));
+
+        $select->joinInner(array('o' => 'VALE_CULTURA.S_OPERADORA'), 'c.ID_OPERADORA = o.ID_OPERADORA',
+                            array('o.ID_OPERADORA'));
+
+        $select->joinInner(array('pj' => 'CORPORATIVO.S_PESSOA_JURIDICA'), 'c.ID_OPERADORA = pj.ID_PESSOA_JURIDICA',
+                            array('nrCNPJ' => 'pj.NR_CNPJ',
+                                    'nmFantasia' => 'pj.NM_FANTASIA',
+                                    'nmRazaoSocial' => 'pj.NM_RAZAO_SOCIAL'));
+
+        $select->joinLeft(array('st' => 'CORPORATIVO.S_SITE'), 'c.ID_OPERADORA = st.ID_PESSOA',
+                            array('dsSite' => 'st.DS_SITE'));
+
+        $select->order('pj.NM_FANTASIA');
 
         return $this->getTable()->fetchAll($select);
     }
