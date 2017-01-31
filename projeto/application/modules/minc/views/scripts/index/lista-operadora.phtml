@@ -1,3 +1,20 @@
+<style>
+    .operando {
+        background-color: #6E6E6E;
+        width: 20px;
+        height: 20px;
+        float: left;
+        margin-right: 5px;
+    }
+    .nao-operando {
+        background-color: #fff;
+        border: solid 1px black;
+        width: 18px;
+        height: 18px;
+        float: left;
+        margin-right: 5px;
+    }
+</style>
 <table width="95%" border="0" align="center" cellpadding="8" cellspacing="0" class="footer-headline">
     <tr>
         <td align="center">Lista de Operadoras<br><font style="font-size: 8pt">Total: <?php echo count($this->operadoras) ?></td>
@@ -12,13 +29,16 @@
         <tr style="background-color: #eee;">
             <th width="500" align="left" style="padding: 3px">Nome</th>
             <th align="left" width="10" style="padding: 3px">SAC</th>
-            <th align="left" style="padding: 3px">Operando</th>
         </tr>
     </thead>
     <tbody>
         <?php if (count($this->operadoras) > 0) { ?>
             <?php foreach ($this->operadoras as $idOperadora => $operadora) { ?>
-                <tr style="border-bottom: 1px #ccc solid;">
+                <?php if ($operadora['situacao'] == 'operando') : ?>
+                    <tr style="border-bottom: 1px #ccc solid;">
+                <?php else : ?>
+                    <tr style="border-bottom: 1px #ccc solid; background: none repeat scroll 0 0 rgba(0, 0, 0, 0.5); color: #ffffff">
+                <?php endif; ?>
                     <?php $urlSite = isset($operadora['dsSite'])  && $operadora['dsSite']  ?  $operadora['dsSite'] : ''; ?>
                     <?php if ($urlSite != '') : ?>
                         <td><a href="<?php echo 'http://' . $urlSite; ?>/valecultura" target="_blank" style="color:#843927"><?php echo ($operadora['nmFantasia'] === ' ') ?  $operadora['nmRazaoSocial'] : $operadora['nmFantasia']; ?></a></td>
@@ -32,13 +52,6 @@
                             <?php echo $tel['dsTelefone'] != '' ? $tel['dsTelefone'].'<br />' : '<br />'; ?>
                         <?php endforeach; ?>
                     </td>
-                    <td>
-                        <?php if ($operadora['situacao'] == 'operando') : ?>
-                            Sim
-                        <?php else : ?>
-                            Não
-                        <?php endif; ?>
-                    </td>
                 </tr>
 
             <?php } ?>
@@ -49,6 +62,13 @@
     <?php } ?>
     </tbody>
 </table>
+<br />
+<div>
+    <p><div class="operando"></div>Operadoras que já emitiram cartão do Vale-Cultura</p>
+</div>
+<div>
+    <p><div class="nao-operando"></div>Operadoras que ainda não emitiram cartão do Vale-Cultura</p>
+</div>
 
 
 
