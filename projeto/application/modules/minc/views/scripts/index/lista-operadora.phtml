@@ -1,42 +1,74 @@
+<style>
+    .operando {
+        background-color: #6E6E6E;
+        width: 20px;
+        height: 20px;
+        float: left;
+        margin-right: 5px;
+    }
+    .nao-operando {
+        background-color: #fff;
+        border: solid 1px black;
+        width: 18px;
+        height: 18px;
+        float: left;
+        margin-right: 5px;
+    }
+</style>
 <table width="95%" border="0" align="center" cellpadding="8" cellspacing="0" class="footer-headline">
     <tr>
-        <td align="center">Lista de Operadoras<br><font style="font-size: 8pt">Total: <?php echo count($this->operadorasAtivas) ?></td>
+        <td align="center">Lista de Operadoras<br><font style="font-size: 8pt">Total: <?php echo count($this->operadoras) ?></td>
     </tr>
     <!--tr>
         <td align="center"><button class="btn btn-large btn btn-inverse " type="submit" name="submit" value="Submit">IMPRIMIR LISTA</button>&nbsp;&nbsp;</td>    
     </tr-->
 </table>
 <br>
-<table width="95%" border="0" cellpadding="0" cellspacing="0" align="center">
-    <tr style="background-color: #eee;">
-        <th width="500" align="left" style="padding: 3px">Nome</th>
-        <th align="left" width="207" style="padding: 3px">Telefone SAC - Serviço de Atendimento ao Cliente</th>
-    </tr>
-    <?php if (count($this->operadorasAtivas) > 0) { ?>
-        <?php foreach ($this->operadorasAtivas as $operadora) { ?>
-            <tr style="border-bottom: 1px #ccc solid;">
-				<?php $urlSite = isset($operadora['dsSite'])  && $operadora['dsSite']  ?  $operadora['dsSite'] : ''; ?>
-                <?php if ($urlSite != '') : ?>
-                <td><a href="<?php echo 'http://' . $urlSite; ?>/valecultura" target="_blank" style="color:#843927"><?php echo ($operadora['nmFantasia'] === ' ') ?  $operadora['nmRazaoSocial'] : $operadora['nmFantasia']; ?></a></td>
+<table width="95%" border="0" cellpadding="1" cellspacing="0" align="center">
+    <thead>
+        <tr style="background-color: #eee;">
+            <th width="500" align="left" style="padding: 3px">Nome</th>
+            <th align="left" width="10" style="padding: 3px">SAC</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (count($this->operadoras) > 0) { ?>
+            <?php foreach ($this->operadoras as $idOperadora => $operadora) { ?>
+                <?php if ($operadora['situacao'] == 'operando') : ?>
+                    <tr style="border-bottom: 1px #ccc solid;">
                 <?php else : ?>
-                <td><?php echo ($operadora['nmFantasia'] === ' ') ?  $operadora['nmRazaoSocial'] : $operadora['nmFantasia']; ?></td>
-                 <?php endif; ?>                                                    
-                <td>
-                    <?php foreach($operadora['telefones'] as $tel): ?>
-                    <?php echo $tel['cdDDD'] != '' ? '('.$tel['cdDDD'].')':''; ?>
-                    <?php echo $tel['nrTelefone']; ?>
-                    <?php echo $tel['dsTelefone'] != '' ? $tel['dsTelefone'].'<br />' : '<br />'; ?>
-                    <?php endforeach; ?>
-                </td>
-            </tr>
-     
-        <?php } ?>
+                    <tr style="border-bottom: 1px #ccc solid; background: none repeat scroll 0 0 rgba(0, 0, 0, 0.5); color: #ffffff">
+                <?php endif; ?>
+                    <?php $urlSite = isset($operadora['dsSite'])  && $operadora['dsSite']  ?  $operadora['dsSite'] : ''; ?>
+                    <?php if ($urlSite != '') : ?>
+                        <td><a href="<?php echo 'http://' . $urlSite; ?>/valecultura" target="_blank" style="color:#843927"><?php echo ($operadora['nmFantasia'] === ' ') ?  $operadora['nmRazaoSocial'] : $operadora['nmFantasia']; ?></a></td>
+                    <?php else : ?>
+                        <td><?php echo ($operadora['nmFantasia'] === ' ') ?  $operadora['nmRazaoSocial'] : $operadora['nmFantasia']; ?></td>
+                    <?php endif; ?>
+                    <td>
+                        <?php foreach($operadora['telefones'] as $tel): ?>
+                            <?php echo $tel['cdDDD'] != '' ? '('.$tel['cdDDD'].')':''; ?>
+                            <?php echo $tel['nrTelefone']; ?>
+                            <?php echo $tel['dsTelefone'] != '' ? $tel['dsTelefone'].'<br />' : '<br />'; ?>
+                        <?php endforeach; ?>
+                    </td>
+                </tr>
+
+            <?php } ?>
         <?php } else { ?>
-            <tr>
-                <td colspan="2">Nenhuma Operadora</td>
-            </tr>
-        <?php } ?>
+        <tr>
+            <td colspan="2">Nenhuma Operadora</td>
+        </tr>
+    <?php } ?>
+    </tbody>
 </table>
+<br />
+<div>
+    <p><div class="operando"></div>Operadoras que já emitiram cartão do Vale-Cultura</p>
+</div>
+<div>
+    <p><div class="nao-operando"></div>Operadoras que ainda não emitiram cartão do Vale-Cultura</p>
+</div>
 
 
 

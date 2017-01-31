@@ -199,43 +199,50 @@ class Minc_IndexController extends GenericController {
 
         $this->getHelper('layout')->disableLayout();
 
-        $modelSituacao = new Application_Model_Situacao();
         $modelTelefone = new Application_Model_Telefone();
+        $modelOperadora = new Application_Model_Operadora();
+        $modelSituacao = new Application_Model_Situacao();
+
+        $operadorasOperando = $modelOperadora->buscarOperadorasAtuando();
+        $operadorasAtivas = $modelSituacao->selecionaOperadorasAtivas();
+
+        $todasOperadoras = array(
+            'ativas' => $operadorasAtivas,
+            'operando'  => $operadorasOperando
+        );
+
 
         $listaOperadoras  = array();
-        $operadorasAtivas = $modelSituacao->selecionaOperadorasAtivas();
-        $i = 0;
-        foreach($operadorasAtivas as $op){
+        foreach ($todasOperadoras as $situacao => $operadoras) {
+            foreach ($operadoras as $op) {
+                $listaOperadoras[$op['idOperadora']]['situacao'] = $situacao;
+                $listaOperadoras[$op['idOperadora']]['nrCNPJ']       = addMascara($op['nrCNPJ']);
+                $listaOperadoras[$op['idOperadora']]['nmFantasia']   = $op['nmFantasia'];
+                $listaOperadoras[$op['idOperadora']]['nmRazaoSocial'] = $op['nmRazaoSocial'];
+                $listaOperadoras[$op['idOperadora']]['dsSite']       = $op['dsSite'];
 
-            $listaOperadoras[$i]['idOperadora']  = $op['idOperadora'];
-            $listaOperadoras[$i]['nrCNPJ']       = addMascara($op['nrCNPJ']);
-            $listaOperadoras[$i]['nmFantasia']   = $op['nmFantasia'];
-            $listaOperadoras[$i]['nmRazaoSocial'] = $op['nmRazaoSocial'];
-            $listaOperadoras[$i]['idSituacaoXX'] = $op['idSituacaoXX'];
-            $listaOperadoras[$i]['dsSite']       = $op['dsSite'];
+                $listaTelefones = array();
+                $t = 0;
+                $telefones = $modelTelefone->buscarTelefones(array('ID_PESSOA = ?' => $op['idOperadora'], 'tt.ID_TIPO_TELEFONE = ?' => 7));
 
-            $listaTelefones = array();
-            $t = 0;
-            $telefones = $modelTelefone->buscarTelefones(array('ID_PESSOA = ?' => $op['idOperadora'], 'tt.ID_TIPO_TELEFONE = ?' => 7));
-
-            if(count($telefones) > 0){
-                foreach($telefones as $tel){
-                    $listaTelefones[$t]['idTipoTelefone']   = $tel['idTipoTelefone'];
-                    $listaTelefones[$t]['nrTelefone']       = $tel['nrTelefone'];
-                    $listaTelefones[$t]['cdDDD']            = $tel['cdDDD'];
-                    $listaTelefones[$t]['dsTelefone']       = $tel['dsTelefone'];
-                    $listaTelefones[$t]['dsTipoTelefone']   = $tel['dsTipoTelefone'];
-                    $t++;
+                if(count($telefones) > 0){
+                    foreach($telefones as $tel){
+                        $listaTelefones[$t]['idTipoTelefone']   = $tel['idTipoTelefone'];
+                        $listaTelefones[$t]['nrTelefone']       = $tel['nrTelefone'];
+                        $listaTelefones[$t]['cdDDD']            = $tel['cdDDD'];
+                        $listaTelefones[$t]['dsTelefone']       = $tel['dsTelefone'];
+                        $listaTelefones[$t]['dsTipoTelefone']   = $tel['dsTipoTelefone'];
+                        $t++;
+                    }
                 }
+
+                $listaOperadoras[$op['idOperadora']]['telefones'] = $listaTelefones;
             }
-
-            $listaOperadoras[$i]['telefones'] = $listaTelefones;
-            $i++;
         }
-
-        $this->view->assign('operadorasAtivas', $listaOperadoras);
+        $this->view->assign('operadoras', $listaOperadoras);
 
     }
+
 
     public function listaBeneficiariaAction() {
         $where = array();
