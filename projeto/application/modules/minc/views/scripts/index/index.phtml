@@ -1,12 +1,16 @@
 <?php //echo $this->partial('/widgets/inc.phtml', $this);        ?>
 <!DOCTYPE html>
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
-<!--[if gt IE 8]> <html class="no-js" lang="pt"> <![endif]-->
+<!--[if lt IE 7]>
+<html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]>
+<html class="no-js" lang="pt"> <![endif]-->
 <head>
     <meta charset="iso-8859-1">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
     <title>Vale Cultura - Minist&eacute;rio da Cultura</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -14,17 +18,16 @@
 
 
     <!-- Le styles -->
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/bootstrap.css') ?>" />
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/bootstrap-responsive.css') ?>" />
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/font-awesome.css') ?>" />
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/bootstrap.css') ?>"/>
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/bootstrap-responsive.css') ?>"/>
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/font-awesome.css') ?>"/>
     <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/prettyPhoto.css" type="text/css') ?>"/>
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/js/circle/component.css') ?>" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/js/mosaic/hover.zoom.css') ?>" type="text/css" media="screen" />
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/style.css') ?>" />
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/colorpicker.css') ?>" />
-
-
-
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/js/circle/component.css') ?>" type="text/css"
+          media="screen"/>
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/js/mosaic/hover.zoom.css') ?>" type="text/css"
+          media="screen"/>
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/style.css') ?>"/>
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/colorpicker.css') ?>"/>
 
 
     <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
@@ -32,7 +35,7 @@
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <!-- Le fav and touch icons -->
     <link rel="shortcut icon" href="<?php echo $this->baseUrl('/ico/logo.png') ?>">
@@ -41,17 +44,16 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo $this->baseUrl('/ico/logo.png') ?>">
     <link rel="apple-touch-icon-precomposed" href="<?php echo $this->baseUrl('/ico/logo.png') ?>">
     <style type="text/css">
-    #apDiv1 {
-	 position: absolute;
-	float: left;
-	left: 525px;
-	top: 19px;
-	width: 875px;
-	height: 337px;
-	z-index: 11;
+        #apDiv1 {
+            position: absolute;
+            float: left;
+            left: 525px;
+            top: 19px;
+            width: 875px;
+            height: 337px;
+            z-index: 11;
 
-
-}
+        }
 
     </style>
 
@@ -76,385 +78,267 @@
     </script-->
     <!-- End Piwik Code -->
 
-        <!-- Placed at the end of the document so the pages load faster -->
+    <!-- Placed at the end of the document so the pages load faster -->
     <script src="<?php echo $this->baseUrl('js/jquery-1.10.1.js') ?>"></script>
 
 </head>
 
 <body>
-    <div style="width: 100%; position: absolute; z-index: 10; margin: 3px;">
-        <?php include_once ('mensagem.phtml') ?>
+<div style="width: 100%; position: absolute; z-index: 10; margin: 3px;">
+    <?php include_once('mensagem.phtml') ?>
+</div>
+
+<canvas id="c1" width="480" height="200"></canvas>
+<!-- Menu de Cores - Foi retirado -->
+<img class="yeti" alt="" src="<?php echo $this->baseUrl('img/yeti.png') ?>">
+<!--<div id="wheel"></div> -->
+<div id="section-1" class="header-section">
+    <canvas id="projector" width="1347"></canvas>
+
+</div>
+
+<div class="ribbon">
+    <!-- Ribbon Menu -->
+    <div id="header">
+        <!-- Header -->
+
+
+        <!--<h2>Posso Colocar um texto abaixo da logo</h2>-->
     </div>
+    <ul class="menu-ribbon">
 
-    <canvas id="c1" width="480" height="200"></canvas>
-    <!-- Menu de Cores - Foi retirado -->
-    <img class="yeti" alt="" src="<?php echo $this->baseUrl('img/yeti.png') ?>">
-    <!--<div id="wheel"></div> -->
-    <div id="section-1" class="header-section">
-        <canvas id="projector" width="1347"></canvas>
-
-    </div>
-
-    <div class="ribbon">
-        <!-- Ribbon Menu -->
-        <div id="header">
-            <!-- Header -->
-
-
-            <!--<h2>Posso Colocar um texto abaixo da logo</h2>-->
-        </div>
-        <ul class="menu-ribbon">
-
-            <li class="current">
-                <a href="#home" id="btnCadastroBeneficiaria" link="<?php echo $this->baseUrl('beneficiaria/cadastro') ?>" title="Empresa Empregadora" rel="modal">Cadastrar Benefici&aacute;ria</a>
-            </li>
-            <li class="current">
-                <a href="#home" link="<?php echo $this->baseUrl('operadora/cadastro') ?>" rel="modal">Cadastrar Operadora</a>
-            </li>
-            <li class="current">
-                <a href="#home" link="<?php echo $this->baseUrl('minc/index/esqueceusenha') ?>" rel="modal">Esqueceu a senha?</a>
-            </li>
-            <li class="current">
-                <a href="#home" link="<?php echo $this->baseUrl('minc/index/lista-operadora') ?>" rel="modal">Lista das Operadoras</a>
-            </li>
-            <li class="current">
-                <a href="/contato">Fale Conosco</a>
-            </li>
-            <li class="current">
-                <a target="_blank" href="#home" onclick="legislacao();">Legislação</a>
-            </li>
-            <li class="current">
-                <a target="_blank" href="#home" onclick="manual();">Manual do usuário</a>
-            </li>
-            <li class="current">
+        <li class="current">
+            <a href="#home" id="btnCadastroBeneficiaria" link="<?php echo $this->baseUrl('beneficiaria/cadastro') ?>"
+               title="Empresa Empregadora" rel="modal">Cadastrar Benefici&aacute;ria</a>
+        </li>
+        <li class="current">
+            <a href="#home" link="<?php echo $this->baseUrl('operadora/cadastro') ?>" rel="modal">Cadastrar
+                Operadora</a>
+        </li>
+        <li class="current">
+            <a href="#home" link="<?php echo $this->baseUrl('minc/index/esqueceusenha') ?>" rel="modal">Esqueceu a
+                senha?</a>
+        </li>
+        <li class="current">
+            <a href="#home" link="<?php echo $this->baseUrl('minc/index/lista-operadora') ?>" rel="modal">Lista das
+                Operadoras</a>
+        </li>
+        <li class="current">
+            <a href="/contato">Fale Conosco</a>
+        </li>
+        <li class="current">
+            <a target="_blank" href="#home" onclick="legislacao();">Legislação</a>
+        </li>
+        <li class="current">
+            <a target="_blank" href="#home" onclick="manual();">Manual do usuário</a>
+        </li>
+        <li class="current">
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            </li>
-            <li class="current">
-            <img src="<?php echo $this->baseUrl('img/logoMincPreta.png') ?>" />
-            </li>
-        </ul>
+        </li>
+        <li class="current">
+            <img src="<?php echo $this->baseUrl('img/logoMincPreta.png') ?>"/>
+        </li>
+    </ul>
 
-    </div>
-    <div class="btn-group hidden-desktop hidden-tablet" style="position:fixed;right:10px;top:30px;z-index:99999;">
-        <button data-toggle="dropdown" class="btn primary btn-inverse dropdown-toggle">
-            <i class="icon-th-list"></i>
-        </button>
-        <ul class="dropdown-menu pull-right ribbons ">
-            <li>
-                <a href="#home">P&aacute;ginal Inicial</a>
-            </li>
-            <li>
-                <a href="#home" link="<?php echo $this->baseUrl('beneficiaria/cadastro') ?>" rel="modal">Cadastrar Benefici&aacute;ria</a>
-            </li>
-            <li>
-                <a href="#home" link="<?php echo $this->baseUrl('operadora/cadastro') ?>" rel="modal">Cadastrar Operadora</a>
-            </li>
-            <li>
-                <a href="#home" link="<?php echo $this->baseUrl('minc/index/esqueceusenha') ?>" rel="modal">Esqueceu a senha?</a>
-            </li>
-            <li>
-                <a href="#home" link="<?php echo $this->baseUrl('minc/index/lista-operadora') ?>" rel="modal">Lista das Operadoras</a>
-            </li>
-            <li>
-                <a href="/contato">Fale Conosco</a>
-            </li>
-        </ul>
-    </div>
-    <div id="home">
-        <div id="city1"></div>
-        <div id="sky"></div>
-        <div id="city2"></div>
-
-
-        <div class="container-fluid wrapper">
-
-            <div class="row-fluid page-one">
-
-                <!-- <img src="<?php echo $this->baseUrl('img/logoMinc.png') ?>" /><br><br><br>-->
-                <div class="span12">
-                    <div class="about-me">
+</div>
+<div class="btn-group hidden-desktop hidden-tablet" style="position:fixed;right:10px;top:30px;z-index:99999;">
+    <button data-toggle="dropdown" class="btn primary btn-inverse dropdown-toggle">
+        <i class="icon-th-list"></i>
+    </button>
+    <ul class="dropdown-menu pull-right ribbons ">
+        <li>
+            <a href="#home">P&aacute;ginal Inicial</a>
+        </li>
+        <li>
+            <a href="#home" link="<?php echo $this->baseUrl('beneficiaria/cadastro') ?>" rel="modal">Cadastrar Benefici&aacute;ria</a>
+        </li>
+        <li>
+            <a href="#home" link="<?php echo $this->baseUrl('operadora/cadastro') ?>" rel="modal">Cadastrar
+                Operadora</a>
+        </li>
+        <li>
+            <a href="#home" link="<?php echo $this->baseUrl('minc/index/esqueceusenha') ?>" rel="modal">Esqueceu a
+                senha?</a>
+        </li>
+        <li>
+            <a href="#home" link="<?php echo $this->baseUrl('minc/index/lista-operadora') ?>" rel="modal">Lista das
+                Operadoras</a>
+        </li>
+        <li>
+            <a href="/contato">Fale Conosco</a>
+        </li>
+    </ul>
+</div>
+<div id="home">
+    <div id="city1"></div>
+    <div id="sky"></div>
+    <div id="city2"></div>
 
 
-                        <p class="social">
-                    <form  class="form-2" method="post" style="text-align:center" action="<?php echo $this->url(array('module' => 'minc', 'controller' => 'login', 'action' => 'auth'), null, true); ?>">
+    <div class="container-fluid wrapper">
 
-					<h1><span class="log-in">Acesso ao Sistema de</span><span class="sign-up">Cadastro</span></h1>
+        <div class="row-fluid page-one">
 
-					  <div class="control-group">
-                           <label for="Name" class="control-label" style="text-align:left">
-                           <input name="acessologin" class="cpf" type="text" placeholder="Digite seu CPF">
+            <!-- <img src="<?php echo $this->baseUrl('img/logoMinc.png') ?>" /><br><br><br>-->
+            <div class="span12">
+                <div class="about-me">
+
+
+                    <p class="social">
+                        <form class="form-2" method="post" style="text-align:center"
+                              action="<?php echo $this->url(array('module' => 'minc', 'controller' => 'login', 'action' => 'auth'), null, true); ?>">
+
+                            <h1><span class="log-in">Acesso ao Sistema de</span><span class="sign-up">Cadastro</span>
+                            </h1>
+
+                            <div class="control-group">
+                                <label for="Name" class="control-label" style="text-align:left">
+                                    <input name="acessologin" class="cpf" type="text" placeholder="Digite seu CPF">
+                                </label></div>
+
+                    <p>
+                    <div class="control-group">
+                        <label for="Name" class="control-label" style="text-align:left">
+                            <input name="acessopsw" type="password" placeholder="Digite sua senha">
                         </label></div>
+                    </p>
+                    <p class="clearfix">
 
-					<p>
-						<div class="control-group">
-                           <label for="Name" class="control-label" style="text-align:left">
-                        <input name="acessopsw" type="password" placeholder="Digite sua senha">
-                        </label></div>
-					</p>
-					<p class="clearfix">
-
-						<input type="submit" name="submit" value="Confirmar">
-					</p>
-				
-			
-
-
-
+                        <input type="submit" name="submit" value="Confirmar">
+                    </p>
 
 
                     </form>
-  </div>
-   <h1>Seja bem-vindo ao Vale-Cultura</h1>
-                        <div style="color:#FFF">O Vale-Cultura &eacute; um benef&iacute;cio destinado prioritariamente aos  trabalhadores que recebem at&eacute; cinco sal&aacute;rios m&iacute;nimos. <br> O objetivo &eacute; possibilitar  meios de acesso a bens e servi&ccedil;os culturais. <br>Caso tenha d&uacute;vidas <a href="http://www.cultura.gov.br/valecultura" target="_blank">clique aqui!</a>
-                    </div>
-
-                            </p>
-
-                    </div>
-
-
-
-
+                </div>
+                <h1>Seja bem-vindo ao Vale-Cultura</h1>
+                <div style="color:#FFF">O Vale-Cultura &eacute; um benef&iacute;cio destinado prioritariamente aos
+                    trabalhadores que recebem at&eacute; cinco sal&aacute;rios m&iacute;nimos. <br> O objetivo &eacute;
+                    possibilitar meios de acesso a bens e servi&ccedil;os culturais. <br>Caso tenha d&uacute;vidas <a
+                        href="http://www.cultura.gov.br/valecultura" target="_blank">clique aqui!</a>
                 </div>
 
+                </p>
+
             </div>
+
+
         </div>
+
     </div>
-    <script src="<?php echo $this->baseUrl('js/bootstrap.js') ?>"></script>
-    <!-- One page navigation -->
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/waypoints.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/jquery.scrollTo.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/jquery.nav.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/sticky-menu-custom.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/stellar.js') ?>"></script>
-    <!-- Photo id circular slider -->
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/circle/modernizr.custom.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/circle/jquery.flipshow.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/woomark/jquery.wookmark.js') ?>"></script>
-    <!-- Portfolio iamge gallery -->
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/filter/jquery.prettyPhoto.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/filter/jquery.easing.1.3.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/filter/script.js') ?>"></script>
+</div>
+</div>
+<script src="<?php echo $this->baseUrl('js/bootstrap.js') ?>"></script>
+<!-- One page navigation -->
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/waypoints.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/jquery.scrollTo.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/jquery.nav.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/sticky-menu-custom.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/stellar.js') ?>"></script>
+<!-- Photo id circular slider -->
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/circle/modernizr.custom.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/circle/jquery.flipshow.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/woomark/jquery.wookmark.js') ?>"></script>
+<!-- Portfolio iamge gallery -->
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/filter/jquery.prettyPhoto.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/filter/jquery.easing.1.3.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/filter/script.js') ?>"></script>
 
-    <!-- G map Address -->
-    <!--script type="text/javascript" src="<?php // echo $this->baseUrl('js/maps.api.js') ?>"></script-->
-    <!--script type="text/javascript" src="<?php // echo $this->baseUrl('js/gmap.js') ?>"></script-->
-    <!-- Color Picker for unlimited theme color -->
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/colorpicker.js') ?>"></script>
-    <!-- Snow Ball effect -->
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/particle.js') ?>"></script>
-    <!-- Animation -->
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/animation/iioEngine.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/animation/scooter.js') ?>"></script>
+<!-- G map Address -->
+<!--script type="text/javascript" src="<?php // echo $this->baseUrl('js/maps.api.js') ?>"></script-->
+<!--script type="text/javascript" src="<?php // echo $this->baseUrl('js/gmap.js') ?>"></script-->
+<!-- Color Picker for unlimited theme color -->
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/colorpicker.js') ?>"></script>
+<!-- Snow Ball effect -->
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/particle.js') ?>"></script>
+<!-- Animation -->
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/animation/iioEngine.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/animation/scooter.js') ?>"></script>
 
-    <!-- MASCARA -->
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/jquery.maskedinput-1.3.min.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/jquery.validate.js') ?>"></script>
+<!-- MASCARA -->
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/jquery.maskedinput-1.3.min.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/jquery.validate.js') ?>"></script>
 
-    <!-- Script Jquery modal - Janelas -->
+<!-- Script Jquery modal - Janelas -->
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
-        function legislacao(){
-            window.open("http://www.cultura.gov.br/documents/10883/663683/Legisla%C3%A7%C3%A3o+Vale-Cultura/2b0aabdf-1dd9-4980-be33-1d24d6b424ef", "_blank");
-        }
+    function legislacao() {
+        window.open("http://www.cultura.gov.br/documents/10883/663683/Legisla%C3%A7%C3%A3o+Vale-Cultura/2b0aabdf-1dd9-4980-be33-1d24d6b424ef", "_blank");
+    }
 
-        function manual(){
-            window.open("<?php echo $this->baseUrl('downloads/Manual_Vale_Cultura_v6.0.pdf');?>", "_blank");
-        }
+    function manual() {
+        window.open("<?php echo $this->baseUrl('downloads/Manual_Vale_Cultura_v6.0.pdf');?>", "_blank");
+    }
 
-        function abrirCadastroBeneficiaria(){
+    function abrirCadastroBeneficiaria() {
 
-            fechaModal();
+        fechaModal();
 
-            $('#btnCadastroBeneficiaria').click();
-        }
+        $('#btnCadastroBeneficiaria').click();
+    }
 
-        $(document).ready(function() {
-
-
-            $('#enviaMail').click(function() {
-                var nome = $('#Nome').val();
-                var assunto = $('#Assunto').val();
-                var mensagem = $('#Mensagem').val();
-                var email = $('#Email').val();
-
-                if (nome.length < 4) {
-                    $("#campoRetorno").html('<b style="color: #f00">Preencha o campo nome</b>');
-                    $('#Nome').focus();
-                    return false;
-                }
-
-                if (email.length < 4) {
-                    $("#campoRetorno").html('<b style="color: #f00">Preencha o e-mail</b>');
-                    $('#Email').focus();
-                    return false;
-                }
-
-                if (assunto.length < 4) {
-                    $("#campoRetorno").html('<b style="color: #f00">Preencha o campo assunto</b>');
-                    $('#Assunto').focus();
-                    return false;
-                }
-
-                if (mensagem.length < 4) {
-                    $("#campoRetorno").html('<b style="color: #f00">Preencha o campo mensagem</b>');
-                    $('#Mensagem').focus();
-                    return false;
-                }
-
-                //Enviando o E-mail
-                $("#campoRetorno").html("Enviando");
-                $.ajax({
-                    type: "POST",
-                    url: '<?php echo $this->url(array('module' => 'minc', 'controller' => 'index', 'action' => 'email-contato')); ?>',
-                    data: {nome: nome, email: email, assunto: assunto, mensagem: mensagem},
-                    dataType: 'json',
-                    success: function(data) {
-                        $("#campoRetorno").html(data['mensagem']);
-                        $('#Nome').val('');
-                        $('#Assunto').val('');
-                        $('#Mensagem').val('');
-                        $('#Email').val('');
-                    }
-                });
-
-            });
-
-            $("a[rel=modal]").click(function(ev) {
-                ev.preventDefault();
-
-                //alterado
-                var id = '.window';
-
-                var alturaTela = $(document).height();
-                var larguraTela = $(window).width();
+    $(document).ready(function () {
 
 
+        $('#enviaMail').click(function () {
+            var nome = $('#Nome').val();
+            var assunto = $('#Assunto').val();
+            var mensagem = $('#Mensagem').val();
+            var email = $('#Email').val();
 
-                //colocando o fundo preto
-                $('#mascara').css({'width': larguraTela, 'height': alturaTela});
-                $('#mascara').fadeIn(1000);
-                $('#mascara').fadeTo("slow", 0.8);
-
-                var left = ($(window).width() / 2) - ($(id).width() / 2);
-                var top = ($(window).height() / 2) - ($(id).height() / 2);
-
-                if (top < 0) {
-                    top = 10;
-                }
-
-                $(id).css({'top': top, 'left': left});
-
-                //inserido
-                href = $(this).attr("link");
-
-                $('#janelaLoad').html('<br /><br /><br /><div style="text-align:center;">Aguarde, carregando...</div>');
-                $('#janelaLoad').load(href);
-                $('#janelaLoad').css('height', $(id).height() - 32);
-                $(id).show();
-            });
-
-            $("#mascara").click(function() {
-                //$(this).hide();
-                //$(".window").hide();
-            });
-
-            $('.fechar').click(function(ev) {
-                ev.preventDefault();
-                $("#mascara").hide();
-                $(".window").hide();
-            });
-        });
-
-        function fechaModal() {
-            $("#mascara").hide();
-            $(".window").hide();
-            //$("#mascara").click();
-        }
-    </script>
-    <!-- Load applications -->
-
-    <script type="text/javascript">
-
-        $(document).ready(function() {
-            $(".cpf").mask("999.999.999-99");
-            //one Page Navigation DOM calls cached
-            var menuRib = $(".menu-ribbon, .ribbons");
-            //menuRib.onePageNav();
-
-            //Photo Id circullar slider
-            $('#fc-slideshow').flipshow({
-                speed: 700, // default transition speed (ms)
-                easing: 'cubic-bezier(.29,1.44,.86,1.06)'// default transition easing
-            });
-
-            //parallax effect
-            $.stellar({
-                horizontalScrolling: false,
-                verticalOffset: 40
-            });
-            //animation background
-            //$('#city1').pan({fps: 30, speed: 5, dir: 'right'});
-            //$('#sky').pan({fps: 30, speed: 3, dir: 'right'});
-            //$('#city2').pan({fps: 30, speed: 3, dir: 'right'});
-
-            //setting slider
-            setTimeout(function() {
-                $('#menu').css('left', '-130px');
-            }, 100);
-
-            //color switcher
-            $('#colorSelector').ColorPicker({
-                color: '#0000ff',
-                onShow: function(colpkr) {
-                    $(colpkr).fadeIn(500);
-                    return false;
-                },
-                onHide: function(colpkr) {
-                    $(colpkr).fadeOut(500);
-                    return false;
-                },
-                onChange: function(hsb, hex) {
-                    $('#colorSelector div').css('backgroundColor', '#' + hex);
-                    $('#header').css('borderColor', '#' + hex);
-                    $('.ribbon2, .horisontal,.ribbon_portfolio').css('borderColor', '#' + hex);
-                    $(".ribbon2, .available, .ribbon_portfolio, .filter a").css("color", '#' + hex);
-                    $(".header-section, .nav-tabs > li > a:hover, .progress .bar, #contact").css("background-color", '#' + hex);
-                }
-            });
-
-            //background switcher
-            $('#bg_switcher a').click(function() {
-                var link = $(this).attr('href');
-                var cssLink = ('url(' + link + ')');
-                $('body').css('background', cssLink);
+            if (nome.length < 4) {
+                $("#campoRetorno").html('<b style="color: #f00">Preencha o campo nome</b>');
+                $('#Nome').focus();
                 return false;
+            }
+
+            if (email.length < 4) {
+                $("#campoRetorno").html('<b style="color: #f00">Preencha o e-mail</b>');
+                $('#Email').focus();
+                return false;
+            }
+
+            if (assunto.length < 4) {
+                $("#campoRetorno").html('<b style="color: #f00">Preencha o campo assunto</b>');
+                $('#Assunto').focus();
+                return false;
+            }
+
+            if (mensagem.length < 4) {
+                $("#campoRetorno").html('<b style="color: #f00">Preencha o campo mensagem</b>');
+                $('#Mensagem').focus();
+                return false;
+            }
+
+            //Enviando o E-mail
+            $("#campoRetorno").html("Enviando");
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->url(array('module' => 'minc', 'controller' => 'index', 'action' => 'email-contato')); ?>',
+                data: {nome: nome, email: email, assunto: assunto, mensagem: mensagem},
+                dataType: 'json',
+                success: function (data) {
+                    $("#campoRetorno").html(data['mensagem']);
+                    $('#Nome').val('');
+                    $('#Assunto').val('');
+                    $('#Mensagem').val('');
+                    $('#Email').val('');
+                }
             });
 
-            if (document.cookie.indexOf("msg_autorizacao") < 0) {
-                carregaMensagemAutorizacao();
-            }
         });
 
+        $("a[rel=modal]").click(function (ev) {
+            ev.preventDefault();
 
-        function filtraBeneficiarias() {
-            $.post(
-                    "<?php echo $this->url(array('module' => 'minc', 'controller' => 'index', 'action' => 'lista-beneficiaria')); ?>",
-                    {CNPJ: $('#CNPJ').val(), NOME: $('#NOME').val(), OPERADORA: $('#OPERADORA').val()}
-
-            ).done(function(data) {
-                $('#janelaLoad').html(data);
-            });
-
-        }
-
-        function carregaMensagemAutorizacao() {
-            var id = '.window';
+            //alterado
+            var id = '#janela1';
 
             var alturaTela = $(document).height();
             var larguraTela = $(window).width();
 
+
+            //colocando o fundo preto
             $('#mascara').css({'width': larguraTela, 'height': alturaTela});
             $('#mascara').fadeIn(1000);
             $('#mascara').fadeTo("slow", 0.8);
@@ -465,26 +349,154 @@
             if (top < 0) {
                 top = 10;
             }
+
             $(id).css({'top': top, 'left': left});
 
-            $('#janelaLoad').html('<br /><br /><br /><div style="text-align:center;">'+
-            'Se sua empresa já possui cadastro, o Ministério da Cultura precisa de autorização para divulgar'+
-            ' o nome de sua empresa como participante do Programa Vale-Cultura.'+
-            ' Assim que efetuar o login, não esqueça de marcar o termo de concordância'+
+            //inserido
+            href = $(this).attr("link");
+
+            $('#janelaLoad').html('<br /><br /><br /><div style="text-align:center;">Aguarde, carregando...</div>');
+            $('#janelaLoad').load(href);
+            $('#janelaLoad').css('height', $(id).height() - 32);
+            $(id).show();
+        });
+
+        $("#mascara").click(function () {
+            //$(this).hide();
+            //$(".window").hide();
+        });
+
+        $('.fechar').click(function (ev) {
+            ev.preventDefault();
+            $("#mascara").hide();
+            $(".window").hide();
+        });
+    });
+
+    function fechaModal() {
+        $("#mascara").hide();
+        $(".window").hide();
+        //$("#mascara").click();
+    }
+</script>
+<!-- Load applications -->
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $(".cpf").mask("999.999.999-99");
+        //one Page Navigation DOM calls cached
+        var menuRib = $(".menu-ribbon, .ribbons");
+        //menuRib.onePageNav();
+
+        //Photo Id circullar slider
+        $('#fc-slideshow').flipshow({
+            speed: 700, // default transition speed (ms)
+            easing: 'cubic-bezier(.29,1.44,.86,1.06)'// default transition easing
+        });
+
+        //parallax effect
+        $.stellar({
+            horizontalScrolling: false,
+            verticalOffset: 40
+        });
+        //animation background
+        //$('#city1').pan({fps: 30, speed: 5, dir: 'right'});
+        //$('#sky').pan({fps: 30, speed: 3, dir: 'right'});
+        //$('#city2').pan({fps: 30, speed: 3, dir: 'right'});
+
+        //setting slider
+        setTimeout(function () {
+            $('#menu').css('left', '-130px');
+        }, 100);
+
+        //color switcher
+        $('#colorSelector').ColorPicker({
+            color: '#0000ff',
+            onShow: function (colpkr) {
+                $(colpkr).fadeIn(500);
+                return false;
+            },
+            onHide: function (colpkr) {
+                $(colpkr).fadeOut(500);
+                return false;
+            },
+            onChange: function (hsb, hex) {
+                $('#colorSelector div').css('backgroundColor', '#' + hex);
+                $('#header').css('borderColor', '#' + hex);
+                $('.ribbon2, .horisontal,.ribbon_portfolio').css('borderColor', '#' + hex);
+                $(".ribbon2, .available, .ribbon_portfolio, .filter a").css("color", '#' + hex);
+                $(".header-section, .nav-tabs > li > a:hover, .progress .bar, #contact").css("background-color", '#' + hex);
+            }
+        });
+
+        //background switcher
+        $('#bg_switcher a').click(function () {
+            var link = $(this).attr('href');
+            var cssLink = ('url(' + link + ')');
+            $('body').css('background', cssLink);
+            return false;
+        });
+
+        if (document.cookie.indexOf("msg_autorizacao") < 0) {
+            carregaMensagemAutorizacao();
+        }
+    });
+
+
+    function filtraBeneficiarias() {
+        $.post(
+            "<?php echo $this->url(array('module' => 'minc', 'controller' => 'index', 'action' => 'lista-beneficiaria')); ?>",
+            {CNPJ: $('#CNPJ').val(), NOME: $('#NOME').val(), OPERADORA: $('#OPERADORA').val()}
+        ).done(function (data) {
+            $('#janelaLoad').html(data);
+        });
+
+    }
+
+    function carregaMensagemAutorizacao() {
+        var id = '#modal-mensagem-autorizacao';
+
+        var alturaTela = $(document).height();
+        var larguraTela = $(window).width();
+
+        $('#mascara').css({'width': larguraTela, 'height': alturaTela});
+        $('#mascara').fadeIn(1000);
+        $('#mascara').fadeTo("slow", 0.8);
+
+        var left = ($(window).width() / 2) - ($(id).width() / 2);
+        var top = ($(window).height()) - ($(id).height());
+
+        if (top < 0) {
+            top = 10;
+        }
+        $(id).css({'top': top, 'left': left, 'width': larguraTela / 2, 'height': alturaTela / 3});
+
+        $('#mensagem-autorizacao').html('<br /><div style="text-align:center;">' +
+            '<h3 style="color: red;">ATENÇÃO BENEFICIÁRIA</h3>' +
+            '<br />' +
+            'Se sua empresa já é certificada no Vale-Cultura, o Ministério da Cultura solicita a' +
+            ' atualização de 1 (um) item seu cadastro. Efetue o login e colabore conosco!' +
             '</div>');
 
-            $(id).show();
-            document.cookie = 'msg_autorizacao=true';
-        }
-    </script>
+        $(id).show();
+        document.cookie = 'msg_autorizacao=true';
+    }
+</script>
 
-    <div class="window" style="overflow: hidden" id="janela1">
-        <img onclick="fechaModal()" style="cursor: pointer; float: right" src="<?php echo $this->baseUrl('img/icone-fechar.png') ?>" width="92" height="22" />
-        <div id="janelaLoad" style="overflow-y: auto; width: 100%;"></div>
-    </div>
+<div class="window" style="overflow: hidden" id="janela1">
+    <img onclick="fechaModal()" style="cursor: pointer; float: right"
+         src="<?php echo $this->baseUrl('img/icone-fechar.png') ?>" width="92" height="22"/>
+    <div id="janelaLoad" style="overflow-y: auto; width: 100%;"></div>
+</div>
+<div class="window" style="overflow: hidden" id="modal-mensagem-autorizacao">
+    <img onclick="fechaModal()" style="cursor: pointer; float: right"
+         src="<?php echo $this->baseUrl('img/icone-fechar.png') ?>" width="92" height="22"/>
+    <div id="mensagem-autorizacao" style="overflow-y: auto; width: 100%;"></div>
+</div>
 
-    <!-- mascara para cobrir o site -->
-    <div id="mascara"></div>
+<!-- mascara para cobrir o site -->
+<div id="mascara"></div>
 
 </body>
 
