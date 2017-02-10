@@ -458,17 +458,18 @@
             $('#mascara').fadeTo("slow", 0.8);
 
             var left = ($(window).width() / 2) - ($(id).width() / 2);
-            var top = ($(window).height() / 2) - ($(id).height() / 2);
+            var top = ($(window).height()) - ($(id).height());
 
             if (top < 0) {
                 top = 10;
             }
-            $(id).css({'top': top, 'left': left});
+            $(id).css({'top': top, 'left': left, 'width': larguraTela / 2, 'height': alturaTela / 3});
 
-            $('#janelaLoad').html('<br /><br /><br /><div style="text-align:center;">'+
-            'Se sua empresa já possui cadastro, o Ministério da Cultura precisa de autorização para divulgar'+
-            ' o nome de sua empresa como participante do Programa Vale-Cultura.'+
-            ' Assim que efetuar o login, não esqueça de marcar o termo de concordância'+
+            $('#janelaLoad').html('<br /><div style="text-align:center;">'+
+            '<h3 style="color: red;">ATENÇÃO BENEFICIÁRIA</h3>' +
+            '<br />' +
+            'Se sua empresa já é certificada no Vale-Cultura, o Ministério da Cultura solicita a'+
+            ' atualização de 1 (um) item seu cadastro. Efetue o login e colabore conosco!'+
             '</div>');
 
             $(id).show();
