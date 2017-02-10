@@ -1258,7 +1258,7 @@ class Beneficiaria_IndexController extends GenericController {
                 );
 
                 $modelBeneficiaria->update($Cols, $idBeneficiaria);
-                parent::message('Divulgação autorizada!', '/minc/admin', 'confirm');
+                parent::message('Atualização realizada com sucesso!', '/minc/admin', 'confirm');
             }else if($autorizacao === "NÃO AUTORIZO"){
                 $Cols = array(
 		            'ST_AUTORIZA_MINC' => 2
