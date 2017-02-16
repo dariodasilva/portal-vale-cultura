@@ -65,19 +65,30 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="1">
+                                            <td>
                                                 Data de Cadastro (Minima)
                                             </td>
-                                            <td colspan="2">
+                                            <td>
                                                 Data de Cadastro (Maxima)
+                                            </td>
+                                            <td>
+                                               Autoriza divulga&ccedil;&atilde;o dos dados
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="1">
+                                            <td>
                                                 <input type="text" name="DTINICIO" id="DTINICIO" value="<?php echo $this->dtInicio ?>" class="data" />
                                             </td>
-                                            <td colspan="2">
+                                            <td>
                                                 <input type="text" name="DTFIM" id="DTFIM" value="<?php echo $this->dtFim ?>" class="data" />
+                                            </td>
+                                            <td>
+                                                <select name="STAUTORIZAMINC">
+                                                    <option value="null">- SELECIONE -</option>
+                                                    <option value="0" <?php echo ((isset($this->stAutorizaMinc) && $this->stAutorizaMinc == 0) ? "selected" : ''); ?>>N&atilde;o respondeu</option>
+                                                    <option value="1" <?php echo ((isset($this->stAutorizaMinc) && $this->stAutorizaMinc == 1) ? "selected" : ''); ?>>Autorizou</option>
+                                                    <option value="2" <?php echo ((isset($this->stAutorizaMinc) && $this->stAutorizaMinc == 2) ? "selected" : ''); ?>>N&atilde;o autorizou</option>
+                                                </select>
                                             </td>
                                         </tr>
                                         <tr>
@@ -99,6 +110,7 @@
                                                 <td class="destacar bold centro"><strong>Nome</strong></td>
                                                 <td class="destacar bold centro" style="text-align: center;"><strong>Data de Cadastro</strong></td>
                                                 <td class="destacar bold centro" style="text-align: center;"><strong>Status</strong></td>
+                                                <td class="destacar bold centro" style="text-align: center;"><strong>Autoriza divulga&ccedil;&atilde;o</strong></td>
                                                 <td class="destacar bold centro" style="text-align: center;"><strong>Visualizar</strong></td>
                                                 <td class="destacar bold centro" style="text-align: center;"><strong>Editar</strong></td>
                                             </tr>
@@ -109,7 +121,16 @@
                                                     <td class="centro" style="text-align: center;"><?php echo $b->dtInscricao; ?></td>
                                                     <td style="text-align: center; color: <?php echo $this->verificarSituacao($b->situacao, 'cor', 'B'); ?>">
                                                         <?php echo $this->verificarSituacao($b->situacao, 'st', 'B'); ?>
-                                                    </td> 
+                                                    </td>
+                                                    <td>
+                                                        <?php if ($b->stAutorizaMinc == 0): ?>
+                                                            N&atilde;o respondeu
+                                                        <?php elseif ($b->stAutorizaMinc == 1) : ?>
+                                                            Autorizou
+                                                        <?php elseif ($b->stAutorizaMinc == 2) : ?>
+                                                            N&atilde;o autorizou
+                                                        <?php endif; ?>
+                                                    </td>
                                                     <td class="centro" style="text-align: center;">
                                                         <a class="btn btn-success" href="<?php echo $this->url(array('module' => 'minc', 'controller' => 'admin', 'action' => 'avaliar-beneficiaria', 'beneficiaria' => $b->idBeneficiaria)); ?>">
                                                             <i class="icon-zoom-in "></i>  

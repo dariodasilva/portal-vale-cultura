@@ -52,6 +52,7 @@ class Application_Model_Beneficiaria {
                               'nrComprovanteInscricao'    => 'b.NR_COMPROVANTE_INSCRICAO',
                               'nrCetificado'              => 'b.NR_CERTIFICADO',
                               'stDivulgarDados'           => 'b.ST_DIVULGAR_DADOS',
+                              'stAutorizaMinc'            => 'b.ST_AUTORIZA_MINC',
                               'qtdFuncionarios'           =>  new Zend_Db_Expr('(' . $selectQtdFuncionarios . ')'),
                               'situacao'                  =>  new Zend_Db_Expr('(' . $selectSituacao . ')') )
         );
