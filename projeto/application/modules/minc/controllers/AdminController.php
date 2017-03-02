@@ -536,35 +536,40 @@ class Minc_AdminController extends GenericController {
         $session = new Zend_Session_Namespace('postFiltro');
         $where = array();
         if ($_POST) {
-            $CNPJ       = $this->getRequest()->getParam('CNPJ');
-            $NOME       = $this->getRequest()->getParam('NOME');
-            $SITUACAO   = $this->getRequest()->getParam('SITUACAO');
-            $DTINICIO   = $this->getRequest()->getParam('DTINICIO');
-            $DTFIM      = $this->getRequest()->getParam('DTFIM');
+            $CNPJ           = $this->getRequest()->getParam('CNPJ');
+            $NOME           = $this->getRequest()->getParam('NOME');
+            $SITUACAO       = $this->getRequest()->getParam('SITUACAO');
+            $DTINICIO       = $this->getRequest()->getParam('DTINICIO');
+            $DTFIM          = $this->getRequest()->getParam('DTFIM');
+            $STAUTORIZAMINC = $this->getRequest()->getParam('STAUTORIZAMINC');
 
             $session->filtro = array(
-                'CNPJ'      => $CNPJ,
-                'NOME'      => $NOME,
-                'SITUACAO'  => $SITUACAO,
-                'DTINICIO'  => $DTINICIO,
-                'DTFIM'     => $DTFIM);
+                    'CNPJ'          => $CNPJ,
+                    'NOME'          => $NOME,
+                    'SITUACAO'      => $SITUACAO,
+                    'DTINICIO'      => $DTINICIO,
+                    'DTFIM'         => $DTFIM,
+                    'STAUTORIZAMINC' => $STAUTORIZAMINC
+                );
         } else {
             if($pagina < 1){
                 $session->filtro = null;
                 $pagina = 1;
             }
             if (is_array($session->filtro)) {
-                $CNPJ       = $session->filtro['CNPJ'];
-                $NOME       = $session->filtro['NOME'];
-                $SITUACAO   = $session->filtro['SITUACAO'];
-                $DTINICIO   = $session->filtro['DTINICIO'];
-                $DTFIM      = $session->filtro['DTFIM'];
+                $CNPJ           = $session->filtro['CNPJ'];
+                $NOME           = $session->filtro['NOME'];
+                $SITUACAO       = $session->filtro['SITUACAO'];
+                $DTINICIO       = $session->filtro['DTINICIO'];
+                $DTFIM          = $session->filtro['DTFIM'];
+                $STAUTORIZAMINC = $session->filtro['STAUTORIZAMINC'];
             }else{
-                $CNPJ       = null;
-                $NOME       = null;
-                $SITUACAO   = null;
-                $DTINICIO   = null;
-                $DTFIM      = null;
+                $CNPJ           = null;
+                $NOME           = null;
+                $SITUACAO       = null;
+                $DTINICIO       = null;
+                $DTFIM          = null;
+                $STAUTORIZAMINC = null;
             }
         }
 
@@ -595,9 +600,14 @@ class Minc_AdminController extends GenericController {
             }
         }
 
+        if ($STAUTORIZAMINC !== null) {
+            $where['ST_AUTORIZA_MINC = ?'] = $STAUTORIZAMINC;
+        }
+
         $this->view->assign('cnpj', $CNPJ);
         $this->view->assign('nome', $NOME);
         $this->view->assign('situacao', $SITUACAO);
+        $this->view->assign('stAutorizaMinc', $STAUTORIZAMINC);
 
         if (is_array($DTINICIO)) {
             $this->view->assign('dtInicio', $DTINICIO[0] . '/' . $DTINICIO[1] . '/' . $DTINICIO[2]);
