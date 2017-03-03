@@ -35,13 +35,17 @@
         <?php if (count($this->operadoras) > 0) { ?>
             <?php foreach ($this->operadoras as $idOperadora => $operadora) { ?>
                 <?php if ($operadora['situacao'] == 'operando') : ?>
-                    <tr style="border-bottom: 1px #ccc solid;">
+                    <tr style="border-bottom: 1px #ccc solid; color: black;">
                 <?php else : ?>
                     <tr style="border-bottom: 1px #ccc solid; background: none repeat scroll 0 0 rgba(0, 0, 0, 0.5); color: #ffffff">
                 <?php endif; ?>
                     <?php $urlSite = isset($operadora['dsSite'])  && $operadora['dsSite']  ?  $operadora['dsSite'] : ''; ?>
                     <?php if ($urlSite != '') : ?>
-                        <td><a href="<?php echo 'http://' . $urlSite; ?>/valecultura" target="_blank" style="color:#843927"><?php echo ($operadora['nmFantasia'] === ' ') ?  $operadora['nmRazaoSocial'] : $operadora['nmFantasia']; ?></a></td>
+                        <?php if ($operadora['situacao'] == 'operando') : ?>
+                            <td><a href="<?php echo 'http://' . $urlSite; ?>/valecultura" target="_blank" style="color: black;"><?php echo ($operadora['nmFantasia'] === ' ') ?  $operadora['nmRazaoSocial'] : $operadora['nmFantasia']; ?></a></td>
+                        <?php else : ?>
+                            <td><a href="<?php echo 'http://' . $urlSite; ?>/valecultura" target="_blank" style="color: <?php echo $fontColor; ?>;"><?php echo ($operadora['nmFantasia'] === ' ') ?  $operadora['nmRazaoSocial'] : $operadora['nmFantasia']; ?></a></td>
+                        <?php endif; ?>
                     <?php else : ?>
                         <td><?php echo ($operadora['nmFantasia'] === ' ') ?  $operadora['nmRazaoSocial'] : $operadora['nmFantasia']; ?></td>
                     <?php endif; ?>
