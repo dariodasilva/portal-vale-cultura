@@ -8,7 +8,7 @@
 
                 <input type="text" class="search span12" placeholder="O que deseja buscar?" />
 
-            </div>	
+            </div>
             <?php include_once 'menu.phtml'; ?>
         </div>
         <!-- end: Main Menu -->
@@ -84,10 +84,10 @@
                                             </td>
                                             <td>
                                                 <select name="STAUTORIZAMINC">
-                                                    <option value="null">- SELECIONE -</option>
-                                                    <option value="0" <?php echo ((isset($this->stAutorizaMinc) && $this->stAutorizaMinc == 0) ? "selected" : ''); ?>>N&atilde;o respondeu</option>
-                                                    <option value="1" <?php echo ((isset($this->stAutorizaMinc) && $this->stAutorizaMinc == 1) ? "selected" : ''); ?>>Autorizou</option>
-                                                    <option value="2" <?php echo ((isset($this->stAutorizaMinc) && $this->stAutorizaMinc == 2) ? "selected" : ''); ?>>N&atilde;o autorizou</option>
+                                                    <option value="null" <?php echo ((isset($this->stAutorizaMinc) && $this->stAutorizaMinc === 'null') ? "selected" : ''); ?>>- SELECIONE -</option>
+                                                    <option value="0" <?php echo ((isset($this->stAutorizaMinc) && $this->stAutorizaMinc === '0') ? "selected" : ''); ?>>N&atilde;o respondeu</option>
+                                                    <option value="1" <?php echo ((isset($this->stAutorizaMinc) && $this->stAutorizaMinc === '1') ? "selected" : ''); ?>>Autorizou</option>
+                                                    <option value="2" <?php echo ((isset($this->stAutorizaMinc) && $this->stAutorizaMinc === '2') ? "selected" : ''); ?>>N&atilde;o autorizou</option>
                                                 </select>
                                             </td>
                                         </tr>
@@ -133,13 +133,13 @@
                                                     </td>
                                                     <td class="centro" style="text-align: center;">
                                                         <a class="btn btn-success" href="<?php echo $this->url(array('module' => 'minc', 'controller' => 'admin', 'action' => 'avaliar-beneficiaria', 'beneficiaria' => $b->idBeneficiaria)); ?>">
-                                                            <i class="icon-zoom-in "></i>  
-                                                        </a>                           
+                                                            <i class="icon-zoom-in "></i>
+                                                        </a>
                                                     </td>
                                                     <td class="centro" style="text-align: center;">
                                                         <a class="btn btn-success" title="Acessar como administrador" href="<?php echo $this->url(array('module' => 'beneficiaria', 'controller' => 'index', 'action' => 'index', 'beneficiaria' => $b->idBeneficiaria, 'operadora' => $b->idOperadora)); ?>">
-                                                            <i class="icon-ambulance"></i>  
-                                                        </a>                           
+                                                            <i class="icon-ambulance"></i>
+                                                        </a>
                                                     </td>
                                                 </tr>
                                             <?php endforeach; ?>
@@ -149,7 +149,7 @@
                                 <?php echo $this->paginationControl($this->beneficiarias, 'Sliding', 'paginador.phtml'); ?>
                             </div>
                         </fieldset>
-                        </form>   
+                        </form>
 
                     </div>
                 </div>

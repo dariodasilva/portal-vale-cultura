@@ -600,7 +600,7 @@ class Minc_AdminController extends GenericController {
             }
         }
 
-        if ($STAUTORIZAMINC !== null) {
+        if (($STAUTORIZAMINC !== null) && ($STAUTORIZAMINC !== 'null')) {
             $where['ST_AUTORIZA_MINC = ?'] = $STAUTORIZAMINC;
         }
 
