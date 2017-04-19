@@ -11,9 +11,8 @@ class Api_TrabalhadoresInativosController extends ValeCultura_Controller_Rest_Ab
      */
     public function indexAction()
     {
-        $this->getResponse()->setBody(Zend_Json::encode([ 'disponiveis' => [ 'get', 'post', 'put', 'delete', ] ]));
-        $this->getResponse()->setHttpResponseCode(200);
-        $this->_helper->viewRenderer->setNoRender(true);
+        $mdl = new Application_Model_VwTrabalhadorCargaUltima();
+        $this->getResponse()->setBody(Zend_Json::encode($mdl->getTotalInativos()));
     }
 
     /**
@@ -21,47 +20,33 @@ class Api_TrabalhadoresInativosController extends ValeCultura_Controller_Rest_Ab
      * should respond with the server resource state of the resource identified
      * by the 'id' value.
      */
-    public function getAction()
-    {
-        $mdl = new Application_Model_VwTrabalhadorCargaUltima();
-        $arrResult = $mdl->getTotalInativos();
-        $this->getResponse()->setBody(Zend_Json::encode($arrResult));
-        $this->getResponse()->setHttpResponseCode(200);
-    }
+    public function getAction(){}
 
     /**
      * The head action handles HEAD requests and receives an 'id' parameter; it
      * should respond with the server resource state of the resource identified
      * by the 'id' value.
      */
-    public function headAction(){
-
-    }
+    public function headAction(){}
 
     /**
      * The post action handles POST requests; it should accept and digest a
      * POSTed resource representation and persist the resource state.
      */
-    public function postAction(){
-
-    }
+    public function postAction(){}
 
     /**
      * The put action handles PUT requests and receives an 'id' parameter; it
      * should update the server resource state of the resource identified by
      * the 'id' value.
      */
-    public function putAction(){
-
-    }
+    public function putAction(){}
 
     /**
      * The delete action handles DELETE requests and receives an 'id'
      * parameter; it should update the server resource state of the resource
      * identified by the 'id' value.
      */
-    public function deleteAction(){
-
-    }
+    public function deleteAction(){}
 }
 

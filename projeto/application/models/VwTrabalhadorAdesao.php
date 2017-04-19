@@ -16,7 +16,7 @@ class Application_Model_VwTrabalhadorAdesao {
         $select = $this->getTable()->select()
             ->setIntegrityCheck(false)
             ->distinct()
-            ->from($this->getTable(), ['TRA_ADESAO_ANO as ano', 'TRA_QUANTIDADE as total'])
+            ->from($this->getTable(), array('TRA_ADESAO_ANO as ano', 'TRA_QUANTIDADE as total'))
             ->order('TRA_ADESAO_ANO');
         return $this->getTable()->fetchAll($select)->toArray();
     }

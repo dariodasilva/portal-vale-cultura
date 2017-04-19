@@ -9,7 +9,7 @@ class Application_Model_VwTrabalhadorLocalizacao {
         $select = $this->getTable()->select()
             ->setIntegrityCheck(false)
             ->distinct()
-            ->from($this->getTable(), ['TRA_LOC_REGIAO as regiao', 'TRA_LOC_UF as uf', 'TRA_QUANTIDADE as total'])
+            ->from($this->getTable(), array('TRA_LOC_REGIAO as regiao', 'TRA_LOC_UF as uf', 'TRA_QUANTIDADE as total'))
             ->order('TRA_LOC_REGIAO')
             ->order('TRA_LOC_UF');
         return $this->getTable()->fetchAll($select)->toArray();
