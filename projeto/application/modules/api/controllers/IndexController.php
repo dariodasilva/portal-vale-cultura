@@ -11,8 +11,8 @@ class Api_IndexController extends ValeCultura_Controller_Rest_Abstract {
     }
 
     public function indexAction() {
-        echo Zend_Json::encode([
-            'disponiveis' => [
+        echo Zend_Json::encode(array(
+            'disponiveis' => array(
                 'trabalhadores-acumulados',
                 'trabalhadores-acumulados-por-ano',
                 'trabalhadores-acumulados-por-localizacao',
@@ -20,8 +20,8 @@ class Api_IndexController extends ValeCultura_Controller_Rest_Abstract {
                 'trabalhadores-inativos',
 //                'beneficiarios',
 //                'consumos',
-            ]
-        ]);
+            )
+        ));
     }
 
     /**
