@@ -64,6 +64,7 @@ abstract class ValeCultura_Controller_Rest_Abstract extends Zend_Rest_Controller
 
         $this->getResponse()->setHttpResponseCode(200);
         $this->getResponse()->setHeader('Access-Control-Allow-Origin', '*');
+//        $this->getResponse()->setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE, HEAD, PUT');
         $this->getResponse()->setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE, HEAD, PUT');
         $this->getResponse()->setHeader('Access-Control-Allow-Headers', 'x-requested-with, Content-Type, origin, authorization, accept, client-security-token');
 

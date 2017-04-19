@@ -2,26 +2,18 @@
 
 include_once 'GenericController.php';
 
-class Api_IndexController extends ValeCultura_Controller_Rest_Abstract {
+class Api_TrabalhadoresAtivosController extends ValeCultura_Controller_Rest_Abstract
+{
 
-    public function init() {
-        $this->_helper->layout->disableLayout();
+    /**
+     * The index action handles index/list requests; it should respond with a
+     * list of the requested resources.
+     */
+    public function indexAction()
+    {
+        $this->getResponse()->setBody(Zend_Json::encode([ 'disponiveis' => [ 'get', 'post', 'put', 'delete', ] ]));
+        $this->getResponse()->setHttpResponseCode(200);
         $this->_helper->viewRenderer->setNoRender(true);
-        parent::init();
-    }
-
-    public function indexAction() {
-        echo Zend_Json::encode([
-            'disponiveis' => [
-                'trabalhadores-acumulados',
-                'trabalhadores-acumulados-por-ano',
-                'trabalhadores-acumulados-por-localizacao',
-                'trabalhadores-ativos',
-                'trabalhadores-inativos',
-//                'beneficiarios',
-//                'consumos',
-            ]
-        ]);
     }
 
     /**
@@ -31,14 +23,8 @@ class Api_IndexController extends ValeCultura_Controller_Rest_Abstract {
      */
     public function getAction()
     {
-        $arrResult = [];
-        $arrResult[] = ['ano' => 2014, 'mes' => 'Janeiro', 'regiao' => 'Brasilia', 'estado' => 'DF', 'qtd_trabalhadores'=> 3054];
-        $arrResult[] = ['ano' => 2014, 'mes' => 'Janeiro', 'regiao' => 'Brasilia', 'estado' => 'SP', 'qtd_trabalhadores'=> 3054];
-        $arrResult[] = ['ano' => 2014, 'mes' => 'Janeiro', 'regiao' => 'Brasilia', 'estado' => 'MG', 'qtd_trabalhadores'=> 3054];
-        $arrResult[] = ['ano' => 2014, 'mes' => 'Janeiro', 'regiao' => 'Brasilia', 'estado' => 'GO', 'qtd_trabalhadores'=> 3054];
-        $arrResult[] = ['ano' => 2014, 'mes' => 'Janeiro', 'regiao' => 'Brasilia', 'estado' => 'MT', 'qtd_trabalhadores'=> 3054];
-//
-//        echo Zend_Json::encode($arrResult);
+        $mdl = new Application_Model_VwTrabalhadorCargaUltima();
+        $arrResult = $mdl->getTotalAtivos();
         $this->getResponse()->setBody(Zend_Json::encode($arrResult));
         $this->getResponse()->setHttpResponseCode(200);
     }
