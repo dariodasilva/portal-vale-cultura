@@ -41,20 +41,4 @@ class Application_Model_VwTrabalhadorAdesao {
     public function find($id) {
         return $this->getTable()->find($id)->current();
     }
-
-    public function insert(array $request) {
-        return $this->getTable()->createRow()->setFromArray($request)->save();
-    }
-
-    public function update(array $request, $id) {
-        $where["id = ?"] = $id;
-        return $this->getTable()->update($request, $where);
-    }
-
-    public function delete($id) {
-        return $this->getTable()->find($id)->current()->delete();
-    }
-
 }
-
-?>

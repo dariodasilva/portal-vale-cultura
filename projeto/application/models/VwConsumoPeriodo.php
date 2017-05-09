@@ -1,7 +1,7 @@
 <?php
 
-class Application_Model_VwTrabalhadorCargaPrimeira {
-
+class Application_Model_VwConsumoPeriodo
+{
     private $table = null;
 
     public function getTotal()
@@ -11,9 +11,20 @@ class Application_Model_VwTrabalhadorCargaPrimeira {
         return $intTotal;
     }
 
+    public function getAll()
+    {
+        $select = $this->getTable()->select()
+            ->setIntegrityCheck(false)
+            ->distinct()
+            ->from($this->getTable(), array('CON_ANO as ano', 'CON_MES as mes', 'CON_VALOR as valor'))
+            ->order('CON_ANO')
+            ->order('CON_MES');
+        return $this->getTable()->fetchAll($select)->toArray();
+    }
+
     public function getTable() {
         if (is_null($this->table)) {
-            $this->table = new Application_Model_DbTable_VwTrabalhadorCargaPrimeira();
+            $this->table = new Application_Model_DbTable_VwConsumoPeriodo();
         }
         return $this->table;
     }

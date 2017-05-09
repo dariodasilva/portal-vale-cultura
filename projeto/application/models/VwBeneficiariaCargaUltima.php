@@ -1,18 +1,15 @@
 <?php
 
-class Application_Model_VwTrabalhadorCargaUltima {
+class Application_Model_VwBeneficiariaCargaUltima
+{
 
     private $table = null;
 
-    public function getAllAtivos()
+    public function getTotal()
     {
-        $select = $this->getTable()->select()
-            ->setIntegrityCheck(false)
-            ->distinct()
-            ->from($this->getTable(), array('TRA_LOC_REGIAO as regiao', 'TRA_LOC_UF as uf', 'TRA_QUANTIDADE as total'))
-            ->order('TRA_LOC_REGIAO')
-            ->order('TRA_LOC_UF');
-        return $this->getTable()->fetchAll($select)->toArray();
+        $select = $this->getTable()->select();
+        $intTotal = $select->from($this->getTable(), 'count(*) as total')->query()->fetchColumn();
+        return $intTotal;
     }
 
     public function getTotalAtivos()
@@ -24,7 +21,6 @@ class Application_Model_VwTrabalhadorCargaUltima {
         return $intTotal;
     }
 
-
     public function getTotalInativos()
     {
         $select = $this->getTable()->select();
@@ -33,10 +29,20 @@ class Application_Model_VwTrabalhadorCargaUltima {
             ->query()->fetchColumn();
         return $intTotal;
     }
-    
+
+    public function getAll()
+    {
+        $select = $this->getTable()->select()
+            ->setIntegrityCheck(false)
+            ->distinct()
+            ->from($this->getTable(), array('TRA_ADESAO_ANO as ano', 'TRA_QUANTIDADE as total'))
+            ->order('TRA_ADESAO_ANO');
+        return $this->getTable()->fetchAll($select)->toArray();
+    }
+
     public function getTable() {
         if (is_null($this->table)) {
-            $this->table = new Application_Model_DbTable_VwTrabalhadorCargaUltima();
+            $this->table = new Application_Model_DbTable_VwBeneficiariaCargaUltima();
         }
         return $this->table;
     }

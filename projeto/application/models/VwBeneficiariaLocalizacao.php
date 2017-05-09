@@ -1,7 +1,7 @@
 <?php
 
-class Application_Model_VwTrabalhadorCargaPrimeira {
-
+class Application_Model_VwBeneficiariaLocalizacao
+{
     private $table = null;
 
     public function getTotal()
@@ -11,9 +11,19 @@ class Application_Model_VwTrabalhadorCargaPrimeira {
         return $intTotal;
     }
 
+    public function getAll()
+    {
+        $select = $this->getTable()->select()
+            ->setIntegrityCheck(false)
+            ->distinct()
+            ->from($this->getTable(), array('TRA_ADESAO_ANO as ano', 'TRA_QUANTIDADE as total'))
+            ->order('TRA_ADESAO_ANO');
+        return $this->getTable()->fetchAll($select)->toArray();
+    }
+
     public function getTable() {
         if (is_null($this->table)) {
-            $this->table = new Application_Model_DbTable_VwTrabalhadorCargaPrimeira();
+            $this->table = new Application_Model_DbTable_VwBeneficiariaLocalizacao();
         }
         return $this->table;
     }

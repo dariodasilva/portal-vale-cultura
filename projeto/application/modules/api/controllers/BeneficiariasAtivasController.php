@@ -2,33 +2,17 @@
 
 include_once 'GenericController.php';
 
-class Api_IndexController extends ValeCultura_Controller_Rest_Abstract {
+class Api_BeneficiariasAtivasController extends ValeCultura_Controller_Rest_Abstract
+{
 
-    public function init() {
-        $this->_helper->layout->disableLayout();
-        $this->_helper->viewRenderer->setNoRender(true);
-        parent::init();
-    }
-
-    public function indexAction() {
-        $this->getResponse()->setBody(Zend_Json::encode(
-            array(
-                'disponiveis' => array(
-                    'trabalhadores-acumulados',
-                    'trabalhadores-acumulados-por-ano',
-                    'trabalhadores-acumulados-por-localizacao',
-                    'trabalhadores-ativos',
-                    'trabalhadores-inativos',
-                    'beneficiarias-acumuladas',
-                    'beneficiarias-acumuladas-por-ano',
-                    'beneficiarias-acumuladas-por-localizacao',
-                    'beneficiarias-ativas',
-                    'beneficiarias-inativas',
-                    'consumo-por-periodo',
-                    'consumo-por-localizacao',
-                )
-            )
-        ));
+    /**
+     * The index action handles index/list requests; it should respond with a
+     * list of the requested resources.
+     */
+    public function indexAction()
+    {
+        $mdl = new Application_Model_VwBeneficiariaCargaUltima();
+        $this->getResponse()->setBody(Zend_Json::encode($mdl->getTotalAtivos()));
     }
 
     /**
