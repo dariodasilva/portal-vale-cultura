@@ -49,4 +49,3 @@ class Api_IndexController extends ValeCultura_Controller_Rest_Abstract {
      */
     public function deleteAction(){}
 }
-
