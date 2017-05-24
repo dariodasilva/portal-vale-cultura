@@ -11,24 +11,8 @@ class Api_IndexController extends ValeCultura_Controller_Rest_Abstract {
     }
 
     public function indexAction() {
-        $this->getResponse()->setBody(Zend_Json::encode(
-            array(
-                'disponiveis' => array(
-                    'trabalhadores-acumulados',
-                    'trabalhadores-acumulados-por-ano',
-                    'trabalhadores-acumulados-por-localizacao',
-                    'trabalhadores-ativos',
-                    'trabalhadores-inativos',
-                    'beneficiarias-acumuladas',
-                    'beneficiarias-acumuladas-por-ano',
-                    'beneficiarias-acumuladas-por-localizacao',
-                    'beneficiarias-ativas',
-                    'beneficiarias-inativas',
-                    'consumo-por-periodo',
-                    'consumo-por-localizacao',
-                )
-            )
-        ));
+        $this->getResponse()->setHeader('Content-type', 'text/html; charset=iso-8859-1');
+        $this->_helper->viewRenderer->setNoRender(false);
     }
 
     /**

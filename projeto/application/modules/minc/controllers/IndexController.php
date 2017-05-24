@@ -243,7 +243,6 @@ class Minc_IndexController extends GenericController {
 
     }
 
-
     public function listaBeneficiariaAction() {
         $where = array();
         if($_POST){

@@ -1,0 +1,46 @@
+<link href="<?php echo $this->baseUrl('css/style.min.css') ?>" rel="stylesheet" />
+<style>
+    body {
+        background-color: #383e4b;
+        /*background-color: #3e4b38;*/
+        color: #f5f5f5;
+    }
+    a {
+        color: #f5f5f5;
+    }
+    h1 {
+        font-weight: bold;
+    }
+    h2 {
+        font-size: 1.5em;
+        line-height: 16px;
+        font-weight: bold;
+    }
+</style>
+<div style="margin: 30px;">
+    <h1>Rest API - Vale Cultura</h1>
+    <p><b>Server path:</b> /api</p>
+    <h2>Território</h2>
+    <ul>
+        <li><a href="/api/trabalhadores-acumulados">GET /trabalhadores-acumulados</a></a></li>
+        <li><a href="/api/trabalhadores-acumulados-por-ano">GET /trabalhadores-acumulados-por-ano</a></li>
+        <li><a href="/api/trabalhadores-acumulados-por-localizacao">GET /trabalhadores-acumulados-por-localizacao</a></li>
+        <li><a href="/api/trabalhadores-ativos">GET /trabalhadores-ativos</a></li>
+        <li><a href="/api/trabalhadores-inativos">GET /trabalhadores-inativos</a></li>
+    </ul>
+    <h2>Beneficiárias</h2>
+    <ul>
+        <li><a href="/api/beneficiarias-acumuladas">GET /beneficiarias-acumuladas</a></li>
+        <li><a href="/api/beneficiarias-acumuladas-por-ano">GET /beneficiarias-acumuladas-por-ano</a></li>
+        <li><a href="/api/beneficiarias-acumuladas-por-localizacao">GET /beneficiarias-acumuladas-por-localizacao</a></li>
+        <li><a href="/api/beneficiarias-inativas">GET /beneficiarias-inativas</a></li>
+        <li><a href="/api/consumo-por-periodo">GET /consumo-por-periodo</a></li>
+        <li><a href="/api/consumo-por-localizacao">GET /consumo-por-localizacao</a></li>
+    </ul>
+    <h2>Consumo</h2>
+    <ul>
+        <li><a href="/api/consumo-por-periodo">GET /consumo-por-periodo</a></li>
+        <li><a href="/api/consumo-por-localizacao">GET /consumo-por-localizacao</a></li>
+    </ul>
+<!--    <p><b>Return type:</b> json</p>-->
+</div>
