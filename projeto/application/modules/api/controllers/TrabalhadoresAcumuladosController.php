@@ -11,7 +11,7 @@ class Api_TrabalhadoresAcumuladosController extends ValeCultura_Controller_Rest_
      */
     public function indexAction()
     {
-        $mdl = new Application_Model_VwTrabalhadorCargaPrimeira();
+        $mdl = new Application_Model_AcumuladoTrabalhador();
         $this->getResponse()->setBody(Zend_Json::encode($mdl->getTotal()));
     }
 
