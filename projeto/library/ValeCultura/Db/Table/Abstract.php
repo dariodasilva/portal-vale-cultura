@@ -20,10 +20,7 @@ abstract class ValeCultura_Db_Table_Abstract extends Zend_Db_Table_Abstract
     public function setName($name) {
         $this->_name = $name;
     }
-    public function setDatabase($banco) {
-        $this->_banco = $banco;
-    }
-
+    
     public function getName($strName = '', $strSchema = '')
     {
         $strName = strtolower($strName);
@@ -90,7 +87,7 @@ abstract class ValeCultura_Db_Table_Abstract extends Zend_Db_Table_Abstract
         foreach ($where as $coluna => $valor) :
             $select->where($coluna, $valor);
         endforeach;
-
+        
         return $this->getTable()->fetchAll($select)->toArray();
     }
 
