@@ -20,7 +20,13 @@ class Api_TrabalhadoresAcumuladosController extends ValeCultura_Controller_Rest_
      * should respond with the server resource state of the resource identified
      * by the 'id' value.
      */
-    public function getAction(){}
+    public function getAction(){
+        $ano = $this->getRequest()->getParam('ano');
+        $mes = $this->getRequest()->getParam('mes');
+        
+        $mdl = new Application_Model_AcumuladoTrabalhador();
+        $this->getResponse()->setBody(Zend_Json::encode($mdl->getPorData($ano, $mes)));
+    }
 
     /**
      * The head action handles HEAD requests and receives an 'id' parameter; it

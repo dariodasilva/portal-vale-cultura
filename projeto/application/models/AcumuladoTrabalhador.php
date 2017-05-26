@@ -10,4 +10,17 @@ class Application_Model_AcumuladoTrabalhador extends ValeCultura_Db_Table_Abstra
         }
         return $this->table;
     }
+
+    public function getPorData($ano = null, $mes = null) {
+        $where = array('TIPO = ?' => '2');
+
+        if ($ano) {
+            $where['DESCRICAO_1 = ?'] = $ano;
+        }
+        if ($mes) {
+            $where['DESCRICAO_2 = ?'] = $mes;
+        }        
+        
+        return $this->select($where);
+    }
 }
