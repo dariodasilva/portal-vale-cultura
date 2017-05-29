@@ -24,7 +24,7 @@ class Application_Model_AcumuladoConsumo extends ValeCultura_Db_Table_Abstract {
     public function getPorData($ano = null, $mes = null) {
         $select = $this->getTable()->select();
         $select->where('TIPO = ?', 2);
-        $select->from($this->name, new Zend_Db_Expr('DESCRICAO_1 AS ano, DESCRICAO_2 AS mes'), 'BI_VALE_CULTURA');
+        $select->from($this->name, new Zend_Db_Expr('DESCRICAO_1 AS ano, DESCRICAO_2 AS mes, valor'), 'BI_VALE_CULTURA');
         
         if ($ano) {
             $select->where('DESCRICAO_1 = ?', $ano);
