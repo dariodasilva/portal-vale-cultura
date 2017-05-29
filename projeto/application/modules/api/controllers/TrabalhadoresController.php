@@ -18,15 +18,15 @@ class Api_TrabalhadoresController extends ValeCultura_Controller_Rest_Abstract
      */
     public function getAction(){
         $tipoBusca = $this->getRequest()->getParam('id');
+        $ano = $this->getRequest()->getParam('ano');
+        $mes = $this->getRequest()->getParam('mes');
+        $regiao = $this->getRequest()->getParam('regiao');
+        $uf = $this->getRequest()->getParam('uf');
+        
+        $mdl = new Application_Model_AcumuladoTrabalhador();
         
         switch ($tipoBusca) {
-        case 'acumulados':
-            $mdl = new Application_Model_AcumuladoTrabalhador();
-            $ano = $this->getRequest()->getParam('ano');
-            $mes = $this->getRequest()->getParam('mes');
-            $regiao = $this->getRequest()->getParam('regiao');
-            $uf = $this->getRequest()->getParam('uf');
-            
+        case 'acumulados':           
             if (isset($regiao) || isset($uf)) {
                 $this->getResponse()->setBody(Zend_Json::encode($mdl->getPorLocalizacao($regiao, $uf)));
             } else if (isset($ano) || isset($mes)) {
@@ -37,16 +37,11 @@ class Api_TrabalhadoresController extends ValeCultura_Controller_Rest_Abstract
             break;
             
         case 'ativos':
-            $mdl = new Application_Model_AcumuladoTrabalhador();
-            $ano = $this->getRequest()->getParam('ano');
-            $mes = $this->getRequest()->getParam('mes');        
-            
             if (isset($ano) || isset($mes)) {
                 $this->getResponse()->setBody(Zend_Json::encode($mdl->getPorData($tipoBusca, $ano, $mes)));
             } else {
                 $this->getResponse()->setBody(Zend_Json::encode($mdl->getTotal($tipoBusca)));
-            }
-             
+            }             
             break;
         }        
     }
