@@ -41,9 +41,9 @@ class Api_TrabalhadoresController extends ValeCultura_Controller_Rest_Abstract
                 $this->getResponse()->setBody(Zend_Json::encode($mdl->getPorData($tipoBusca, $ano, $mes)));
             } else {
                 $this->getResponse()->setBody(Zend_Json::encode($mdl->getTotal($tipoBusca)));
-            }             
+            }
             break;
-        }        
+        }    
     }
 
     /**

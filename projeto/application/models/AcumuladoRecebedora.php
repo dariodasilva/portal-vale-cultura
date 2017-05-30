@@ -2,6 +2,10 @@
 
 class Application_Model_AcumuladoRecebedora extends ValeCultura_Db_Table_Abstract {
 
+    const COD_TOTAL       = 1;
+    const COD_DATA        = 2;
+    const COD_LOCALIZACAO = 3;
+
     private $table = null;
     private $name = 'ACUMULADO_RECEBEDORA';
     
@@ -12,19 +16,18 @@ class Application_Model_AcumuladoRecebedora extends ValeCultura_Db_Table_Abstrac
         return $this->table;
     }
 
-    public function getTotal() {
-        
+    public function getTotal() {       
         $select = $this->getTable()->select();
-        $select->where('TIPO = ?', 1);
-        $select->from($this->name, new Zend_Db_Expr('valor'), 'BI_VALE_CULTURA');
+        $select->from($this->name, 'valor', 'BI_VALE_CULTURA');
+        $select->where('TIPO = ?', self::COD_TOTAL);        
         
         return $this->getTable()->fetchAll($select)->toArray();
     }
     
     public function getPorData($ano = null, $mes = null) {
         $select = $this->getTable()->select();
-        $select->where('TIPO = ?', 2);
         $select->from($this->name, new Zend_Db_Expr('DESCRICAO_1 AS ano, DESCRICAO_2 AS mes, valor'), 'BI_VALE_CULTURA');
+        $select->where('TIPO = ?', self::COD_DATA);
         
         if ($ano) {
             $select->where('DESCRICAO_1 = ?', $ano);
@@ -38,11 +41,10 @@ class Application_Model_AcumuladoRecebedora extends ValeCultura_Db_Table_Abstrac
 
     public function getPorLocalizacao($regiao = null, $uf = null) {
         $select = $this->getTable()->select();
-        $select->where('TIPO = ?', 3);
         $select->from($this->name, new Zend_Db_Expr('DESCRICAO_1 AS regiao, DESCRICAO_2 AS uf, valor'), 'BI_VALE_CULTURA');
+        $select->where('TIPO = ?', self::COD_LOCALIZACAO);
         
         if ($regiao) {
-
             $select->where('DESCRICAO_1 = ?', $regiao);
         }
         if ($uf) {
