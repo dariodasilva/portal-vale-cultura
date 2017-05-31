@@ -4,7 +4,6 @@ include_once 'GenericController.php';
 
 class Api_TrabalhadoresController extends ValeCultura_Controller_Rest_Abstract
 {
-
     /**
      * The index action handles index/list requests; it should respond with a
      * list of the requested resources.
@@ -43,7 +42,8 @@ class Api_TrabalhadoresController extends ValeCultura_Controller_Rest_Abstract
                 $this->getResponse()->setBody(Zend_Json::encode($mdl->getTotal($tipoBusca)));
             }
             break;
-        }    
+        }
+        $this->getResponse()->setHeader('Content-Type', 'application/json; charset=utf-8');
     }
 
     /**

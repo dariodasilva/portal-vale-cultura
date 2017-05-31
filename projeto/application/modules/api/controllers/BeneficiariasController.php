@@ -36,6 +36,7 @@ class Api_BeneficiariasController extends ValeCultura_Controller_Rest_Abstract
                 }
             }
         }
+        $this->getResponse()->setHeader('Content-Type', 'application/json; charset=utf-8');
     }
 
     /**

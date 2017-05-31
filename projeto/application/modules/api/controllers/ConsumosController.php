@@ -19,6 +19,7 @@ class Api_ConsumosController extends ValeCultura_Controller_Rest_Abstract
         } else {
             $this->getResponse()->setBody(Zend_Json::encode($mdl->getTotal()));
         }
+        $this->getResponse()->setHeader('Content-Type', 'application/json; charset=utf-8');
     }
     
     /**
