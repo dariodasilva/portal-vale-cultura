@@ -35,7 +35,8 @@ class Application_Model_AcumuladoTrabalhador extends ValeCultura_Db_Table_Abstra
         $select = $this->getTable()->select();
         $codTipo = ($tipo == 'acumulados') ? self::COD_DATA : self::COD_ATIVO;
         $select->from($this->name, new Zend_Db_Expr('DESCRICAO_1 AS ano, DESCRICAO_2 AS mes, valor'), 'BI_VALE_CULTURA');
-        $select->where('TIPO = ?', $codTipo);     
+        $select->where('TIPO = ?', $codTipo);
+        $select->order(array('DESCRICAO_1 ASC', 'DESCRICAO_2 ASC'));        
         
         if ($ano) {
             $select->where('DESCRICAO_1 = ?', $ano);

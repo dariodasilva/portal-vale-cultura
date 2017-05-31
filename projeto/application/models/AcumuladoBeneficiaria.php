@@ -53,6 +53,7 @@ class Application_Model_AcumuladoBeneficiaria extends ValeCultura_Db_Table_Abstr
         $select = $this->getTable()->select();
         $select->where('TIPO = ?', $codTipo);
         $select->from($this->name, new Zend_Db_Expr('DESCRICAO_1 AS ano, DESCRICAO_2 AS mes, valor'), 'BI_VALE_CULTURA');
+        $select->order(array('DESCRICAO_1 ASC', 'DESCRICAO_2 ASC'));
         
         if ($ano) {
             $select->where('DESCRICAO_1 = ?', $ano);
