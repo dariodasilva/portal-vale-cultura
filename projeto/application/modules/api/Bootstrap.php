@@ -42,7 +42,10 @@ class Api_Bootstrap extends Zend_Application_Module_Bootstrap
 //        $frontController->getRouter()->addRoute('rest', $restRoute);
 
         $frontController = Zend_Controller_Front::getInstance();
-        if (isset($_SERVER['REDIRECT_URL']) && is_int(strpos($_SERVER['REDIRECT_URL'], '/')) && explode('/', $_SERVER['REDIRECT_URL'])[1] == 'api') {
+
+        $arRedirectUrl = explode('/', $_SERVER['REDIRECT_URL']);
+        
+        if (isset($_SERVER['REDIRECT_URL']) && is_int(strpos($_SERVER['REDIRECT_URL'], '/')) && $arRedirectUrl[1] == 'api') {
             $router = $frontController->getRouter();
             $router->addRoute('rest', new Zend_Rest_Route($frontController));
         }
