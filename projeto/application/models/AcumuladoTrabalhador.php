@@ -23,6 +23,7 @@ class Application_Model_AcumuladoTrabalhador extends ValeCultura_Db_Table_Abstra
         $codTipo = ($tipo == 'acumulados') ? self::COD_TOTAL : self::COD_ATIVO;
         $select->where('TIPO = ?', $codTipo);
 
+        // caso especial: ativos atual é o valor registrado para o último mês
         if ($tipo == 'ativos') {
             $select->order(array('DESCRICAO_1 DESC', 'DESCRICAO_2 DESC'));
             $select->limit(1);

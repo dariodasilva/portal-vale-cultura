@@ -24,16 +24,14 @@ class Api_BeneficiariasController extends ValeCultura_Controller_Rest_Abstract
         $uf = $this->getRequest()->getParam('uf');
         
         $mdl = new Application_Model_AcumuladoBeneficiaria();    
-
+        
         if (isset($tipoBusca)) {
             if (isset($regiao) || isset($uf)) {
                 $this->getResponse()->setBody(Zend_Json::encode($mdl->getPorLocalizacao($tipoBusca, $regiao, $uf)));
             } else if (isset($ano) || isset($mes)) {
                 $this->getResponse()->setBody(Zend_Json::encode($mdl->getPorData($tipoBusca, $ano, $mes)));
             } else {
-                if ($tipoBusca != 'ativos') {
-                    $this->getResponse()->setBody(Zend_Json::encode($mdl->getTotal($tipoBusca)));
-                }
+                $this->getResponse()->setBody(Zend_Json::encode($mdl->getTotal($tipoBusca)));
             }
         }
         $this->getResponse()->setHeader('Content-Type', 'application/json; charset=utf-8');

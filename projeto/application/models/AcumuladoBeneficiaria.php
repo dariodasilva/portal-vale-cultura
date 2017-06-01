@@ -13,14 +13,15 @@ class Application_Model_AcumuladoBeneficiaria extends ValeCultura_Db_Table_Abstr
             'inscritas'       => 1,
             'autorizadas'     => 2,
             'nao-autorizadas' => 3,
-            'emitiram-cartao' => 4
+            'emitiram-cartao' => 4,
+            'ativos'          => 9
         ),
         'data' => array(
             'inscritas'       => 5,
             'autorizadas'     => 6,
             'nao-autorizadas' => 7,
             'emitiram-cartao' => 8,
-            'ativas'          => 9
+            'ativos'          => 9
         ),
         'localizacao' => array(
             'inscritas'       => 10,
@@ -43,6 +44,12 @@ class Application_Model_AcumuladoBeneficiaria extends ValeCultura_Db_Table_Abstr
         $select = $this->getTable()->select();
         $select->where('TIPO = ?', $codTipo);        
         $select->from($this->name, 'valor', 'BI_VALE_CULTURA');
+
+        // caso especial: ativos atual é o valor registrado para o último mês
+        if ($tipoBusca == 'ativos') {
+            $select->order(array('DESCRICAO_1 DESC', 'DESCRICAO_2 DESC'));
+            $select->limit(1);
+        }
         
         return $this->getTable()->fetchAll($select)->toArray();
     }
