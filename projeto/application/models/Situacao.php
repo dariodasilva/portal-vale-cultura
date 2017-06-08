@@ -73,8 +73,8 @@ class Application_Model_Situacao {
         $selectOperadora->where(new Zend_Db_Expr('(' . $selectSituacao->assemble() . ')') . ' = ?', '2');
         $selectOperadora->where('CONVERT(datetime, op.DT_INICIO_COMERCIALIZACAO) <= GETDATE()');
 
-        $selectOperadora->order('NM_FANTASIA');
-
+        $selectOperadora->order('NM_RAZAO_SOCIAL');
+        
 //        xd($selectOperadora->assemble());
         return $this->getTable()->fetchAll($selectOperadora)->toArray();
 
