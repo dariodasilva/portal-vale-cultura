@@ -32,7 +32,7 @@
                         <option value="0">- SELECIONE -</option>
                         <?php foreach ($this->operadorasAtivas as $operadora): ?>
                             <option value="<?php echo $operadora['idOperadora'] ?>" <?php echo $operadora['idOperadora'] == $this->operadora ? "selected" : '' ?>>
-                                <?php echo $operadora['nmFantasia']; ?>
+                                <?php if (!empty($operadora['nmFantasia']) && $operadora['nmFantasia'] != ' ') { echo $operadora['nmFantasia']; } else { echo $operadora['nmRazaoSocial']; } ?>
                             </option>
                         <?php endforeach; ?>
                     </select>

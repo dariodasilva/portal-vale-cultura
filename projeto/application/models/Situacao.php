@@ -109,7 +109,7 @@ class Application_Model_Situacao {
 
 
         $selectOperadora->joinInner(
-                array('pj' => 'CORPORATIVO.S_PESSOA_JURIDICA'), 'pj.ID_PESSOA_JURIDICA = ID_OPERADORA', array('nmFantasia' => 'NM_FANTASIA', 'NR_CNPJ')
+            array('pj' => 'CORPORATIVO.S_PESSOA_JURIDICA'), 'pj.ID_PESSOA_JURIDICA = ID_OPERADORA', array('nmFantasia' => 'NM_FANTASIA', 'NR_CNPJ', 'nmRazaoSocial' => 'NM_RAZAO_SOCIAL')
         );
 
         $selectOperadora->joinLeft(array('st' => 'CORPORATIVO.S_SITE'), 'st.ID_PESSOA = ID_OPERADORA',
@@ -118,6 +118,7 @@ class Application_Model_Situacao {
 
         $selectOperadora->where(new Zend_Db_Expr('(' . $selectSituacao->assemble() . ')') . ' IN (?)', array(2,4));
         $selectOperadora->order('NM_RAZAO_SOCIAL');
+        
         //xd($selectOperadora->assemble());
         return $this->getTable()->fetchAll($selectOperadora)->toArray();
     }
