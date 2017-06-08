@@ -316,7 +316,7 @@ class Minc_AdminController extends GenericController {
             }
 
             if ($NOME) {
-                $where['pj.NM_FANTASIA like ?'] = '%' . $NOME . '%';
+                $where['pj.NM_FANTASIA like ? OR pj.NM_RAZAO_SOCIAL like ? '] = '%' . $NOME . '%';                
             }
 
             if ($SITUACAO > 0) {
