@@ -101,7 +101,7 @@
                     <select name="EMPRESA_OPERADORA" id="EMPRESA_OPERADORA" class="select_simples">
                         <option value=""> - Selecione - </option>
                         <?php foreach ($this->operadorasAtivas as $operadora) { ?>
-                            <option value="<?php echo $operadora['idOperadora'] ?>"> <?php echo $operadora['nmFantasia'] ?> </option>
+                        <option value="<?php echo $operadora['idOperadora'] ?>"> <?php if (!empty($operadora['nmFantasia']) && $operadora['nmFantasia'] != ' ') { echo $operadora['nmFantasia']; } else { echo $operadora['nmRazaoSocial']; } ?> </option>
                         <?php } ?>
                     </select>
                 </td>

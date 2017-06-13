@@ -60,6 +60,8 @@ class Beneficiaria_CadastroController extends GenericController {
             $modelCBOPessoaFisica = new Application_Model_CBOPessoaFisica();
             $modelTrabalhadorFaixaSalarial = new Application_Model_FaixaSalarialBeneficiaria();
             $modelDDD = new Application_Model_DDD();
+            $modelBeneficiariaHistorico = new Application_Model_BeneficiariaHistorico();
+            $modelTrabalhadorFaixaSalarialHistorico = new Application_Model_FaixaSalarialBeneficiariaHistorico();
 
             //Recuperando form
             $IDPJ = $this->getRequest()->getParam('IDPJ');
@@ -190,12 +192,14 @@ class Beneficiaria_CadastroController extends GenericController {
                     // O ID já vem do cadastro
                     $idPessoaJuridica = $IDPJ;
 
-                    // Passo 0 - Alterar nome fantasia
-                    $Cols = array(
-                        'NM_FANTASIA' => $NMFANTASIA
-                    );
+                    // Passo 0 - Alterar nome fantasi
+                    if(trim($NMFANTASIA) != ''){
+                        $Cols = array(
+                            'NM_FANTASIA' => $NMFANTASIA
+                        );
 
-                    $modelPessoaJuridica->update($Cols, array('ID_PESSOA_JURIDICA = ?' => $idPessoaJuridica));
+                        $modelPessoaJuridica->update($Cols, array('ID_PESSOA_JURIDICA = ?' => $idPessoaJuridica));
+                    }
 
                     // Passo 1 - Pessoa Juridica Lucro
                     $where = array('ID_PESSOA_JURIDICA = ?' => $idPessoaJuridica);
@@ -233,24 +237,79 @@ class Beneficiaria_CadastroController extends GenericController {
                         $modelEndereco->update($Cols, $IDENDERECO);
                     }
 
+                    // Pega a situação da beneficiária tentando se cadastrar
+                    // para verificar se ela está em situação inativa ou não autorizada
+                    // nessas situações é permitido o recadastramento
+                    $eBeneficiariaInativa = $modelSituacao->buscarSituacao(array('ID_PESSOA = ?' => $idPessoaJuridica, 'TP_ENTIDADE_VALE_CULTURA = ?' => 'B'));
                     // Passo 3 - Salvando os dados como Beneficiária
-                    $Cols = array(
-                        'ID_BENEFICIARIA' => $idPessoaJuridica,
-                        'ID_OPERADORA' => $IDOPERADORA == 'N' ? new Zend_Db_Expr('NULL') : $IDOPERADORA,
-                        'ST_DIVULGAR_DADOS' => (int) $AUTORIZO_OPERADORA,
-                        'ST_AUTORIZA_MINC' => $AUTORIZO_MINC ? 1 : 2
-                    );
-                    $modelBeneficiaria->insert($Cols);
+                    if(count($eBeneficiariaInativa) > 0 &&
+                        ($eBeneficiariaInativa[0]['idTipoSituacao'] == '3' ||
+                        $eBeneficiariaInativa[0]['idTipoSituacao'] == '4')) {
+                        $beneficiariaInativa = $modelBeneficiaria->find($idPessoaJuridica);
+                        $modelBeneficiariaHistorico->insert(array(
+                            'DT_HISTORICO' => new Zend_Db_Expr('getdate()'),
+                            'ID_BENEFICIARIA' => $beneficiariaInativa['ID_BENEFICIARIA'],
+                            'ID_OPERADORA' => $beneficiariaInativa['ID_OPERADORA'],
+                            'DT_INSCRICAO' => $beneficiariaInativa['DT_INSCRICAO'],
+                            'NR_COMPROVANTE_INSCRICAO' => $beneficiariaInativa['NR_COMPROVANTE_INSCRICAO'],
+                            'NR_CERTIFICADO' => $beneficiariaInativa['NR_CERTIFICADO'],
+                            'ST_DIVULGAR_DADOS' => $beneficiariaInativa['ST_DIVULGAR_DADOS'],
+                            'ST_ATUALIZADO_OPERADORA' => $beneficiariaInativa['ST_ATUALIZADO_OPERADORA'],
+                            'ST_AUTORIZA_MINC' => $beneficiariaInativa['ST_AUTORIZA_MINC']
+                        ));
+
+                        $Cols = array(
+                            'ID_BENEFICIARIA' => $idPessoaJuridica,
+                            'ID_OPERADORA' => $IDOPERADORA == 'N' ? new Zend_Db_Expr('NULL') : $IDOPERADORA,
+                            'DT_INSCRICAO' => new Zend_Db_Expr('getdate()'),
+                            'ST_DIVULGAR_DADOS' => (int) $AUTORIZO_OPERADORA,
+                            'ST_AUTORIZA_MINC' => $AUTORIZO_MINC ? 1 : 2
+                        );
+                        $modelBeneficiaria->update($Cols, $idPessoaJuridica);
+                    }else if(count($eBeneficiariaInativa) === 0){
+                        $Cols = array(
+                            'ID_BENEFICIARIA' => $idPessoaJuridica,
+                            'ID_OPERADORA' => $IDOPERADORA == 'N' ? new Zend_Db_Expr('NULL') : $IDOPERADORA,
+                            'ST_DIVULGAR_DADOS' => (int) $AUTORIZO_OPERADORA,
+                            'ST_AUTORIZA_MINC' => $AUTORIZO_MINC ? 1 : 2
+                        );
+                        $modelBeneficiaria->insert($Cols);
+                    }
 
                     // Passo 4 - Cadastra Faixa Salarial
-                    foreach ($FAIXASALARIAL as $k => $v) {
-                        if ((int) $v > 0) {
-                            $Cols = array(
-                                'ID_BENEFICIARIA' => $idPessoaJuridica,
-                                'ID_TIPO_FAIXA_SALARIAL' => $k,
-                                'QT_TRABALHADOR_FAIXA_SALARIAL' => (int) $v
-                            );
-                            $modelTrabalhadorFaixaSalarial->insert($Cols);
+                    if(count($eBeneficiariaInativa) > 0 &&
+                        ($eBeneficiariaInativa[0]['idTipoSituacao'] == '3' ||
+                        $eBeneficiariaInativa[0]['idTipoSituacao'] == '4')){
+
+                        foreach ($FAIXASALARIAL as $k => $v) {
+                            if((int) $v > 0){
+                                $Cols = array(
+                                    'DT_HISTORICO' => new Zend_Db_Expr('getdate()'),
+                                    'ID_BENEFICIARIA' => $idPessoaJuridica,
+                                    'ID_TIPO_FAIXA_SALARIAL' => $k,
+                                    'QT_TRABALHADOR_FAIXA_SALARIAL' => (int) $v
+                                );
+                                $modelTrabalhadorFaixaSalarialHistorico->insert($Cols);
+                            }
+                        }
+                        foreach ($FAIXASALARIAL as $k => $v) {
+                            if ((int) $v > 0) {
+                                $Cols = array(
+                                    'QT_TRABALHADOR_FAIXA_SALARIAL' => (int) $v
+                                );
+                                $modelTrabalhadorFaixaSalarial->update($Cols, $idPessoaJuridica, $k);
+                            }
+                        }
+                    }else if(count($eBeneficiariaInativa) === 0){
+                        foreach ($FAIXASALARIAL as $k => $v) {
+                            if ((int) $v > 0) {
+                                $Cols = array(
+                                    'ID_BENEFICIARIA' => $idPessoaJuridica,
+                                    'ID_TIPO_FAIXA_SALARIAL' => $k,
+                                    'QT_TRABALHADOR_FAIXA_SALARIAL' => (int) $v
+                                );
+                                $modelTrabalhadorFaixaSalarial->insert($Cols);
+                            }
                         }
                     }
 

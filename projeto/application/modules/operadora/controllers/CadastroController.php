@@ -582,6 +582,7 @@ class Operadora_CadastroController extends GenericController {
         $modelOperadora      = new Application_Model_Operadora();
         $modelEndereco       = new Application_Model_Endereco();
         $modelCNAE           = new Application_Model_PessoaJuridicaCNAE();
+        $modelSituacao = new Application_Model_Situacao();
         $servicos            = new Servicos();
 
         $retorno = array();
@@ -620,12 +621,16 @@ class Operadora_CadastroController extends GenericController {
                     if($tipoPJ == 'O'){
                         $eOperadoraOuBeneficiaria  = $modelOperadora->find($idPessoa);
                         $msg = 'A empresa já está cadastrada como operadora!';
-                    }else{
+                    }else if($tipoPJ == 'B'){
                         $eOperadoraOuBeneficiaria  = $modelBeneficiaria->find($idPessoa);
+                        $inativoOuRecusado = $modelSituacao->buscarSituacao(array('ID_PESSOA = ?' => $idPessoa, 'TP_ENTIDADE_VALE_CULTURA = ?' => 'B'));
                         $msg = 'A empresa já está cadastrada como beneficiária!';
                     }
 
-                    if (count($eOperadoraOuBeneficiaria) > 0) {
+                    if ($tipoPJ == 'O' && count($eOperadoraOuBeneficiaria) > 0) {
+                        $retorno['error'] = utf8_encode($msg);
+                    }else if ($tipoPJ=='B' && count($eOperadoraOuBeneficiaria) > 0 &&
+                            ($inativoOuRecusado[0]['idTipoSituacao'] == '1' || $inativoOuRecusado[0]['idTipoSituacao'] == '2')) {
                         $retorno['error'] = utf8_encode($msg);
                     }else{
                         $retorno['dados']['idpj']                   = $pj[0]['ID_PESSOA_JURIDICA'];
