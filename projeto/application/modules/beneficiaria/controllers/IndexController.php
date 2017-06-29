@@ -1273,5 +1273,10 @@ class Beneficiaria_IndexController extends GenericController {
 
     }
 
+    public function descredenciarAction() {
+        parent::autenticar(array('A','R','C'));
+
+        
+    }       
 }
 

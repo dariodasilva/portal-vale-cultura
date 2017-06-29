@@ -1,0 +1,92 @@
+<div class="container-fluid-full">
+    <div class="row-fluid">
+
+        <!-- start: Main Menu -->
+        <div id="sidebar-left" class="span2">
+
+            <div class="row-fluid actions">
+                <input type="text" class="search span12" placeholder="O que deseja buscar?" />
+            </div>
+
+            <?php include_once 'menu.phtml'; ?>
+
+        </div>
+        <!-- end: Main Menu -->
+
+        <!-- start: Content -->
+        <div id="content" class="span10">
+
+            <div class="row-fluid">
+
+                <div class="box span12">
+                    <div class="box-header">
+                        <h2><i class="icon-edit"></i>Solicitar descredenciamento</h2>
+                        <div class="box-icon">
+
+                        </div>
+                    </div>
+                    <div class="box-content">
+                        <fieldset>
+                          <div id="conteudo">
+                            <form method="post" action="">
+			      <h3>Deseja solicitar o descredenciamento de sua empresa do Programa de Cultura do Trabalhador
+			      </h3>
+			      <input type="radio" name="solicitar_descredenciamento" value="sim"/> Sim
+			      <input type="radio" name="solicitar_descredenciamento" value="nao"/> N&atilde;o
+			      
+			      <h3>Informar o motivo do descredenciamento</h3>
+			      <ul>
+				<li>
+				  <input type="checkbox" name="motivo" value="sem_conhecimento">N&atilde;o ter conhecimento de que o benef&iacute;cio &eacute; concedido pela pr&oacute;pria empresa
+				</li>
+				<li>
+				  <input type="checkbox" name="motivo" value="inviabilidade_financeira">Inviabilidade financeira da empresa em fornecer o Vale-Cultura a seus empregados
+				</li>
+				<li>
+				  <input type="checkbox" name="motivo" value="ma_utilizacao">M&aacute; utiliza&ccedil;&atilde;o dos trabalhadores com o Vale-Cultura
+				</li>
+				<li>
+				  <input type="checkbox" name="motivo" value="insatisfacao_trabalhadores">Insatisfa&ccedil;&atilde;o dos trabalhadores com o Vale-Cultura
+				</li>
+				<li>
+				  <input type="checkbox" name="motivo" value="insatisfacao_empresa_operadora">Insatisfa&ccedil;&atilde;o da empresa com os servi&ccedil;os prestados pela operada escolhida
+				</li>
+				<li>
+				  <input type="checkbox" name="motivo" value="insatisfacao_empresa_ministerio">Insatisfa&ccedil;&atilde;o da empresa com os servi&ccedil;os prestados Minist&eacute;rio da Cultura
+				</li>
+				<li>
+				  <input type="checkbox" name="motivo" value="indefinicao_incentivo">Indefini&ccedil;&atilde;o da continuidade do benef&iacute;cio de Incentivo Fiscal para empresas benefici&aacute;rias
+				</li>
+				<li>
+				  <input type="checkbox" name="motivo" value="outros" />Outros
+				  <input type="text" name="outro_motivo"/>
+				</li>
+			      </ul>
+
+			      <h3>Sua empresa firmou contrato com alguma operadora?
+			      </h3>
+			      <input type="radio" name="firmou_contrato" value="sim"/> Sim
+			      <input type="radio" name="firmou_contrato" value="nao"/> N&atilde;o
+
+			      <select id="" name="contrato_operadora">
+				<option>Selecione a operadora</option>
+			      </select>
+			      
+			      <br/>
+			      <br/>
+			      <input name="autorizacao" value="CONCLUIR SOLICITA&Ccedil;O DE DESCREDENCIAMENTO" class="btn btn-primary" type="submit" />
+			      <input name="autorizacao" value="CANCELAR SOLICITA&Ccedil;O DE DESCREDENCIAMENTO" class="btn" type="submit" />
+			      
+			    </form>
+                          </div>
+                        </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end: Content -->
+
+    </div><!--/fluid-row-->
+
+</div><!--/.fluid-container-->

@@ -131,6 +131,10 @@
         <li class="current">
             <a target="_blank" href="#home" onclick="manual();">Manual do usuário</a>
         </li>
+	<li class="current">
+            <a href="#home" id="btnDescredenciarBeneficiaria" link="<?php echo $this->baseUrl('beneficiaria/index/descredenciar') ?>"
+               title="Solicitar descredenciamento de benefici&aacute;ria" rel="modal">Solicitar descredenciamento</a>
+        </li>
         <li class="current">
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </li>
@@ -274,6 +278,10 @@
         fechaModal();
 
         $('#btnCadastroBeneficiaria').click();
+    }
+
+    function descredenciamento() {
+	window.open("<?php echo $this->baseUrl('downloads/Manual_Vale_Cultura_v6.0.pdf');?>", "_blank");
     }
 
     $(document).ready(function () {
