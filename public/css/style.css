@@ -1902,7 +1902,22 @@ em { font-weight: bold; padding-right: 1em; vertical-align: top; }
     margin: -1px 5px 0 1px;
 }
 
+.question {
+    display: inline;
+    cursor: pointer;
+    width: 30px;
+}
 
+.question:hover > .question-text {
+    display: inline;
+    position: absolute;
+    margin: 5px;
+    padding: 10px;
+    padding-left:15px;
+    background: #ed9;
+    font-size: 13px;
+}
 
-
-
+.question-text {
+    display: none;
+}
