@@ -322,7 +322,7 @@ class Minc_IndexController extends GenericController {
         $beneficiariasAtivas    = $modelSituacao->selecionaBeneficiariasAtivas($where);
         $operadoras             = $modelSituacao->selecionaOperadorasAtivasInativas();
 
-        //$this->view->assign('beneficiariasAtivas', $beneficiariasAtivas);
+        $this->view->assign('beneficiariasAtivas', $beneficiariasAtivas);
         $this->view->assign('operadorasAtivas', $operadoras);
     }
 
