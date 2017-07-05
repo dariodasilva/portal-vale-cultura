@@ -1295,8 +1295,32 @@ class Beneficiaria_IndexController extends GenericController {
                 $listaOperadoras[$op['idOperadora']]['nmRazaoSocial'] = $op['nmRazaoSocial'];
             }
         }
+        $sessao = $this->_sessao;
+
         $this->view->assign('operadoras', $listaOperadoras);
+        $this->view->assign('sessao', $sessao);
         
-    }       
+    }
+
+    public function solicitacarDescredenciamentoAction() {
+        $idBeneficiaria = $this->_sessao['beneficiaria'];
+        if ($_POST) {
+
+            $this->getHelper('layout')->disableLayout();
+
+            // $modelPessoaJuridica = new Application_Model_PessoaJuridica();
+
+            //Recuperando form
+            $solicitar_descredenciamento = $this->getRequest()->getParam('solicitar_descredenciamento');
+            $motivo = $this->getRequest()->getParam('motivo');
+            $outro_motivo = $this->getRequest()->getParam('outro_motivo');
+            $firmou_contrato = $this->getRequest()->getParam('firmou_contrato');
+            $contrato_operadora = $this->getRequest()->getParam('contrato_operadora');
+            echo "<pre>";
+            var_dump($solicitar_descredenciamento, $motivo, $outro_motivo, $firmou_contrato, $contrato_operadora);
+            echo "</pre>";
+            die();
+        }
+    }  
 }
 

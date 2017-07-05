@@ -59,7 +59,7 @@
 					<div class="box-content">
 						<fieldset>
 							<div id="conteudo">
-								<form method="post" action="">
+								<form action="<?php echo $this->url(array('module' => 'beneficiaria', 'controller' => 'index', 'action' => 'solicitacar-descredenciamento')); ?>" method="post">
 									<table class="table table-striped table-bordered bootstrap-datatable ">
 										<tbody>
 											<tr>
@@ -89,42 +89,42 @@
 														<ul style="list-style-type: none; margin: 0;">
 															<li>
 																<label for="input-1">
-																	<input id="input-1" type="checkbox" name="motivo" value="sem_conhecimento">N&atilde;o ter conhecimento de que o benef&iacute;cio &eacute; concedido pela pr&oacute;pria empresa
+																	<input id="input-1" type="checkbox" name="motivo[]" value="sem_conhecimento">N&atilde;o ter conhecimento de que o benef&iacute;cio &eacute; concedido pela pr&oacute;pria empresa
 																</label>
 															</li>
 															<li>
 																<label for="input-2">
-																	<input id="input-2" type="checkbox" name="motivo" value="inviabilidade_financeira">Inviabilidade financeira da empresa em fornecer o Vale-Cultura a seus empregados
+																	<input id="input-2" type="checkbox" name="motivo[]" value="inviabilidade_financeira">Inviabilidade financeira da empresa em fornecer o Vale-Cultura a seus empregados
 																</label>
 															</li>
 															<li>
 																<label for="input-3">
-																	<input id="input-3" type="checkbox" name="motivo" value="ma_utilizacao">M&aacute; utiliza&ccedil;&atilde;o dos trabalhadores com o Vale-Cultura
+																	<input id="input-3" type="checkbox" name="motivo[]" value="ma_utilizacao">M&aacute; utiliza&ccedil;&atilde;o dos trabalhadores com o Vale-Cultura
 																</label>
 															</li>
 															<li>
 																<label for="input-4">
-																	<input id="input-4" type="checkbox" name="motivo" value="insatisfacao_trabalhadores">Insatisfa&ccedil;&atilde;o dos trabalhadores com o Vale-Cultura
+																	<input id="input-4" type="checkbox" name="motivo[]" value="insatisfacao_trabalhadores">Insatisfa&ccedil;&atilde;o dos trabalhadores com o Vale-Cultura
 																</label>
 															</li>
 															<li>
 																<label for="input-5">
-																	<input id="input-5" type="checkbox" name="motivo" value="insatisfacao_empresa_operadora">Insatisfa&ccedil;&atilde;o da empresa com os servi&ccedil;os prestados pela operada escolhida
+																	<input id="input-5" type="checkbox" name="motivo[]" value="insatisfacao_empresa_operadora">Insatisfa&ccedil;&atilde;o da empresa com os servi&ccedil;os prestados pela operada escolhida
 																</label>
 															</li>
 															<li>
 																<label for="input-6">
-																	<input id="input-6" type="checkbox" name="motivo" value="insatisfacao_empresa_ministerio">Insatisfa&ccedil;&atilde;o da empresa com os servi&ccedil;os prestados Minist&eacute;rio da Cultura
+																	<input id="input-6" type="checkbox" name="motivo[]" value="insatisfacao_empresa_ministerio">Insatisfa&ccedil;&atilde;o da empresa com os servi&ccedil;os prestados Minist&eacute;rio da Cultura
 																</label>
 															</li>
 															<li>
 																<label for="input-7">
-																	<input id="input-7" type="checkbox" name="motivo" value="indefinicao_incentivo">Indefini&ccedil;&atilde;o da continuidade do benef&iacute;cio de Incentivo Fiscal para empresas benefici&aacute;rias
+																	<input id="input-7" type="checkbox" name="motivo[]" value="indefinicao_incentivo">Indefini&ccedil;&atilde;o da continuidade do benef&iacute;cio de Incentivo Fiscal para empresas benefici&aacute;rias
 																</label>
 															</li>
 															<li>
 																<label for="input-8">
-																	<input id="input-8" type="checkbox" name="motivo" value="outros" />Outros
+																	<input id="input-8" type="checkbox" name="motivo[]" value="outros" />Outros
 																	<input type="text" name="outro_motivo"/>
 																</label>
 															</li>
@@ -145,7 +145,7 @@
 
 														<?php 
 															echo "<!--<pre>"; 
-															var_dump($this->operadoras); 
+															var_dump($this->sessao, $this->operadoras); 
 															echo "</pre>-->"; 
 														?>
 
