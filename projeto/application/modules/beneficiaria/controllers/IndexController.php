@@ -1276,6 +1276,26 @@ class Beneficiaria_IndexController extends GenericController {
     public function descredenciarAction() {
         parent::autenticar(array('A','R','C'));
 
+        $modelOperadora = new Application_Model_Operadora();
+        $modelSituacao = new Application_Model_Situacao();
+
+        $operadorasOperando = $modelOperadora->buscarOperadorasAtuando();
+        $operadorasAtivas = $modelSituacao->selecionaOperadorasAtivas();
+
+        $todasOperadoras = array(
+            'ativas' => $operadorasAtivas,
+            'operando'  => $operadorasOperando
+        );
+
+
+        $listaOperadoras  = array();
+        foreach ($todasOperadoras as $situacao => $operadoras) {
+            foreach ($operadoras as $op) {
+                $listaOperadoras[$op['idOperadora']]['nmFantasia']   = $op['nmFantasia'];
+                $listaOperadoras[$op['idOperadora']]['nmRazaoSocial'] = $op['nmRazaoSocial'];
+            }
+        }
+        $this->view->assign('operadoras', $listaOperadoras);
         
     }       
 }
