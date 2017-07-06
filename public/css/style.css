@@ -1905,19 +1905,21 @@ em { font-weight: bold; padding-right: 1em; vertical-align: top; }
 .question {
     display: inline;
     cursor: pointer;
-    width: 30px;
+    position: relative;
 }
 
 .question:hover > .question-text {
     display: inline;
+}
+
+.question-text {
     position: absolute;
+    z-index: 100;
+    display: none;
     margin: 5px;
     padding: 10px;
     padding-left:15px;
     background: #ed9;
     font-size: 13px;
-}
-
-.question-text {
-    display: none;
+    width: 500px;   
 }
