@@ -1275,31 +1275,42 @@ class Beneficiaria_IndexController extends GenericController {
 
     public function descredenciarAction() {
         parent::autenticar(array('A','R','C'));
+        $idBeneficiaria = $this->_sessao['beneficiaria'];
+        // Verifica se existe uma sessao aberta com a identificacao da beneficiaria
+        if( $idBeneficiaria ):
+            $modelDescredenciamento = new Application_Model_Descredenciamento();
+            $modelOperadora = new Application_Model_Operadora();
+            $modelSituacao = new Application_Model_Situacao();
 
-        $modelOperadora = new Application_Model_Operadora();
-        $modelSituacao = new Application_Model_Situacao();
+            // Checa se já existe um descredenciamento pendente de aprovacao
+            $checaDescredenciamentoRealizado = $modelDescredenciamento->getDescredencimantoRealizado($idBeneficiaria);
+            // if( $checaDescredenciamentoRealizado ){
+            if( !$checaDescredenciamentoRealizado ){
+                $this->view->assign('descredenciamentoRealizado', true);
+                // parent::message('Sua solicitação de descredenciamento já foi enviada!', '/admin/listar-beneficiarias-responsavel', 'error');
+            } else {
+                $operadorasOperando = $modelOperadora->buscarOperadorasAtuando();
+                $operadorasAtivas = $modelSituacao->selecionaOperadorasAtivas();
 
-        $operadorasOperando = $modelOperadora->buscarOperadorasAtuando();
-        $operadorasAtivas = $modelSituacao->selecionaOperadorasAtivas();
-
-        $todasOperadoras = array(
-            'ativas' => $operadorasAtivas,
-            'operando'  => $operadorasOperando
-        );
+                $todasOperadoras = array(
+                    'ativas' => $operadorasAtivas,
+                    'operando'  => $operadorasOperando
+                );
 
 
-        $listaOperadoras  = array();
-        foreach ($todasOperadoras as $situacao => $operadoras) {
-            foreach ($operadoras as $op) {
-                $listaOperadoras[$op['idOperadora']]['nmFantasia']   = $op['nmFantasia'];
-                $listaOperadoras[$op['idOperadora']]['nmRazaoSocial'] = $op['nmRazaoSocial'];
+                $listaOperadoras  = array();
+                foreach ($todasOperadoras as $situacao => $operadoras) {
+                    foreach ($operadoras as $op) {
+                        $listaOperadoras[$op['idOperadora']]['nmFantasia']   = $op['nmFantasia'];
+                        $listaOperadoras[$op['idOperadora']]['nmRazaoSocial'] = $op['nmRazaoSocial'];
+                    }
+                }
+                $this->view->assign('operadoras', $listaOperadoras);
             }
-        }
-        $sessao = $this->_sessao;
-
-        $this->view->assign('operadoras', $listaOperadoras);
-        $this->view->assign('sessao', $sessao);
-        
+        else:
+            $this->view->assign('operadoras', $listaOperadoras);
+            parent::message('Beneficiária não foi localizada!', '/minc/admin', 'error');
+        endif;
     }
 
     public function solicitacarDescredenciamentoAction() {
@@ -1308,18 +1319,49 @@ class Beneficiaria_IndexController extends GenericController {
 
             $this->getHelper('layout')->disableLayout();
 
-            // $modelPessoaJuridica = new Application_Model_PessoaJuridica();
+            $modelDescredenciamento = new Application_Model_Descredenciamento();
+            $modelEmail = new Application_Model_Email();
 
             //Recuperando form
-            $solicitar_descredenciamento = $this->getRequest()->getParam('solicitar_descredenciamento');
-            $motivo = $this->getRequest()->getParam('motivo');
-            $outro_motivo = $this->getRequest()->getParam('outro_motivo');
-            $firmou_contrato = $this->getRequest()->getParam('firmou_contrato');
-            $contrato_operadora = $this->getRequest()->getParam('contrato_operadora');
-            echo "<pre>";
-            var_dump($solicitar_descredenciamento, $motivo, $outro_motivo, $firmou_contrato, $contrato_operadora);
-            echo "</pre>";
-            die();
+            $solicitarDescredenciamento = $this->getRequest()->getParam('solicitar_descredenciamento');
+            if( $solicitarDescredenciamento === 'sim' ){
+                $motivos = $this->getRequest()->getParam('motivo');
+                $outroMotivo = $this->getRequest()->getParam('outro_motivo');
+
+                if( in_array('outros', $motivos) ){
+                    $motivos[count($motivos)-1] = $motivos[count($motivos)-1] .':'. $outroMotivo;
+                }
+
+                $firmouContrato = $this->getRequest()->getParam('firmou_contrato');
+                $idOperadora = ( $firmouContrato === 'sim' ) ? $this->getRequest()->getParam('contrato_operadora') : '';
+
+                $dadosDescredenciamento = array(
+                    'ID_BENEFICIARIA'               => $idBeneficiaria,
+                    'ID_OPERADORA'                  => $idOperadora,
+                    'DS_MOTIVO'                     => serialize($motivos),
+                    'DT_DESCREDENCIAMENTO'          => date("Y-m-d H:i:s"),
+                    'ST_FIRMOU_CONTRATO_OPERADORA'  => ( $firmouContrato === 'sim' ) ? 1 : 0
+                );
+                $modelDescredenciamento->insert($dadosDescredenciamento);
+
+                $DSEMAIL = 'rickmanu@gmail.com';
+                $Cols = array(
+                    // 'ID_PESSOA' => $idPessoaFisica,
+                    'ID_PESSOA' => 1,
+                    'DS_EMAIL' => $DSEMAIL,
+                    'ID_TIPO_EMAIL' => 2,
+                    'ST_EMAIL_PRINCIPAL' => 'S'
+                );
+
+                $modelEmail->insert($Cols);
+                // $enviarEmail = $modelEmail->enviarEmail($DSEMAIL, 'Acesso ao sistema Vale Cultura', $htmlEmail);
+                $enviarEmail = $modelEmail->enviarEmail($DSEMAIL, 'Acesso ao sistema Vale Cultura', '<h1>Some text for email</h1>');
+
+                // mail('minc@Lin0', 'Teste', 'Foo bar!');
+
+                parent::message('Sua solicitação de descredenciamento foi enviada e será analisada por esse Ministério.', '/admin/listar-beneficiarias-responsavel', 'confirm');
+            }
+    
         }
     }  
 }

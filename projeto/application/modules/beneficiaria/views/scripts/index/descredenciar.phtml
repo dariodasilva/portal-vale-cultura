@@ -57,7 +57,7 @@
 						</div>
 					</div>
 					<div class="box-content">
-						<fieldset>
+						<?php if( !$this->descredenciamentoRealizado ): ?>
 							<div id="conteudo">
 								<form action="<?php echo $this->url(array('module' => 'beneficiaria', 'controller' => 'index', 'action' => 'solicitacar-descredenciamento')); ?>" method="post">
 									<table class="table table-striped table-bordered bootstrap-datatable ">
@@ -143,12 +143,6 @@
 															<input id="firmou_contrato-2" type="radio" name="firmou_contrato" value="nao" checked="checked"/> N&atilde;o
 														</label>
 
-														<?php 
-															echo "<!--<pre>"; 
-															var_dump($this->sessao, $this->operadoras); 
-															echo "</pre>-->"; 
-														?>
-
 														<select disabled id="contrato_operadora" name="contrato_operadora">
 															<option>Selecione a operadora</option>
 															<?php foreach ($this->operadoras as $idOperadora => $operadora): ?>													
@@ -168,7 +162,9 @@
 
 								</form>
 							</div>
-						</fieldset>
+						<?php else: ?>
+							<p>Sua solicita&ccedil;&atilde;o de <b>descredenciamento</b> j&aacute; foi enviada.</p>
+						<?php endif; ?>
 					</form>
 				</div>
 			</div>
