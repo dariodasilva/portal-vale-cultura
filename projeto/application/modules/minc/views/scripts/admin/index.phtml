@@ -1,3 +1,26 @@
+<style>
+.question {
+    display: inline;
+    cursor: pointer;
+    position: relative;
+}
+
+.question:hover > .question-text {
+    display: inline;
+}
+
+.question-text {
+    position: absolute;
+    z-index: 100;
+    display: none;
+    margin: 0px;
+    padding: 7px;
+    padding-left:10px;
+    background: #ed9;
+    font-size: 13px;
+    width: 600px;   
+  }
+</style>
 <div class="container-fluid-full">
     <div class="row-fluid">
 
@@ -27,16 +50,22 @@
                 if(!$b->stAutorizaMinc){ ?>
                     <div class="box span8" ontablet="span12" ondesktop="span8">
                         <div class="box-header" style="background-color: #FF9800;">
-                            <h2><i class="icon-warning-sign" style="background-color: #FF9800;"></i>AUTORIZAÇÃO PARA DIVULGAÇÃO DOS DADOS</h2>
+                            <h2><i class="icon-warning-sign" style="background-color: #FF9800;"></i>AUTORIZAÇÃO PARA DIVULGAÇÃO</h2>
                         </div>
                         <div class="box-content" style="height:120px">
                             <div class="span12" style="height:120px">
-                                Na qualidade de titular da empresa beneficiária junto ao Ministério, <b>AUTORIZO</b> a divulgação do nome da empresa (<?php echo $b->nmRazaoSocial ?>) como participante do Programa de Cultura do Trabalhador. A presente autorização é concedida a título gratuito e em todo território nacional. <br><br>
+                              Autorizo o Ministério da Cultura  a divulgar que sou uma Empresa Beneficiária do Vale-Cultura.
+                              <br/><br/>
                                 <div class="row-fluid">
                                     <form method="POST" action="<?php echo $this->url(array('module' => 'beneficiaria', 'controller' => 'index', 'action' => 'autorizar-divulgacao-minc')); ?>">
                                         <input type="hidden" name="beneficiaria" value="<?php echo $b->idBeneficiaria ?>">
-                                        <input type="submit" name="autorizacao" value="AUTORIZO" class="btn btn-primary">
-                                        <input type="submit" name="autorizacao" value="NÃO AUTORIZO" class="btn">
+					  <div class="question">
+					    <input type="submit" name="autorizacao" value="AUTORIZO" class="btn btn-primary">
+					    <div class="question-text" id="info1">
+					      É importante para sua empresa ser reconhecida como uma corporação que valoriza os funcionários e a cultura brasileira. Clicando aqui, o MinC <strong>poderá</strong> relacionar o nome da empresa na Lista de Beneficiárias do Programa, com identificação do município e UF do CNPJ cadastrado como beneficiária. As demais informações que identificam o cadastro da empresa serão preservadas em sigilo.
+					    </div>
+					  </div>
+                                          <input type="submit" name="autorizacao" value="NÃO AUTORIZO" class="btn">
                                     </form>
                                 </div>
                             </div>
