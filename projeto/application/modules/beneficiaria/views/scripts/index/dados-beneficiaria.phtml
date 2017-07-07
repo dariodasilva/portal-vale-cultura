@@ -1,3 +1,26 @@
+<style>
+.question {
+    display: inline;
+    cursor: pointer;
+    position: relative;
+}
+
+.question:hover > .question-text {
+    display: inline;
+}
+
+.question-text {
+    position: absolute;
+    z-index: 100;
+    display: none;
+    margin: 5px;
+    padding: 10px;
+    padding-left:15px;
+    background: #ed9;
+    font-size: 13px;
+    width: 500px;   
+  }
+</style>
 <div class="container-fluid-full">
     <div class="row-fluid">
 
@@ -152,22 +175,32 @@
                                         </tr>
                                         <tr>
                                             <td colspan="3">
+					      <div class="question">
                                                 <input type="radio" <?php
                                                 if ($this->beneficiaria['ST_DIVULGAR_DADOS'] == 1) {
                                                     echo 'checked="checked"';
                                                 }
                                                 ?> name="AUTORIZO_OPERADORA" value="1" style="margin:0px">
-                                                Autorizo o MinC a divulgar meus dados de contato a operadora selecionada.
-                                            </td>
+						<div class="question-text" id="info1">
+						  A operadora escolhida pela sua empresa no momento do cadastro <strong>poderá</strong> fazer contato para apresentar as condições de concessão do benefício ofertado aos seus funcionários
+						</div>
+					      </div>
+					      Autorizo o MinC a divulgar meus dados de contato a operadora selecionada.
+					    </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="3">
-                                                <input type="radio" <?php
+                                          <td colspan="3">
+					      <div class="question">
+                                              <input type="radio" <?php
                                                 if ($this->beneficiaria['ST_DIVULGAR_DADOS'] == 2) {
                                                     echo 'checked="checked"';
                                                 }
                                                 ?> name="AUTORIZO_OPERADORA" value="2" style="margin:0px">
-                                                Autorizo o MinC a divulgar meus dados de contato a todas operadoras cadastradas no sistema Vale-Cultura.
+						<div class="question-text" id="info1">
+						  Além da operadora escolhida pela sua empresa, todas as operadoras do Vale-Cultura receberão a notificação do cadastro da sua empresa e <strong>poderão</strong> fazer contato para apresentar as condições de concessão do benefício ofertado aos seus funcionários. Isso permitirá a sua empresa comparar e avaliar os custos de mercado.
+						</div>
+					      </div>
+					      Autorizo o MinC a divulgar meus dados de contato a todas operadoras cadastradas no sistema Vale-Cultura.
                                             </td>
                                         </tr>
                                     </table>
