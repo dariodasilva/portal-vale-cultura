@@ -18,6 +18,10 @@ textarea, input[type="text"], input[type="password"], input[type="datetime"], in
     transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
 }
 
+#home input[type="text"], #home input[type="password"] {
+    background-color:rgba(255, 255, 255, 1);
+}
+
 .nav-tabs > .active > a, .nav-tabs > .active > a:hover, .nav-tabs > .active > a:focus {
     background:rgba(0, 0, 0, 0.2);
     border:0px solid #333 !important;
