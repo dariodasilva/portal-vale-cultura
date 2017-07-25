@@ -490,6 +490,8 @@ class Beneficiaria_CadastroController extends GenericController {
 
                     $modelSituacao->insert($Cols);
 
+                    $db->commit();
+
                     // Passo 13 - Enviar email para o responsável
                     if ($enviaEmailSenha) {
                         $htmlEmail = emailSenhaHTML();
@@ -504,7 +506,6 @@ class Beneficiaria_CadastroController extends GenericController {
                         $enviarEmail = $modelEmail->enviarEmail($DSEMAIL, 'Acesso ao sistema Vale Cultura', $htmlEmail);
                     }
 
-                    $db->commit();
                     $sucesso['CADASTRO'] = "Beneficiária cadastrada com sucesso!";
                     $sucesso['DSEMAIL'] = $DSEMAIL;
                     $this->view->sucesso = $sucesso;
