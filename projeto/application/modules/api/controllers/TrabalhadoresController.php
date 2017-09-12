@@ -42,6 +42,18 @@ class Api_TrabalhadoresController extends ValeCultura_Controller_Rest_Abstract
                 $this->getResponse()->setBody(Zend_Json::encode($mdl->getTotal($tipoBusca)));
             }
             break;
+        default:
+            // por padrão retorna apenas os ativos
+            
+            $filtros = array(
+                'ano' => $ano,
+                'mes' => $mes,
+                'regiao' => $regiao,
+                'uf' => $uf
+            );
+            $this->getResponse()->setBody(Zend_Json::encode($mdl->getAtivosPorFiltro($filtros)));
+            
+            break;
         }
         $this->getResponse()->setHeader('Content-Type', 'application/json; charset=utf-8');
     }

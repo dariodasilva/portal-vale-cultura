@@ -18,6 +18,27 @@ class Application_Model_AcumuladoTrabalhador extends ValeCultura_Db_Table_Abstra
         return $this->table;
     }
 
+    public function getAtivosPorFiltro($filtros)
+    {
+        $select = $this->getTable()->select();
+        $select->from($this->name, new Zend_Db_Expr('DESCRICAO_1 AS ano, DESCRICAO_2 AS mes, valor'), 'BI_VALE_CULTURA');
+        
+        $colunas = array(
+            'ano' => 'DESCRICAO_1',
+            'mes' => 'DESCRICAO_2',
+            'regiao' => 'DESCRICAO_3',
+            'uf' => 'DESCRICAO_4'            
+        );
+        
+        foreach ($filtros as $filtro => $valor) {
+            if ($valor) {
+                $select->where($colunas[$filtro] . ' = ?', $valor);
+            }
+        }
+        
+        return $this->getTable()->fetchAll($select)->toArray();
+    }
+       
     public function getTotal($tipo) {
         $select = $this->getTable()->select();
         $select->from($this->name, 'valor', 'BI_VALE_CULTURA');
