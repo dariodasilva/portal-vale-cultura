@@ -10,7 +10,8 @@ class Application_Model_AcumuladoTrabalhador extends ValeCultura_Db_Table_Abstra
     private $table = null;
     private $name = 'ACUMULADO_TRABALHADOR';
     
-    public function getTable() {
+    public function getTable()
+    {
         if (is_null($this->table)) {
             $this->table = new Application_Model_DbTable_AcumuladoTrabalhador();
         }
@@ -25,19 +26,26 @@ class Application_Model_AcumuladoTrabalhador extends ValeCultura_Db_Table_Abstra
 
         // caso especial: ativos atual é o valor registrado para o último mês
         if ($tipo == 'ativos') {
-            $select->order(array('DESCRICAO_1 DESC', 'DESCRICAO_2 DESC'));
+            $select->order(array(
+                'DESCRICAO_1 DESC',
+                'DESCRICAO_2 DESC'
+            ));
             $select->limit(1);
         }
         
         return $this->getTable()->fetchAll($select)->toArray();
     }
     
-    public function getPorData($tipo = null, $ano = null, $mes = null) {
+    public function getPorData($tipo = null, $ano = null, $mes = null)
+    {
         $select = $this->getTable()->select();
         $codTipo = ($tipo == 'acumulados') ? self::COD_DATA : self::COD_ATIVO;
         $select->from($this->name, new Zend_Db_Expr('DESCRICAO_1 AS ano, DESCRICAO_2 AS mes, valor'), 'BI_VALE_CULTURA');
         $select->where('TIPO = ?', $codTipo);
-        $select->order(array('DESCRICAO_1 ASC', 'DESCRICAO_2 ASC'));        
+        $select->order(array(
+            'DESCRICAO_1 ASC',
+            'DESCRICAO_2 ASC'
+        ));        
         
         if ($ano) {
             $select->where('DESCRICAO_1 = ?', $ano);
@@ -49,7 +57,8 @@ class Application_Model_AcumuladoTrabalhador extends ValeCultura_Db_Table_Abstra
         return $this->getTable()->fetchAll($select)->toArray();
     }
 
-    public function getPorLocalizacao($regiao = null, $uf = null) {
+    public function getPorLocalizacao($regiao = null, $uf = null)
+    {
         $select = $this->getTable()->select();
         $select->where('TIPO = ?', self::COD_LOCALIZACAO);
         $select->from($this->name, new Zend_Db_Expr('DESCRICAO_1 AS regiao, DESCRICAO_2 AS uf, valor'), 'BI_VALE_CULTURA');
