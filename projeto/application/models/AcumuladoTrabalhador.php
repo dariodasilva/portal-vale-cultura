@@ -6,6 +6,7 @@ class Application_Model_AcumuladoTrabalhador extends ValeCultura_Db_Table_Abstra
     const COD_DATA        = 2;
     const COD_ATIVO       = 3;
     const COD_LOCALIZACAO = 4;
+    const COD_FILTROS     = 7;
 
     private $table = null;
     private $name = 'ACUMULADO_TRABALHADOR';
@@ -21,7 +22,7 @@ class Application_Model_AcumuladoTrabalhador extends ValeCultura_Db_Table_Abstra
     public function getAtivosPorFiltro($filtros)
     {
         $select = $this->getTable()->select();
-        $select->from($this->name, new Zend_Db_Expr('DESCRICAO_1 AS ano, DESCRICAO_2 AS mes, valor'), 'BI_VALE_CULTURA');
+        $select->from($this->name, new Zend_Db_Expr('DESCRICAO_1 AS ano, DESCRICAO_2 AS mes, DESCRICAO_3 AS regiao, DESCRICAO_4 AS uf, valor'), 'BI_VALE_CULTURA');
         
         $colunas = array(
             'ano' => 'DESCRICAO_1',
@@ -35,6 +36,7 @@ class Application_Model_AcumuladoTrabalhador extends ValeCultura_Db_Table_Abstra
                 $select->where($colunas[$filtro] . ' = ?', $valor);
             }
         }
+        $select->where('TIPO = ?', self::COD_FILTROS);
         
         return $this->getTable()->fetchAll($select)->toArray();
     }
