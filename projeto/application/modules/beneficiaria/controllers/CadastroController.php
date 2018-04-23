@@ -185,8 +185,7 @@ class Beneficiaria_CadastroController extends GenericController {
             } else {
 
                 $db = Zend_Db_Table::getDefaultAdapter();
-                $db->beginTransaction();
-
+                
                 try {
 
                     // O ID já vem do cadastro
@@ -504,13 +503,11 @@ class Beneficiaria_CadastroController extends GenericController {
                         $enviarEmail = $modelEmail->enviarEmail($DSEMAIL, 'Acesso ao sistema Vale Cultura', $htmlEmail);
                     }
 
-                    $db->commit();
                     $sucesso['CADASTRO'] = "Beneficiária cadastrada com sucesso!";
                     $sucesso['DSEMAIL'] = $DSEMAIL;
                     $this->view->sucesso = $sucesso;
                 } catch (Exception $exc) {
                     echo $exc->getTraceAsString();
-                    $db->rollBack();
                     $ERROR['CADASTRO'] = "Houve um erro no cadastro";
                     $this->view->error = $ERROR;
                 }
