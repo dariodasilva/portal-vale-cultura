@@ -1,4 +1,3 @@
-<?php //echo $this->partial('/widgets/inc.phtml', $this);        ?>
 <!DOCTYPE html>
 <!--[if lt IE 7]>
 <html class="no-js ie6 oldie" lang="en"> <![endif]-->
@@ -16,20 +15,14 @@
     <meta name="description" content="">
     <meta name="Jesse da Silva Lucas -  Gabriel Neiva Machado" content="Vale Cultura">
 
-
-    <!-- Le styles -->
     <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/bootstrap.css') ?>"/>
     <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/bootstrap-responsive.css') ?>"/>
     <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/font-awesome.css') ?>"/>
     <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/prettyPhoto.css" type="text/css') ?>"/>
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/js/circle/component.css') ?>" type="text/css"
-          media="screen"/>
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/js/mosaic/hover.zoom.css') ?>" type="text/css"
-          media="screen"/>
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/js/circle/component.css') ?>" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/js/mosaic/hover.zoom.css') ?>" type="text/css" media="screen"/>
     <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/style.css') ?>"/>
     <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/colorpicker.css') ?>"/>
-
-
     <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600,300' rel='stylesheet' type='text/css'>
 
@@ -43,70 +36,23 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo $this->baseUrl('/ico/logo.png') ?>">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo $this->baseUrl('/ico/logo.png') ?>">
     <link rel="apple-touch-icon-precomposed" href="<?php echo $this->baseUrl('/ico/logo.png') ?>">
-    <style type="text/css">
-        #apDiv1 {
-            position: absolute;
-            float: left;
-            left: 525px;
-            top: 19px;
-            width: 875px;
-            height: 337px;
-            z-index: 11;
-
-        }
-
-    </style>
-
-
-    <!-- Piwik -->
-    <!--script type="text/javascript">
-        var _paq = _paq || [];
-        _paq.push(["trackPageView"]);
-        _paq.push(["enableLinkTracking"]);
-
-        (function() {
-            var u = (("https:" == document.location.protocol) ? "https" : "http") + "://analise.cultura.gov.br/";
-            _paq.push(["setTrackerUrl", u + "piwik.php"]);
-            _paq.push(["setSiteId", "15"]);
-            var d = document, g = d.createElement("script"), s = d.getElementsByTagName("script")[0];
-            g.type = "text/javascript";
-            g.defer = true;
-            g.async = true;
-            g.src = u + "piwik.js";
-            s.parentNode.insertBefore(g, s);
-        })();
-    </script-->
-    <!-- End Piwik Code -->
-
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="<?php echo $this->baseUrl('js/jquery-1.10.1.js') ?>"></script>
-
 </head>
 
 <body>
-<div style="width: 100%; position: absolute; z-index: 10; margin: 3px;">
+<div style="width: 100%; position: absolute; z-index: 10;">
     <?php include_once('mensagem.phtml') ?>
 </div>
 
 <canvas id="c1" width="480" height="200"></canvas>
-<!-- Menu de Cores - Foi retirado -->
 <img class="yeti" alt="" src="<?php echo $this->baseUrl('img/yeti.png') ?>">
-<!--<div id="wheel"></div> -->
 <div id="section-1" class="header-section">
     <canvas id="projector" width="1347"></canvas>
-
 </div>
 
 <div class="ribbon">
-    <!-- Ribbon Menu -->
-    <div id="header">
-        <!-- Header -->
-
-
-        <!--<h2>Posso Colocar um texto abaixo da logo</h2>-->
-    </div>
     <ul class="menu-ribbon">
-
         <li class="current">
             <a href="#home" id="btnCadastroBeneficiaria" link="<?php echo $this->baseUrl('beneficiaria/cadastro') ?>"
                title="Empresa Empregadora" rel="modal">Cadastrar Benefici&aacute;ria</a>
@@ -133,36 +79,30 @@
             <a target="_blank" href="#home" onclick="manual();">Manual do usuário</a>
         </li>
         <li class="current">
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </li>
-        <li class="current">
             <img src="<?php echo $this->baseUrl('img/logoMincPreta.png') ?>"/>
         </li>
     </ul>
-
 </div>
+
 <div class="btn-group hidden-desktop hidden-tablet" style="position:fixed;right:10px;top:30px;z-index:99999;">
     <button data-toggle="dropdown" class="btn primary btn-inverse dropdown-toggle">
         <i class="icon-th-list"></i>
     </button>
     <ul class="dropdown-menu pull-right ribbons ">
         <li>
-            <a href="#home">P&aacute;ginal Inicial</a>
+            <a href="#home">Páginal Inicial</a>
         </li>
         <li>
-            <a href="#home" link="<?php echo $this->baseUrl('beneficiaria/cadastro') ?>" rel="modal">Cadastrar Benefici&aacute;ria</a>
+            <a href="#home" link="<?php echo $this->baseUrl('beneficiaria/cadastro') ?>" rel="modal">Cadastrar Beneficiária</a>
         </li>
         <li>
-            <a href="#home" link="<?php echo $this->baseUrl('operadora/cadastro') ?>" rel="modal">Cadastrar
-                Operadora</a>
+            <a href="#home" link="<?php echo $this->baseUrl('operadora/cadastro') ?>" rel="modal">Cadastrar Operadora</a>
         </li>
         <li>
-            <a href="#home" link="<?php echo $this->baseUrl('minc/index/lista-beneficiaria') ?>" rel="modal">Lista das
-                Benefici&aacute;ria</a>
+            <a href="#home" link="<?php echo $this->baseUrl('minc/index/lista-beneficiaria') ?>" rel="modal">Lista das Beneficiária</a>
         </li>
         <li>
-            <a href="#home" link="<?php echo $this->baseUrl('minc/index/lista-operadora') ?>" rel="modal">Lista das
-                Operadoras</a>
+            <a href="#home" link="<?php echo $this->baseUrl('minc/index/lista-operadora') ?>" rel="modal">Lista das Operadoras</a>
         </li>
         <li>
             <a href="/contato">Fale Conosco</a>
@@ -173,97 +113,80 @@
     <div id="city1"></div>
     <div id="sky"></div>
     <div id="city2"></div>
-
-
     <div class="container-fluid wrapper">
-
         <div class="row-fluid page-one">
-
-            <!-- <img src="<?php echo $this->baseUrl('img/logoMinc.png') ?>" /><br><br><br>-->
             <div class="span12">
                 <div class="about-me">
+                    <div class="presentation">
+                        <div>
+                            <h1>Seja bem-vindo ao Vale-Cultura</h1>
+                            <p>O Vale-Cultura é um benefício destinado prioritariamente aos trabalhadores que recebem até cinco salários mínimos.
+                                O objetivo é possibilitar meios de acesso a bens e serviços culturais.
+                                Caso tenha dúvidas <a href="http://www.cultura.gov.br/valecultura" target="_blank">clique aqui!</a></p>
+                        </div>
+                    </div>
 
-
-                    <p class="social">
-                        <form class="form-2" method="post" style="text-align:center"
-                              action="<?php echo $this->url(array('module' => 'minc', 'controller' => 'login', 'action' => 'auth'), null, true); ?>">
-
-                            <h1><span class="log-in">Acesso ao Sistema de</span><span class="sign-up">Cadastro</span>
-                            </h1>
-
-                            <div class="control-group">
-                                <label for="Name" class="control-label" style="text-align:left">
-                                    <input name="acessologin" class="cpf" type="text" placeholder="Digite seu CPF">
-                                </label></div>
-
-                    <p>
-                    <div class="control-group">
-                        <label for="Name" class="control-label" style="text-align:left">
-                            <input name="acessopsw" type="password" placeholder="Digite sua senha">
-                        </label></div>
-                    </p>
-                    <p class="clearfix">
-
-                        <input type="submit" name="submit" value="Confirmar">
-                        <a href="#home" link="<?php echo $this->baseUrl('minc/index/esqueceusenha') ?>" rel="modal">Esqueceu
-                            a senha?</a>
-                    </p>
-
-
+                    <form class="form-2" method="post" style="text-align:center" action="<?php echo $this->url(array('module' => 'minc', 'controller' => 'login', 'action' => 'auth'), null, true); ?>">
+                        <h1><span class="log-in">Acesso ao Sistema de</span><span class="sign-up">Cadastro</span></h1>
+                        <div class="control-group">
+                            <label for="acessologin" class="control-label" style="text-align:left">
+                                <input name="acessologin" id="acessologin" class="cpf" type="text" placeholder="Digite seu CPF">
+                            </label>
+                        </div>
+                        <div class="control-group">
+                            <label for="Name" class="control-label" style="text-align:left">
+                                <input name="acessopsw" type="password" placeholder="Digite sua senha">
+                            </label>
+                        </div>
+                        <div class="clearfix">
+                            <input type="submit" name="submit" value="Confirmar">
+                            <a href="#home" link="<?php echo $this->baseUrl('minc/index/esqueceusenha') ?>" rel="modal">Esqueceu a senha?</a>
+                        </div>
                     </form>
                 </div>
-                <h1>Seja bem-vindo ao Vale-Cultura</h1>
-                <div style="color:#FFF">O Vale-Cultura &eacute; um benef&iacute;cio destinado prioritariamente aos
-                    trabalhadores que recebem at&eacute; cinco sal&aacute;rios m&iacute;nimos. <br> O objetivo &eacute;
-                    possibilitar meios de acesso a bens e servi&ccedil;os culturais. <br>Caso tenha d&uacute;vidas <a
-                            href="http://www.cultura.gov.br/valecultura" target="_blank">clique aqui!</a>
-                </div>
-
-                </p>
-
             </div>
-
-
         </div>
 
     </div>
 </div>
+
+<div class="window" style="overflow: hidden" id="janela1">
+    <div class="modal-header text-right">
+        <button type="button" onclick="fechaModal()" class="close-btn close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+        <!--<img onclick="fechaModal()" class="close-btn" src="<?php /*echo $this->baseUrl('img/icone-fechar.png') */?>" width="92" height="22"/>-->
+    </div>
+    <div id="janelaLoad" style="overflow-y: auto; width: 100%;"></div>
 </div>
-<script src="<?php echo $this->baseUrl('js/bootstrap.js') ?>"></script>
-<!-- One page navigation -->
+<div class="window" style="overflow: hidden" id="modal-mensagem-autorizacao">
+    <img onclick="fechaModal()" class="close-btn" src="<?php echo $this->baseUrl('img/icone-fechar.png') ?>" width="92"
+         height="22"/>
+    <div id="mensagem-autorizacao" style="overflow-y: auto; width: 100%;"></div>
+</div>
+
+<!-- mascara para cobrir o site -->
+<div id="mascara"></div>
+
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/bootstrap.js') ?>"></script>
 <script type="text/javascript" src="<?php echo $this->baseUrl('js/waypoints.js') ?>"></script>
 <script type="text/javascript" src="<?php echo $this->baseUrl('js/jquery.scrollTo.js') ?>"></script>
 <script type="text/javascript" src="<?php echo $this->baseUrl('js/jquery.nav.js') ?>"></script>
 <script type="text/javascript" src="<?php echo $this->baseUrl('js/sticky-menu-custom.js') ?>"></script>
 <script type="text/javascript" src="<?php echo $this->baseUrl('js/stellar.js') ?>"></script>
-<!-- Photo id circular slider -->
 <script type="text/javascript" src="<?php echo $this->baseUrl('js/circle/modernizr.custom.js') ?>"></script>
 <script type="text/javascript" src="<?php echo $this->baseUrl('js/circle/jquery.flipshow.js') ?>"></script>
 <script type="text/javascript" src="<?php echo $this->baseUrl('js/woomark/jquery.wookmark.js') ?>"></script>
-<!-- Portfolio iamge gallery -->
 <script type="text/javascript" src="<?php echo $this->baseUrl('js/filter/jquery.prettyPhoto.js') ?>"></script>
 <script type="text/javascript" src="<?php echo $this->baseUrl('js/filter/jquery.easing.1.3.js') ?>"></script>
 <script type="text/javascript" src="<?php echo $this->baseUrl('js/filter/script.js') ?>"></script>
-
-<!-- G map Address -->
-<!--script type="text/javascript" src="<?php // echo $this->baseUrl('js/maps.api.js') ?>"></script-->
-<!--script type="text/javascript" src="<?php // echo $this->baseUrl('js/gmap.js') ?>"></script-->
-<!-- Color Picker for unlimited theme color -->
 <script type="text/javascript" src="<?php echo $this->baseUrl('js/colorpicker.js') ?>"></script>
-<!-- Snow Ball effect -->
 <script type="text/javascript" src="<?php echo $this->baseUrl('js/particle.js') ?>"></script>
-<!-- Animation -->
 <script type="text/javascript" src="<?php echo $this->baseUrl('js/animation/iioEngine.js') ?>"></script>
 <script type="text/javascript" src="<?php echo $this->baseUrl('js/animation/scooter.js') ?>"></script>
-
-<!-- MASCARA -->
 <script type="text/javascript" src="<?php echo $this->baseUrl('js/jquery.maskedinput-1.3.min.js') ?>"></script>
 <script type="text/javascript" src="<?php echo $this->baseUrl('js/jquery.validate.js') ?>"></script>
-
-<!-- Script Jquery modal - Janelas -->
-
 <script type="text/javascript">
-
     function legislacao() {
         window.open("http://www.cultura.gov.br/documents/10883/663683/Legisla%C3%A7%C3%A3o+Vale-Cultura/2b0aabdf-1dd9-4980-be33-1d24d6b424ef", "_blank");
     }
@@ -273,15 +196,17 @@
     }
 
     function abrirCadastroBeneficiaria() {
-
         fechaModal();
-
         $('#btnCadastroBeneficiaria').click();
     }
 
+    function fechaModal() {
+        $("#mascara").hide();
+        $(".window").hide();
+        //$("#mascara").click();
+    }
+
     $(document).ready(function () {
-
-
         $('#enviaMail').click(function () {
             var nome = $('#Nome').val();
             var assunto = $('#Assunto').val();
@@ -312,7 +237,6 @@
                 return false;
             }
 
-            //Enviando o E-mail
             $("#campoRetorno").html("Enviando");
             $.ajax({
                 type: "POST",
@@ -335,10 +259,8 @@
 
             //alterado
             var id = '#janela1';
-
             var alturaTela = $(document).height();
             var larguraTela = $(window).width();
-
 
             //colocando o fundo preto
             $('#mascara').css({'width': larguraTela, 'height': alturaTela});
@@ -373,19 +295,7 @@
             $("#mascara").hide();
             $(".window").hide();
         });
-    });
 
-    function fechaModal() {
-        $("#mascara").hide();
-        $(".window").hide();
-        //$("#mascara").click();
-    }
-</script>
-<!-- Load applications -->
-
-<script type="text/javascript">
-
-    $(document).ready(function () {
         $(".cpf").mask("999.999.999-99");
         //one Page Navigation DOM calls cached
         var menuRib = $(".menu-ribbon, .ribbons");
@@ -486,22 +396,7 @@
     }
 </script>
 
-<div class="window" style="overflow: hidden" id="janela1">
-    <img onclick="fechaModal()" class="close-btn" src="<?php echo $this->baseUrl('img/icone-fechar.png') ?>" width="92"
-         height="22"/>
-    <div id="janelaLoad" style="overflow-y: auto; width: 100%;"></div>
-</div>
-<div class="window" style="overflow: hidden" id="modal-mensagem-autorizacao">
-    <img onclick="fechaModal()" class="close-btn" src="<?php echo $this->baseUrl('img/icone-fechar.png') ?>" width="92"
-         height="22"/>
-    <div id="mensagem-autorizacao" style="overflow-y: auto; width: 100%;"></div>
-</div>
-
-<!-- mascara para cobrir o site -->
-<div id="mascara"></div>
-
 </body>
-
 </html>
 
 

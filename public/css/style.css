@@ -4,6 +4,7 @@ body {
     font-size: 14px !important;
     line-height: 1.5em !important;
     background: url("../img/07.png") repeat scroll 0% 0% transparent;
+    overflow-y: scroll;
 }
 
 a {
@@ -427,6 +428,7 @@ blockquote small {
     padding: 10px 0 10px 20px;
     text-transform: uppercase;
     letter-spacing: -1px;
+    text-align: center;
 }
 
 .footer-headline3 {
@@ -456,10 +458,9 @@ blockquote small {
 
 .footer-headline span {
     color: #FFFFFF;
-    font-size: 35px;
+    font-size: 28px;
     padding: 0 15px 0 0;
     margin: -18px 15px 11px 0;
-    border-right: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 #contact {
@@ -1887,7 +1888,6 @@ div.sample-module {
     z-index: 9900;
     border-radius: 10px;
     overflow: auto;
-    padding: 10px 5px;
 }
 
 #mascara {
@@ -2138,6 +2138,65 @@ em {
 
 .close-btn {
     cursor: pointer;
-    float: right;
-    margin: 0 5px 5px 0;
+    float: none;
+}
+
+#home .presentation h1{
+    font-size: 42px;
+    margin-bottom: 30px;
+}
+#home .about-me {
+    margin-top: 50px;
+}
+
+#home .presentation {
+    float: left;
+    max-width: 65%;
+    margin-bottom: 30px;
+}
+
+#home .presentation > div {
+    background: rgba(29, 85, 118, 0.5);
+    padding: 0 30px 15px 15px;
+}
+
+#home .about-me form.form-2 {
+    width: 30%;
+    float: left;
+    margin: 0 auto;
+}
+
+@media (max-width: 767px) {
+    #home .presentation,
+    #home .about-me form.form-2 {
+        width: 100%;
+        float: none;
+        max-width: 100%;
+    }
+}
+
+#apDiv1 {
+    position: absolute;
+    float: left;
+    left: 525px;
+    top: 19px;
+    width: 875px;
+    height: 337px;
+    z-index: 11;
+}
+
+.form-2 input[type=submit],
+.form-2 .log-twitter,
+.form-2 input[type=submit]:active,
+.form-2 .log-twitter:active {
+    top: 1px !important;
+}
+
+.modal-header .close{
+    padding: 1rem;
+    margin: -1rem -1rem -1rem auto;
+}
+
+.window #conteudo {
+    padding: 15px;
 }
