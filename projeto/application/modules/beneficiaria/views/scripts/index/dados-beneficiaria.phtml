@@ -123,8 +123,8 @@
                                                     <option value=""> - Selecione - </option>     
                                                     <?php foreach ($this->operadoras as $operadora) { ?>
                                                         <option value="<?php echo $operadora['idOperadora'] ?>" <?php echo $operadora['idOperadora'] == $this->beneficiaria['idOperadora'] ? 'selected="selected"' : '' ?>> <?php
-                                                            echo $operadora['nmFantasia'];
-                                                            echo $operadora['idSituacaoXX'] != 2 ? ' (Inativa)' : ''
+                                                            echo $operadora['nmFantasia'] != '' ? $operadora['nmFantasia'] : $operadora['nmRazaoSocial'];
+                                                            echo $operadora['idSituacaoXX'] != 2 ? ' (Inativa)' : '';
                                                             ?> </option>     
                                                     <?php } ?>
                                                 </select>
