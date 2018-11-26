@@ -122,10 +122,14 @@
                                                 <select name="EMPRESA_OPERADORA" id="EMPRESA_OPERADORA" class="select_simples">
                                                     <option value=""> - Selecione - </option>     
                                                     <?php foreach ($this->operadoras as $operadora) { ?>
-                                                        <option value="<?php echo $operadora['idOperadora'] ?>" <?php echo $operadora['idOperadora'] == $this->beneficiaria['idOperadora'] ? 'selected="selected"' : '' ?>> <?php
-                                                            echo $operadora['nmFantasia'] != '' ? $operadora['nmFantasia'] : $operadora['nmRazaoSocial'];
-                                                            echo $operadora['idSituacaoXX'] != 2 ? ' (Inativa)' : '';
-                                                            ?> </option>     
+                                                    <option value="<?php echo $operadora['idOperadora'] ?>" <?php echo $operadora['idOperadora'] == $this->beneficiaria['idOperadora'] ? 'selected="selected"' : '' ?>> <?php
+                                                    if (ctype_space($operadora['nmFantasia']) || $operadora['nmFantasia'] == '' || $operadora['nmFantasia'] === NULL || empty($operadora['nmFantasia']) ) {
+                                                        $nomeOperadora = $operadora['nmRazaoSocial'];
+                                                    } else {
+                                                        $nomeOperadora = $operadora['nmFantasia'];
+                                                    }
+                                                    echo $nomeOperadora;
+                                                    echo $operadora['idSituacaoXX'] != 2 ? ' (Inativa)' : '';                                                                                                                         ?> </option>     
                                                     <?php } ?>
                                                 </select>
                                             </td>
