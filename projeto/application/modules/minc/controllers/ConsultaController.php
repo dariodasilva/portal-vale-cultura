@@ -480,6 +480,7 @@ class Minc_ConsultaController extends GenericController {
         $stOperadora = $modelSituacao->buscarSituacao(array('ID_PESSOA = ?' => $dadosBeneficiaria['idOperadora'], 'TP_ENTIDADE_VALE_CULTURA = ?' => 'O'));
 
         $dadosBeneficiaria['NM_FANTASIA_OPERADORA'] = $operadora[0]['nmFantasia'];
+        $dadosBeneficiaria['NM_RAZAO_SOCIAL_OPERADORA'] = $operadora[0]['nmRazaoSocial'];
         // Situacao do Operador
         if(count($stOperadora) > 0){
             $dadosBeneficiaria['dtSituacaoOperadora']       = $stOperadora[0]['dtSituacao'];

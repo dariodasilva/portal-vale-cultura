@@ -203,8 +203,15 @@
                                         <td class="destacar bold"><strong>Status</strong></td>
                                     </tr>
                                     <tr>
-                                        <td class=""><?php echo $this->beneficiaria['NM_FANTASIA_OPERADORA']; ?></td>
-                                        <td class=""><?php echo isset($this->beneficiaria['dsTipoSituacaoOperadora']) ? $this->beneficiaria['dsTipoSituacaoOperadora'] : ''; ?></td>
+                                        <td class="">
+                                            <?php
+                                            if (ctype_space($this->beneficiaria['NM_FANTASIA_OPERADORA']) || $this->beneficiaria['NM_FANTASIA_OPERADORA'] == '' || $this->beneficiaria['NM_FANTASIA_OPERADORA'] === NULL || empty($this->beneficiaria['NM_FANTASIA_OPERADORA']) ) {
+                                                $nomeOperadora = $this->beneficiaria['NM_RAZAO_SOCIAL_OPERADORA'];
+                                            } else {
+                                                $nomeOperadora = $this->beneficiaria['NM_FANTASIA_OPERADORA'];
+                                            }
+                                            echo $nomeOperadora; ?></td>
+                                            <td class=""><?php echo isset($this->beneficiaria['dsTipoSituacaoOperadora']) ? $this->beneficiaria['dsTipoSituacaoOperadora'] : ''; ?></td>
                                     </tr>
                                 </table>
 
