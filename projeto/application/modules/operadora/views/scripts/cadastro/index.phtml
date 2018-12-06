@@ -459,6 +459,9 @@
 
         $("#cadastroOperadora").validate({
             rules: {
+                EMPRESA_NMFANTASIA: {
+                    required: true
+                },
                 EMPRESA_CNPJ: {
                     required: true
                 },
@@ -483,6 +486,9 @@
                 }
             },
             messages: {
+                EMPRESA_NMFANTASIA: {
+                    required: "Informe o Nome Fantasia"
+                },
                 EMPRESA_CNPJ: {
                     required: "Informe o CNPJ"
                 },
