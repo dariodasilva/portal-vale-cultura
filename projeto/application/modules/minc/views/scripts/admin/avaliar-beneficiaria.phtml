@@ -211,7 +211,14 @@
                                         <td class="destacar bold"><strong>Status</strong></td>
                                     </tr>
                                     <tr>
-                                        <td class=""><?php echo $this->beneficiaria['nmFantasiaOperadora']; ?></td>
+                                        <td class="">
+                                            <?php
+                                            if (ctype_space($this->beneficiaria['nmFantasiaOperadora']) || $this->beneficiaria[''] == '' || $this->beneficiaria['nmFantasiaOperadora'] === NULL || empty($this->beneficiaria['nmFantasiaOperadora']) ) {
+                                                $nomeOperadora = $this->beneficiaria['nmRazaoSocialOperadora'];
+                                            } else {
+                                                $nomeOperadora = $this->beneficiaria['nmFantasiaOperadora'];
+                                            }
+                                            echo $nomeOperadora; ?></td>
                                         <td class=""><?php echo isset($this->beneficiaria['dsTipoSituacaoOperadora']) ? $this->beneficiaria['dsTipoSituacaoOperadora'] : ''; ?></td>
                                     </tr>
                                 </table>

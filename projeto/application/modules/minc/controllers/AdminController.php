@@ -795,6 +795,7 @@ class Minc_AdminController extends GenericController {
         $stOperadora = $modelSituacao->buscarSituacao(array('ID_PESSOA = ?' => $dadosBeneficiaria['idOperadora'], 'TP_ENTIDADE_VALE_CULTURA = ?' => 'O'));
 
         $dadosBeneficiaria['nmFantasiaOperadora'] = $operadora[0]['nmFantasia'];
+        $dadosBeneficiaria['nmRazaoSocialOperadora'] = $operadora[0]['nmRazaoSocial'];
         // Situacao do Operador
         if (count($stOperadora) > 0) {
             $dadosBeneficiaria['dtSituacaoOperadora']     = $stOperadora[0]['dtSituacao'];
