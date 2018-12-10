@@ -90,10 +90,6 @@ class Operadora_CadastroController extends GenericController {
             // Validando Form
             $ERROR = array();
 
-            if (!$NMFANTASIA || $NMFANTASIA == '' || ctype_space($NMFANTASIA)) {
-                $ERROR['OPERADORA'] = 'Nome fantasia não preenchido!';
-            }
-
             if ($IDPJ == '0') {
                 $ERROR['BENEFICIÁRIA'] = 'CNPJ não encontrado!';
             }
