@@ -315,7 +315,7 @@
                 <td colspan="2"></td>
             </tr>
             <tr>
-                <td><input name="RESPONSAVEL_NAO_EMPRESA_EMAIL_COMFIRMA" id="RESPONSAVEL_NAO_EMPRESA_EMAIL_COMFIRMA"
+                <td><input name="RESPONSAVEL_NAO_EMPRESA_EMAIL_CONFIRMA" id="RESPONSAVEL_NAO_EMPRESA_EMAIL_CONFIRMA"
                            type="text"
                            class="input_simples w300"/></td>
                 <td colspan="2"></td>
@@ -384,7 +384,7 @@
                 <td colspan="2"></td>
             </tr>
             <tr>
-                <td><input name="RESPONSAVEL_EMPRESA_EMAIL_COMFIRMA" id="RESPONSAVEL_EMPRESA_EMAIL_COMFIRMA" type="text"
+                <td><input name="RESPONSAVEL_EMPRESA_EMAIL_CONFIRMA" id="RESPONSAVEL_EMPRESA_EMAIL_CONFIRMA" type="text"
                            class="input_simples w300"/></td>
                 <td colspan="2"></td>
             </tr>
@@ -529,7 +529,7 @@
                 <td colspan="2"></td>
             </tr>
             <tr>
-                <td><input name="RESPONSAVEL_EMAIL_COMFIRMA" id="RESPONSAVEL_EMAIL_COMFIRMA" type="text"
+                <td><input name="RESPONSAVEL_EMAIL_CONFIRMA" id="RESPONSAVEL_EMAIL_CONFIRMA" type="text"
                            class="input_simples w300"/></td>
                 <td colspan="2"></td>
             </tr>
@@ -566,6 +566,9 @@
                 </td>
             </tr>
             <tr>
+                <td class="destacar bold">&nbsp;</td>
+            </tr>
+            <tr>
                 <td>
                     <input type="checkbox" name="ConfimaRegras" id="ConfimaRegras" style="float:left"/>
                     <div>&nbsp; Li e estou de acordo com as regras do Programa de Cultura do Trabalhador e confirmo, sob
@@ -576,7 +579,7 @@
             <tr>
                 <td>
                     <input type="checkbox" name="ConfimaSecult" id="ConfimaSecult" style="float:left"/>
-                    <div>&nbsp; Autorizo a SECULT a divulgadr os dados da empresa como beneficiária do Programa de
+                    <div>&nbsp; Autorizo a SECULT a divulgar os dados da empresa como beneficiária do Programa de
                         Cultura do Trabalhador.
                     </div>
                 </td>
@@ -694,8 +697,38 @@
         $('.responsavel_empresa').click(function () {
             $('#responsavel-nao-empresa').addClass('hide');
 
+            $("#RESPONSAVEL_NAO_EMPRESA_CPF").rules("remove");
+            $("#RESPONSAVEL_NAO_EMPRESA_FONE").rules("remove");
+            $("#RESPONSAVEL_NAO_EMPRESA_EMAIL").rules("remove");
+            $("#RESPONSAVEL_NAO_EMPRESA_EMAIL_CONFIRMA").rules("remove");
+
             if ($(this).val() == 0) {
                 $('#responsavel-nao-empresa').removeClass('hide');
+
+                $("#RESPONSAVEL_NAO_EMPRESA_CPF").rules("add", {
+                    required: true,
+                    messages: {
+                        required: "Informe o CPF"
+                    }
+                });
+
+                $("#RESPONSAVEL_NAO_EMPRESA_FONE").rules("add", {
+                    required: true,
+                    messages: {
+                        required: "Campo obrigat&oacute;rio"
+                    }
+                });
+
+                $("#RESPONSAVEL_NAO_EMPRESA_EMAIL").rules("add", {
+                    required: true,
+                    email: true,
+                    messages: {
+                        required: "Informe o E-mail",
+                        email: "Digite um e-mail v&aacute;lido"
+                    }
+                });
+
+                $("#RESPONSAVEL_NAO_EMPRESA_EMAIL_CONFIRMA").rules("add", 'emailnaoempresacheck');
             }
         });
 
@@ -943,7 +976,7 @@
                 RESPONSAVEL_EMAIL: {
                     required: true, email: true
                 },
-                RESPONSAVEL_EMAIL_COMFIRMA: 'emailcheck',
+                RESPONSAVEL_EMAIL_CONFIRMA: 'emailcheck',
                 RESPONSAVEL_CPF: {
                     required: true
                 },
@@ -962,7 +995,7 @@
                 RESPONSAVEL_EMPRESA_EMAIL: {
                     required: true, email: true
                 },
-                RESPONSAVEL_EMPRESA_EMAIL_COMFIRMA: 'emailcheck',
+                RESPONSAVEL_EMPRESA_EMAIL_CONFIRMA: 'emailempresacheck',
 
                 RESPONSAVEL_EMPRESA_CPF: {
                     required: true
@@ -997,7 +1030,7 @@
                 },
 
                 RESPONSAVEL_EMPRESA_EMAIL: {
-                    required: "Informe o E-mail do respons&aacute;vel",
+                    required: "Informe o E-mail",
                     email: "Digite um e-mail v&aacute;lido"
                 },
                 RESPONSAVEL_EMPRESA_CPF: {
@@ -1051,7 +1084,21 @@
     });
 
     jQuery.validator.addMethod('emailcheck', function (value, element) {
-        if ($('#RESPONSAVEL_EMAIL_COMFIRMA').val() != $('#RESPONSAVEL_EMAIL').val()) {
+        if ($('#RESPONSAVEL_EMAIL_CONFIRMA').val() != $('#RESPONSAVEL_EMAIL').val()) {
+            return false;
+        }
+        return true;
+    }, 'Verifique o E-mail');
+
+    jQuery.validator.addMethod('emailempresacheck', function (value, element) {
+        if ($('#RESPONSAVEL_EMPRESA_EMAIL_CONFIRMA').val() != $('#RESPONSAVEL_EMPRESA_EMAIL').val()) {
+            return false;
+        }
+        return true;
+    }, 'Verifique o E-mail');
+
+    jQuery.validator.addMethod('emailnaoempresacheck', function (value, element) {
+        if ($('#RESPONSAVEL_NAO_EMPRESA_EMAIL_CONFIRMA').val() != $('#RESPONSAVEL_NAO_EMPRESA_EMAIL').val()) {
             return false;
         }
         return true;
@@ -1251,7 +1298,7 @@
         $('#RESPONSAVEL_EMAIL').attr('disabled', true);
         $('#RESPONSAVEL_FONE').attr('disabled', true);
         $('#RESPONSAVEL_FAX').attr('disabled', true);
-        $('#RESPONSAVEL_EMAIL_COMFIRMA').attr('disabled', true);
+        $('#RESPONSAVEL_EMAIL_CONFIRMA').attr('disabled', true);
         // Botão de Salvar
         $('#btnSalvar').hide();
     }
@@ -1271,7 +1318,7 @@
         $('#RESPONSAVEL_EMAIL').attr('disabled', false);
         $('#RESPONSAVEL_FONE').attr('disabled', false);
         $('#RESPONSAVEL_FAX').attr('disabled', false);
-        $('#RESPONSAVEL_EMAIL_COMFIRMA').attr('disabled', false);
+        $('#RESPONSAVEL_EMAIL_CONFIRMA').attr('disabled', false);
         // Botão de Salvar
         $('#btnSalvar').show();
     }

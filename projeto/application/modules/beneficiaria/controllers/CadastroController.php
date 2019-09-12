@@ -102,7 +102,6 @@ class Beneficiaria_CadastroController extends GenericController
             $RESPONSAVEL_EMPRESA_CPF = retornaDigitos($this->getRequest()->getParam("RESPONSAVEL_EMPRESA_CPF"));
             $RESPONSAVEL_EMPRESA_CARGO = $this->getRequest()->getParam("RESPONSAVEL_EMPRESA_CARGO");
             $RESPONSAVEL_EMPRESA_EMAIL = $this->getRequest()->getParam("RESPONSAVEL_EMPRESA_EMAIL");
-            $RESPONSAVEL_EMPRESA_EMAIL_COMFIRMA = $this->getRequest()->getParam("RESPONSAVEL_EMPRESA_EMAIL_COMFIRMA");
 
             $ARTELRES = explode(" ", $this->getRequest()->getParam("RESPONSAVEL_EMPRESA_FONE"));
             $CDDDDRES = retornaDigitos($ARTELRES[0]);
@@ -116,16 +115,14 @@ class Beneficiaria_CadastroController extends GenericController
             $RESPONSAVEL_NAO_EMPRESA_CPF = retornaDigitos($this->getRequest()->getParam("RESPONSAVEL_NAO_EMPRESA_CPF"));
             $RESPONSAVEL_NAO_EMPRESA_CARGO = $this->getRequest()->getParam("RESPONSAVEL_NAO_EMPRESA_CARGO");
             $RESPONSAVEL_NAO_EMPRESA_EMAIL = $this->getRequest()->getParam("RESPONSAVEL_NAO_EMPRESA_EMAIL");
-            $RESPONSAVEL_NAO_EMPRESA_EMAIL_COMFIRMA = $this->getRequest()->getParam("RESPONSAVEL_NAO_EMPRESA_EMAIL_COMFIRMA");
 
             $ARTELNAORES = explode(" ", $this->getRequest()->getParam("RESPONSAVEL_NAO_EMPRESA_FONE"));
-            $CDDDDNAORES = retornaDigitos($ARTELRES[0]);
-            $NRTELEFONENAORES = retornaDigitos($ARTELRES[1]);
+            $CDDDDNAORES = retornaDigitos($ARTELNAORES[0]);
+            $NRTELEFONENAORES = retornaDigitos($ARTELNAORES[1]);
 
             $ARTELNAOFAX = explode(" ", $this->getRequest()->getParam("RESPONSAVEL_NAO_EMPRESA_FAX"));
             $CDDDDFAXNAORES = retornaDigitos($ARTELNAOFAX[0]);
             $NRTELEFONEFAXNAORES = retornaDigitos($ARTELNAOFAX[1]);
-
 
             // Validando Form
             $ERROR = array();
@@ -156,6 +153,14 @@ class Beneficiaria_CadastroController extends GenericController
                 if (count($verificaDDD) == 0) {
                     $ERROR["DDD"] = "DDD inv&aacute;lido!";
                 }
+            }
+
+            if (!$this->getRequest()->getParam("ConfimaRegras")) {
+                $ERROR["PROGRAMA"] = "Confirme as regras do Programa de Cultura do Trabalhador";
+            }
+
+            if (!$this->getRequest()->getParam("ConfimaSecult")) {
+                $ERROR["SECULT"] = "Confirme a autorização a SECULT";
             }
 
             if (!$this->getRequest()->getParam("ConfimaLei")) {
@@ -234,7 +239,6 @@ class Beneficiaria_CadastroController extends GenericController
             if (strlen($NRTELEFONERES) < 8) {
                 $ERROR["TELEFONE_RESPONSAVEL"] = "Informe o telefone do responsável!";
             }
-
 
             if ($NAORESPONSAVEL) {
                 if ($RESPONSAVEL_NAO_EMPRESA_CPF == "0") {
@@ -468,7 +472,7 @@ class Beneficiaria_CadastroController extends GenericController
                 $sucesso["CADASTRO"] = "Beneficiária cadastrada com sucesso!";
                 $sucesso["DSEMAIL"] = $DSEMAIL;
 
-                $db->rollBack();
+                $db->commit();
 
                 $this->view->sucesso = $sucesso;
             } catch (Exception $exc) {
