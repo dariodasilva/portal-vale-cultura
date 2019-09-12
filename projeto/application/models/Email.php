@@ -92,7 +92,8 @@ class Application_Model_Email {
             $this->getTable()->getAdapter()->query($sql);
             return true;
         } catch (Exception $exc) {
-//            x('E-mail não enviado');
+            x($sql);
+            xd($exc->getMessage());
             return true;
         }
 
