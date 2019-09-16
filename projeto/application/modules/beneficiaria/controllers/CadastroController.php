@@ -273,16 +273,38 @@ class Beneficiaria_CadastroController extends GenericController
                 }
             }
 
-//            if (isset($_POST["captcha"])) {
-//                // Instancia novamente um captcha para validar os dados enviados
-//                $captcha = new Zend_Captcha_Image();
-//
-//                if (!$captcha->isValid($this->getRequest()->getParam("captcha"))) {
-//                    $ERROR["VALIDADOR"] = "Código captcha incorreto";
-//                }
-//            } else {
-//                $ERROR["VALIDADOR"] = "Informe o código verificador";
-//            }
+            if (isset($_POST["captcha"])) {
+                // Instancia novamente um captcha para validar os dados enviados
+                $captcha = new Zend_Captcha_Image();
+
+                if (!$captcha->isValid($this->getRequest()->getParam("captcha"))) {
+                    $ERROR["VALIDADOR"] = "Código captcha incorreto";
+                }
+            } else {
+                $ERROR["VALIDADOR"] = "Informe o código verificador";
+            }
+
+            foreach ($_FILES as $k => $v) {
+                if ($k == 'ANEXO_11') {
+                    if ($_FILES[$k]['error'] != 0) {
+                        $ERROR['ARQUIVOS_OBRIGATORIOS'] = 'Documento obrigatório não enviado';
+                    }
+                }
+                if ($_FILES[$k]['error'] == 0) {
+
+                    if ($_FILES[$k]["size"] >= 5242880) {
+                        $ERROR['TAMANHO_ARQUIVO'] = 'Tamanho maximo do arquivo deve ser de 5mb';
+                    }
+
+//                    if (strpos($_FILES[$k]['type'], 'pdf') === false) {
+//                        $ERROR['ARQUIVOS_TIPO'] = 'Apenas aquivos no formato PDF são validos';
+//                    }
+                } else {
+                    if ($_FILES[$k]['error'] != 4) {
+                        $ERROR['ARQUIVOS_ERROR'] = 'Falha no envio de documento';
+                    }
+                }
+            }
 
             if (count($ERROR) > 0) {
                 $this->view->error = $ERROR;
@@ -434,7 +456,7 @@ class Beneficiaria_CadastroController extends GenericController
                 $arDados['cdDDD'] = $CDDDD;
                 $arDados['nrTelefone'] = $NRTELEFONE;
                 $arDados['cdDDDFax'] = $CDDDDFAX;
-                $arDados['nrFax'] = $NRTELEFONEFAX;
+                $arDados['nrFax'] = $NRFAX;
                 $arDados['dsEmail'] = $DSEMAIL;
                 $arDados['tpVinculoPessoa'] = 16;
                 $this->_adionarResponsavel($arDados);
