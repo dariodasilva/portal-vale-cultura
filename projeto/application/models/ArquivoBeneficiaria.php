@@ -1,6 +1,6 @@
 <?php
 
-class Application_Model_ArquivoOperadora
+class Application_Model_ArquivoBeneficiaria
 {
 
     private $table = null;
@@ -8,7 +8,7 @@ class Application_Model_ArquivoOperadora
     public function getTable()
     {
         if (is_null($this->table)) {
-            $this->table = new Application_Model_DbTable_ArquivoOperadora();
+            $this->table = new Application_Model_DbTable_ArquivoBeneficiaria();
         }
         return $this->table;
     }
@@ -27,10 +27,10 @@ class Application_Model_ArquivoOperadora
     public function buscarArquivos($where = array(), $order = null, $limit = null)
     {
         $select = $this->getTable()->select()->from(
-            array('aq' => 'VALE_CULTURA.S_ARQUIVO_OPERADORA'),
+            array('aq' => 'VALE_CULTURA.S_ARQUIVO_BENEFICIARIA'),
             array(
-                'idArquivo' => 'ID_ARQUIVO'
-            , 'idOperadora' => 'ID_OPERADORA'
+                'idArquivoBeneficiaria' => 'ID_ARQUIVO_BENEFICIARIA'
+            , 'idBeneficiaria' => 'ID_BENEFICIARIA'
             , 'dsCaminhoArquivo' => 'DS_CAMINHO_ARQUIVO'
             , 'dsArquivo' => 'DS_ARQUIVO'
             , 'dtUploadArquivo' => 'DT_UPLOAD_ARQUIVO'
@@ -62,7 +62,7 @@ class Application_Model_ArquivoOperadora
         if (is_array($id)) {
             $where = $id;
         } else {
-            $where["idArquivo = ?"] = $id;
+            $where["idArquivoBeneficiaria = ?"] = $id;
         }
         return $this->getTable()->update($request, $where);
     }

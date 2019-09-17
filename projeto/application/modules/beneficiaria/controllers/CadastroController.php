@@ -56,6 +56,7 @@ class Beneficiaria_CadastroController extends GenericController
             $modelEndereco = new Application_Model_Endereco();
             $modelLogradouro = new Application_Model_Logradouro();
             $modelBeneficiaria = new Application_Model_Beneficiaria();
+            $modelArquivoBeneficiaria = new Application_Model_ArquivoBeneficiaria();
 
             $modelSituacao = new Application_Model_Situacao();
 
@@ -340,27 +341,24 @@ class Beneficiaria_CadastroController extends GenericController
                         "ST_DIVULGAR_DADOS" => $beneficiariaInativa["ST_DIVULGAR_DADOS"],
                         "ST_ATUALIZADO_OPERADORA" => $beneficiariaInativa["ST_ATUALIZADO_OPERADORA"],
                         "ST_AUTORIZA_MINC" => $beneficiariaInativa["ST_AUTORIZA_MINC"],
-                        "ID_OPERADORA_AUTORIZADA" => $OPERADORA_VALE,
                         "ST_AUTORIZA_VALE_FUNC" => $ST_AUTORIZA_VALE_FUNC
                     ));
 
                     $Cols = array(
                         "ID_BENEFICIARIA" => $idPessoaJuridica,
-                        "ID_OPERADORA" => $IDOPERADORA == "N" ? new Zend_Db_Expr("NULL") : $IDOPERADORA,
+                        "ID_OPERADORA" => $OPERADORA_VALE,
                         "DT_INSCRICAO" => new Zend_Db_Expr("getdate()"),
                         "ST_DIVULGAR_DADOS" => (int)$AUTORIZO_OPERADORA,
                         "ST_AUTORIZA_MINC" => $AUTORIZO_MINC ? 1 : 2,
-                        "ID_OPERADORA_AUTORIZADA" => $OPERADORA_VALE,
                         "ST_AUTORIZA_VALE_FUNC" => $ST_AUTORIZA_VALE_FUNC
                     );
                     $modelBeneficiaria->update($Cols, $idPessoaJuridica);
                 } else if (count($eBeneficiariaInativa) === 0) {
                     $Cols = array(
                         "ID_BENEFICIARIA" => $idPessoaJuridica,
-                        "ID_OPERADORA" => $IDOPERADORA == "N" ? new Zend_Db_Expr("NULL") : $IDOPERADORA,
+                        "ID_OPERADORA" => $OPERADORA_VALE,
                         "ST_DIVULGAR_DADOS" => (int)$AUTORIZO_OPERADORA,
                         "ST_AUTORIZA_MINC" => $AUTORIZO_MINC ? 1 : 2,
-                        "ID_OPERADORA_AUTORIZADA" => $OPERADORA_VALE,
                         "ST_AUTORIZA_VALE_FUNC" => $ST_AUTORIZA_VALE_FUNC
                     );
                     $modelBeneficiaria->insert($Cols);
@@ -399,6 +397,45 @@ class Beneficiaria_CadastroController extends GenericController
                                 "QT_TRABALHADOR_FAIXA_SALARIAL" => (int)$v
                             );
                             $modelTrabalhadorFaixaSalarial->insert($Cols);
+                        }
+                    }
+                }
+
+                //Incluir Arquivo Operadora
+                //SALVAR  UPLOAD
+                $uploaddir = defined('UPLOAD_DIR') ? UPLOAD_DIR : "/var/arquivos/arquivos-valecultura/";
+
+                foreach ($_FILES as $k => $v) {
+                    if ($_FILES[$k]['error'] == 0) {
+                        $mnArquivo = "{$idPessoaJuridica}_{$k}.pdf";
+                        $uploadfile = $uploaddir . $mnArquivo;
+                        $dsArquivo = $this->getRequest()->getParam($k . '_NOME');
+                        if (move_uploaded_file($_FILES[$k]['tmp_name'], $uploadfile)) {
+
+                            $Cols = array(
+                                'ID_OPERADORA' => $idPessoaJuridica,
+                                'DS_CAMINHO_ARQUIVO' => $mnArquivo,
+                                'DS_ARQUIVO' => $dsArquivo
+                            );
+
+                            if ($k == 'ANEXO_11') {
+                                $time = time();
+                                $mnArquivo = "{$idPessoaJuridica}_{$k}_{$IDPF}_{$time}.pdf";
+                                $dsArquivo = $this->getRequest()->getParam("{$k}_NOME_{$IDPF}");
+                                $Cols = array(
+                                    'ID_BENEFICIARIA' => $idPessoaJuridica,
+                                    'DS_CAMINHO_ARQUIVO' => $mnArquivo,
+                                    'DS_ARQUIVO' => $dsArquivo,
+                                    'ID_RESPONSAVEL' => $IDPF,
+                                );
+                            }
+
+                            $modelArquivoBeneficiaria->insert($Cols);
+                        } else {
+                            $db->rollBack();
+                            $ERROR['ARQUIVO'] = "Erro ao salvar arquivo";
+                            $this->view->error = $ERROR;
+                            return;
                         }
                     }
                 }

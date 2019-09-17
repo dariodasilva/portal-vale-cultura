@@ -56,14 +56,9 @@ class Operadora_CadastroController extends GenericController
             $modelLogradouro = new Application_Model_Logradouro();
             $modelOperadora = new Application_Model_Operadora();
             $modelArquivoOperadora = new Application_Model_ArquivoOperadora();
-            $modelPessoaVinculada = new Application_Model_PessoaVinculada();
             $modelTelefone = new Application_Model_Telefone();
             $modelEmail = new Application_Model_Email();
             $modelSite = new Application_Model_Site();
-            $modelUsuario = new Application_Model_Usuario();
-            $modelUsuarioPerfil = new Application_Model_UsuarioPerfil();
-            $modelSituacao = new Application_Model_Situacao();
-            $modelCBOPessoaFisica = new Application_Model_CBOPessoaFisica();
             $modelDDD = new Application_Model_DDD();
 
             //Recuperando form
@@ -381,7 +376,7 @@ class Operadora_CadastroController extends GenericController
 
                 foreach ($_FILES as $k => $v) {
                     if ($_FILES[$k]['error'] == 0) {
-                        $mnArquivo = $idPessoaJuridica . '_' . $k . '.pdf';
+                        $mnArquivo = "{$idPessoaJuridica}_{$k}.pdf";
                         $uploadfile = $uploaddir . $mnArquivo;
                         $dsArquivo = $this->getRequest()->getParam($k . '_NOME');
                         if (move_uploaded_file($_FILES[$k]['tmp_name'], $uploadfile)) {
@@ -391,6 +386,19 @@ class Operadora_CadastroController extends GenericController
                                 'DS_CAMINHO_ARQUIVO' => $mnArquivo,
                                 'DS_ARQUIVO' => $dsArquivo
                             );
+
+                            if ($k == 'ANEXO_11') {
+                                $time = time();
+                                $mnArquivo = "{$idPessoaJuridica}_{$k}_{$IDPF}_{$time}.pdf";
+                                $dsArquivo = $this->getRequest()->getParam("{$k}_NOME_{$IDPF}");
+                                $Cols = array(
+                                    'ID_OPERADORA' => $idPessoaJuridica,
+                                    'DS_CAMINHO_ARQUIVO' => $mnArquivo,
+                                    'DS_ARQUIVO' => $dsArquivo,
+                                    'ID_RESPONSAVEL' => $IDPF,
+                                );
+                            }
+
                             $modelArquivoOperadora->insert($Cols);
                         } else {
                             $db->rollBack();
