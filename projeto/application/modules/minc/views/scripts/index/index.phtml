@@ -13,16 +13,17 @@
     <title>Vale Cultura - Minist&eacute;rio da Cultura</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <meta name="Jesse da Silva Lucas -  Gabriel Neiva Machado" content="Vale Cultura">
+    <meta name="" content="Vale Cultura">
 
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/bootstrap.css') ?>"/>
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/bootstrap-responsive.css') ?>"/>
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/font-awesome.css') ?>"/>
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/prettyPhoto.css" type="text/css') ?>"/>
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/bootstrap.css') ?>" type="text/css"/>
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/bootstrap-responsive.css') ?>" type="text/css"/>
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/font-awesome.css') ?>" type="text/css"/>
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/prettyPhoto.css" type="text/css') ?>" type="text/css"/>
     <link rel="stylesheet" href="<?php echo $this->baseUrl('/js/circle/component.css') ?>" type="text/css" media="screen"/>
     <link rel="stylesheet" href="<?php echo $this->baseUrl('/js/mosaic/hover.zoom.css') ?>" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/style.css') ?>"/>
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/colorpicker.css') ?>"/>
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/style.css') ?>" type="text/css"/>
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/colorpicker.css') ?>" type="text/css"/>
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('css/jquery-ui-datepicker.css') ?>" type="text/css"/>
     <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600,300' rel='stylesheet' type='text/css'>
 
@@ -38,6 +39,7 @@
     <link rel="apple-touch-icon-precomposed" href="<?php echo $this->baseUrl('/ico/logo.png') ?>">
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="<?php echo $this->baseUrl('js/jquery-1.10.1.js') ?>"></script>
+    <script src="<?php echo $this->baseUrl('js/jquery-ui-1.11.4.min.js') ?>"></script>
 </head>
 
 <body>
@@ -351,6 +353,25 @@
         if (document.cookie.indexOf("msg_autorizacao") < 0) {
             carregaMensagemAutorizacao();
         }
+
+        $('input.datepickerClass').live('focus', function(){
+            if (false == $(this).hasClass('hasDatepicker')) {
+                $(this).datepicker({
+                    //format: 'dd/mm/yyyy',
+                    language: 'pt-BR',
+                    separator: ' ',
+                    minDate: new Date(),
+                    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+                    dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+                    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+                    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                    nextText: 'Próximo',
+                    prevText: 'Anterior',
+                    dateFormat: 'dd/mm/yy'
+                });
+            }
+        });
     });
 
 

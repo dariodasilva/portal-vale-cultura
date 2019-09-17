@@ -214,7 +214,7 @@
                            type="text" class="input_simples w200 block"/>
                 </td>
                 <td valign="top"><input name="EMPRESA_COMPLEMENTO" id="EMPRESA_COMPLEMENTO" type="text"
-                                        class="input_simples w200 block"/></td>
+                                        class="input_simples w200 block" maxlength="100"/></td>
                 <td valign="top"><input name="EMPRESA_NUMERO" id="EMPRESA_NUMERO" maxlength="10" type="text"
                                         class="input_simples w100 block"/></td>
             </tr>
@@ -355,7 +355,7 @@
                                         class="input_simples cpf"/></td>
                 <td valign="top"><input disabled="true" name="RESPONSAVEL_NAO_EMPRESA_NOME"
                                         id="RESPONSAVEL_NAO_EMPRESA_NOME" type="text"
-                                        class="input_simples"/></td>
+                                        class="input_simples" maxlength="100"/></td>
                 <td valign="top">
                     <select name="RESPONSAVEL_NAO_EMPRESA_CARGO" id="RESPONSAVEL_NAO_EMPRESA_CARGO">
                         <option> - SELECIONE -</option>
@@ -378,7 +378,7 @@
             </tr>
             <tr>
                 <td><input name="RESPONSAVEL_NAO_EMPRESA_EMAIL" id="RESPONSAVEL_NAO_EMPRESA_EMAIL" type="text"
-                           class="input_simples w300"/></td>
+                           class="input_simples w300" maxlength="80"/></td>
                 <td valign="top"><input name="RESPONSAVEL_NAO_EMPRESA_FONE" id="RESPONSAVEL_NAO_EMPRESA_FONE"
                                         type="text"
                                         class="input_simples w100 telefone"/></td>
@@ -391,7 +391,7 @@
             </tr>
             <tr>
                 <td><input name="RESPONSAVEL_NAO_EMPRESA_EMAIL_CONFIRMA" id="RESPONSAVEL_NAO_EMPRESA_EMAIL_CONFIRMA"
-                           type="text"
+                           type="text" maxlength="80"
                            class="input_simples w300"/></td>
                 <td colspan="2"></td>
             </tr>
@@ -424,7 +424,7 @@
                 <td valign="top"><input name="RESPONSAVEL_CPF" id="RESPONSAVEL_CPF" type="text"
                                         class="input_simples cpf"/></td>
                 <td valign="top"><input disabled="true" name="RESPONSAVEL_NOME" id="RESPONSAVEL_NOME" type="text"
-                                        class="input_simples"/></td>
+                                        class="input_simples" maxlength="100"/></td>
                 <td valign="top">
                     <select name="RESPONSAVEL_CARGO" id="RESPONSAVEL_CARGO">
                         <option> - SELECIONE -</option>
@@ -446,7 +446,8 @@
                 <td valign="top" class="destacar bold" colspan="2">Fax:</td>
             </tr>
             <tr>
-                <td><input name="RESPONSAVEL_EMAIL" id="RESPONSAVEL_EMAIL" type="text" class="input_simples w300"/></td>
+                <td><input name="RESPONSAVEL_EMAIL" id="RESPONSAVEL_EMAIL" type="text" class="input_simples w300"
+                           maxlength="80"/></td>
                 <td valign="top"><input name="RESPONSAVEL_FONE" id="RESPONSAVEL_FONE" type="text"
                                         class="input_simples w100 telefone"/></td>
                 <td valign="top"><input name="RESPONSAVEL_FAX" id="RESPONSAVEL_FAX" type="text"
@@ -458,7 +459,7 @@
             </tr>
             <tr>
                 <td><input name="RESPONSAVEL_EMAIL_CONFIRMA" id="RESPONSAVEL_EMAIL_CONFIRMA" type="text"
-                           class="input_simples w300"/></td>
+                           class="input_simples w300" maxlength="80"/></td>
                 <td colspan="2"></td>
             </tr>
             <tr id="arquivo_10">
@@ -595,6 +596,8 @@
         $(".cpf").mask("999.999.999-99");
         $(".cnpj").mask("99.999.999/9999-99");
         $(".telefone").mask("(99) 9999-9999?9");
+        $(".telefone-simples").mask("9999-9999?9");
+        $(".data-simples").mask("99/99/9999");
 
         gerarCaptcha();
         calculaTotalFuncionarios();
@@ -710,7 +713,7 @@
                             $('#IDPJ').val(data.dados.idpj);
                             $('#EMPRESA_RAZAOSOCIAL').html(data.dados.razaosocial);
                             if (data.dados.nomefantasia === " ") {
-                                $('#EMPRESA_NOMEFANTASIA').html('<input name="EMPRESA_NMFANTASIA" id="EMPRESA_NMFANTASIA" type="text" class="input_simples w200 block" />');
+                                $('#EMPRESA_NOMEFANTASIA').html('<input name="EMPRESA_NMFANTASIA" id="EMPRESA_NMFANTASIA" maxlength="100" type="text" class="input_simples w200 block" />');
                             } else {
                                 $('#EMPRESA_NOMEFANTASIA').html(data.dados.nomefantasia);
                             }

@@ -1,5 +1,3 @@
-<script type="text/javascript" src="<?php echo $this->baseUrl('js/jquery-ui-1.11.4.min.js') ?>"></script>
-<link rel="stylesheet" href="<?php echo $this->baseUrl('css/jquery-ui-datepicker.css') ?>"/>
 <style type="text/css">
     .errorAjax {
         background-color: #e8a4a4;
@@ -112,9 +110,9 @@
                 <td valign="top" colspan="3">
                     <input type="text" id="SAC_DDD" name="SAC_DDD" class="input-mini" maxlength="2" onkeyup="num(this);"
                            placeholder="DDD"/>
-                    <input name="SAC_TELEFONE" id="SAC_TELEFONE" onkeyup="num(this);" maxlength="15" type="text"
-                           class="input_simples" style="width: 125px;" placeholder="Número"/>
-                    <input name="SAC_COMPLEMENTO" id="SAC_COMPLEMENTO" maxlength="50" type="text" class="input_simples"
+                    <input name="SAC_TELEFONE" id="SAC_TELEFONE" onkeyup="num(this);" maxlength="10" type="text"
+                           class="input_simples telefone-simples" style="width: 125px;" placeholder="Número"/>
+                    <input name="SAC_COMPLEMENTO" id="SAC_COMPLEMENTO" maxlength="100" type="text" class="input_simples"
                            style="width: 350px;" placeholder="Ex: Regiões Metropolitanas/Capitais/Demais Cidades"/>
                 </td>
             </tr>
@@ -123,7 +121,7 @@
             </tr>
             <tr>
                 <td valign="top" colspan="2">
-                    <input name="INSTITUCIONAL_EMAIL" id="RESPONSAVEL_INSTITUCIONAL" type="text"
+                    <input name="INSTITUCIONAL_EMAIL" id="RESPONSAVEL_INSTITUCIONAL" maxlength="80" type="text"
                            class="input_simples w400"/>
                 </td>
             </tr>
@@ -187,14 +185,14 @@
             <tr>
                 <th valign="top" class="destacar bold">Endere&ccedil;o:</th>
                 <th valign="top" class="destacar bold">Complemento:</th>
-                <th valign="top" class="destacar bold">Numero:</th>
+                <th valign="top" class="destacar bold">Número:</th>
             </tr>
             <tr>
                 <td valign="top">
                     <input name="EMPRESA_ENDERECO" id="EMPRESA_ENDERECO" disabled="true" value="- Informe o CEP -"
                            type="text" class="input_simples w200 block"/>
                 </td>
-                <td valign="top"><input name="EMPRESA_COMPLEMENTO" id="EMPRESA_COMPLEMENTO" type="text"
+                <td valign="top"><input name="EMPRESA_COMPLEMENTO" id="EMPRESA_COMPLEMENTO" maxlength="100" type="text"
                                         class="input_simples w200 block"/></td>
                 <td valign="top"><input name="EMPRESA_NUMERO" id="EMPRESA_NUMERO" maxlength="10" type="text"
                                         class="input_simples w100 block"/></td>
@@ -319,7 +317,8 @@
             <tr id="arquivo_9">
                 <td class="arquivoTd" colspan="2">
                     Nome do documento:
-                    <input type="text" name="ANEXO_9_NOME" style="width: 90%" class="input_simples w500 arquivosBlock"/>
+                    <input type="text" name="ANEXO_9_NOME" style="width: 90%" maxlength="100"
+                           class="input_simples w500 arquivosBlock"/>
                 </td>
                 <td class="arquivoTdAq">
                     <input type="file" name="ANEXO_9" id="ANEXO_9" class="input_simples arquivosBlock files"/>
@@ -330,7 +329,7 @@
             <tr id="arquivo_9">
                 <td class="arquivoTd" colspan="2">
                     Nome do documento:
-                    <input type="text" name="ANEXO_10_NOME" style="width: 90%"
+                    <input type="text" name="ANEXO_10_NOME" style="width: 90%" maxlength="100"
                            class="input_simples w500 arquivosBlock"/>
                 </td>
                 <td class="arquivoTdAq">
@@ -392,7 +391,7 @@
                 <td valign="top"><input name="RESPONSAVEL_NAO_EMPRESA_CPF" id="RESPONSAVEL_NAO_EMPRESA_CPF" type="text"
                                         class="input_simples cpf"/></td>
                 <td valign="top"><input disabled="true" name="RESPONSAVEL_NAO_EMPRESA_NOME"
-                                        id="RESPONSAVEL_NAO_EMPRESA_NOME" type="text"
+                                        id="RESPONSAVEL_NAO_EMPRESA_NOME" type="text" maxlength="100"
                                         class="input_simples"/></td>
                 <td valign="top">
                     <select name="RESPONSAVEL_NAO_EMPRESA_CARGO" id="RESPONSAVEL_NAO_EMPRESA_CARGO">
@@ -415,7 +414,8 @@
                 <td valign="top" class="destacar bold" colspan="2">Fax:</td>
             </tr>
             <tr>
-                <td><input name="RESPONSAVEL_NAO_EMPRESA_EMAIL" id="RESPONSAVEL_NAO_EMPRESA_EMAIL" type="text"
+                <td><input name="RESPONSAVEL_NAO_EMPRESA_EMAIL" id="RESPONSAVEL_NAO_EMPRESA_EMAIL" maxlength="80"
+                           type="text"
                            class="input_simples w300"/></td>
                 <td valign="top"><input name="RESPONSAVEL_NAO_EMPRESA_FONE" id="RESPONSAVEL_NAO_EMPRESA_FONE"
                                         type="text"
@@ -429,8 +429,7 @@
             </tr>
             <tr>
                 <td><input name="RESPONSAVEL_NAO_EMPRESA_EMAIL_CONFIRMA" id="RESPONSAVEL_NAO_EMPRESA_EMAIL_CONFIRMA"
-                           type="text"
-                           class="input_simples w300"/></td>
+                           type="text" maxlength="80" class="input_simples w300"/></td>
                 <td colspan="2"></td>
             </tr>
         </table>
@@ -456,9 +455,9 @@
             </tr>
             <tr>
                 <td valign="top"><input name="RESPONSAVEL_CPF" id="RESPONSAVEL_CPF" type="text"
-                                        class="input_simples cpf"/></td>
+                                        class="input_simples cpf" maxlength="14"/></td>
                 <td valign="top"><input disabled="true" name="RESPONSAVEL_NOME" id="RESPONSAVEL_NOME" type="text"
-                                        class="input_simples"/></td>
+                                        class="input_simples" maxlength="100"/></td>
                 <td valign="top">
                     <select name="RESPONSAVEL_CARGO" id="RESPONSAVEL_CARGO">
                         <option> - SELECIONE -</option>
@@ -480,7 +479,8 @@
                 <td valign="top" class="destacar bold" colspan="2">Fax:</td>
             </tr>
             <tr>
-                <td><input name="RESPONSAVEL_EMAIL" id="RESPONSAVEL_EMAIL" type="text" class="input_simples w300"/></td>
+                <td><input name="RESPONSAVEL_EMAIL" id="RESPONSAVEL_EMAIL" type="text" maxlength="80"
+                           class="input_simples w300"/></td>
                 <td valign="top"><input name="RESPONSAVEL_FONE" id="RESPONSAVEL_FONE" type="text"
                                         class="input_simples w100 telefone"/></td>
                 <td valign="top"><input name="RESPONSAVEL_FAX" id="RESPONSAVEL_FAX" type="text"
@@ -492,7 +492,7 @@
             </tr>
             <tr>
                 <td><input name="RESPONSAVEL_EMAIL_COMFIRMA" id="RESPONSAVEL_EMAIL_COMFIRMA" type="text"
-                           class="input_simples w300"/></td>
+                           class="input_simples w300" maxlength="80"/></td>
                 <td colspan="2"></td>
             </tr>
             <tr id="arquivo_10">
@@ -518,7 +518,7 @@
             <tr>
                 <td valign="top" colspan="2">
                     <input name="INICIO_COMERCIALIZACAO" id="INICIO_COMERCIALIZACAO" type="text"
-                           class="input_datsimples w400"/>
+                           class="input_datsimples w400 data-simples datepickerClass" maxlength="10"/>
                 </td>
             </tr>
         </table>
@@ -590,18 +590,19 @@
 
 </div>
 
-<script>
+<script type="text/javascript">
 
     function num(dom) {
         dom.value = dom.value.replace(/\D/g, '');
     }
-
 
     jQuery(document).ready(function () {
         gerarCaptcha();
 
         $("#SAC_DDD").mask("99");
         $(".telefone").mask("(99) 9999-9999?9");
+        $(".telefone-simples").mask("9999-9999?9");
+        $(".data-simples").mask("99/99/9999");
 
         $('#btnResetar').click(function () {
             $('#IDPJ').val('');
@@ -739,20 +740,20 @@
             }
         });
 
-        $("#INICIO_COMERCIALIZACAO").datepicker({
-            //format: 'dd/mm/yyyy',
-            language: 'pt-BR',
-            separator: ' ',
-            minDate: new Date(),
-            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
-            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-            nextText: 'Próximo',
-            prevText: 'Anterior',
-            dateFormat: 'dd/mm/yy'
-        });
+        // $("#INICIO_COMERCIALIZACAO").datepicker({
+        //     //format: 'dd/mm/yyyy',
+        //     language: 'pt-BR',
+        //     separator: ' ',
+        //     minDate: new Date(),
+        //     dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+        //     dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+        //     dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+        //     monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+        //     monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+        //     nextText: 'Próximo',
+        //     prevText: 'Anterior',
+        //     dateFormat: 'dd/mm/yy'
+        // });
 
         // Vamos buscar os dados do CNPJ Agora!
         $('#EMPRESA_CNPJ').focusout(function () {
@@ -796,7 +797,7 @@
                             $('#IDPJ').val(data.dados.idpj);
                             $('#EMPRESA_RAZAOSOCIAL').html(data.dados.razaosocial);
                             if (data.dados.nomefantasia === " ") {
-                                $('#EMPRESA_NOMEFANTASIA').html('<input name="EMPRESA_NMFANTASIA" id="EMPRESA_NMFANTASIA" type="text" class="input_simples w200 block" />');
+                                $('#EMPRESA_NOMEFANTASIA').html('<input name="EMPRESA_NMFANTASIA" id="EMPRESA_NMFANTASIA" maxlength="100" type="text" class="input_simples w200 block" />');
                             } else {
                                 $('#EMPRESA_NOMEFANTASIA').html(data.dados.nomefantasia);
                             }

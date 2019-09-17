@@ -98,19 +98,6 @@ class Beneficiaria_CadastroController extends GenericController
 
             $NAORESPONSAVEL = $this->getRequest()->getParam("responsavel_empresa") == 0;
 
-            $IDPF_EMPRESA = $this->getRequest()->getParam("ID_EMPRESA_PF");
-            $RESPONSAVEL_EMPRESA_CPF = retornaDigitos($this->getRequest()->getParam("RESPONSAVEL_EMPRESA_CPF"));
-            $RESPONSAVEL_EMPRESA_CARGO = $this->getRequest()->getParam("RESPONSAVEL_EMPRESA_CARGO");
-            $RESPONSAVEL_EMPRESA_EMAIL = $this->getRequest()->getParam("RESPONSAVEL_EMPRESA_EMAIL");
-
-            $ARTELRES = explode(" ", $this->getRequest()->getParam("RESPONSAVEL_EMPRESA_FONE"));
-            $CDDDDRES = retornaDigitos($ARTELRES[0]);
-            $NRTELEFONERES = retornaDigitos($ARTELRES[1]);
-
-            $ARTELFAX = explode(" ", $this->getRequest()->getParam("RESPONSAVEL_EMPRESA_FAX"));
-            $CDDDDFAXRES = retornaDigitos($ARTELFAX[0]);
-            $NRTELEFONEFAXRES = retornaDigitos($ARTELFAX[1]);
-
             $IDPF_NAO_EMPRESA = $this->getRequest()->getParam("ID_NAO_EMPRESA_PF");
             $RESPONSAVEL_NAO_EMPRESA_CPF = retornaDigitos($this->getRequest()->getParam("RESPONSAVEL_NAO_EMPRESA_CPF"));
             $RESPONSAVEL_NAO_EMPRESA_CARGO = $this->getRequest()->getParam("RESPONSAVEL_NAO_EMPRESA_CARGO");
@@ -207,37 +194,6 @@ class Beneficiaria_CadastroController extends GenericController
 
             if ($CDCBO < 1) {
                 $ERROR["CBO"] = "Informe o cargo";
-            }
-
-            if ($RESPONSAVEL_EMPRESA_CPF == "0") {
-                $ERROR["CPF_EMPRESA"] = "CPF do responsável não encontrado!";
-            }
-
-            if (!validaCPF($RESPONSAVEL_EMPRESA_CPF)) {
-                $ERROR["CPF_EMPRESA_ERROR"] = "CPF do responsável inválido";
-            }
-
-            if ($RESPONSAVEL_EMPRESA_CARGO < 1) {
-                $ERROR["CARGO_EMPRESA"] = "Informe o cargo do responsável!";
-            }
-
-            if (!$RESPONSAVEL_EMPRESA_EMAIL) {
-                $ERROR["EMAIL_EMPRESA"] = "Informe o e-mail do responsável!";
-            }
-
-            if (!validaEmail($RESPONSAVEL_EMPRESA_EMAIL)) {
-                $ERROR["EMAIL_EMPRESA_ERROR"] = "Email do responsável inválido!";
-            }
-
-            if ($CDDDDRES) {
-                $verificaDDD = $modelDDD->select(array("CD_DDD = ?" => $CDDDDRES));
-                if (count($verificaDDD) == 0) {
-                    $ERROR["DDD_RESPONSAVEL"] = "DDD do responsável inv&aacute;lido!";
-                }
-            }
-
-            if (strlen($NRTELEFONERES) < 8) {
-                $ERROR["TELEFONE_RESPONSAVEL"] = "Informe o telefone do responsável!";
             }
 
             if ($NAORESPONSAVEL) {
@@ -459,20 +415,6 @@ class Beneficiaria_CadastroController extends GenericController
                 $arDados['nrFax'] = $NRFAX;
                 $arDados['dsEmail'] = $DSEMAIL;
                 $arDados['tpVinculoPessoa'] = 16;
-                $this->_adionarResponsavel($arDados);
-
-                ###### CADASTRO RESPONSÁVEL EMPRESA ######
-                $arDados = array();
-                $arDados['idPessoaFisica'] = $IDPF_EMPRESA;
-                $arDados['idPessoaJuridica'] = $IDPJ;
-                $arDados['nrCpf'] = $RESPONSAVEL_EMPRESA_CPF;
-                $arDados['cdCbo'] = $RESPONSAVEL_EMPRESA_CARGO;
-                $arDados['cdDDD'] = $CDDDDRES;
-                $arDados['nrTelefone'] = $NRTELEFONERES;
-                $arDados['cdDDDFax'] = $CDDDDFAXRES;
-                $arDados['nrFax'] = $NRTELEFONEFAXRES;
-                $arDados['dsEmail'] = $RESPONSAVEL_EMPRESA_EMAIL;
-                $arDados['tpVinculoPessoa'] = 4;
                 $this->_adionarResponsavel($arDados);
 
                 if ($NAORESPONSAVEL) {

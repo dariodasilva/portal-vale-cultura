@@ -247,6 +247,14 @@ class Operadora_CadastroController extends GenericController
                 }
             }
 
+            if (!$this->getRequest()->getParam("ConfimaRegras")) {
+                $ERROR["PROGRAMA"] = "Confirme as regras do Programa de Cultura do Trabalhador";
+            }
+
+            if (!$this->getRequest()->getParam("ConfimaLei")) {
+                $ERROR["LEI"] = "Confirme a veracidade de todas as informações";
+            }
+
             if (isset($_POST['captcha'])) {
                 $captcha = new Zend_Captcha_Image(); // instancia novamente um captcha para validar os dados enviados
                 if (!$captcha->isValid($this->getRequest()->getParam('captcha'))) {
