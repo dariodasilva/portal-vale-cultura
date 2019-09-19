@@ -1,16 +1,19 @@
 <?php
 
-class Application_Model_FaixaSalarialBeneficiariaHistorico {
+class Application_Model_FaixaSalarialBeneficiariaHistorico
+{
     private $table = null;
 
-    public function getTable() {
-        if(is_null($this->table)) {
+    public function getTable()
+    {
+        if (is_null($this->table)) {
             $this->table = new Application_Model_DbTable_FaixaSalarialBeneficiariaHistorico();
         }
         return $this->table;
     }
 
-    public function select($where = array(), $order = null, $limit = null) {
+    public function select($where = array(), $order = null, $limit = null)
+    {
         $select = $this->getTable()->select()->order($order)->limit($limit);
 
         foreach ($where as $coluna => $valor) :
@@ -20,20 +23,24 @@ class Application_Model_FaixaSalarialBeneficiariaHistorico {
         return $this->getTable()->fetchAll($select)->toArray();
     }
 
-    public function find($id) {
+    public function find($id)
+    {
         return $this->getTable()->find($id)->current();
     }
 
-    public function insert(array $request) {
+    public function insert(array $request)
+    {
         return $this->getTable()->createRow()->setFromArray($request)->save();
     }
 
-    public function update(array $request, $id) {
+    public function update(array $request, $id)
+    {
         $where["ID_HISTORICO = ?"] = $id;
         return $this->getTable()->update($request, $where);
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         return $this->getTable()->find($id)->current()->delete();
     }
 }

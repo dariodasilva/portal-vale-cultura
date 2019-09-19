@@ -2,11 +2,13 @@
 
 include_once 'GenericController.php';
 
-class Operadora_IndexController extends GenericController {
+class Operadora_IndexController extends GenericController
+{
 
     private $session;
 
-    public function init() {
+    public function init()
+    {
 
         // Layout Padrão
         $this->view->layout()->setLayout('layout');
@@ -14,63 +16,66 @@ class Operadora_IndexController extends GenericController {
         // Título
         $this->view->assign('titulo', 'Operadora');
 
-        parent::autenticar(array('R','A'));
+        parent::autenticar(array('R', 'A'));
 
         $this->view->assign('admin', false);
         if ($this->_sessao["PerfilGeral"] == 'A') {
             $this->view->assign('admin', true);
         }
-        
+
         parent::init();
-        
+
     }
 
-    public function indexAction() {
-        
-        $operadoraSimular    = $this->getRequest()->getParam('operadora');
-        
+    public function indexAction()
+    {
+
+        $operadoraSimular = $this->getRequest()->getParam('operadora');
+
         $session = new Zend_Session_Namespace('user');
         $sessao = $this->_sessao;
 
         if ($this->_sessao["PerfilGeral"] == 'A') {
-            $sessao["operadora"]    = $operadoraSimular;
-            $session->usuario       = $sessao;
+            $sessao["operadora"] = $operadoraSimular;
+            $session->usuario = $sessao;
             $this->_redirect('/operadora/index/dadosoperadora');
-        }else{
-            
-            if($this->validarAcessoOperadora($operadoraSimular, $sessao["idPessoa"])){
-               $sessao["operadora"]     = $operadoraSimular;
-               $session->usuario        = $sessao;
-               $this->_redirect('/operadora/index/dadosoperadora');
-            }else{
-               $sessao["operadora"]     = '';
-               $session->usuario        = $sessao;
+        } else {
+
+            if ($this->validarAcessoOperadora($operadoraSimular, $sessao["idPessoa"])) {
+                $sessao["operadora"] = $operadoraSimular;
+                $session->usuario = $sessao;
+                $this->_redirect('/operadora/index/dadosoperadora');
+            } else {
+                $sessao["operadora"] = '';
+                $session->usuario = $sessao;
                 parent::message('Operadora não foi localizada!', '/minc/admin', 'error');
             }
         }
-        
-         
+
+
     }
 
-    function validarAcessoOperadora($idOperadora, $idPessoa){
+    function validarAcessoOperadora($idOperadora, $idPessoa)
+    {
         $retorno = false;
         $modelPessoaVinculada = new Application_Model_PessoaVinculada();
         $where = array(
-            'ID_PESSOA = ?'             => $idOperadora, 
-            'ID_PESSOA_VINCULADA = ?'   => $idPessoa, 
-            'ST_PESSOA_VINCULADA = ?'   => 'A'
+            'ID_PESSOA = ?' => $idOperadora,
+            'ID_PESSOA_VINCULADA = ?' => $idPessoa,
+            'ST_PESSOA_VINCULADA = ?' => 'A'
         );
         $existeVinculoAtivo = $modelPessoaVinculada->select($where);
-        
-        if(count($existeVinculoAtivo) > 0){
+
+        if (count($existeVinculoAtivo) > 0) {
             $retorno = true;
         }
-        
+
         return $retorno;
     }
-    
-    public function dadosoperadoraAction() {
-        
+
+    public function dadosoperadoraAction()
+    {
+
         $dadosOperadora = array();
         $idOperadora = $this->_sessao['operadora'];
         if (empty($idOperadora)) {
@@ -78,9 +83,9 @@ class Operadora_IndexController extends GenericController {
         }
 
         // Dados da operadora
-        $modelOperadoras    = new Application_Model_Operadora();
-        $modelSituacao      = new Application_Model_Situacao();
-        
+        $modelOperadoras = new Application_Model_Operadora();
+        $modelSituacao = new Application_Model_Situacao();
+
         $situacao = $modelSituacao->buscarSituacao(array('ID_PESSOA = ?' => $idOperadora, 'TP_ENTIDADE_VALE_CULTURA = ?' => 'O'));
 
         if ($situacao[0]["idTipoSituacao"] != 2 && isset($situacao[0]["idTipoSituacao"])) {
@@ -94,50 +99,50 @@ class Operadora_IndexController extends GenericController {
 
         foreach ($operadora as $op) {
             // tbOperadora
-            $dadosOperadora['idOperadora']              = $op->idOperadora;
-            $dadosOperadora['dtInscricao']              = $op->dtInscricao;
-            $dadosOperadora['nrComprovanteInscricao']   = $op->nrComprovanteInscricao;
-            $dadosOperadora['nrCertificado']            = $op->nrCertificado;
-            $dadosOperadora['situacao']                 = $op->situacao;
-            $dadosOperadora['inicioComercializacao']    = $op->dtInicioComercializacao;            
+            $dadosOperadora['idOperadora'] = $op->idOperadora;
+            $dadosOperadora['dtInscricao'] = $op->dtInscricao;
+            $dadosOperadora['nrComprovanteInscricao'] = $op->nrComprovanteInscricao;
+            $dadosOperadora['nrCertificado'] = $op->nrCertificado;
+            $dadosOperadora['situacao'] = $op->situacao;
+            $dadosOperadora['inicioComercializacao'] = $op->dtInicioComercializacao;
             //tbPessoa
-            $dadosOperadora['idpessoa']                 = $op->idPessoa;
-            $dadosOperadora['dtregistro']               = $op->dtRegistro;
+            $dadosOperadora['idpessoa'] = $op->idPessoa;
+            $dadosOperadora['dtregistro'] = $op->dtRegistro;
             //tbPessoaJuridica
-            $dadosOperadora['nrCnpj']                   = addMascara($op->nrCnpj, 'cnpj');
-            $dadosOperadora['nrInscricaoEstadual']      = $op->nrInscricaoEstadual;
-            $dadosOperadora['nmRazaoSocial']            = $op->nmRazaoSocial;
-            $dadosOperadora['nmFantasia']               = $op->nmFantasia;
-			$dadosOperadora['dsSite']                   = $op->dsSite;
-            $dadosOperadora['nrCei']                    = $op->nrCei;
+            $dadosOperadora['nrCnpj'] = addMascara($op->nrCnpj, 'cnpj');
+            $dadosOperadora['nrInscricaoEstadual'] = $op->nrInscricaoEstadual;
+            $dadosOperadora['nmRazaoSocial'] = $op->nmRazaoSocial;
+            $dadosOperadora['nmFantasia'] = $op->nmFantasia;
+            $dadosOperadora['dsSite'] = $op->dsSite;
+            $dadosOperadora['nrCei'] = $op->nrCei;
             //tbNaturezaJuridica
-            $dadosOperadora['cdNaturezaJuridica']       = $op->cdNaturezaJuridica;
-            $dadosOperadora['dsNaturezaJuridica']       = $op->dsNaturezaJuridica;
+            $dadosOperadora['cdNaturezaJuridica'] = $op->cdNaturezaJuridica;
+            $dadosOperadora['dsNaturezaJuridica'] = $op->dsNaturezaJuridica;
             //tbEndereco
-            $dadosOperadora['dsComplementoEndereco']    = $op->dsComplementoEndereco;
-            $dadosOperadora['nrComplemento']            = $op->nrComplemento;
+            $dadosOperadora['dsComplementoEndereco'] = $op->dsComplementoEndereco;
+            $dadosOperadora['nrComplemento'] = $op->nrComplemento;
             //tbBairro
-            $dadosOperadora['nmBairro']                 = $op->nmBairro;
+            $dadosOperadora['nmBairro'] = $op->nmBairro;
             //tbLogradouro
-            $dadosOperadora['logradouro']               = $op->nmLogradouro;
-            $dadosOperadora['cep']                      = addMascara($op->nrCep, 'cep');
-            $dadosOperadora['Pais']                     = $op->nmPais;
-            $dadosOperadora['nmUf']                     = $op->nmUF;
-            $dadosOperadora['sgUF']                     = $op->sgUF;
-            $dadosOperadora['nmMunicipio']              = $op->nmMunicipio;
-            $dadosOperadora['idMunicipio']              = $op->idMunicipio;
+            $dadosOperadora['logradouro'] = $op->nmLogradouro;
+            $dadosOperadora['cep'] = addMascara($op->nrCep, 'cep');
+            $dadosOperadora['Pais'] = $op->nmPais;
+            $dadosOperadora['nmUf'] = $op->nmUF;
+            $dadosOperadora['sgUF'] = $op->sgUF;
+            $dadosOperadora['nmMunicipio'] = $op->nmMunicipio;
+            $dadosOperadora['idMunicipio'] = $op->idMunicipio;
         }
 
         // Arquivos da operadora
         $modelArquivos = new Application_Model_ArquivoOperadora();
         $arquivos = $modelArquivos->buscarArquivos(array('ID_OPERADORA = ?' => $idOperadora));
         $this->view->assign('arquivosOperadora', $arquivos);
-        
+
         // Email Institucional
         $emailInstitucional = array();
         $modelEmail = new Application_Model_Email();
         $email = $modelEmail->select(array('ID_TIPO_EMAIL = ?' => 2, 'ID_PESSOA = ?' => $idOperadora), 'DS_EMAIL', 1);
-        if(count($email) > 0){
+        if (count($email) > 0) {
             $emailInstitucional = $email[0];
         }
         $this->view->assign('emailInstitucional', $emailInstitucional);
@@ -146,122 +151,126 @@ class Operadora_IndexController extends GenericController {
         $this->view->assign('operadora', $dadosOperadora);
         $this->view->assign('historico', $historico);
     }
-    
-    public function telefonesAction() {
+
+    public function telefonesAction()
+    {
         $idOperadora = $this->_sessao['operadora'];
         $modelTelefones = new Application_Model_Telefone();
         $listaTelefones = $modelTelefones->buscarTelefones(array('ID_PESSOA = ?' => $idOperadora));
         $this->view->assign('telefones', $listaTelefones);
         $this->view->assign('idOperadora', $idOperadora);
     }
-    
-    public function addTelefoneAction(){
-        
+
+    public function addTelefoneAction()
+    {
+
         if ($_POST) {
-            
-            $modelTelefone  = new Application_Model_Telefone();
-            $modelDDD       = new Application_Model_DDD();
-            
-            $idOperadora    = $this->_sessao['operadora'];
-            $DDD            = $this->getRequest()->getParam('DDD');
-            $TELEFONE       = $this->getRequest()->getParam('TELEFONE');
-            $COMPLEMENTO    = $this->getRequest()->getParam('COMPLEMENTO');
-            
-            if($TELEFONE == ''){
-                parent::message('O campo telefone é obrigatório!', '/operadora/index/telefones/operadora/'.$idOperadora, 'error');
+
+            $modelTelefone = new Application_Model_Telefone();
+            $modelDDD = new Application_Model_DDD();
+
+            $idOperadora = $this->_sessao['operadora'];
+            $DDD = $this->getRequest()->getParam('DDD');
+            $TELEFONE = $this->getRequest()->getParam('TELEFONE');
+            $COMPLEMENTO = $this->getRequest()->getParam('COMPLEMENTO');
+
+            if ($TELEFONE == '') {
+                parent::message('O campo telefone é obrigatório!', '/operadora/index/telefones/operadora/' . $idOperadora, 'error');
             }
-            
-            if($DDD){
+
+            if ($DDD) {
                 $verificaDDD = $modelDDD->select(array('CD_DDD = ?' => $DDD));
-                if(count($verificaDDD) < 1 ){
-                    parent::message('DDD inv&aacute;lido!', '/operadora/index/telefones/operadora/'.$idOperadora, 'error');
+                if (count($verificaDDD) < 1) {
+                    parent::message('DDD inv&aacute;lido!', '/operadora/index/telefones/operadora/' . $idOperadora, 'error');
                 }
             }
 
             try {
-                
+
                 // Verificar se já existe
                 $where = array(
-                    'ID_PESSOA = ?'         => $idOperadora,
-                    'SG_PAIS = ?'           => 'BRA',
-                    'NR_TELEFONE = ?'       => $TELEFONE,
-                    'ID_TIPO_TELEFONE = ?'  => 7
+                    'ID_PESSOA = ?' => $idOperadora,
+                    'SG_PAIS = ?' => 'BRA',
+                    'NR_TELEFONE = ?' => $TELEFONE,
+                    'ID_TIPO_TELEFONE = ?' => 7
                 );
-                
-                if($DDD){
+
+                if ($DDD) {
                     $where['CD_DDD = ?'] = $DDD;
-                }else{
+                } else {
                     $where['CD_DDD ?'] = new Zend_Db_Expr('IS NULL');
                 }
-                
+
                 $existeTelefone = $modelTelefone->select($where);
-                
-                if(count($existeTelefone) == 0){
-                    
+
+                if (count($existeTelefone) == 0) {
+
                     $Cols = array(
-                        'ID_PESSOA'         => $idOperadora,
-                        'SG_PAIS'           => 'BRA',
-                        'NR_TELEFONE'       => $TELEFONE,
-                        'DS_TELEFONE'       => $COMPLEMENTO,
-                        'ID_TIPO_TELEFONE'  => 7,
-                        'CD_DDD'            => $DDD == '' ? new Zend_Db_Expr('NULL') : $DDD
+                        'ID_PESSOA' => $idOperadora,
+                        'SG_PAIS' => 'BRA',
+                        'NR_TELEFONE' => $TELEFONE,
+                        'DS_TELEFONE' => $COMPLEMENTO,
+                        'ID_TIPO_TELEFONE' => 7,
+                        'CD_DDD' => $DDD == '' ? new Zend_Db_Expr('NULL') : $DDD
                     );
-                    
+
                     $modelTelefone->insert($Cols);
-                    parent::message('Telefone cadastrado com sucesso!', '/operadora/index/telefones/operadora/'.$idOperadora, 'confirm');
-                }else{
-                    parent::message('O Telefone informado já está cadastrado!', '/operadora/index/telefones/operadora/'.$idOperadora, 'error');
+                    parent::message('Telefone cadastrado com sucesso!', '/operadora/index/telefones/operadora/' . $idOperadora, 'confirm');
+                } else {
+                    parent::message('O Telefone informado já está cadastrado!', '/operadora/index/telefones/operadora/' . $idOperadora, 'error');
                 }
-                
+
             } catch (Exception $exc) {
                 xd($exc->getMessage());
-                parent::message('Erro ao cadastrar o telefone!', '/operadora/index/telefones/operadora/'.$idOperadora, 'error');
+                parent::message('Erro ao cadastrar o telefone!', '/operadora/index/telefones/operadora/' . $idOperadora, 'error');
             }
-                    
-        }else{
-            parent::message('Dados não encontrados!', '/operadora/index/telefones/operadora/'.$idOperadora, 'alert');
+
+        } else {
+            parent::message('Dados não encontrados!', '/operadora/index/telefones/operadora/' . $idOperadora, 'alert');
         }
 
     }
-    
-    public function delTelefoneAction(){
-        
-        $modelTelefone  = new Application_Model_Telefone();
 
-        $idOperadora    = $this->_sessao['operadora'];
-        $IDTELEFONE     = $this->getRequest()->getParam('IDTELEFONE');
+    public function delTelefoneAction()
+    {
 
-        if($IDTELEFONE == ''){
-            parent::message('O campo telefone é obrigatório!', '/operadora/index/telefones/operadora/'.$idOperadora, 'alert');
+        $modelTelefone = new Application_Model_Telefone();
+
+        $idOperadora = $this->_sessao['operadora'];
+        $IDTELEFONE = $this->getRequest()->getParam('IDTELEFONE');
+
+        if ($IDTELEFONE == '') {
+            parent::message('O campo telefone é obrigatório!', '/operadora/index/telefones/operadora/' . $idOperadora, 'alert');
         }
 
         try {
             $modelTelefone->delete($IDTELEFONE);
-            parent::message('Telefone excluído com sucesso!', '/operadora/index/telefones/operadora/'.$idOperadora, 'confirm');
+            parent::message('Telefone excluído com sucesso!', '/operadora/index/telefones/operadora/' . $idOperadora, 'confirm');
 
         } catch (Exception $exc) {
-            parent::message('Erro ao excluir o telefone!', '/operadora/index/telefones/operadora/'.$idOperadora, 'error');
+            parent::message('Erro ao excluir o telefone!', '/operadora/index/telefones/operadora/' . $idOperadora, 'error');
         }
-                    
+
     }
 
-    public function atualizarDadosOperadoraAction() {
+    public function atualizarDadosOperadoraAction()
+    {
 
         $idOperadora = $this->_sessao['operadora'];
-       
+
         if ($_POST) {
 
-            $modelEndereco      = new Application_Model_Endereco();
-            $modelLogradouro    = new Application_Model_Logradouro();
-            $modelEmail         = new Application_Model_Email();
+            $modelEndereco = new Application_Model_Endereco();
+            $modelLogradouro = new Application_Model_Logradouro();
+            $modelEmail = new Application_Model_Email();
 
-            $NRCEP                  = str_replace('-', '', $this->getRequest()->getParam('cep'));
-            $DSCOMPLEMENTOENDERECO  = trim($this->getRequest()->getParam('dsComplementoEndereco'));
-            $NRCOMPLEMENTO          = trim($this->getRequest()->getParam('nrComplemento'));
-            $DSLOGRAENDERECO        = trim($this->getRequest()->getParam('logradouro'));
-            $IDEMAILINSTITUCIONAL   = $this->getRequest()->getParam('ID_EMAIL_INSTITUCIONAL');
-            $EMAILINSTITUCIONAL     = trim($this->getRequest()->getParam('EMAIL_INSTITUCIONAL'));
-            $IDBAIRRO               = $this->getRequest()->getParam('nmBairro');
+            $NRCEP = str_replace('-', '', $this->getRequest()->getParam('cep'));
+            $DSCOMPLEMENTOENDERECO = trim($this->getRequest()->getParam('dsComplementoEndereco'));
+            $NRCOMPLEMENTO = trim($this->getRequest()->getParam('nrComplemento'));
+            $DSLOGRAENDERECO = trim($this->getRequest()->getParam('logradouro'));
+            $IDEMAILINSTITUCIONAL = $this->getRequest()->getParam('ID_EMAIL_INSTITUCIONAL');
+            $EMAILINSTITUCIONAL = trim($this->getRequest()->getParam('EMAIL_INSTITUCIONAL'));
+            $IDBAIRRO = $this->getRequest()->getParam('nmBairro');
 
             $logradouro = $modelLogradouro->selectEndereco(array('NR_CEP = ?' => "" . $NRCEP . ""));
             if (count($logradouro) < 1 || strlen($NRCEP) != 8) {
@@ -282,58 +291,58 @@ class Operadora_IndexController extends GenericController {
                 //Inserindo na model endereco
                 $logradouro = $modelLogradouro->selectEndereco(array('NR_CEP = ?' => "" . $NRCEP . ""));
                 $Cols = array(
-                    'DS_COMPLEMENTO_ENDERECO'   => $DSCOMPLEMENTOENDERECO,
-                    'ID_LOGRADOURO'             => $IDLOGRADOURO,
-                    'NR_COMPLEMENTO'            => $NRCOMPLEMENTO,
-                    'DS_LOGRA_ENDERECO'         => $DSLOGRAENDERECO,
-                    'ID_SERVICO'                => 1
+                    'DS_COMPLEMENTO_ENDERECO' => $DSCOMPLEMENTOENDERECO,
+                    'ID_LOGRADOURO' => $IDLOGRADOURO,
+                    'NR_COMPLEMENTO' => $NRCOMPLEMENTO,
+                    'DS_LOGRA_ENDERECO' => $DSLOGRAENDERECO,
+                    'ID_SERVICO' => 1
                 );
 
                 if ($STLOGRADOURO == 0) {
-                    $Cols['DS_LOGRA_ENDERECO']  = $DSLOGRAENDERECO;
-                    $Cols['ID_BAIRRO']          = $IDBAIRRO;
+                    $Cols['DS_LOGRA_ENDERECO'] = $DSLOGRAENDERECO;
+                    $Cols['ID_BAIRRO'] = $IDBAIRRO;
                 } else {
-                    $Cols['ID_BAIRRO']          = $IDBAIRRO;
+                    $Cols['ID_BAIRRO'] = $IDBAIRRO;
                     $Cols['DS_BAIRRO_ENDERECO'] = $IDBAIRRO;
                 }
-                
-                if(isset($EMAILINSTITUCIONAL) && !empty($EMAILINSTITUCIONAL)){
-                    
-                    
-                    if(!validaEmail($EMAILINSTITUCIONAL)){
+
+                if (isset($EMAILINSTITUCIONAL) && !empty($EMAILINSTITUCIONAL)) {
+
+
+                    if (!validaEmail($EMAILINSTITUCIONAL)) {
                         parent::message('O Email institucional é inválido!', '/operadora/index/dadosoperadora/', 'error');
                     }
-                    
+
                     $dadosEmail = array(
-                        'ID_TIPO_EMAIL'         => 2, 
-                        'ID_PESSOA'             => $idPessoaJuridica, 
-                        'DS_EMAIL'              => $EMAILINSTITUCIONAL, 
-                        'ST_EMAIL_PRINCIPAL'    => 'S'
+                        'ID_TIPO_EMAIL' => 2,
+                        'ID_PESSOA' => $idPessoaJuridica,
+                        'DS_EMAIL' => $EMAILINSTITUCIONAL,
+                        'ST_EMAIL_PRINCIPAL' => 'S'
                     );
-                    
-                    
-                    if(isset($IDEMAILINSTITUCIONAL) && !empty($IDEMAILINSTITUCIONAL)){
+
+
+                    if (isset($IDEMAILINSTITUCIONAL) && !empty($IDEMAILINSTITUCIONAL)) {
                         $modelEmail->update($dadosEmail, $IDEMAILINSTITUCIONAL);
-                    }else{
+                    } else {
                         $modelEmail->insert($dadosEmail);
                     }
-                    
+
                 }
 
                 $modelEndereco->update($Cols, array('ID_PESSOA = ?' => $idPessoaJuridica, 'CD_TIPO_ENDERECO = ?' => '01'));
-                
+
                 $db->commit();
                 parent::message('Dados atualizados com sucesso', '/operadora/index/dadosoperadora/', 'confirm');
-                
+
             } catch (Exception $exc) {
-                xd($exc->getMessage());
                 $db->rollBack();
                 parent::message('Falha ao tentar atualizar dados', '/operadora/index/dadosoperadora/', 'error');
             }
         }
     }
 
-    public function emitircertificadoAction() {
+    public function emitircertificadoAction()
+    {
 
         $dadosOperadora = array();
 
@@ -360,69 +369,69 @@ class Operadora_IndexController extends GenericController {
             $dadosOperadora = array();
             foreach ($operadora as $op) {
                 // tbOperadora
-                $dadosOperadora['ID_OPERADORA']             = $op->idOperadora;
-                $dadosOperadora['DT_INSCRICAO']             = $op->dtInscricao;
+                $dadosOperadora['ID_OPERADORA'] = $op->idOperadora;
+                $dadosOperadora['DT_INSCRICAO'] = $op->dtInscricao;
                 $dadosOperadora['NR_COMPROVANTE_INSCRICAO'] = $op->nrComprovanteInscricao;
-                $dadosOperadora['NR_CERTIFICADO']           = $op->nrCertificado;
+                $dadosOperadora['NR_CERTIFICADO'] = $op->nrCertificado;
                 //tbPessoa
-                $dadosOperadora['ID_PESSOA']                = $op->idPessoa;
-                $dadosOperadora['DT_REGISTRO']              = $op->dtRegistro;
+                $dadosOperadora['ID_PESSOA'] = $op->idPessoa;
+                $dadosOperadora['DT_REGISTRO'] = $op->dtRegistro;
                 //tbPessoaJuridica
-                $dadosOperadora['NR_CNPJ']                  = $op->nrCnpj;
-                $dadosOperadora['NR_INSCRICAO_ESTADUAL']    = $op->nrInscricaoEstadual;
-                $dadosOperadora['NM_RAZAO_SOCIAL']          = $op->nmRazaoSocial;
-                $dadosOperadora['NM_FANTASIA']              = $op->nmFantasia;
-                $dadosOperadora['DS_SITE']                  = $op->dsSite;
-                $dadosOperadora['NR_CEI']                   = $op->nrCei;
+                $dadosOperadora['NR_CNPJ'] = $op->nrCnpj;
+                $dadosOperadora['NR_INSCRICAO_ESTADUAL'] = $op->nrInscricaoEstadual;
+                $dadosOperadora['NM_RAZAO_SOCIAL'] = $op->nmRazaoSocial;
+                $dadosOperadora['NM_FANTASIA'] = $op->nmFantasia;
+                $dadosOperadora['DS_SITE'] = $op->dsSite;
+                $dadosOperadora['NR_CEI'] = $op->nrCei;
                 //tbNaturezaJuridica
-                $dadosOperadora['CD_NATUREZA_JURIDICA ']    = $op->cdNaturezaJuridica;
-                $dadosOperadora['DS_NATUREZA_JURIDICA ']    = $op->dsNaturezaJuridica;
+                $dadosOperadora['CD_NATUREZA_JURIDICA '] = $op->cdNaturezaJuridica;
+                $dadosOperadora['DS_NATUREZA_JURIDICA '] = $op->dsNaturezaJuridica;
                 //tbEndereco
-                $dadosOperadora['DS_COMPLEMENTO_ENDERECO']  = $op->dsComplementoEndereco;
-                $dadosOperadora['NR_COMPLEMENTO']           = $op->nrComplemento;
+                $dadosOperadora['DS_COMPLEMENTO_ENDERECO'] = $op->dsComplementoEndereco;
+                $dadosOperadora['NR_COMPLEMENTO'] = $op->nrComplemento;
                 //tbBairro
-                $dadosOperadora['NM_BAIRRO']                = $op->nmBairro;
+                $dadosOperadora['NM_BAIRRO'] = $op->nmBairro;
                 //tbLogradouro
-                $dadosOperadora['logradouro']               = $op->nmLogradouro;
-                $dadosOperadora['cep']                      = $op->nrCep;
-                $dadosOperadora['Pais']                     = $op->nmPais;
-                $dadosOperadora['Estado']                   = $op->nmUF;
-                $dadosOperadora['Municipio']                = $op->nmMunicipio;
+                $dadosOperadora['logradouro'] = $op->nmLogradouro;
+                $dadosOperadora['cep'] = $op->nrCep;
+                $dadosOperadora['Pais'] = $op->nmPais;
+                $dadosOperadora['Estado'] = $op->nmUF;
+                $dadosOperadora['Municipio'] = $op->nmMunicipio;
             }
 
             // Dados do responsável da operadora
             $modelPessoaVinculada = new Application_Model_PessoaVinculada();
-            
+
             $where = array(
-                'pv.id_Pessoa = ?'              => $idOperadora, 
-                'up.id_Perfil = ?'              => 3, 
-                'up.st_Usuario_Perfil = ?'      => 'A', 
-                'pv.ST_PESSOA_VINCULADA = ?'    => 'A',
+                'pv.id_Pessoa = ?' => $idOperadora,
+                'up.id_Perfil = ?' => 3,
+                'up.st_Usuario_Perfil = ?' => 'A',
+                'pv.ST_PESSOA_VINCULADA = ?' => 'A',
                 'pv.ID_TIPO_VINCULO_PESSOA = ?' => 17
             );
-            
+
             $responsavel = $modelPessoaVinculada->buscarDadosResponsavel($where);
 
             $txtResp = '';
             foreach ($responsavel as $re) {
-                
+
                 $txtResp .= '<table style="width: 100%">
                                 <tr>
                                     <td align="center" width="400px">
-                                        '.uc_latin1($re->nmPessoaFisica).'<br>
+                                        ' . uc_latin1($re->nmPessoaFisica) . '<br>
                                         Nome do Responsável pela Empresa junto ao Ministério da Cultura
                                     </td>
                                     <td align="center" width="400px">
-                                        '.uc_latin1($re->nrCpf).'<br>
+                                        ' . uc_latin1($re->nrCpf) . '<br>
                                         CPF do Responsável pela Empresa junto ao Ministério da Cultura
                                     </td>
                                     <td align="center" width="400px">
-                                        '.uc_latin1($re->nmCbo).'<br>
+                                        ' . uc_latin1($re->nmCbo) . '<br>
                                         Cargo do Responsável pela Empresa junto ao Ministério da Cultura
                                     </td>
                                 </tr>
                             </table><br><br>';
-                
+
             }
 
             $textoCertificado = str_replace('#DATA#', date('d/m/Y'), $textoCertificado);
@@ -452,7 +461,8 @@ class Operadora_IndexController extends GenericController {
         }
     }
 
-    public function arquivosAction() {
+    public function arquivosAction()
+    {
         $idOperadora = $this->_sessao['operadora'];
         // Arquivos da operadora
         $modelArquivos = new Application_Model_ArquivoOperadora();
@@ -460,35 +470,36 @@ class Operadora_IndexController extends GenericController {
         $this->view->assign('arquivosOperadora', $arquivos);
     }
 
-    public function arquivosUploadAction() {
+    public function arquivosUploadAction()
+    {
         $idOperadora = $this->_sessao['operadora'];
         $modelArquivoOperadora = new Application_Model_ArquivoOperadora;
 
         $uploaddir = defined('UPLOAD_DIR') ? UPLOAD_DIR : "/var/arquivos/arquivos-valecultura/";
-        
+
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->beginTransaction();
-        
+
         try {
 
             foreach ($_FILES as $k => $v) {
                 if ($k == 'ANEXO_1' || $k == 'ANEXO_2' || $k == 'ANEXO_3' || $k == 'ANEXO_4' || $k == 'ANEXO_5' || $k == 'ANEXO_6' || $k == 'ANEXO_7' || $k == 'ANEXO_8') {
                     if ($_FILES[$k]['error'] != 0) {
-                        $ERROR['ERROR'] = 'Documento obrigatório não enviado';
+                        $ERROR['ERROR'] = 'Documento obrigatório não enviado!';
                     }
                 }
                 if ($_FILES[$k]['error'] == 0) {
 
                     if ($_FILES[$k]["size"] >= 5242880) {
-                        $ERROR['ERROR'] = 'Tamanho maximo do arquivo deve ser de 5mb';
+                        $ERROR['ERROR'] = 'Tamanho maximo do arquivo deve ser de 5mb!';
                     }
 
                     if (strpos($_FILES[$k]['type'], 'pdf') === false) {
-                        $ERROR['ERROR'] = 'Apenas aquivos no formato PDF são validos';
+                        $ERROR['ERROR'] = 'Apenas aquivos no formato PDF são validos!';
                     }
                 } else {
                     if ($_FILES[$k]['error'] != 4) {
-                        $ERROR['ERROR'] = 'Falha no envio de documento';
+                        $ERROR['ERROR'] = 'Falha no envio de documento!';
                     }
                 }
             }
@@ -504,8 +515,11 @@ class Operadora_IndexController extends GenericController {
                     if (strpos($k, 'ANEXO') === false) {
                         $where = array();
                         $where['ID_ARQUIVO = ?'] = $k;
+                        $where = array();
+                        $where['ID_ARQUIVO = ?'] = $k;
                         $where['ID_OPERADORA = ?'] = $idOperadora;
                         $arquivoAtual = $modelArquivoOperadora->select($where);
+
                         if (count($arquivoAtual) > 0) {
                             $mnArquivo = explode('\\', $arquivoAtual[0]["DS_CAMINHO_ARQUIVO"]);
                             $mnArquivo = $mnArquivo[count($mnArquivo) - 1];
@@ -547,24 +561,24 @@ class Operadora_IndexController extends GenericController {
                     parent::message('Erro ao salvar arquivo', '/operadora/index/arquivos/', 'error');
                 }
             }
-            
+
             if ($this->_sessao["PerfilGeral"] != 'A') {
-                
+
                 // Atualiza o status
-                $modelSituacao                  = new Application_Model_Situacao();
+                $modelSituacao = new Application_Model_Situacao();
                 $dadosSituacao = array(
-                        'ID_PESSOA'                     => $idOperadora,
-                        'DS_JUSTIFICATIVA'              => 'Arquivos enviados alterados.',
-                        'ID_USUARIO'                    => $this->_sessao['idUsuario'],
-                        'TP_ENTIDADE_VALE_CULTURA'      => 'O',
-                        'ID_TIPO_SITUACAO'              => 1
-                    );
+                    'ID_PESSOA' => $idOperadora,
+                    'DS_JUSTIFICATIVA' => 'Arquivos enviados alterados.',
+                    'ID_USUARIO' => $this->_sessao['idUsuario'],
+                    'TP_ENTIDADE_VALE_CULTURA' => 'O',
+                    'ID_TIPO_SITUACAO' => 1
+                );
 
                 $modelSituacao->insert($dadosSituacao);
-                
+
             }
-            
-            
+
+
             $db->commit();
             parent::message('Arquivo atualizado com sucesso!', '/operadora/index/arquivos/', 'confirm');
         } catch (Exception $exc) {
@@ -574,142 +588,166 @@ class Operadora_IndexController extends GenericController {
         }
     }
 
-    public function novoResponsavelAction() {
+    public function novoResponsavelAction()
+    {
         $idOperadora = $this->_sessao['operadora'];
         $modelCBO = new Application_Model_CBO();
         $CBOs = $modelCBO->select(array(), 'NM_CBO', null);
-        
+
         $this->view->assign('CBOs', $CBOs);
         $this->view->assign('idOperadora', $idOperadora);
     }
-    
-    public function salvarResponsavelAction() {
-        
+
+    public function salvarResponsavelAction()
+    {
+
         $idOperadora = $this->_sessao['operadora'];
-        
+
         set_time_limit('120');
-            
-        $modelPessoaVinculada   = new Application_Model_PessoaVinculada();
-        $modelTelefone          = new Application_Model_Telefone();
-        $modelEmail             = new Application_Model_Email();
-        $modelUsuario           = new Application_Model_Usuario();
-        $modelUsuarioPerfil     = new Application_Model_UsuarioPerfil();
-        $modelSituacao          = new Application_Model_Situacao();
-        $modelCBOPessoaFisica   = new Application_Model_CBOPessoaFisica();
-        $modelDDD               = new Application_Model_DDD();
-        
+
+        $modelPessoaVinculada = new Application_Model_PessoaVinculada();
+        $modelTelefone = new Application_Model_Telefone();
+        $modelEmail = new Application_Model_Email();
+        $modelUsuario = new Application_Model_Usuario();
+        $modelUsuarioPerfil = new Application_Model_UsuarioPerfil();
+        $modelSituacao = new Application_Model_Situacao();
+        $modelCBOPessoaFisica = new Application_Model_CBOPessoaFisica();
+        $modelDDD = new Application_Model_DDD();
+
         //Recuperando form
-        $IDPF           = $this->getRequest()->getParam('IDPF');
-        $NRCPF          = str_replace('.', '', str_replace('-', '', $this->getRequest()->getParam('RESPONSAVEL_CPF')));
-        $CDDDDFAX       = (int) substr(str_replace('-', '', (str_replace(' ', '', str_replace('(', '', str_replace(')', '', $this->getRequest()->getParam('FaxResponsavel')))))), 0, 2);
-        $NRFAX          = (int) substr(str_replace('-', '', (str_replace(' ', '', str_replace('(', '', str_replace(')', '', $this->getRequest()->getParam('FaxResponsavel')))))), 2);
-        $CDDDD          = (int) substr(str_replace('-', '', (str_replace(' ', '', str_replace('(', '', str_replace(')', '', $this->getRequest()->getParam('TelResponsavel')))))), 0, 2);
-        $NRTELEFONE     = (int) substr(str_replace('-', '', (str_replace(' ', '', str_replace('(', '', str_replace(')', '', $this->getRequest()->getParam('TelResponsavel')))))), 2);
-        $DSEMAIL        = $this->getRequest()->getParam('emailResponsavel');
-        $CDCBO          = $this->getRequest()->getParam('CDCBO');
-        
-        // Validando Form
-        if ($IDPF == '0') {
-            parent::message('CPF não encontrado!', '/operadora/index/novo-responsavel', 'error');
-        }
-        
-        if (strlen($NRTELEFONE) < 8) {
-            parent::message('Informe o telefone', '/operadora/index/novo-responsavel', 'error');
-        }
-        
-        if($CDDDD){
-            $verificaDDD = $modelDDD->select(array('CD_DDD = ?' => $CDDDD));
-            if(count($verificaDDD) == 0 ){
-                parent::message('DDD inv&aacute;lido!', '/operadora/index/novo-responsavel', 'error');
-            }
-        }
+        $IDPF = $this->getRequest()->getParam('IDPF');
+        $NRCPF = str_replace('.', '', str_replace('-', '', $this->getRequest()->getParam('RESPONSAVEL_CPF')));
+        $CDDDDFAX = (int)substr(str_replace('-', '', (str_replace(' ', '', str_replace('(', '', str_replace(')', '', $this->getRequest()->getParam('FaxResponsavel')))))), 0, 2);
+        $NRFAX = (int)substr(str_replace('-', '', (str_replace(' ', '', str_replace('(', '', str_replace(')', '', $this->getRequest()->getParam('FaxResponsavel')))))), 2);
+        $CDDDD = (int)substr(str_replace('-', '', (str_replace(' ', '', str_replace('(', '', str_replace(')', '', $this->getRequest()->getParam('TelResponsavel')))))), 0, 2);
+        $NRTELEFONE = (int)substr(str_replace('-', '', (str_replace(' ', '', str_replace('(', '', str_replace(')', '', $this->getRequest()->getParam('TelResponsavel')))))), 2);
+        $DSEMAIL = $this->getRequest()->getParam('emailResponsavel');
+        $CDCBO = $this->getRequest()->getParam('CDCBO');
 
-        if (!$DSEMAIL) {
-            parent::message('Informe o e-mail', '/operadora/index/novo-responsavel', 'error');
-        }
-        
-        if (!validaEmail($DSEMAIL)) {
-            parent::message('Email inválido!', '/operadora/index/novo-responsavel', 'error');
-        }
-
-//        x($this->getRequest()->getParams());
-        
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->beginTransaction();
-        
+
         try {
-            
+            // Validando Form
+            if ($IDPF == '0') {
+                throw new Exception('CPF não encontrado!', 500);
+            }
+
+            if (strlen($NRTELEFONE) < 8) {
+                throw new Exception('Informe o telefone!', 500);
+            }
+
+            if ($CDDDD) {
+                $verificaDDD = $modelDDD->select(array('CD_DDD = ?' => $CDDDD));
+                if (count($verificaDDD) == 0) {
+                    throw new Exception('DDD inválido!', 500);
+                }
+            }
+
+            if (!$DSEMAIL) {
+                throw new Exception('Informe o e-mail!', 500);
+            }
+
+            if (!validaEmail($DSEMAIL)) {
+                throw new Exception('Email inválido!', 500);
+            }
+
+            if (count($_FILES) == 0) {
+                throw new Exception("Procuração representante da empresa não enviado!", 500);
+            }
+
+            foreach ($_FILES as $k => $v) {
+                if ($k == 'ANEXO_11') {
+                    if ($_FILES[$k]['error'] != 0) {
+                        throw new Exception("Procuração representante da empresa não enviado!", 500);
+                    }
+                }
+                if ($_FILES[$k]['error'] == 0) {
+                    if ($_FILES[$k]["size"] >= 5242880) {
+                        throw new Exception("Tamanho máximo do arquivo deve ser de 5mb!", 500);
+                    }
+
+                    if (strpos($_FILES[$k]['type'], 'pdf') === false) {
+                        throw new Exception("Apenas aquivos no formato PDF são válidos!", 500);
+                    }
+                } else {
+                    if ($_FILES[$k]['error'] != 4) {
+                        throw new Exception("Falha no envio de documento!", 500);
+                    }
+                }
+            }
+
             // Vincular o responsável
-            $idPessoaFisica     = $IDPF;
-            $idPessoaJuridica   = $idOperadora;
+            $idPessoaFisica = $IDPF;
+            $idPessoaJuridica = $idOperadora;
 
             //Verifica se já existe esse número cadastrado
             $where = array(
-                'ID_PESSOA = ?'         => $idPessoaFisica,
-                'SG_PAIS = ?'           => 'BRA',
-                'NR_TELEFONE = ?'       => $NRTELEFONE,
-                'ID_TIPO_TELEFONE = ?'  => 2,
-                'CD_DDD = ?'            => $CDDDD
+                'ID_PESSOA = ?' => $idPessoaFisica,
+                'SG_PAIS = ?' => 'BRA',
+                'NR_TELEFONE = ?' => $NRTELEFONE,
+                'ID_TIPO_TELEFONE = ?' => 2,
+                'CD_DDD = ?' => $CDDDD
             );
-            
+
             $existeTelefone = $modelTelefone->select($where);
 
-            if(count($existeTelefone) == 0){
+            if (count($existeTelefone) == 0) {
                 //Inserindo na model Telefone
                 $Cols = array(
-                    'ID_PESSOA'         => $idPessoaFisica,
-                    'SG_PAIS'           => 'BRA',
-                    'NR_TELEFONE'       => $NRTELEFONE,
-                    'ID_TIPO_TELEFONE'  => 2,
-                    'CD_DDD'            => $CDDDD
+                    'ID_PESSOA' => $idPessoaFisica,
+                    'SG_PAIS' => 'BRA',
+                    'NR_TELEFONE' => $NRTELEFONE,
+                    'ID_TIPO_TELEFONE' => 2,
+                    'CD_DDD' => $CDDDD
                 );
-                
+
                 $modelTelefone->insert($Cols);
             }
-            
+
             if (strlen($NRFAX) > 7) {
                 //Verifica se já existe esse número cadastrado
                 $where = array(
-                    'ID_PESSOA = ?'         => $idPessoaFisica,
-                    'SG_PAIS = ?'           => 'BRA',
-                    'NR_TELEFONE = ?'       => $NRFAX,
-                    'ID_TIPO_TELEFONE = ?'  => 4,
-                    'CD_DDD = ?'            => $CDDDDFAX
+                    'ID_PESSOA = ?' => $idPessoaFisica,
+                    'SG_PAIS = ?' => 'BRA',
+                    'NR_TELEFONE = ?' => $NRFAX,
+                    'ID_TIPO_TELEFONE = ?' => 4,
+                    'CD_DDD = ?' => $CDDDDFAX
                 );
-                
+
                 $existeFax = $modelTelefone->select($where);
-                if(count($existeFax) == 0){
+                if (count($existeFax) == 0) {
                     //Inserindo na model Telefone
                     $Cols = array(
-                        'ID_PESSOA'         => $idPessoaFisica,
-                        'SG_PAIS'           => 'BRA',
-                        'NR_TELEFONE'       => $NRFAX,
-                        'ID_TIPO_TELEFONE'  => 4,
-                        'CD_DDD'            => $CDDDDFAX
+                        'ID_PESSOA' => $idPessoaFisica,
+                        'SG_PAIS' => 'BRA',
+                        'NR_TELEFONE' => $NRFAX,
+                        'ID_TIPO_TELEFONE' => 4,
+                        'CD_DDD' => $CDDDDFAX
                     );
-                    
+
                     $modelTelefone->insert($Cols);
                 }
             }
 
             // Verificar se já existe o email
             $where = array(
-                'ID_PESSOA = ?'             => $idPessoaFisica,
-                'DS_EMAIL = ?'              => $DSEMAIL,
-                'ID_TIPO_EMAIL = ?'         => 2,
-                'ST_EMAIL_PRINCIPAL = ?'    => 'S'
+                'ID_PESSOA = ?' => $idPessoaFisica,
+                'DS_EMAIL = ?' => $DSEMAIL,
+                'ID_TIPO_EMAIL = ?' => 2,
+                'ST_EMAIL_PRINCIPAL = ?' => 'S'
             );
 
             $existeEmail = $modelEmail->select($where);
 
-            if(count($existeEmail) == 0){
+            if (count($existeEmail) == 0) {
 
                 //Inserindo Email do responsavel
                 $Cols = array(
-                    'ID_PESSOA'             => $idPessoaFisica,
-                    'DS_EMAIL'              => $DSEMAIL,
-                    'ID_TIPO_EMAIL'         => 2,
-                    'ST_EMAIL_PRINCIPAL'    => 'S'
+                    'ID_PESSOA' => $idPessoaFisica,
+                    'DS_EMAIL' => $DSEMAIL,
+                    'ID_TIPO_EMAIL' => 2,
+                    'ST_EMAIL_PRINCIPAL' => 'S'
                 );
 
                 $modelEmail->insert($Cols);
@@ -721,30 +759,30 @@ class Operadora_IndexController extends GenericController {
 
                 // Verifica se já existe esse registro para não duplicar
                 $whereCDCBO = array(
-                        'ID_PESSOA_FISICA = ?'   => $idPessoaFisica,
-                        'ID_PESSOA_JURIDICA = ?' => $idPessoaJuridica,
-                        'CD_CBO = ?'             => $CDCBO
+                    'ID_PESSOA_FISICA = ?' => $idPessoaFisica,
+                    'ID_PESSOA_JURIDICA = ?' => $idPessoaJuridica,
                 );
 
                 $existeCDCBO = $modelCBOPessoaFisica->select($whereCDCBO);
 
-                if(count($existeCDCBO) == 0){
+                $Cols = array(
+                    'ID_PESSOA_FISICA' => $idPessoaFisica,
+                    'ID_PESSOA_JURIDICA' => $idPessoaJuridica,
+                    'CD_CBO' => $CDCBO
+                );
 
-                    $Cols = array(
-                        'ID_PESSOA_FISICA'   => $idPessoaFisica,
-                        'ID_PESSOA_JURIDICA' => $idPessoaJuridica,
-                        'CD_CBO'             => $CDCBO
-                    );
-
+                if (count($existeCDCBO) == 0) {
                     $modelCBOPessoaFisica->insert($Cols);
+                } else {
+                    $modelCBOPessoaFisica->update($Cols, $existeCDCBO[0]['ID_PESSOA_FISICA_CBO']);
                 }
             }
 
             //============== VINCULANDO EMPRESA E RESPONSAVEL ==================
             //Verifica se ja existe vinculo
             $where = array(
-                'ID_PESSOA = ?'              => $idPessoaJuridica,
-                'ID_PESSOA_VINCULADA = ?'    => $idPessoaFisica,
+                'ID_PESSOA = ?' => $idPessoaJuridica,
+                'ID_PESSOA_VINCULADA = ?' => $idPessoaFisica,
                 'ID_TIPO_VINCULO_PESSOA = ?' => 17
             );
 
@@ -752,11 +790,11 @@ class Operadora_IndexController extends GenericController {
 
             if (count($vinculo) < 1) {
                 $Cols = array(
-                    'ID_PESSOA'                 => $idPessoaJuridica,
-                    'ID_PESSOA_VINCULADA'       => $idPessoaFisica,
-                    'ID_TIPO_VINCULO_PESSOA'    => 17
+                    'ID_PESSOA' => $idPessoaJuridica,
+                    'ID_PESSOA_VINCULADA' => $idPessoaFisica,
+                    'ID_TIPO_VINCULO_PESSOA' => 17
                 );
-                
+
                 $modelPessoaVinculada->insert($Cols);
             }
 
@@ -776,44 +814,69 @@ class Operadora_IndexController extends GenericController {
                 $senha = gerarSenha();
 
                 $Cols = array(
-                    'ID_USUARIO'        => $idUsuario,
-                    'DS_LOGIN'          => $NRCPF,
-                    'DS_SENHA'          => md5($senha),
-                    'ID_PESSOA_FISICA'  => $idPessoaFisica
+                    'ID_USUARIO' => $idUsuario,
+                    'DS_LOGIN' => $NRCPF,
+                    'DS_SENHA' => md5($senha),
+                    'ID_PESSOA_FISICA' => $idPessoaFisica
                 );
-                
+
                 $modelUsuario->insert($Cols);
                 $enviaEmail = true;
             }
 
             //Verifica se usuario já tem o perfil
             $where = array(
-                'ID_USUARIO = ?'    => $idUsuario,
-                'ID_PERFIL   = ?'   => 3
+                'ID_USUARIO = ?' => $idUsuario,
+                'ID_PERFIL   = ?' => 3
             );
 
             $usuarioPerfil = $modelUsuarioPerfil->select($where);
-            if(count($usuarioPerfil) < 1){
+            if (count($usuarioPerfil) < 1) {
                 $Cols = array(
-                    'ID_USUARIO'    => $idUsuario,
-                    'ID_PERFIL'     => 3
+                    'ID_USUARIO' => $idUsuario,
+                    'ID_PERFIL' => 3
                 );
-                
+
                 $modelUsuarioPerfil->insert($Cols);
             }
 
             if ($this->_sessao["PerfilGeral"] != 'A') {
-                
+
                 //Cria Situação para a Operadora
                 $Cols = array(
-                    'ID_PESSOA'                 => $idPessoaJuridica,
-                    'ID_USUARIO'                => $idUsuario,
-                    'ID_TIPO_SITUACAO'          => 1,
-                    'TP_ENTIDADE_VALE_CULTURA'  => 'O',
-                    'DS_JUSTIFICATIVA'          => 'Cadastro realizado'
+                    'ID_PESSOA' => $idPessoaJuridica,
+                    'ID_USUARIO' => $idUsuario,
+                    'ID_TIPO_SITUACAO' => 1,
+                    'TP_ENTIDADE_VALE_CULTURA' => 'O',
+                    'DS_JUSTIFICATIVA' => 'Cadastro realizado'
                 );
 
                 $modelSituacao->insert($Cols);
+            }
+
+            $modelArquivoOperadora = new Application_Model_ArquivoOperadora();
+            $uploaddir = defined('UPLOAD_DIR') ? UPLOAD_DIR : "/var/arquivos/arquivos-valecultura/";
+
+            foreach ($_FILES as $k => $v) {
+                if ($_FILES[$k]['error'] == 0) {
+                    $time = time();
+                    $mnArquivo = "{$idPessoaJuridica}_{$k}_{$idPessoaFisica}_{$time}.pdf";
+                    $uploadfile = $uploaddir . $mnArquivo;
+                    $dsArquivo = $this->getRequest()->getParam("{$k}_NOME_{$idPessoaFisica}");
+
+                    $Cols = array(
+                        'ID_OPERADORA' => $idPessoaJuridica,
+                        'DS_CAMINHO_ARQUIVO' => $mnArquivo,
+                        'DS_ARQUIVO' => $dsArquivo,
+                        'ID_RESPONSAVEL' => $idPessoaFisica,
+                    );
+
+                    if (move_uploaded_file($_FILES[$k]['tmp_name'], $uploadfile)) {
+                        $modelArquivoOperadora->insert($Cols);
+                    } else {
+                        throw new Exception("Erro ao salvar a Procuração representante da empresa!", 500);
+                    }
+                }
             }
 
             if ($enviaEmail) {
@@ -828,51 +891,53 @@ class Operadora_IndexController extends GenericController {
             parent::message('Responsável cadastrado com sucesso!', '/operadora/index/responsavel', 'confirm');
 
         } catch (Exception $exc) {
+            $mgs = $exc->getCode() == 500 ? $exc->getMessage() : 'Erro ao cadastrar o responsável.';
             $db->rollBack();
-            xd($exc->getMessage());
-            parent::message('Erro ao cadastrar o responsável.', '/operadora/index/novo-responsavel', 'error');
+
+            parent::message($mgs, '/operadora/index/novo-responsavel', 'error');
         }
 
     }
-    
-    public function responsavelAction() {
+
+    public function responsavelAction()
+    {
 
         $dadosResponsavel = array();
         $idOperadora = $this->_sessao['operadora'];
-        
+
         // Dados do responsável da operadora
-        $modelPessoaVinculada   = new Application_Model_PessoaVinculada();
-        $modelEmail             = new Application_Model_Email();
-        $modelTelefone          = new Application_Model_Telefone();
-        
+        $modelPessoaVinculada = new Application_Model_PessoaVinculada();
+        $modelEmail = new Application_Model_Email();
+        $modelTelefone = new Application_Model_Telefone();
+
         $where = array(
-            'pv.id_Pessoa = ?'                  => $idOperadora, 
-            'up.id_Perfil = ?'                  => 3, 
-            'up.st_Usuario_Perfil = ?'          => 'A',
-            'pv.ID_TIPO_VINCULO_PESSOA = ?'     => 17
+            'pv.id_Pessoa = ?' => $idOperadora,
+            'up.id_Perfil = ?' => 3,
+            'up.st_Usuario_Perfil = ?' => 'A',
+            'pv.ID_TIPO_VINCULO_PESSOA = ?' => 17
         );
-        
+
         $responsavel = $modelPessoaVinculada->buscarDadosResponsavel($where);
         $i = 0;
         $ativos = 0;
         foreach ($responsavel as $re) {
-            
-            if($re->ST_PESSOA_VINCULADA == 'A'){
+
+            if ($re->ST_PESSOA_VINCULADA == 'A') {
                 $ativos++;
             }
-            $dadosResponsavel[$i]['idResponsavel']      = $re->idPessoaVinculada;
-            $dadosResponsavel[$i]['nmResponsavel']      = $re->nmPessoaFisica;
-            $dadosResponsavel[$i]['nrCpfResponsavel']   = addMascara($re->nrCpf, 'cpf');
-            $dadosResponsavel[$i]['cargoResponsavel']   = $re->nmCbo;
-            $dadosResponsavel[$i]['cdCbo']              = $re->cdCbo;
-            $dadosResponsavel[$i]['stAtivo']            = $re->ST_PESSOA_VINCULADA;
-            
+            $dadosResponsavel[$i]['idResponsavel'] = $re->idPessoaVinculada;
+            $dadosResponsavel[$i]['nmResponsavel'] = $re->nmPessoaFisica;
+            $dadosResponsavel[$i]['nrCpfResponsavel'] = addMascara($re->nrCpf, 'cpf');
+            $dadosResponsavel[$i]['cargoResponsavel'] = $re->nmCbo;
+            $dadosResponsavel[$i]['cdCbo'] = $re->cdCbo;
+            $dadosResponsavel[$i]['stAtivo'] = $re->ST_PESSOA_VINCULADA;
+
             // Email do responsável da operadora
             $emails = $modelEmail->buscarEmails(array('ID_PESSOA = ?' => $re->idPessoaVinculada));
-            
+
             $listaEmails = array();
-            if(count($emails) > 0){
-                
+            if (count($emails) > 0) {
+
                 $e = 0;
                 foreach ($emails as $em) {
                     $listaEmails[$e]['dsEmail'] = $em->dsEmail;
@@ -880,75 +945,76 @@ class Operadora_IndexController extends GenericController {
                 }
             }
             $dadosResponsavel[$i]['emailsResponsavel'] = $listaEmails;
-            
+
             // Telefones do responsável da operadora
             $telefones = $modelTelefone->buscarTelefones(array('ID_PESSOA = ?' => $re->idPessoaVinculada));
             $listaTelefones = array();
-            
-            if(count($telefones) > 0){
-                
+
+            if (count($telefones) > 0) {
+
                 $t = 0;
                 foreach ($telefones as $tel) {
                     if ($tel->idTipoTelefone == 2) {
                         $listaTelefones[$t]['idTipoTelefone'] = 2;
-                        $listaTelefones[$t]['TelResponsavel'] = 'Tel: ('.$tel->cdDDD .') '. $tel->nrTelefone;
+                        $listaTelefones[$t]['TelResponsavel'] = 'Tel: (' . $tel->cdDDD . ') ' . $tel->nrTelefone;
                     }
                     if ($tel->idTipoTelefone == 4) {
                         $listaTelefones[$t]['idTipoTelefone'] = 4;
-                        $listaTelefones[$t]['FaxResponsavel'] = 'Fax: ('.$tel->cdDDD .') '. $tel->nrTelefone;
+                        $listaTelefones[$t]['FaxResponsavel'] = 'Fax: (' . $tel->cdDDD . ') ' . $tel->nrTelefone;
                     }
 
                     $t++;
                 }
             }
-            
+
             $dadosResponsavel[$i]['telefonesResponsavel'] = $listaTelefones;
-            
-            
+
+
             $i++;
         }
 
         $modelCBO = new Application_Model_CBO();
         $CBOs = $modelCBO->select(array(), 'NM_CBO', null);
-        
+
         $this->view->assign('CBOs', $CBOs);
         $this->view->assign('responsaveis', $dadosResponsavel);
         $this->view->assign('idOperadora', $idOperadora);
         $this->view->assign('qtdAtivos', $ativos);
     }
 
-    public function editarResponsavelAction() {
-    
+    public function editarResponsavelAction()
+    {
         $idResponsavel = $this->getRequest()->getParam('id');
         $dadosResponsavel = array();
         $idOperadora = $this->_sessao['operadora'];
-        
-        $modelPessoaVinculada   = new Application_Model_PessoaVinculada();
-        $modelEmail             = new Application_Model_Email();
-        $modelTelefone          = new Application_Model_Telefone();
-        
+        $urlArquivo = null;
+
+        $modelPessoaVinculada = new Application_Model_PessoaVinculada();
+        $modelEmail = new Application_Model_Email();
+        $modelTelefone = new Application_Model_Telefone();
+
         $where = array(
-            'pv.ID_PESSOA = ?'              => $idOperadora, 
-            'pv.ID_PESSOA_VINCULADA = ?'    => $idResponsavel, 
+            'pv.ID_PESSOA = ?' => $idOperadora,
+            'pv.ID_PESSOA_VINCULADA = ?' => $idResponsavel,
         );
-        
+
         // Dados do responsável
         $responsavel = $modelPessoaVinculada->buscarDadosResponsavel($where);
-            
-        if(count($responsavel) > 0){
-            
-            $dadosResponsavel['idResponsavel']      = $responsavel[0]->idPessoaVinculada;
-            $dadosResponsavel['nmResponsavel']      = $responsavel[0]->nmPessoaFisica;
-            $dadosResponsavel['nrCpfResponsavel']   = addMascara($responsavel[0]->nrCpf, 'cpf');
-            $dadosResponsavel['cargoResponsavel']   = $responsavel[0]->nmCbo;
-            $dadosResponsavel['cdCbo']              = $responsavel[0]->cdCbo;
-            $dadosResponsavel['stAtivo']            = $responsavel[0]->ST_PESSOA_VINCULADA;
+
+        if (count($responsavel) > 0) {
+
+            $dadosResponsavel['idResponsavel'] = $responsavel[0]->idPessoaVinculada;
+            $dadosResponsavel['nmResponsavel'] = $responsavel[0]->nmPessoaFisica;
+            $dadosResponsavel['nrCpfResponsavel'] = addMascara($responsavel[0]->nrCpf, 'cpf');
+            $dadosResponsavel['cargoResponsavel'] = $responsavel[0]->nmCbo;
+            $dadosResponsavel['cdCbo'] = $responsavel[0]->cdCbo;
+            $dadosResponsavel['stAtivo'] = $responsavel[0]->ST_PESSOA_VINCULADA;
 
             // Email do responsável da operadora
             $emails = $modelEmail->buscarEmails(array('ID_PESSOA = ?' => $responsavel[0]->idPessoaVinculada));
 
             $listaEmails = array();
-            if(count($emails) > 0){
+            if (count($emails) > 0) {
                 $e = 0;
                 foreach ($emails as $em) {
                     $listaEmails[$e]['idEmail'] = $em->ID_EMAIL;
@@ -963,208 +1029,278 @@ class Operadora_IndexController extends GenericController {
             $telefones = $modelTelefone->buscarTelefones(array('ID_PESSOA = ?' => $responsavel[0]->idPessoaVinculada));
             $listaTelefones = array();
 
-            if(count($telefones) > 0){
+            if (count($telefones) > 0) {
                 $t = 0;
                 foreach ($telefones as $tel) {
                     if ($tel->idTipoTelefone == 2) {
-                        $listaTelefones[$t]['idTelefone']       = $tel->idTelefone;
-                        $listaTelefones[$t]['idTipoTelefone']   = 2;
-                        $listaTelefones[$t]['TelResponsavel']   = 'Tel: ('.$tel->cdDDD .') '. $tel->nrTelefone;
+                        $listaTelefones[$t]['idTelefone'] = $tel->idTelefone;
+                        $listaTelefones[$t]['idTipoTelefone'] = 2;
+                        $listaTelefones[$t]['TelResponsavel'] = 'Tel: (' . $tel->cdDDD . ') ' . $tel->nrTelefone;
                     }
                     if ($tel->idTipoTelefone == 4) {
-                        $listaTelefones[$t]['idTelefone']       = $tel->idTelefone;
-                        $listaTelefones[$t]['idTipoTelefone']   = 4;
-                        $listaTelefones[$t]['FaxResponsavel']   = 'Fax: ('.$tel->cdDDD .') '. $tel->nrTelefone;
+                        $listaTelefones[$t]['idTelefone'] = $tel->idTelefone;
+                        $listaTelefones[$t]['idTipoTelefone'] = 4;
+                        $listaTelefones[$t]['FaxResponsavel'] = 'Fax: (' . $tel->cdDDD . ') ' . $tel->nrTelefone;
                     }
                     $t++;
                 }
             }
 
             $dadosResponsavel['telefonesResponsavel'] = $listaTelefones;
-            
+
+            $where = array();
+            $where['ID_OPERADORA = ?'] = $idOperadora;
+            $where['ID_RESPONSAVEL = ?'] = $idResponsavel;
+
+            $modelArquivoOperadora = new Application_Model_ArquivoOperadora();
+            $arquivoAtual = $modelArquivoOperadora->select($where, "DT_UPLOAD_ARQUIVO DESC", 1);
+
+            if (count($arquivoAtual) > 0) {
+                $arquivo = $arquivoAtual[0]['DS_CAMINHO_ARQUIVO'];
+                $urlArquivo = $this->view->url(array('module' => 'operadora',
+                    'controller' => 'index',
+                    'action' => 'abrir-arquivo',
+                    'arquivo' => $arquivo));
+            }
         } else {
             parent::message('Erro ao localizar o responsável.', '/operadora/index/responsavel', 'error');
         }
 
         $modelCBO = new Application_Model_CBO();
         $CBOs = $modelCBO->select(array(), 'NM_CBO', null);
-        
+
         $this->view->assign('CBOs', $CBOs);
         $this->view->assign('responsavel', $dadosResponsavel);
         $this->view->assign('idOperadora', $idOperadora);
-        
+        $this->view->assign('urlArquivo', $urlArquivo);
+
     }
 
-    public function atualizarDadosResponsavelAction() {
+    public function atualizarDadosResponsavelAction()
+    {
+        $idResponsavel = $this->_request->getParam('idResponsavel');
+        $idOperadora = $this->_request->getParam('idOperadora');
+        $CDCBO = $this->_request->getParam('CDCBO');
 
-        $idResponsavel  = $this->_request->getParam('idResponsavel');
-        $idOperadora    = $this->_request->getParam('idOperadora');
-        $CDCBO          = $this->_request->getParam('CDCBO');
-
-        $modelCBOPessoaFisica   = new Application_Model_CBOPessoaFisica();
+        $modelCBOPessoaFisica = new Application_Model_CBOPessoaFisica();
 
         try {
+            $where = array();
+            $where['ID_OPERADORA = ?'] = $idOperadora;
+            $where['ID_RESPONSAVEL = ?'] = $idResponsavel;
+
+            $modelArquivoOperadora = new Application_Model_ArquivoOperadora();
+            $arquivoAtual = $modelArquivoOperadora->select($where, "DT_UPLOAD_ARQUIVO DESC", 1);
+
+            if (count($arquivoAtual) == 0 && $_FILES['ANEXO_11']['error'] == 4) {
+                throw new Exception("Procuração representante da empresa não enviado!", 500);
+            }
+
+            foreach ($_FILES as $k => $v) {
+                if ($_FILES[$k]['error'] == 0) {
+                    if ($_FILES[$k]["size"] >= 5242880) {
+                        throw new Exception("Tamanho máximo do arquivo deve ser de 5mb!", 500);
+                    }
+
+                    if (strpos($_FILES[$k]['type'], 'pdf') === false) {
+                        throw new Exception("Apenas aquivos no formato PDF são válidos!", 500);
+                    }
+                } else {
+                    if ($_FILES[$k]['error'] != 4) {
+                        throw new Exception("Falha no envio de documento!", 500);
+                    }
+                }
+            }
 
             if ($CDCBO) {
                 // apaga o que for dessa empresa e responsável
                 $where = array(
-                    'ID_PESSOA_FISICA = ?'   => $idResponsavel,
+                    'ID_PESSOA_FISICA = ?' => $idResponsavel,
                     'ID_PESSOA_JURIDICA = ?' => $idOperadora
                 );
-                
+
                 $modelCBOPessoaFisica->apagar($where);
-                
+
                 $Cols = array(
-                    'CD_CBO'             => $CDCBO, 
-                    'ID_PESSOA_FISICA'   => $idResponsavel,
+                    'CD_CBO' => $CDCBO,
+                    'ID_PESSOA_FISICA' => $idResponsavel,
                     'ID_PESSOA_JURIDICA' => $idOperadora
                 );
-                
+
                 $modelCBOPessoaFisica->insert($Cols);
-                
+
                 if ($this->_sessao["PerfilGeral"] != 'A') {
-                    
+
                     // Atualiza o status
-                    $modelSituacao                  = new Application_Model_Situacao();
+                    $modelSituacao = new Application_Model_Situacao();
                     $dadosSituacao = array(
-                            'ID_PESSOA'                     => $idOperadora,
-                            'DS_JUSTIFICATIVA'              => 'Mudança em responsáveis da operadora.',
-                            'ID_USUARIO'                    => $this->_sessao['idUsuario'],
-                            'TP_ENTIDADE_VALE_CULTURA'      => 'O',
-                            'ID_TIPO_SITUACAO'              => 1
-                        );
+                        'ID_PESSOA' => $idOperadora,
+                        'DS_JUSTIFICATIVA' => 'Mudança em responsáveis da operadora.',
+                        'ID_USUARIO' => $this->_sessao['idUsuario'],
+                        'TP_ENTIDADE_VALE_CULTURA' => 'O',
+                        'ID_TIPO_SITUACAO' => 1
+                    );
 
                     $modelSituacao->insert($dadosSituacao);
-                    
+
                 }
             }
 
-            parent::message('Cargo atualizado com sucesso!', 'operadora/index/editar-responsavel/id/'.$idResponsavel, 'confirm');
+            $uploaddir = defined('UPLOAD_DIR') ? UPLOAD_DIR : "/var/arquivos/arquivos-valecultura/";
+
+            foreach ($_FILES as $k => $v) {
+                if ($_FILES[$k]['error'] == 0) {
+                    $time = time();
+                    $mnArquivo = "{$idOperadora}_{$k}_{$idResponsavel}_{$time}.pdf";
+                    $uploadfile = $uploaddir . $mnArquivo;
+                    $dsArquivo = $this->getRequest()->getParam("{$k}_NOME_{$idResponsavel}");
+
+                    $Cols = array(
+                        'ID_OPERADORA' => $idOperadora,
+                        'DS_CAMINHO_ARQUIVO' => $mnArquivo,
+                        'DS_ARQUIVO' => $dsArquivo,
+                        'ID_RESPONSAVEL' => $idResponsavel,
+                    );
+
+                    if (move_uploaded_file($_FILES[$k]['tmp_name'], $uploadfile)) {
+                        $modelArquivoOperadora->insert($Cols);
+                    } else {
+                        throw new Exception("Erro ao salvar a Procuração representante da empresa!", 500);
+                    }
+                }
+            }
+
+            parent::message('Cargo atualizado com sucesso!', 'operadora/index/editar-responsavel/id/' . $idResponsavel, 'confirm');
 
         } catch (Exception $exc) {
-            parent::message('Erro ao atualizar o cargo!', 'operadora/index/editar-responsavel/id/'.$idResponsavel, 'error');
+            $msg = $exc->getCode() == 500 ? $exc->getMessage() : 'Erro ao atualizar o cargo!';
+            parent::message($msg, 'operadora/index/editar-responsavel/id/' . $idResponsavel, 'error');
         }
     }
-    
-    public function addTelefoneResponsavelAction() {
 
-        $modelTelefone  = new Application_Model_Telefone();
-        $modelDDD       = new Application_Model_DDD();
-        
-        $idResponsavel  = $this->_request->getParam('idResponsavel');
-        $dddFone        = (int) substr(str_replace('-', '', (str_replace(' ', '', str_replace('(', '', str_replace(')', '', $this->getRequest()->getParam('TelResponsavel')))))), 0, 2);
-        $fone           = (int) substr(str_replace('-', '', (str_replace(' ', '', str_replace('(', '', str_replace(')', '', $this->getRequest()->getParam('TelResponsavel')))))), 2);
+    public function addTelefoneResponsavelAction()
+    {
 
-        if($dddFone){
+        $modelTelefone = new Application_Model_Telefone();
+        $modelDDD = new Application_Model_DDD();
+
+        $idResponsavel = $this->_request->getParam('idResponsavel');
+        $dddFone = (int)substr(str_replace('-', '', (str_replace(' ', '', str_replace('(', '', str_replace(')', '', $this->getRequest()->getParam('TelResponsavel')))))), 0, 2);
+        $fone = (int)substr(str_replace('-', '', (str_replace(' ', '', str_replace('(', '', str_replace(')', '', $this->getRequest()->getParam('TelResponsavel')))))), 2);
+
+        if ($dddFone) {
             $verificaDDD = $modelDDD->select(array('CD_DDD = ?' => $dddFone));
-            if(count($verificaDDD) == 0 ){
-                parent::message('DDD inv&aacute;lido!', 'operadora/index/editar-responsavel/id/'.$idResponsavel, 'error');
+            if (count($verificaDDD) == 0) {
+                parent::message('DDD inv&aacute;lido!', 'operadora/index/editar-responsavel/id/' . $idResponsavel, 'error');
             }
         }
-        
+
         try {
 
-            if($fone){
+            if ($fone) {
                 $where = array(
-                    'ID_PESSOA = ?'          => $idResponsavel,
-                    'SG_PAIS = ?'            => 'BRA',
-                    'NR_TELEFONE = ?'        => $fone,
-                    'ID_TIPO_TELEFONE = ?'   => 2,
-                    'CD_DDD = ?'             => $dddFone
+                    'ID_PESSOA = ?' => $idResponsavel,
+                    'SG_PAIS = ?' => 'BRA',
+                    'NR_TELEFONE = ?' => $fone,
+                    'ID_TIPO_TELEFONE = ?' => 2,
+                    'CD_DDD = ?' => $dddFone
                 );
-                
+
                 $existeFone = $modelTelefone->select($where);
-                
-                if(count($existeFone) == 0){
+
+                if (count($existeFone) == 0) {
                     $Cols = array(
-                        'ID_PESSOA'          => $idResponsavel,
-                        'SG_PAIS'            => 'BRA',
-                        'NR_TELEFONE'        => $fone,
-                        'ID_TIPO_TELEFONE'   => 2,
-                        'CD_DDD'             => $dddFone
+                        'ID_PESSOA' => $idResponsavel,
+                        'SG_PAIS' => 'BRA',
+                        'NR_TELEFONE' => $fone,
+                        'ID_TIPO_TELEFONE' => 2,
+                        'CD_DDD' => $dddFone
                     );
                     $modelTelefone->insert($Cols);
-                    
-                }else{
-                    parent::message($this->getRequest()->getParam('TelResponsavel').'  já está cadastrado!', 'operadora/index/editar-responsavel/id/'.$idResponsavel, 'error');
+
+                } else {
+                    parent::message($this->getRequest()->getParam('TelResponsavel') . '  já está cadastrado!', 'operadora/index/editar-responsavel/id/' . $idResponsavel, 'error');
                 }
             }
-            
 
-            parent::message('Telefone adicionado com sucesso!', 'operadora/index/editar-responsavel/id/'.$idResponsavel, 'confirm');
+
+            parent::message('Telefone adicionado com sucesso!', 'operadora/index/editar-responsavel/id/' . $idResponsavel, 'confirm');
 
         } catch (Exception $exc) {
-            parent::message('Erro ao adicionar o telefone!', 'operadora/index/editar-responsavel/id/'.$idResponsavel, 'error');
+            parent::message('Erro ao adicionar o telefone!', 'operadora/index/editar-responsavel/id/' . $idResponsavel, 'error');
         }
     }
-    
-    public function delTelefoneResponsavelAction() {
 
-        $modelTelefone  = new Application_Model_Telefone();
-        $idTelefone     = $this->_request->getParam('idTelefone');
-        $idResponsavel  = $this->_request->getParam('idResponsavel');
+    public function delTelefoneResponsavelAction()
+    {
+
+        $modelTelefone = new Application_Model_Telefone();
+        $idTelefone = $this->_request->getParam('idTelefone');
+        $idResponsavel = $this->_request->getParam('idResponsavel');
 
         try {
 
-            if($idTelefone){
+            if ($idTelefone) {
                 $modelTelefone->delete($idTelefone);
             }
 
-            parent::message('Telefone excluído com sucesso!', 'operadora/index/editar-responsavel/id/'.$idResponsavel, 'confirm');
+            parent::message('Telefone excluído com sucesso!', 'operadora/index/editar-responsavel/id/' . $idResponsavel, 'confirm');
 
         } catch (Exception $exc) {
-            parent::message('Erro ao excluir o telefone!', 'operadora/index/editar-responsavel/id/'.$idResponsavel, 'error');
+            parent::message('Erro ao excluir o telefone!', 'operadora/index/editar-responsavel/id/' . $idResponsavel, 'error');
         }
     }
-    
-    public function addEmailResponsavelAction() {
 
-        $modelEmail     = new Application_Model_Email();
-        $idResponsavel  = $this->_request->getParam('idResponsavel');
-        $email          = trim($this->getRequest()->getParam('emailResponsavel'));
+    public function addEmailResponsavelAction()
+    {
+
+        $modelEmail = new Application_Model_Email();
+        $idResponsavel = $this->_request->getParam('idResponsavel');
+        $email = trim($this->getRequest()->getParam('emailResponsavel'));
 
         // Faz a verificação usando a função
         if (!validaEmail($email)) {
-            parent::message('E-mail inválido!', 'operadora/index/editar-responsavel/id/'.$idResponsavel, 'error');
-        } 
-        
+            parent::message('E-mail inválido!', 'operadora/index/editar-responsavel/id/' . $idResponsavel, 'error');
+        }
+
         try {
 
             if ($email) {
                 $where = array(
-                    'ID_PESSOA = ?'           => $idResponsavel,
-                    'DS_EMAIL = ?'            => $email,
-                    'ID_TIPO_EMAIL = ?'       => 2,
-                    'ST_EMAIL_PRINCIPAL = ?'  => 'N'
+                    'ID_PESSOA = ?' => $idResponsavel,
+                    'DS_EMAIL = ?' => $email,
+                    'ID_TIPO_EMAIL = ?' => 2,
+                    'ST_EMAIL_PRINCIPAL = ?' => 'N'
                 );
-                
+
                 $existeEmail = $modelEmail->select($where);
-                
-                if(count($existeEmail) == 0){
+
+                if (count($existeEmail) == 0) {
                     $Cols = array(
-                        'ID_PESSOA'           => $idResponsavel,
-                        'DS_EMAIL'            => $email,
-                        'ID_TIPO_EMAIL'       => 2,
-                        'ST_EMAIL_PRINCIPAL'  => 'N'
+                        'ID_PESSOA' => $idResponsavel,
+                        'DS_EMAIL' => $email,
+                        'ID_TIPO_EMAIL' => 2,
+                        'ST_EMAIL_PRINCIPAL' => 'N'
                     );
                     $modelEmail->insert($Cols);
-                }else{
-                    parent::message($email.'  já está cadastrado!', 'operadora/index/editar-responsavel/id/'.$idResponsavel, 'error');
+                } else {
+                    parent::message($email . '  já está cadastrado!', 'operadora/index/editar-responsavel/id/' . $idResponsavel, 'error');
                 }
             }
 
-            parent::message('Email adicionado com sucesso!', 'operadora/index/editar-responsavel/id/'.$idResponsavel, 'confirm');
+            parent::message('Email adicionado com sucesso!', 'operadora/index/editar-responsavel/id/' . $idResponsavel, 'confirm');
 
         } catch (Exception $exc) {
-            parent::message('Erro ao adicionar o email!', 'operadora/index/editar-responsavel/id/'.$idResponsavel, 'error');
+            parent::message('Erro ao adicionar o email!', 'operadora/index/editar-responsavel/id/' . $idResponsavel, 'error');
         }
     }
-    
-    public function delEmailResponsavelAction() {
 
-        $modelEmail     = new Application_Model_Email();
-        $idResponsavel  = $this->_request->getParam('idResponsavel');
-        $idEmail        = $this->getRequest()->getParam('idEmail');
+    public function delEmailResponsavelAction()
+    {
+
+        $modelEmail = new Application_Model_Email();
+        $idResponsavel = $this->_request->getParam('idResponsavel');
+        $idEmail = $this->getRequest()->getParam('idEmail');
 
         try {
 
@@ -1172,29 +1308,32 @@ class Operadora_IndexController extends GenericController {
                 $modelEmail->delete($idEmail);
             }
 
-            parent::message('Email excluído com sucesso!', 'operadora/index/editar-responsavel/id/'.$idResponsavel, 'confirm');
+            parent::message('Email excluído com sucesso!', 'operadora/index/editar-responsavel/id/' . $idResponsavel, 'confirm');
 
         } catch (Exception $exc) {
-            parent::message('Erro ao excluir o email!', 'operadora/index/editar-responsavel/id/'.$idResponsavel, 'error');
+            parent::message('Erro ao excluir o email!', 'operadora/index/editar-responsavel/id/' . $idResponsavel, 'error');
         }
     }
 
-    public function responsavelUpdateAction() {
-        
+    public function responsavelUpdateAction()
+    {
+
     }
 
-    public function alterarsenhaAction() {
-        
+    public function alterarsenhaAction()
+    {
+
     }
 
-    public function alterarsenhaactionAction() {
+    public function alterarsenhaactionAction()
+    {
         if ($_POST) {
 
             $modelUsuario = new Application_Model_Usuario;
 
-            $NOVA_SENHA             = $this->getRequest()->getParam('NOVA_SENHA');
-            $NOVA_SENHA_CONFIRMA    = $this->getRequest()->getParam('NOVA_SENHA_CONFIMA');
-            $SENHA_ATUAL            = $this->getRequest()->getParam('SENHA');
+            $NOVA_SENHA = $this->getRequest()->getParam('NOVA_SENHA');
+            $NOVA_SENHA_CONFIRMA = $this->getRequest()->getParam('NOVA_SENHA_CONFIMA');
+            $SENHA_ATUAL = $this->getRequest()->getParam('SENHA');
 
             if (!$SENHA_ATUAL) {
                 parent::message('Informe a senha atual', '/operadora/index/alterarsenha/', 'error');
@@ -1208,8 +1347,8 @@ class Operadora_IndexController extends GenericController {
 
             //VALIDA SENHA ATUAL
             $where = array(
-                'ID_USUARIO = ?'    => $this->_sessao['idUsuario'],
-                'DS_SENHA = ?'      => md5($SENHA_ATUAL)
+                'ID_USUARIO = ?' => $this->_sessao['idUsuario'],
+                'DS_SENHA = ?' => md5($SENHA_ATUAL)
             );
 
             $recuperaUsuario = $modelUsuario->select($where);
@@ -1226,13 +1365,15 @@ class Operadora_IndexController extends GenericController {
         }
     }
 
-    public function abrirArquivoAction() {
+    public function abrirArquivoAction()
+    {
         $idOperadora = $this->_sessao['operadora'];
-       
-        $uploaddir  = "/var/arquivos/arquivos-valecultura/";
-        $arquivo    = $this->getRequest()->getParam('arquivo');
-        
-        $operadoraArquivo = (int) substr($arquivo, 0, (strpos($arquivo, '_')));
+
+        $uploaddir = defined('UPLOAD_DIR') ? UPLOAD_DIR : "/var/arquivos/arquivos-valecultura/";
+        $arquivo = $this->getRequest()->getParam('arquivo');
+
+        $operadoraArquivo = (int)substr($arquivo, 0, (strpos($arquivo, '_')));
+
         if ($operadoraArquivo == $idOperadora) {
             if (file_exists($uploaddir . $arquivo)) {
                 $len = filesize($uploaddir . $arquivo);
@@ -1249,27 +1390,28 @@ class Operadora_IndexController extends GenericController {
         die;
     }
 
-    public function consultarBeneficiariasAction() {
-        
-        $modelBeneficiaria      = new Application_Model_Beneficiaria();
-        $modelPessoaVinculada   = new Application_Model_PessoaVinculada();
-        $modelSituacoes         = new Application_Model_TipoSituacao();
-        $modelEmail             = new Application_Model_Email();
-        $modelTelefone          = new Application_Model_Telefone();
-        
+    public function consultarBeneficiariasAction()
+    {
+
+        $modelBeneficiaria = new Application_Model_Beneficiaria();
+        $modelPessoaVinculada = new Application_Model_PessoaVinculada();
+        $modelSituacoes = new Application_Model_TipoSituacao();
+        $modelEmail = new Application_Model_Email();
+        $modelTelefone = new Application_Model_Telefone();
+
         $idOperadora = $this->_sessao['operadora'];
 
-        $CNPJ       = $this->getRequest()->getParam('CNPJ');
-        $NOME       = $this->getRequest()->getParam('NOME');
-        $DTINICIO   = $this->getRequest()->getParam('DTINICIO');
-        $DTFIM      = $this->getRequest()->getParam('DTFIM');
-        $filtro     = $this->getRequest()->getParam('filtra');
-        $SITUACAO   = $this->getRequest()->getParam('SITUACAO');
-        
+        $CNPJ = $this->getRequest()->getParam('CNPJ');
+        $NOME = $this->getRequest()->getParam('NOME');
+        $DTINICIO = $this->getRequest()->getParam('DTINICIO');
+        $DTFIM = $this->getRequest()->getParam('DTFIM');
+        $filtro = $this->getRequest()->getParam('filtra');
+        $SITUACAO = $this->getRequest()->getParam('SITUACAO');
+
         if ($CNPJ) {
             $where['pj.NR_CNPJ = ?'] = str_replace('/', '', str_replace('-', '', str_replace('.', '', $CNPJ)));
         }
-            
+
         if ($NOME) {
             $where['pj.nm_Razao_Social like ?'] = '%' . $NOME . '%';
         }
@@ -1288,17 +1430,17 @@ class Operadora_IndexController extends GenericController {
                 $where['dt_Inscricao < ?'] = $DTFIMQuery[2] . '-' . $DTFIMQuery[1] . '-' . $DTFIMQuery[0];
             }
         }
-        
+
         if ($SITUACAO > 0) {
             $where['ID_SITUACAO = ?'] = $SITUACAO;
             $this->view->assign('situacao', $SITUACAO);
-        }else{
+        } else {
             $this->view->assign('situacao', '');
         }
 
         $this->view->assign('cnpj', $CNPJ);
         $this->view->assign('nome', $NOME);
-        
+
         if (is_array($DTINICIO)) {
             $this->view->assign('dtInicio', $DTINICIO[0] . '/' . $DTINICIO[1] . '/' . $DTINICIO[2]);
         } else {
@@ -1321,64 +1463,64 @@ class Operadora_IndexController extends GenericController {
         }
 
         $dadosBeneficiarias = array();
-        
+
         $i = 0;
-        foreach($beneficiarias as $b){
-            
-            $dadosBeneficiarias[$i]['idBeneficiaria']   = $b['idBeneficiaria'];
-            $dadosBeneficiarias[$i]['idOperadora']      = $b['idOperadora'];
-            $dadosBeneficiarias[$i]['nmOperadora']      = $b['operadora'];
-            $dadosBeneficiarias[$i]['dtInscricao']      = $b['dtInscricao'];
-            $dadosBeneficiarias[$i]['qtdFuncionarios']  = $b['qtdFuncionarios'];
-            $dadosBeneficiarias[$i]['situacao']         = $b['situacao'];
-            $dadosBeneficiarias[$i]['dtRegistro']       = $b['dtRegistro'];
-            $dadosBeneficiarias[$i]['nrCnpj']           = $b['nrCnpj'];
-            $dadosBeneficiarias[$i]['nmRazaoSocial']    = $b['nmRazaoSocial'];
-            $dadosBeneficiarias[$i]['nmFantasia']       = $b['nmFantasia'];
-            
+        foreach ($beneficiarias as $b) {
+
+            $dadosBeneficiarias[$i]['idBeneficiaria'] = $b['idBeneficiaria'];
+            $dadosBeneficiarias[$i]['idOperadora'] = $b['idOperadora'];
+            $dadosBeneficiarias[$i]['nmOperadora'] = $b['operadora'];
+            $dadosBeneficiarias[$i]['dtInscricao'] = $b['dtInscricao'];
+            $dadosBeneficiarias[$i]['qtdFuncionarios'] = $b['qtdFuncionarios'];
+            $dadosBeneficiarias[$i]['situacao'] = $b['situacao'];
+            $dadosBeneficiarias[$i]['dtRegistro'] = $b['dtRegistro'];
+            $dadosBeneficiarias[$i]['nrCnpj'] = $b['nrCnpj'];
+            $dadosBeneficiarias[$i]['nmRazaoSocial'] = $b['nmRazaoSocial'];
+            $dadosBeneficiarias[$i]['nmFantasia'] = $b['nmFantasia'];
+
             $responsaveis = array();
-            
+
             // Buscar os responsáveis da Beneficiária
             $where = array(
                 'pv.ID_TIPO_VINCULO_PESSOA = ?' => 16,
-                'pv.id_Pessoa = ?'              => $b['idBeneficiaria'], 
-                'up.id_Perfil = ?'              => 2, 
-                'up.st_Usuario_Perfil = ?'      => 'A'
+                'pv.id_Pessoa = ?' => $b['idBeneficiaria'],
+                'up.id_Perfil = ?' => 2,
+                'up.st_Usuario_Perfil = ?' => 'A'
             );
-            
+
             $listarResponsaveis = $modelPessoaVinculada->buscarDadosResponsavel($where);
-            
+
             $r = 0;
-            foreach($listarResponsaveis as $lr){
-                
-                $responsaveis[$r]['idResponsavel']  = $lr['idPessoaVinculada'];
+            foreach ($listarResponsaveis as $lr) {
+
+                $responsaveis[$r]['idResponsavel'] = $lr['idPessoaVinculada'];
                 $responsaveis[$r]['nmPessoaFisica'] = $lr['nmPessoaFisica'];
-                $responsaveis[$r]['dtregistro']     = $lr['dtregistro'];
-                $responsaveis[$r]['nrCpf']          = $lr['nrCpf'];
-                $responsaveis[$r]['cdCbo']          = $lr['cdCbo'];
-                $responsaveis[$r]['nmCbo']          = $lr['nmCbo'];
-                
+                $responsaveis[$r]['dtregistro'] = $lr['dtregistro'];
+                $responsaveis[$r]['nrCpf'] = $lr['nrCpf'];
+                $responsaveis[$r]['cdCbo'] = $lr['cdCbo'];
+                $responsaveis[$r]['nmCbo'] = $lr['nmCbo'];
+
                 // Email do responsável da operadora
 
                 $emails = array();
                 $listarEmails = $modelEmail->buscarEmails(array('id_Pessoa = ?' => $lr['idPessoaVinculada']));
                 $e = 0;
-                foreach($listarEmails as $email){
+                foreach ($listarEmails as $email) {
                     $emails[$e]['emailResponsavel'] = $email->dsEmail;
                     $e++;
                 }
-                
+
                 $responsaveis[$r]['emailsResponsavel'] = $emails;
-                
+
                 // Telefones do responsável da operadora
                 $telefones = array();
                 $listaTelefones = $modelTelefone->buscarTelefones(array('id_Pessoa = ?' => $lr['idPessoaVinculada']));
                 $t = 0;
-                foreach($listaTelefones as $tel){
-                    
+                foreach ($listaTelefones as $tel) {
+
                     $telefones[$t]['telResponsavel'] = '';
                     $telefones[$t]['faxResponsavel'] = '';
-                    
+
                     if ($tel->idTipoTelefone == 2) {
                         $telefones[$t]['telResponsavel'] = $tel->cdDDD . $tel->nrTelefone;
                     }
@@ -1387,18 +1529,18 @@ class Operadora_IndexController extends GenericController {
                     }
                     $t++;
                 }
-                
+
                 $responsaveis[$r]['telefonesResponsavel'] = $telefones;
-                
+
                 $r++;
             }
-            
+
             $dadosBeneficiarias[$i]['responsaveis'] = $responsaveis;
-            
+
             $i++;
-            
+
         }
-        
+
         $pagina = intval($this->_getParam('pagina', 1));
         $paginator = Zend_Paginator::factory($dadosBeneficiarias);
         // Seta a quantidade de registros por página
@@ -1409,16 +1551,17 @@ class Operadora_IndexController extends GenericController {
         $paginator->setCurrentPageNumber($pagina);
         // Passa o paginator para a view
         $this->view->beneficiarias = $paginator;
-        
+
         $situacoes = $modelSituacoes->select();
         $this->view->assign('situacoes', $situacoes);
         $this->view->assign('filtro', $filtro);
     }
-    
-    public function buscarFaixasSalariaisAction() {
+
+    public function buscarFaixasSalariaisAction()
+    {
         $this->_helper->layout->disableLayout();
         $modelFaixaSalarialBeneficiaria = new Application_Model_FaixaSalarialBeneficiaria();
-        $idBeneficiaria    = $this->getRequest()->getParam('idBeneficiaria');
+        $idBeneficiaria = $this->getRequest()->getParam('idBeneficiaria');
         try {
             $faixas = $modelFaixaSalarialBeneficiaria->listaFaixas(array('fs.ID_BENEFICIARIA = ?' => $idBeneficiaria));
         } catch (Exception $exc) {
@@ -1426,63 +1569,64 @@ class Operadora_IndexController extends GenericController {
         }
         $this->view->faixas = $faixas;
     }
-    
-    
+
+
     // ativação dos responsáveis das Beneficiárias
-    public function ativacaoResponsavelAction(){
-        
-        $idOperadora    = $this->_sessao['operadora'];
-        $idResponsavel  = $this->getRequest()->getParam('id');
-        $ativacao       = $this->getRequest()->getParam('ativar');
-        $tipoVinculo    = 'A';
-        $msg            = 'Ativado com sucesso!';
-        
-        if($ativacao == 'N'){
-            $tipoVinculo    = 'I';
-            $msg            = 'Desativado com sucesso!';
+    public function ativacaoResponsavelAction()
+    {
+
+        $idOperadora = $this->_sessao['operadora'];
+        $idResponsavel = $this->getRequest()->getParam('id');
+        $ativacao = $this->getRequest()->getParam('ativar');
+        $tipoVinculo = 'A';
+        $msg = 'Ativado com sucesso!';
+
+        if ($ativacao == 'N') {
+            $tipoVinculo = 'I';
+            $msg = 'Desativado com sucesso!';
         }
-        
+
         $modelPessoaVinculada = new Application_Model_PessoaVinculada();
-        
-        try{
-            
+
+        try {
+
             $where = array(
-                'pv.ID_PESSOA_VINCULADA = ?'    => $idResponsavel,
+                'pv.ID_PESSOA_VINCULADA = ?' => $idResponsavel,
                 'pv.ID_TIPO_VINCULO_PESSOA = ?' => 17,
-                'pv.ST_PESSOA_VINCULADA = ?'    => 'A'
+                'pv.ST_PESSOA_VINCULADA = ?' => 'A'
             );
 
-            $eResponsavelOperadora    = $modelPessoaVinculada->buscarDadosResponsavel($where);
+            $eResponsavelOperadora = $modelPessoaVinculada->buscarDadosResponsavel($where);
 
             if ((count($eResponsavelOperadora) > 0) && ($ativacao == 'S')) {
                 parent::message('O responsável já está ativo em outra operadora!', '/operadora/index/responsavel/', 'error');
             }
-            
+
             $modelPessoaVinculada->update(array('ST_PESSOA_VINCULADA' => $tipoVinculo), $idOperadora, $idResponsavel);
-            
+
             if ($this->_sessao["PerfilGeral"] != 'A') {
-                
+
                 // Atualiza o status
-                $modelSituacao                  = new Application_Model_Situacao();
+                $modelSituacao = new Application_Model_Situacao();
                 $dadosSituacao = array(
-                        'ID_PESSOA'                     => $idOperadora,
-                        'DS_JUSTIFICATIVA'              => 'Mudança em responsáveis da operadora.',
-                        'ID_USUARIO'                    => $this->_sessao['idUsuario'],
-                        'TP_ENTIDADE_VALE_CULTURA'      => 'O',
-                        'ID_TIPO_SITUACAO'              => 1
-                    );
+                    'ID_PESSOA' => $idOperadora,
+                    'DS_JUSTIFICATIVA' => 'Mudança em responsáveis da operadora.',
+                    'ID_USUARIO' => $this->_sessao['idUsuario'],
+                    'TP_ENTIDADE_VALE_CULTURA' => 'O',
+                    'ID_TIPO_SITUACAO' => 1
+                );
 
                 $modelSituacao->insert($dadosSituacao);
-                
+
             }
-            
+
             parent::message($msg, '/operadora/index/responsavel/', 'confirm');
-            
+
         } catch (Exception $ex) {
             parent::message('Ops, desculpe mas houve um erro na aplicação.', '/operadora/index/responsavel/', 'error');
         }
-        
-        
+
+
     }
 
     public function exportarExcelAction()
@@ -1496,4 +1640,489 @@ class Operadora_IndexController extends GenericController {
         echo $relatorio->consultarBeneficiariaExportarExel($this->view->beneficiarias);
     }
 
+
+    public function naoResponsavelAction()
+    {
+
+        $dadosResponsavel = array();
+        $idOperadora = $this->_sessao['operadora'];
+
+        // Dados do responsável da operadora
+        $modelPessoaVinculada = new Application_Model_PessoaVinculada();
+        $modelEmail = new Application_Model_Email();
+        $modelTelefone = new Application_Model_Telefone();
+
+        $where = array(
+            'pv.id_Pessoa = ?' => $idOperadora,
+            'up.id_Perfil = ?' => 3,
+            'up.st_Usuario_Perfil = ?' => 'A',
+            'pv.ID_TIPO_VINCULO_PESSOA = ?' => 13
+        );
+
+        $responsavel = $modelPessoaVinculada->buscarDadosResponsavel($where);
+        $i = 0;
+        $ativos = 0;
+        foreach ($responsavel as $re) {
+
+            if ($re->ST_PESSOA_VINCULADA == 'A') {
+                $ativos++;
+            }
+            $dadosResponsavel[$i]['idResponsavel'] = $re->idPessoaVinculada;
+            $dadosResponsavel[$i]['nmResponsavel'] = $re->nmPessoaFisica;
+            $dadosResponsavel[$i]['nrCpfResponsavel'] = addMascara($re->nrCpf, 'cpf');
+            $dadosResponsavel[$i]['cargoResponsavel'] = $re->nmCbo;
+            $dadosResponsavel[$i]['cdCbo'] = $re->cdCbo;
+            $dadosResponsavel[$i]['stAtivo'] = $re->ST_PESSOA_VINCULADA;
+
+            // Email do responsável da operadora
+            $emails = $modelEmail->buscarEmails(array('ID_PESSOA = ?' => $re->idPessoaVinculada));
+
+            $listaEmails = array();
+            if (count($emails) > 0) {
+
+                $e = 0;
+                foreach ($emails as $em) {
+                    $listaEmails[$e]['dsEmail'] = $em->dsEmail;
+                    $e++;
+                }
+            }
+            $dadosResponsavel[$i]['emailsResponsavel'] = $listaEmails;
+
+            // Telefones do responsável da operadora
+            $telefones = $modelTelefone->buscarTelefones(array('ID_PESSOA = ?' => $re->idPessoaVinculada));
+            $listaTelefones = array();
+
+            if (count($telefones) > 0) {
+
+                $t = 0;
+                foreach ($telefones as $tel) {
+                    if ($tel->idTipoTelefone == 2) {
+                        $listaTelefones[$t]['idTipoTelefone'] = 2;
+                        $listaTelefones[$t]['TelResponsavel'] = 'Tel: (' . $tel->cdDDD . ') ' . $tel->nrTelefone;
+                    }
+                    if ($tel->idTipoTelefone == 4) {
+                        $listaTelefones[$t]['idTipoTelefone'] = 4;
+                        $listaTelefones[$t]['FaxResponsavel'] = 'Fax: (' . $tel->cdDDD . ') ' . $tel->nrTelefone;
+                    }
+
+                    $t++;
+                }
+            }
+
+            $dadosResponsavel[$i]['telefonesResponsavel'] = $listaTelefones;
+
+
+            $i++;
+        }
+
+        $modelCBO = new Application_Model_CBO();
+        $CBOs = $modelCBO->select(array(), 'NM_CBO', null);
+
+        $this->view->assign('CBOs', $CBOs);
+        $this->view->assign('responsaveis', $dadosResponsavel);
+        $this->view->assign('idOperadora', $idOperadora);
+        $this->view->assign('qtdAtivos', $ativos);
+    }
+
+    public function novoNaoResponsavelAction()
+    {
+        $idOperadora = $this->_sessao['operadora'];
+        $modelCBO = new Application_Model_CBO();
+        $CBOs = $modelCBO->select(array(), 'NM_CBO', null);
+
+        $this->view->assign('CBOs', $CBOs);
+        $this->view->assign('idOperadora', $idOperadora);
+    }
+
+    public function salvarNaoResponsavelAction()
+    {
+        $idOperadora = $this->_sessao['operadora'];
+
+        set_time_limit('120');
+
+        $modelPessoaVinculada = new Application_Model_PessoaVinculada();
+        $modelTelefone = new Application_Model_Telefone();
+        $modelEmail = new Application_Model_Email();
+        $modelUsuario = new Application_Model_Usuario();
+        $modelUsuarioPerfil = new Application_Model_UsuarioPerfil();
+        $modelSituacao = new Application_Model_Situacao();
+        $modelCBOPessoaFisica = new Application_Model_CBOPessoaFisica();
+        $modelDDD = new Application_Model_DDD();
+
+        //Recuperando form
+        $IDPF = $this->getRequest()->getParam('IDPF');
+        $NRCPF = str_replace('.', '', str_replace('-', '', $this->getRequest()->getParam('RESPONSAVEL_CPF')));
+        $CDDDDFAX = (int)substr(str_replace('-', '', (str_replace(' ', '', str_replace('(', '', str_replace(')', '', $this->getRequest()->getParam('FaxResponsavel')))))), 0, 2);
+        $NRFAX = (int)substr(str_replace('-', '', (str_replace(' ', '', str_replace('(', '', str_replace(')', '', $this->getRequest()->getParam('FaxResponsavel')))))), 2);
+        $CDDDD = (int)substr(str_replace('-', '', (str_replace(' ', '', str_replace('(', '', str_replace(')', '', $this->getRequest()->getParam('TelResponsavel')))))), 0, 2);
+        $NRTELEFONE = (int)substr(str_replace('-', '', (str_replace(' ', '', str_replace('(', '', str_replace(')', '', $this->getRequest()->getParam('TelResponsavel')))))), 2);
+        $DSEMAIL = $this->getRequest()->getParam('emailResponsavel');
+        $CDCBO = $this->getRequest()->getParam('CDCBO');
+
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->beginTransaction();
+
+        try {
+            // Validando Form
+            if ($IDPF == '0') {
+                throw new Exception('CPF não encontrado!', 500);
+            }
+
+            if (strlen($NRTELEFONE) < 8) {
+                throw new Exception('Informe o telefone!', 500);
+            }
+
+            if ($CDDDD) {
+                $verificaDDD = $modelDDD->select(array('CD_DDD = ?' => $CDDDD));
+                if (count($verificaDDD) == 0) {
+                    throw new Exception('DDD inválido!', 500);
+                }
+            }
+
+            if (!$DSEMAIL) {
+                throw new Exception('Informe o e-mail!', 500);
+            }
+
+            if (!validaEmail($DSEMAIL)) {
+                throw new Exception('Email inválido!', 500);
+            }
+
+            // Vincular o responsável
+            $idPessoaFisica = $IDPF;
+            $idPessoaJuridica = $idOperadora;
+
+            //Verifica se já existe esse número cadastrado
+            $where = array(
+                'ID_PESSOA = ?' => $idPessoaFisica,
+                'SG_PAIS = ?' => 'BRA',
+                'NR_TELEFONE = ?' => $NRTELEFONE,
+                'ID_TIPO_TELEFONE = ?' => 2,
+                'CD_DDD = ?' => $CDDDD
+            );
+
+            $existeTelefone = $modelTelefone->select($where);
+
+            if (count($existeTelefone) == 0) {
+                //Inserindo na model Telefone
+                $Cols = array(
+                    'ID_PESSOA' => $idPessoaFisica,
+                    'SG_PAIS' => 'BRA',
+                    'NR_TELEFONE' => $NRTELEFONE,
+                    'ID_TIPO_TELEFONE' => 2,
+                    'CD_DDD' => $CDDDD
+                );
+
+                $modelTelefone->insert($Cols);
+            }
+
+            if (strlen($NRFAX) > 7) {
+                //Verifica se já existe esse número cadastrado
+                $where = array(
+                    'ID_PESSOA = ?' => $idPessoaFisica,
+                    'SG_PAIS = ?' => 'BRA',
+                    'NR_TELEFONE = ?' => $NRFAX,
+                    'ID_TIPO_TELEFONE = ?' => 4,
+                    'CD_DDD = ?' => $CDDDDFAX
+                );
+
+                $existeFax = $modelTelefone->select($where);
+                if (count($existeFax) == 0) {
+                    //Inserindo na model Telefone
+                    $Cols = array(
+                        'ID_PESSOA' => $idPessoaFisica,
+                        'SG_PAIS' => 'BRA',
+                        'NR_TELEFONE' => $NRFAX,
+                        'ID_TIPO_TELEFONE' => 4,
+                        'CD_DDD' => $CDDDDFAX
+                    );
+
+                    $modelTelefone->insert($Cols);
+                }
+            }
+
+            // Verificar se já existe o email
+            $where = array(
+                'ID_PESSOA = ?' => $idPessoaFisica,
+                'DS_EMAIL = ?' => $DSEMAIL,
+                'ID_TIPO_EMAIL = ?' => 2,
+                'ST_EMAIL_PRINCIPAL = ?' => 'S'
+            );
+
+            $existeEmail = $modelEmail->select($where);
+
+            if (count($existeEmail) == 0) {
+
+                //Inserindo Email do responsavel
+                $Cols = array(
+                    'ID_PESSOA' => $idPessoaFisica,
+                    'DS_EMAIL' => $DSEMAIL,
+                    'ID_TIPO_EMAIL' => 2,
+                    'ST_EMAIL_PRINCIPAL' => 'S'
+                );
+
+                $modelEmail->insert($Cols);
+
+            }
+
+            //Inserindo CBO do responsavel
+            if ($CDCBO) {
+
+                // Verifica se já existe esse registro para não duplicar
+                $whereCDCBO = array(
+                    'ID_PESSOA_FISICA = ?' => $idPessoaFisica,
+                    'ID_PESSOA_JURIDICA = ?' => $idPessoaJuridica,
+                );
+
+                $existeCDCBO = $modelCBOPessoaFisica->select($whereCDCBO);
+
+                $Cols = array(
+                    'ID_PESSOA_FISICA' => $idPessoaFisica,
+                    'ID_PESSOA_JURIDICA' => $idPessoaJuridica,
+                    'CD_CBO' => $CDCBO
+                );
+
+                if (count($existeCDCBO) == 0) {
+                    $modelCBOPessoaFisica->insert($Cols);
+                } else {
+                    $modelCBOPessoaFisica->update($Cols, $existeCDCBO[0]['ID_PESSOA_FISICA_CBO']);
+                }
+            }
+
+            //============== VINCULANDO EMPRESA E Não RESPONSAVEL ==================
+            //Verifica se ja existe vinculo
+            $where = array(
+                'ID_PESSOA = ?' => $idPessoaJuridica,
+                'ID_PESSOA_VINCULADA = ?' => $idPessoaFisica,
+                'ID_TIPO_VINCULO_PESSOA = ?' => 13
+            );
+
+            $vinculo = $modelPessoaVinculada->select($where);
+
+            if (count($vinculo) < 1) {
+                $Cols = array(
+                    'ID_PESSOA' => $idPessoaJuridica,
+                    'ID_PESSOA_VINCULADA' => $idPessoaFisica,
+                    'ID_TIPO_VINCULO_PESSOA' => 13
+                );
+
+                $modelPessoaVinculada->insert($Cols);
+            }
+
+            //==================== CRIANDO USUARIO =============================
+            $where = array(
+                'ID_PESSOA_FISICA = ?' => $idPessoaFisica
+            );
+
+            $usuario = $modelUsuario->select($where);
+
+            if (count($usuario) > 0) {
+                $idUsuario = $usuario[0]['ID_USUARIO'];
+                $enviaEmail = false;
+            } else {
+                $geraID = $modelUsuario->criaId();
+                $idUsuario = $geraID['idUsuario'];
+                $senha = gerarSenha();
+
+                $Cols = array(
+                    'ID_USUARIO' => $idUsuario,
+                    'DS_LOGIN' => $NRCPF,
+                    'DS_SENHA' => md5($senha),
+                    'ID_PESSOA_FISICA' => $idPessoaFisica
+                );
+
+                $modelUsuario->insert($Cols);
+                $enviaEmail = true;
+            }
+
+            //Verifica se usuario já tem o perfil
+            $where = array(
+                'ID_USUARIO = ?' => $idUsuario,
+                'ID_PERFIL   = ?' => 3
+            );
+
+            $usuarioPerfil = $modelUsuarioPerfil->select($where);
+            if (count($usuarioPerfil) < 1) {
+                $Cols = array(
+                    'ID_USUARIO' => $idUsuario,
+                    'ID_PERFIL' => 3
+                );
+
+                $modelUsuarioPerfil->insert($Cols);
+            }
+
+            if ($this->_sessao["PerfilGeral"] != 'A') {
+
+                //Cria Situação para a Operadora
+                $Cols = array(
+                    'ID_PESSOA' => $idPessoaJuridica,
+                    'ID_USUARIO' => $idUsuario,
+                    'ID_TIPO_SITUACAO' => 1,
+                    'TP_ENTIDADE_VALE_CULTURA' => 'O',
+                    'DS_JUSTIFICATIVA' => 'Cadastro realizado'
+                );
+
+                $modelSituacao->insert($Cols);
+            }
+
+            if ($enviaEmail) {
+                $htmlEmail = emailSenhaHTML();
+                $htmlEmail = str_replace('#PERFIL#', 'Operadora', $htmlEmail);
+                $htmlEmail = str_replace('#URL#', 'http://vale.cultura.gov.br', $htmlEmail);
+                $htmlEmail = str_replace('#Senha#', $senha, $htmlEmail);
+//                $enviarEmail = $modelEmail->enviarEmail($DSEMAIL, 'Acesso ao sistema Vale Cultura', $htmlEmail);
+            }
+
+            $db->commit();
+            parent::message('Não Responsável cadastrado com sucesso!', '/operadora/index/nao-responsavel', 'confirm');
+
+        } catch (Exception $exc) {
+            $mgs = $exc->getCode() == 500 ? $exc->getMessage() : 'Erro ao cadastrar o não responsável.';
+            $db->rollBack();
+            parent::message($mgs, '/operadora/index/novo-nao-responsavel', 'error');
+        }
+    }
+
+
+    public function editarNaoResponsavelAction()
+    {
+
+        $idResponsavel = $this->getRequest()->getParam('id');
+        $dadosResponsavel = array();
+        $idOperadora = $this->_sessao['operadora'];
+        $urlArquivo = null;
+
+        $modelPessoaVinculada = new Application_Model_PessoaVinculada();
+        $modelEmail = new Application_Model_Email();
+        $modelTelefone = new Application_Model_Telefone();
+
+        $where = array(
+            'pv.ID_PESSOA = ?' => $idOperadora,
+            'pv.ID_PESSOA_VINCULADA = ?' => $idResponsavel,
+        );
+
+        // Dados do responsável
+        $responsavel = $modelPessoaVinculada->buscarDadosResponsavel($where);
+
+        if (count($responsavel) > 0) {
+
+            $dadosResponsavel['idResponsavel'] = $responsavel[0]->idPessoaVinculada;
+            $dadosResponsavel['nmResponsavel'] = $responsavel[0]->nmPessoaFisica;
+            $dadosResponsavel['nrCpfResponsavel'] = addMascara($responsavel[0]->nrCpf, 'cpf');
+            $dadosResponsavel['cargoResponsavel'] = $responsavel[0]->nmCbo;
+            $dadosResponsavel['cdCbo'] = $responsavel[0]->cdCbo;
+            $dadosResponsavel['stAtivo'] = $responsavel[0]->ST_PESSOA_VINCULADA;
+
+            // Email do responsável da operadora
+            $emails = $modelEmail->buscarEmails(array('ID_PESSOA = ?' => $responsavel[0]->idPessoaVinculada));
+
+            $listaEmails = array();
+            if (count($emails) > 0) {
+                $e = 0;
+                foreach ($emails as $em) {
+                    $listaEmails[$e]['idEmail'] = $em->ID_EMAIL;
+                    $listaEmails[$e]['dsEmail'] = $em->dsEmail;
+                    $e++;
+                }
+            }
+
+            $dadosResponsavel['emailsResponsavel'] = $listaEmails;
+
+            // Telefones do responsável da operadora
+            $telefones = $modelTelefone->buscarTelefones(array('ID_PESSOA = ?' => $responsavel[0]->idPessoaVinculada));
+            $listaTelefones = array();
+
+            if (count($telefones) > 0) {
+                $t = 0;
+                foreach ($telefones as $tel) {
+                    if ($tel->idTipoTelefone == 2) {
+                        $listaTelefones[$t]['idTelefone'] = $tel->idTelefone;
+                        $listaTelefones[$t]['idTipoTelefone'] = 2;
+                        $listaTelefones[$t]['TelResponsavel'] = 'Tel: (' . $tel->cdDDD . ') ' . $tel->nrTelefone;
+                    }
+                    if ($tel->idTipoTelefone == 4) {
+                        $listaTelefones[$t]['idTelefone'] = $tel->idTelefone;
+                        $listaTelefones[$t]['idTipoTelefone'] = 4;
+                        $listaTelefones[$t]['FaxResponsavel'] = 'Fax: (' . $tel->cdDDD . ') ' . $tel->nrTelefone;
+                    }
+                    $t++;
+                }
+            }
+
+            $dadosResponsavel['telefonesResponsavel'] = $listaTelefones;
+
+            $where = array();
+            $where['ID_OPERADORA = ?'] = $idOperadora;
+            $where['ID_RESPONSAVEL = ?'] = $idResponsavel;
+
+            $modelArquivoOperadora = new Application_Model_ArquivoOperadora();
+            $arquivoAtual = $modelArquivoOperadora->select($where, "DT_UPLOAD_ARQUIVO DESC", 1);
+
+            if (count($arquivoAtual) > 0) {
+                $arquivo = $arquivoAtual[0]['DS_CAMINHO_ARQUIVO'];
+                $urlArquivo = $this->view->url(array('module' => 'operadora',
+                    'controller' => 'index',
+                    'action' => 'abrir-arquivo',
+                    'arquivo' => $arquivo));
+            }
+        } else {
+            parent::message('Erro ao localizar o responsável.', '/operadora/index/responsavel', 'error');
+        }
+
+        $modelCBO = new Application_Model_CBO();
+        $CBOs = $modelCBO->select(array(), 'NM_CBO', null);
+
+        $this->view->assign('CBOs', $CBOs);
+        $this->view->assign('responsavel', $dadosResponsavel);
+        $this->view->assign('idOperadora', $idOperadora);
+        $this->view->assign('urlArquivo', $urlArquivo);
+    }
+
+    public function atualizarDadosNaoResponsavelAction()
+    {
+        $idResponsavel = $this->_request->getParam('idResponsavel');
+        $idOperadora = $this->_request->getParam('idOperadora');
+        $CDCBO = $this->_request->getParam('CDCBO');
+
+        $modelCBOPessoaFisica = new Application_Model_CBOPessoaFisica();
+
+        try {
+            if ($CDCBO) {
+                // apaga o que for dessa empresa e responsável
+                $where = array(
+                    'ID_PESSOA_FISICA = ?' => $idResponsavel,
+                    'ID_PESSOA_JURIDICA = ?' => $idOperadora
+                );
+
+                $modelCBOPessoaFisica->apagar($where);
+
+                $Cols = array(
+                    'CD_CBO' => $CDCBO,
+                    'ID_PESSOA_FISICA' => $idResponsavel,
+                    'ID_PESSOA_JURIDICA' => $idOperadora
+                );
+
+                $modelCBOPessoaFisica->insert($Cols);
+
+                if ($this->_sessao["PerfilGeral"] != 'A') {
+                    // Atualiza o status
+                    $modelSituacao = new Application_Model_Situacao();
+                    $dadosSituacao = array(
+                        'ID_PESSOA' => $idOperadora,
+                        'DS_JUSTIFICATIVA' => 'Mudança em responsáveis da operadora.',
+                        'ID_USUARIO' => $this->_sessao['idUsuario'],
+                        'TP_ENTIDADE_VALE_CULTURA' => 'O',
+                        'ID_TIPO_SITUACAO' => 1
+                    );
+
+                    $modelSituacao->insert($dadosSituacao);
+                }
+            }
+
+            parent::message('Cargo atualizado com sucesso!', 'operadora/index/editar-nao-responsavel/id/' . $idResponsavel, 'confirm');
+
+        } catch (Exception $exc) {
+            $msg = $exc->getCode() == 500 ? $exc->getMessage() : 'Erro ao atualizar o cargo!';
+            parent::message($msg, 'operadora/index/editar-nao-responsavel/id/' . $idResponsavel, 'error');
+        }
+    }
 }

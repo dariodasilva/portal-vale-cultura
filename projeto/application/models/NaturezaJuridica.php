@@ -1,17 +1,20 @@
 <?php
 
-class Application_Model_NaturezaJuridica {
+class Application_Model_NaturezaJuridica
+{
 
     private $table = null;
 
-    public function getTable() {
+    public function getTable()
+    {
         if (is_null($this->table)) {
             $this->table = new Application_Model_DbTable_NaturezaJuridica();
         }
         return $this->table;
     }
 
-    public function select($where = array(), $order = null, $limit = null) {
+    public function select($where = array(), $order = null, $limit = null)
+    {
         $select = $this->getTable()->select()->order($order)->limit($limit);
 
         foreach ($where as $coluna => $valor) :
@@ -22,11 +25,13 @@ class Application_Model_NaturezaJuridica {
         return $this->getTable()->fetchAll($select)->toArray();
     }
 
-    public function find($id) {
+    public function find($id)
+    {
         return $this->getTable()->find($id)->current();
     }
-    
-    public function insert(array $request) {
+
+    public function insert(array $request)
+    {
         return $this->getTable()->createRow()->setFromArray($request)->save();
     }
 

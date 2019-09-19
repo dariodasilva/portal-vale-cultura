@@ -19,8 +19,10 @@
     <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/bootstrap-responsive.css') ?>" type="text/css"/>
     <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/font-awesome.css') ?>" type="text/css"/>
     <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/prettyPhoto.css" type="text/css') ?>" type="text/css"/>
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/js/circle/component.css') ?>" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/js/mosaic/hover.zoom.css') ?>" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/js/circle/component.css') ?>" type="text/css"
+          media="screen"/>
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/js/mosaic/hover.zoom.css') ?>" type="text/css"
+          media="screen"/>
     <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/style.css') ?>" type="text/css"/>
     <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/colorpicker.css') ?>" type="text/css"/>
     <link rel="stylesheet" href="<?php echo $this->baseUrl('css/jquery-ui-datepicker.css') ?>" type="text/css"/>
@@ -81,7 +83,7 @@
             <a target="_blank" href="#home" onclick="manual();">Manual do usuário</a>
         </li>-->
         <li class="current">
-            <!--<img src="<?php /*echo $this->baseUrl('img/logoMincPreta.png') */?>"/>-->
+            <!--<img src="<?php /*echo $this->baseUrl('img/logoMincPreta.png') */ ?>"/>-->
         </li>
     </ul>
 </div>
@@ -95,16 +97,20 @@
             <a href="#home">Páginal Inicial</a>
         </li>
         <li>
-            <a href="#home" link="<?php echo $this->baseUrl('beneficiaria/cadastro') ?>" rel="modal">Cadastrar Beneficiária</a>
+            <a href="#home" link="<?php echo $this->baseUrl('beneficiaria/cadastro') ?>" rel="modal">Cadastrar
+                Beneficiária</a>
         </li>
         <li>
-            <a href="#home" link="<?php echo $this->baseUrl('operadora/cadastro') ?>" rel="modal">Cadastrar Operadora</a>
+            <a href="#home" link="<?php echo $this->baseUrl('operadora/cadastro') ?>" rel="modal">Cadastrar
+                Operadora</a>
         </li>
         <li>
-            <a href="#home" link="<?php echo $this->baseUrl('minc/index/lista-beneficiaria') ?>" rel="modal">Lista das Beneficiária</a>
+            <a href="#home" link="<?php echo $this->baseUrl('minc/index/lista-beneficiaria') ?>" rel="modal">Lista das
+                Beneficiária</a>
         </li>
         <li>
-            <a href="#home" link="<?php echo $this->baseUrl('minc/index/lista-operadora') ?>" rel="modal">Lista das Operadoras</a>
+            <a href="#home" link="<?php echo $this->baseUrl('minc/index/lista-operadora') ?>" rel="modal">Lista das
+                Operadoras</a>
         </li>
         <li>
             <a href="/contato">Fale Conosco</a>
@@ -122,15 +128,21 @@
                     <div class="presentation">
                         <div>
                             <h1>Vale-Cultura</h1>
-                            <p>Unir cultura e trabalho é gerar valor, transformar a realidade e promover desenvolvimento. Ganha o trabalhador, ganha a empresa e ganha o Brasil! Acesse já o nosso site e venha conhecer um pouco mais sobre esta política cultural. <a href="http://antigo.cultura.gov.br/valecultura" target="_blank" style="text-decoration: underline;">SAIBA MAIS!</a></p>
+                            <p>Unir cultura e trabalho é gerar valor, transformar a realidade e promover
+                                desenvolvimento. Ganha o trabalhador, ganha a empresa e ganha o Brasil! Acesse já o
+                                nosso site e venha conhecer um pouco mais sobre esta política cultural. <a
+                                        href="http://antigo.cultura.gov.br/valecultura" target="_blank"
+                                        style="text-decoration: underline;">SAIBA MAIS!</a></p>
                         </div>
                     </div>
 
-                    <form class="form-2" method="post" style="text-align:center" action="<?php echo $this->url(array('module' => 'minc', 'controller' => 'login', 'action' => 'auth'), null, true); ?>">
+                    <form class="form-2" method="post" style="text-align:center"
+                          action="<?php echo $this->url(array('module' => 'minc', 'controller' => 'login', 'action' => 'auth'), null, true); ?>">
                         <h1><span class="log-in">Acesso ao Sistema de</span><span class="sign-up">Cadastro</span></h1>
                         <div class="control-group">
                             <label for="acessologin" class="control-label" style="text-align:left">
-                                <input name="acessologin" id="acessologin" class="cpf" type="text" placeholder="Digite seu CPF">
+                                <input name="acessologin" id="acessologin" class="cpf" type="text"
+                                       placeholder="Digite seu CPF">
                             </label>
                         </div>
                         <div class="control-group">
@@ -140,7 +152,8 @@
                         </div>
                         <div class="clearfix">
                             <input type="submit" name="submit" value="Confirmar">
-                            <a href="#home" link="<?php echo $this->baseUrl('minc/index/esqueceusenha') ?>" rel="modal">Esqueceu a senha?</a>
+                            <a href="#home" link="<?php echo $this->baseUrl('minc/index/esqueceusenha') ?>" rel="modal">Esqueceu
+                                a senha?</a>
                         </div>
                     </form>
                 </div>
@@ -155,7 +168,7 @@
         <button type="button" onclick="fechaModal()" class="close-btn close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
         </button>
-        <!--<img onclick="fechaModal()" class="close-btn" src="<?php /*echo $this->baseUrl('img/icone-fechar.png') */?>" width="92" height="22"/>-->
+        <!--<img onclick="fechaModal()" class="close-btn" src="<?php /*echo $this->baseUrl('img/icone-fechar.png') */ ?>" width="92" height="22"/>-->
     </div>
     <div id="janelaLoad" style="overflow-y: auto; width: 100%;"></div>
 </div>
@@ -354,7 +367,7 @@
             carregaMensagemAutorizacao();
         }
 
-        $('input.datepickerClass').live('focus', function(){
+        $('input.datepickerClass').live('focus', function () {
             if (false == $(this).hasClass('hasDatepicker')) {
                 $(this).datepicker({
                     //format: 'dd/mm/yyyy',

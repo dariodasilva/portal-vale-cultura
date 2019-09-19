@@ -1,23 +1,46 @@
 <div class="nav-collapse sidebar-nav">
     <ul class="nav nav-tabs nav-stacked main-menu">
-        <li><a href="<?php echo $this->url(array('module' => 'minc', 'controller' => 'admin', 'action' => 'index'), null, true); ?>"><i class="icon-home"></i><span class="hidden-tablet"> P&aacute;gina Inicial</span></a></li>
+        <li>
+            <a href="<?php echo $this->url(array('module' => 'minc', 'controller' => 'admin', 'action' => 'index'), null, true); ?>"><i
+                        class="icon-home"></i><span class="hidden-tablet"> P&aacute;gina Inicial</span></a></li>
 
         <!-- Se for Admin -->
-        <?php if($this->usuarioLogado['PerfilGeral'] == 'A'): ?>
-        <li><a href="<?php echo $this->url(array('module' => 'minc', 'controller' => 'admin', 'action' => 'lista-operadora'), null, true); ?>"><i class="icon-th-list"></i><span class="hidden-tablet"> Gerenciar Empresas Operadoras</span></a></li>
-        <li><a href="<?php echo $this->url(array('module' => 'minc', 'controller' => 'admin', 'action' => 'lista-beneficiarios'), null, true); ?>"><i class="icon-th-list"></i><span class="hidden-tablet"> Gerenciar Empresas Benefici&aacute;rias</span></a></li>
-        <li>
-            <a class="dropmenu" href="#"><i class="icon-folder-close-alt"></i><span class="hidden-tablet"> Relatórios</span> <span class="label">3</span></a>
-            <ul>
-                <li><a class="submenu" href="<?php echo $this->url(array('module' => 'minc', 'controller' => 'relatorio', 'action' => 'relatorio-beneficiarias'), null, true); ?>"><i class="icon-hdd"></i><span class="hidden-tablet"> Inscrição de Beneficiárias</span></a></li>
-                <li><a class="submenu" href="<?php echo $this->url(array('module' => 'minc', 'controller' => 'relatorio', 'action' => 'detalhamento-de-beneficiarias'), null, true); ?>"><i class="icon-hdd"></i><span class="hidden-tablet"> Detalhamento de Beneficiárias</span></a></li>
-                <li><a class="submenu" href="<?php echo $this->url(array('module' => 'minc', 'controller' => 'relatorio', 'action' => 'detalhamento-de-operadoras'), null, true); ?>"><i class="icon-hdd"></i><span class="hidden-tablet"> Detalhamento de Operadoras</span></a></li>
-            </ul>
-        </li>
+        <?php if ($this->usuarioLogado['PerfilGeral'] == 'A'): ?>
+            <li>
+                <a href="<?php echo $this->url(array('module' => 'minc', 'controller' => 'admin', 'action' => 'lista-operadora'), null, true); ?>"><i
+                            class="icon-th-list"></i><span
+                            class="hidden-tablet"> Gerenciar Empresas Operadoras</span></a></li>
+            <li>
+                <a href="<?php echo $this->url(array('module' => 'minc', 'controller' => 'admin', 'action' => 'lista-beneficiarios'), null, true); ?>"><i
+                            class="icon-th-list"></i><span class="hidden-tablet"> Gerenciar Empresas Benefici&aacute;rias</span></a>
+            </li>
+            <li>
+                <a class="dropmenu" href="#"><i class="icon-folder-close-alt"></i><span class="hidden-tablet"> Relatórios</span>
+                    <span class="label">3</span></a>
+                <ul>
+                    <li><a class="submenu"
+                           href="<?php echo $this->url(array('module' => 'minc', 'controller' => 'relatorio', 'action' => 'relatorio-beneficiarias'), null, true); ?>"><i
+                                    class="icon-hdd"></i><span class="hidden-tablet"> Inscrição de Beneficiárias</span></a>
+                    </li>
+                    <li><a class="submenu"
+                           href="<?php echo $this->url(array('module' => 'minc', 'controller' => 'relatorio', 'action' => 'detalhamento-de-beneficiarias'), null, true); ?>"><i
+                                    class="icon-hdd"></i><span
+                                    class="hidden-tablet"> Detalhamento de Beneficiárias</span></a></li>
+                    <li><a class="submenu"
+                           href="<?php echo $this->url(array('module' => 'minc', 'controller' => 'relatorio', 'action' => 'detalhamento-de-operadoras'), null, true); ?>"><i
+                                    class="icon-hdd"></i><span class="hidden-tablet"> Detalhamento de Operadoras</span></a>
+                    </li>
+                </ul>
+            </li>
         <?php else: ?>
-        <!-- Se for responsavel -->
-        <li><a href="<?php echo $this->url(array('module' => 'minc', 'controller' => 'admin', 'action' => 'listar-operadoras-responsavel'), null, true); ?>"><i class="icon-th-list"></i><span class="hidden-tablet"> Gerenciar Operadoras</span></a></li>
-        <li><a href="<?php echo $this->url(array('module' => 'minc', 'controller' => 'admin', 'action' => 'listar-beneficiarias-responsavel'), null, true); ?>"><i class="icon-th-list"></i><span class="hidden-tablet"> Gerenciar Benefici&aacute;rias</span></a></li>
+            <!-- Se for responsavel -->
+            <li>
+                <a href="<?php echo $this->url(array('module' => 'minc', 'controller' => 'admin', 'action' => 'listar-operadoras-responsavel'), null, true); ?>"><i
+                            class="icon-th-list"></i><span class="hidden-tablet"> Gerenciar Operadoras</span></a></li>
+            <li>
+                <a href="<?php echo $this->url(array('module' => 'minc', 'controller' => 'admin', 'action' => 'listar-beneficiarias-responsavel'), null, true); ?>"><i
+                            class="icon-th-list"></i><span class="hidden-tablet"> Gerenciar Benefici&aacute;rias</span></a>
+            </li>
         <?php endif; ?>
 
 
@@ -36,6 +59,8 @@
             </ul>
         </li-->
 
-        <li><a href="<?php echo $this->url(array('module' => 'minc', 'controller' => 'login', 'action' => 'logout'), null, true); ?>"><i class="icon-signout"></i><span class="hidden-tablet"> Sair do Sistema</span></a></li>
+        <li>
+            <a href="<?php echo $this->url(array('module' => 'minc', 'controller' => 'login', 'action' => 'logout'), null, true); ?>"><i
+                        class="icon-signout"></i><span class="hidden-tablet"> Sair do Sistema</span></a></li>
     </ul>
 </div>

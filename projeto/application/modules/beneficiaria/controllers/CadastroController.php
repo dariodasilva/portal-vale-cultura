@@ -341,7 +341,8 @@ class Beneficiaria_CadastroController extends GenericController
                         "ST_DIVULGAR_DADOS" => $beneficiariaInativa["ST_DIVULGAR_DADOS"],
                         "ST_ATUALIZADO_OPERADORA" => $beneficiariaInativa["ST_ATUALIZADO_OPERADORA"],
                         "ST_AUTORIZA_MINC" => $beneficiariaInativa["ST_AUTORIZA_MINC"],
-                        "ST_AUTORIZA_VALE_FUNC" => $ST_AUTORIZA_VALE_FUNC
+                        "ST_AUTORIZA_VALE_FUNC" => $ST_AUTORIZA_VALE_FUNC,
+                        "ID_OPERADORA_AUTORIZADA" => $OPERADORA_VALE
                     ));
 
                     $Cols = array(
@@ -350,7 +351,8 @@ class Beneficiaria_CadastroController extends GenericController
                         "DT_INSCRICAO" => new Zend_Db_Expr("getdate()"),
                         "ST_DIVULGAR_DADOS" => (int)$AUTORIZO_OPERADORA,
                         "ST_AUTORIZA_MINC" => $AUTORIZO_MINC ? 1 : 2,
-                        "ST_AUTORIZA_VALE_FUNC" => $ST_AUTORIZA_VALE_FUNC
+                        "ST_AUTORIZA_VALE_FUNC" => $ST_AUTORIZA_VALE_FUNC,
+                        "ID_OPERADORA_AUTORIZADA" => $OPERADORA_VALE
                     );
                     $modelBeneficiaria->update($Cols, $idPessoaJuridica);
                 } else if (count($eBeneficiariaInativa) === 0) {
@@ -359,7 +361,8 @@ class Beneficiaria_CadastroController extends GenericController
                         "ID_OPERADORA" => $OPERADORA_VALE,
                         "ST_DIVULGAR_DADOS" => (int)$AUTORIZO_OPERADORA,
                         "ST_AUTORIZA_MINC" => $AUTORIZO_MINC ? 1 : 2,
-                        "ST_AUTORIZA_VALE_FUNC" => $ST_AUTORIZA_VALE_FUNC
+                        "ST_AUTORIZA_VALE_FUNC" => $ST_AUTORIZA_VALE_FUNC,
+                        "ID_OPERADORA_AUTORIZADA" => $OPERADORA_VALE
                     );
                     $modelBeneficiaria->insert($Cols);
                 }
@@ -731,12 +734,12 @@ class Beneficiaria_CadastroController extends GenericController
             $htmlEmail = str_replace("#PERFIL#", "Beneficiária", $htmlEmail);
             $htmlEmail = str_replace("#URL#", "http://vale.cultura.gov.br/", $htmlEmail);
             $htmlEmail = str_replace("#Senha#", $senha, $htmlEmail);
-//            $modelEmail->enviarEmail($dsEmail, "Acesso ao sistema Vale Cultura", $htmlEmail);
+            $modelEmail->enviarEmail($dsEmail, "Acesso ao sistema Vale Cultura", $htmlEmail);
         } else {
             $htmlEmail = emailNoSenhaHTML();
             $htmlEmail = str_replace("#PERFIL#", "Beneficiária", $htmlEmail);
             $htmlEmail = str_replace("#URL#", "http://vale.cultura.gov.br/", $htmlEmail);
-//            $modelEmail->enviarEmail($dsEmail, "Acesso ao sistema Vale Cultura", $htmlEmail);
+            $modelEmail->enviarEmail($dsEmail, "Acesso ao sistema Vale Cultura", $htmlEmail);
         }
     }
 }

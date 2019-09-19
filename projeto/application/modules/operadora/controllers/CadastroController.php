@@ -89,7 +89,7 @@ class Operadora_CadastroController extends GenericController
             $DDD_SAC = $this->getRequest()->getParam('SAC_DDD');
             $COMPLEMENTO_SAC = $this->getRequest()->getParam('SAC_COMPLEMENTO');
 
-            $INICIO_COMERCIALIZACAO = implode('-', array_reverse(explode('/',  $this->getRequest()->getParam('INICIO_COMERCIALIZACAO'))));
+            $INICIO_COMERCIALIZACAO = implode('-', array_reverse(explode('/', $this->getRequest()->getParam('INICIO_COMERCIALIZACAO'))));
 
             $NAORESPONSAVEL = $this->getRequest()->getParam("responsavel_empresa") == 0;
 
@@ -379,26 +379,28 @@ class Operadora_CadastroController extends GenericController
                         $mnArquivo = "{$idPessoaJuridica}_{$k}.pdf";
                         $uploadfile = $uploaddir . $mnArquivo;
                         $dsArquivo = $this->getRequest()->getParam($k . '_NOME');
-                        if (move_uploaded_file($_FILES[$k]['tmp_name'], $uploadfile)) {
+
+                        $Cols = array(
+                            'ID_OPERADORA' => $idPessoaJuridica,
+                            'DS_CAMINHO_ARQUIVO' => $mnArquivo,
+                            'DS_ARQUIVO' => $dsArquivo
+                        );
+
+                        if ($k == 'ANEXO_11') {
+                            $time = time();
+                            $mnArquivo = "{$idPessoaJuridica}_{$k}_{$IDPF}_{$time}.pdf";
+                            $uploadfile = $uploaddir . $mnArquivo;
+                            $dsArquivo = $this->getRequest()->getParam("{$k}_NOME_{$IDPF}");
 
                             $Cols = array(
                                 'ID_OPERADORA' => $idPessoaJuridica,
                                 'DS_CAMINHO_ARQUIVO' => $mnArquivo,
-                                'DS_ARQUIVO' => $dsArquivo
+                                'DS_ARQUIVO' => $dsArquivo,
+                                'ID_RESPONSAVEL' => $IDPF,
                             );
+                        }
 
-                            if ($k == 'ANEXO_11') {
-                                $time = time();
-                                $mnArquivo = "{$idPessoaJuridica}_{$k}_{$IDPF}_{$time}.pdf";
-                                $dsArquivo = $this->getRequest()->getParam("{$k}_NOME_{$IDPF}");
-                                $Cols = array(
-                                    'ID_OPERADORA' => $idPessoaJuridica,
-                                    'DS_CAMINHO_ARQUIVO' => $mnArquivo,
-                                    'DS_ARQUIVO' => $dsArquivo,
-                                    'ID_RESPONSAVEL' => $IDPF,
-                                );
-                            }
-
+                        if (move_uploaded_file($_FILES[$k]['tmp_name'], $uploadfile)) {
                             $modelArquivoOperadora->insert($Cols);
                         } else {
                             $db->rollBack();
@@ -975,20 +977,20 @@ class Operadora_CadastroController extends GenericController
             $whereCDCBO = array(
                 'ID_PESSOA_FISICA = ?' => $idPessoaFisica,
                 'ID_PESSOA_JURIDICA = ?' => $idPessoaJuridica,
-//                'CD_CBO = ?' => $cdCbo
             );
 
             $existeCDCBO = $modelCBOPessoaFisica->select($whereCDCBO);
 
+            $Cols = array(
+                'ID_PESSOA_FISICA' => $idPessoaFisica,
+                'ID_PESSOA_JURIDICA' => $idPessoaJuridica,
+                'CD_CBO' => $cdCbo
+            );
+
             if (count($existeCDCBO) == 0) {
-
-                $Cols = array(
-                    'ID_PESSOA_FISICA' => $idPessoaFisica,
-                    'ID_PESSOA_JURIDICA' => $idPessoaJuridica,
-                    'CD_CBO' => $cdCbo
-                );
-
                 $modelCBOPessoaFisica->insert($Cols);
+            } else {
+                $modelCBOPessoaFisica->update($Cols, $existeCDCBO[0]['ID_PESSOA_FISICA_CBO']);
             }
         }
 

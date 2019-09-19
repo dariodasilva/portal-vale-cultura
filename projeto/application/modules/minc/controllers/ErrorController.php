@@ -2,7 +2,8 @@
 
 include_once 'GenericController.php';
 
-class Minc_ErrorController extends GenericController {
+class Minc_ErrorController extends GenericController
+{
 
     /**
      * Trata as excecoes para os usuarios
@@ -10,7 +11,8 @@ class Minc_ErrorController extends GenericController {
      * @param void
      * @return void
      */
-    public function errorAction() {
+    public function errorAction()
+    {
         // limpa o conteudo gerado antes do erro
         $this->getResponse()->clearBody();
 

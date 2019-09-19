@@ -1,6 +1,7 @@
 <?php
 
-class Application_Model_VwTrabalhadorLocalizacao {
+class Application_Model_VwTrabalhadorLocalizacao
+{
 
     private $table = null;
 
@@ -14,15 +15,17 @@ class Application_Model_VwTrabalhadorLocalizacao {
             ->order('TRA_LOC_UF');
         return $this->getTable()->fetchAll($select)->toArray();
     }
-    
-    public function getTable() {
+
+    public function getTable()
+    {
         if (is_null($this->table)) {
             $this->table = new Application_Model_DbTable_VwTrabalhadorLocalizacao();
         }
         return $this->table;
     }
 
-    public function select($where = array(), $order = null, $limit = null) {
+    public function select($where = array(), $order = null, $limit = null)
+    {
         $select = $this->getTable()->select()->order($order)->limit($limit);
 
         foreach ($where as $coluna => $valor) :
@@ -32,20 +35,24 @@ class Application_Model_VwTrabalhadorLocalizacao {
         return $this->getTable()->fetchAll($select)->toArray();
     }
 
-    public function find($id) {
+    public function find($id)
+    {
         return $this->getTable()->find($id)->current();
     }
 
-    public function insert(array $request) {
+    public function insert(array $request)
+    {
         return $this->getTable()->createRow()->setFromArray($request)->save();
     }
 
-    public function update(array $request, $id) {
+    public function update(array $request, $id)
+    {
         $where["id = ?"] = $id;
         return $this->getTable()->update($request, $where);
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         return $this->getTable()->find($id)->current()->delete();
     }
 

@@ -1,13 +1,17 @@
 <?php //echo $this->partial('/widgets/inc.phtml', $this);        ?>
 <!DOCTYPE html>
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
-<!--[if gt IE 8]> <html class="no-js" lang="pt"> <![endif]-->
+<!--[if lt IE 7]>
+<html class="no-js ie6 oldie" lang="en"> <![endif]-->
+<!--[if IE 7]>
+<html class="no-js ie7 oldie" lang="en"> <![endif]-->
+<!--[if IE 8]>
+<html class="no-js ie8 oldie" lang="en"> <![endif]-->
+<!--[if gt IE 8]>
+<html class="no-js" lang="pt"> <![endif]-->
 <html class="contact">
 <head>
     <meta charset="iso-8859-1">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
     <title>Vale Cultura - Minist&eacute;rio da Cultura</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -15,17 +19,16 @@
 
 
     <!-- Le styles -->
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/bootstrap.css') ?>" />
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/bootstrap-responsive.css') ?>" />
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/font-awesome.css') ?>" />
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/bootstrap.css') ?>"/>
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/bootstrap-responsive.css') ?>"/>
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/font-awesome.css') ?>"/>
     <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/prettyPhoto.css" type="text/css') ?>"/>
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/js/circle/component.css') ?>" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/js/mosaic/hover.zoom.css') ?>" type="text/css" media="screen" />
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/style.css') ?>" />
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/colorpicker.css') ?>" />
-
-
-
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/js/circle/component.css') ?>" type="text/css"
+          media="screen"/>
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/js/mosaic/hover.zoom.css') ?>" type="text/css"
+          media="screen"/>
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/style.css') ?>"/>
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/colorpicker.css') ?>"/>
 
 
     <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
@@ -33,7 +36,7 @@
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <!-- Le fav and touch icons -->
     <link rel="shortcut icon" href="<?php echo $this->baseUrl('/ico/logo.png') ?>">
@@ -42,17 +45,17 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo $this->baseUrl('/ico/logo.png') ?>">
     <link rel="apple-touch-icon-precomposed" href="<?php echo $this->baseUrl('/ico/logo.png') ?>">
     <style type="text/css">
-    #apDiv1 {
-	 position: absolute;
-	float: left;
-	left: 525px;
-	top: 19px;
-	width: 875px;
-	height: 337px;
-	z-index: 11;
+        #apDiv1 {
+            position: absolute;
+            float: left;
+            left: 525px;
+            top: 19px;
+            width: 875px;
+            height: 337px;
+            z-index: 11;
 
 
-}
+        }
 
     </style>
 
@@ -77,341 +80,350 @@
     </script-->
     <!-- End Piwik Code -->
 
-        <!-- Placed at the end of the document so the pages load faster -->
+    <!-- Placed at the end of the document so the pages load faster -->
     <script src="<?php echo $this->baseUrl('js/jquery-1.10.1.js') ?>"></script>
 
 </head>
 
 <body class="contact">
-    <div class="ribbon">
-        <!-- Ribbon Menu -->
-        <div id="header">
-            <!-- Header -->
+<div class="ribbon">
+    <!-- Ribbon Menu -->
+    <div id="header">
+        <!-- Header -->
 
 
-            <!--<h2>Posso Colocar um texto abaixo da logo</h2>-->
-        </div>
-        <ul class="menu-ribbon">
+        <!--<h2>Posso Colocar um texto abaixo da logo</h2>-->
+    </div>
+    <ul class="menu-ribbon">
 
-            <li class="current">
-                <a href="#home" id="btnCadastroBeneficiaria" link="<?php echo $this->baseUrl('beneficiaria/cadastro') ?>" title="Empresa Empregadora" rel="modal">Cadastrar Benefici&aacute;ria</a>
-            </li>
-            <li class="current">
-                <a href="#home" link="<?php echo $this->baseUrl('operadora/cadastro') ?>" rel="modal">Cadastrar Operadora</a>
-            </li>
-            <li class="current">
-                <a href="#home" link="<?php echo $this->baseUrl('minc/index/esqueceusenha') ?>" rel="modal">Esqueceu a senha?</a>
-            </li>
-            <li class="current">
-                <a href="#home" link="<?php echo $this->baseUrl('minc/index/lista-operadora') ?>" rel="modal">Lista das Operadoras</a>
-            </li>
-            <li class="current">
-                <a href="contato">Fale Conosco</a>
-            </li>
-            <li class="current">
-                <a target="_blank" href="#home" onclick="legislacao();">Legislação</a>
-            </li>
-            <li class="current">
-                <a target="_blank" href="#home" onclick="manual();">Manual do usuário</a>
-            </li>
-            <li class="current">
+        <li class="current">
+            <a href="#home" id="btnCadastroBeneficiaria" link="<?php echo $this->baseUrl('beneficiaria/cadastro') ?>"
+               title="Empresa Empregadora" rel="modal">Cadastrar Benefici&aacute;ria</a>
+        </li>
+        <li class="current">
+            <a href="#home" link="<?php echo $this->baseUrl('operadora/cadastro') ?>" rel="modal">Cadastrar
+                Operadora</a>
+        </li>
+        <li class="current">
+            <a href="#home" link="<?php echo $this->baseUrl('minc/index/esqueceusenha') ?>" rel="modal">Esqueceu a
+                senha?</a>
+        </li>
+        <li class="current">
+            <a href="#home" link="<?php echo $this->baseUrl('minc/index/lista-operadora') ?>" rel="modal">Lista das
+                Operadoras</a>
+        </li>
+        <li class="current">
+            <a href="contato">Fale Conosco</a>
+        </li>
+        <li class="current">
+            <a target="_blank" href="#home" onclick="legislacao();">Legislação</a>
+        </li>
+        <li class="current">
+            <a target="_blank" href="#home" onclick="manual();">Manual do usuário</a>
+        </li>
+        <li class="current">
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            </li>
-            <li class="current">
-            <img src="<?php echo $this->baseUrl('img/logoMincPreta.png') ?>" />
-            </li>
-        </ul>
+        </li>
+        <li class="current">
+            <img src="<?php echo $this->baseUrl('img/logoMincPreta.png') ?>"/>
+        </li>
+    </ul>
 
-    </div>
-    <div class="btn-group hidden-desktop hidden-tablet" style="position:fixed;right:10px;top:30px;z-index:99999;">
-        <button data-toggle="dropdown" class="btn primary btn-inverse dropdown-toggle">
-            <i class="icon-th-list"></i>
-        </button>
-        <ul class="dropdown-menu pull-right ribbons ">
-            <li>
-                <a href="#home">P&aacute;ginal Inicial</a>
-            </li>
-            <li>
-                <a href="#home" link="<?php echo $this->baseUrl('beneficiaria/cadastro') ?>" rel="modal">Cadastrar Benefici&aacute;ria</a>
-            </li>
-            <li>
-                <a href="#home" link="<?php echo $this->baseUrl('operadora/cadastro') ?>" rel="modal">Cadastrar Operadora</a>
-            </li>
-            <li>
-                <a href="#home" link="<?php echo $this->baseUrl('minc/index/esqueceusenha') ?>" rel="modal">Esqueceu a senha?</a>
-            </li>
-            <li>
-                <a href="#home" link="<?php echo $this->baseUrl('minc/index/lista-operadora') ?>" rel="modal">Lista das Operadoras</a>
-            </li>
-            <li>
-                <a href="#contact">Fale Conosco</a>
-            </li>
-        </ul>
-    </div>
-    <!-- end container --><!-- End Row --><!-- End Row -->
+</div>
+<div class="btn-group hidden-desktop hidden-tablet" style="position:fixed;right:10px;top:30px;z-index:99999;">
+    <button data-toggle="dropdown" class="btn primary btn-inverse dropdown-toggle">
+        <i class="icon-th-list"></i>
+    </button>
+    <ul class="dropdown-menu pull-right ribbons ">
+        <li>
+            <a href="#home">P&aacute;ginal Inicial</a>
+        </li>
+        <li>
+            <a href="#home" link="<?php echo $this->baseUrl('beneficiaria/cadastro') ?>" rel="modal">Cadastrar Benefici&aacute;ria</a>
+        </li>
+        <li>
+            <a href="#home" link="<?php echo $this->baseUrl('operadora/cadastro') ?>" rel="modal">Cadastrar
+                Operadora</a>
+        </li>
+        <li>
+            <a href="#home" link="<?php echo $this->baseUrl('minc/index/esqueceusenha') ?>" rel="modal">Esqueceu a
+                senha?</a>
+        </li>
+        <li>
+            <a href="#home" link="<?php echo $this->baseUrl('minc/index/lista-operadora') ?>" rel="modal">Lista das
+                Operadoras</a>
+        </li>
+        <li>
+            <a href="#contact">Fale Conosco</a>
+        </li>
+    </ul>
+</div>
+<!-- end container --><!-- End Row --><!-- End Row -->
 
-    <!-- bloco content -->
-    <div id="contact" data-stellar-background-ratio="0.3">
-      <!-- Skill Set -->
-      <div class="container-fluid wrapper-content">
+<!-- bloco content -->
+<div id="contact" data-stellar-background-ratio="0.3">
+    <!-- Skill Set -->
+    <div class="container-fluid wrapper-content">
 
-	<!-- voltar -->
-	<div class="row-fluid">
-          <div class="span12">
-            <h4 class=" footer-headline4 back-home"><a href="/index"><span class="fa icon-home"></span> Voltar para página inicial</a></h4>
-          </div>
-	</div>
-	<!-- fim voltar -->
+        <!-- voltar -->
+        <div class="row-fluid">
+            <div class="span12">
+                <h4 class=" footer-headline4 back-home"><a href="/index"><span class="fa icon-home"></span> Voltar para
+                        página inicial</a></h4>
+            </div>
+        </div>
+        <!-- fim voltar -->
 
         <div class="row-fluid">
 
-	  <!-- ministério da cultura -->
-	  <div class="span6">
-            <!-- Lastest Tweets -->
-            <h4 class="footer-headline4">
+            <!-- ministério da cultura -->
+            <div class="span6">
+                <!-- Lastest Tweets -->
+                <h4 class="footer-headline4">
               <span>
                 <i class="icon-globe"></i>
               </span>Minist&eacute;rio da Cultura</h4>
-            <div id="map-canvas">
-              <img src="<?php echo $this->baseUrl('img/mapa.png') ?>" />
+                <div id="map-canvas">
+                    <img src="<?php echo $this->baseUrl('img/mapa.png') ?>"/>
+                </div>
+                <address>
+                    <strong>Minist&eacute;rio da Cultura</strong>
+                    <br>&#160;
+                    <i class="icon-map-marker"></i>&#160;&#160; Esplanada dos Minist&eacute;rios, Bloco B, T&eacute;rreo,
+                    <br>
+                    <i class="icon-road"></i>&#160; &#160;CEP: 70068-900 Bras&iacute;lia/Distrito Federal
+                    <br>
+                    <!--abbr title="Phone">
+                        <i class="icon-phone-sign"></i></abbr>&#160;&#160; +55 (61) --></address>
             </div>
-            <address>
-              <strong>Minist&eacute;rio da Cultura</strong>
-              <br>&#160;
-              <i class="icon-map-marker"></i>&#160;&#160; Esplanada dos Minist&eacute;rios, Bloco B, T&eacute;rreo,
-              <br>
-              <i class="icon-road"></i>&#160; &#160;CEP: 70068-900 Bras&iacute;lia/Distrito Federal
-              <br>
-              <!--abbr title="Phone">
-                  <i class="icon-phone-sign"></i></abbr>&#160;&#160; +55 (61) --></address>
-	  </div>
 
-	  <!-- fim ministério da cultura -->
+            <!-- fim ministério da cultura -->
 
-          <div class="span6">
-            <!-- Contact -->
-            <h4 class="footer-headline4">
+            <div class="span6">
+                <!-- Contact -->
+                <h4 class="footer-headline4">
               <span>
                 <i class="icon-envelope-alt"></i>
               </span>Fale Conosco</h4>
-            <!--form id="sendMail" class="form" method="POST" onsubmit=""-->
-            <fieldset>
-              <div class="control-group">
-                <label for="Name" class="control-label">Nome :</label>
-                <div class="controls">
-                  <input type="text" id="Nome" class="input-block-level" name="Name">
-                </div>
-              </div>
-              <div class="control-group">
-                <label for="Email" class="control-label">E-Mail :</label>
-                <div class="controls">
-                  <input type="text" id="Email" class="input-block-level" name="Email">
-                </div>
-              </div>
-              <div class="control-group">
-                <label for="City" class="control-label">Assunto :</label>
-                <div class="controls">
-                  <input type="text" id="Assunto" class="input-block-level" name="City">
-                </div>
-              </div>
-              <div class="control-group">
-                <label for="Message" class="control-label">Mensagem :</label>
-                <div class="controls">
-                  <textarea rows="6" class="input-block-level" id="Mensagem" id="Message"></textarea>
-                </div>
-              </div>
-              <button class="btn btn-large btn btn-inverse disabled" id="enviaMail" style="float:left;" name="submit" value="Submit">Enviar</button>
-              <div id="campoRetorno" style="float: left; padding: 10px; margin-left: 15px; width: 400px;">
+                <!--form id="sendMail" class="form" method="POST" onsubmit=""-->
+                <fieldset>
+                    <div class="control-group">
+                        <label for="Name" class="control-label">Nome :</label>
+                        <div class="controls">
+                            <input type="text" id="Nome" class="input-block-level" name="Name">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="Email" class="control-label">E-Mail :</label>
+                        <div class="controls">
+                            <input type="text" id="Email" class="input-block-level" name="Email">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="City" class="control-label">Assunto :</label>
+                        <div class="controls">
+                            <input type="text" id="Assunto" class="input-block-level" name="City">
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label for="Message" class="control-label">Mensagem :</label>
+                        <div class="controls">
+                            <textarea rows="6" class="input-block-level" id="Mensagem" id="Message"></textarea>
+                        </div>
+                    </div>
+                    <button class="btn btn-large btn btn-inverse disabled" id="enviaMail" style="float:left;"
+                            name="submit" value="Submit">Enviar
+                    </button>
+                    <div id="campoRetorno" style="float: left; padding: 10px; margin-left: 15px; width: 400px;">
 
-              </div>
-            </fieldset>
-            <!--/form-->
-          </div>
-	  <!-- fim contact -->
+                    </div>
+                </fieldset>
+                <!--/form-->
+            </div>
+            <!-- fim contact -->
 
-	</div>
-      </div>
+        </div>
     </div>
-    <script src="<?php echo $this->baseUrl('js/bootstrap.js') ?>"></script>
-    <!-- One page navigation -->
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/waypoints.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/jquery.scrollTo.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/jquery.nav.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/sticky-menu-custom.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/stellar.js') ?>"></script>
-    <!-- Photo id circular slider -->
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/circle/modernizr.custom.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/circle/jquery.flipshow.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/woomark/jquery.wookmark.js') ?>"></script>
-    <!-- Portfolio iamge gallery -->
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/filter/jquery.prettyPhoto.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/filter/jquery.easing.1.3.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/filter/script.js') ?>"></script>
+</div>
+<script src="<?php echo $this->baseUrl('js/bootstrap.js') ?>"></script>
+<!-- One page navigation -->
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/waypoints.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/jquery.scrollTo.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/jquery.nav.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/sticky-menu-custom.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/stellar.js') ?>"></script>
+<!-- Photo id circular slider -->
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/circle/modernizr.custom.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/circle/jquery.flipshow.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/woomark/jquery.wookmark.js') ?>"></script>
+<!-- Portfolio iamge gallery -->
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/filter/jquery.prettyPhoto.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/filter/jquery.easing.1.3.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/filter/script.js') ?>"></script>
 
-    <!-- G map Address -->
-    <!--script type="text/javascript" src="<?php // echo $this->baseUrl('js/maps.api.js') ?>"></script-->
-    <!--script type="text/javascript" src="<?php // echo $this->baseUrl('js/gmap.js') ?>"></script-->
-    <!-- Color Picker for unlimited theme color -->
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/colorpicker.js') ?>"></script>
-    <!-- Snow Ball effect -->
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/particle.js') ?>"></script>
+<!-- G map Address -->
+<!--script type="text/javascript" src="<?php // echo $this->baseUrl('js/maps.api.js') ?>"></script-->
+<!--script type="text/javascript" src="<?php // echo $this->baseUrl('js/gmap.js') ?>"></script-->
+<!-- Color Picker for unlimited theme color -->
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/colorpicker.js') ?>"></script>
+<!-- Snow Ball effect -->
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/particle.js') ?>"></script>
 
-    <!-- MASCARA -->
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/jquery.maskedinput-1.3.min.js') ?>"></script>
-    <script type="text/javascript" src="<?php echo $this->baseUrl('js/jquery.validate.js') ?>"></script>
+<!-- MASCARA -->
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/jquery.maskedinput-1.3.min.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->baseUrl('js/jquery.validate.js') ?>"></script>
 
-    <!-- Script Jquery modal - Janelas -->
+<!-- Script Jquery modal - Janelas -->
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
-        function legislacao(){
-            window.open("http://www.cultura.gov.br/documents/10883/663683/Legisla%C3%A7%C3%A3o+Vale-Cultura/2b0aabdf-1dd9-4980-be33-1d24d6b424ef", "_blank");
-        }
+    function legislacao() {
+        window.open("http://www.cultura.gov.br/documents/10883/663683/Legisla%C3%A7%C3%A3o+Vale-Cultura/2b0aabdf-1dd9-4980-be33-1d24d6b424ef", "_blank");
+    }
 
-        function manual(){
-            window.open("<?php echo $this->baseUrl('downloads/Manual_Vale_Cultura_v6.0.pdf');?>", "_blank");
-        }
+    function manual() {
+        window.open("<?php echo $this->baseUrl('downloads/Manual_Vale_Cultura_v6.0.pdf');?>", "_blank");
+    }
 
-        function abrirCadastroBeneficiaria(){
+    function abrirCadastroBeneficiaria() {
 
-            fechaModal();
+        fechaModal();
 
-            $('#btnCadastroBeneficiaria').click();
-        }
+        $('#btnCadastroBeneficiaria').click();
+    }
 
-        $(document).ready(function() {
+    $(document).ready(function () {
 
 
-            $('#enviaMail').click(function() {
-                var nome = $('#Nome').val();
-                var assunto = $('#Assunto').val();
-                var mensagem = $('#Mensagem').val();
-                var email = $('#Email').val();
+        $('#enviaMail').click(function () {
+            var nome = $('#Nome').val();
+            var assunto = $('#Assunto').val();
+            var mensagem = $('#Mensagem').val();
+            var email = $('#Email').val();
 
-                if (nome.length < 4) {
-                    $("#campoRetorno").html('<b style="color: #f00">Preencha o campo nome</b>');
-                    $('#Nome').focus();
-                    return false;
+            if (nome.length < 4) {
+                $("#campoRetorno").html('<b style="color: #f00">Preencha o campo nome</b>');
+                $('#Nome').focus();
+                return false;
+            }
+
+            if (email.length < 4) {
+                $("#campoRetorno").html('<b style="color: #f00">Preencha o e-mail</b>');
+                $('#Email').focus();
+                return false;
+            }
+
+            if (assunto.length < 4) {
+                $("#campoRetorno").html('<b style="color: #f00">Preencha o campo assunto</b>');
+                $('#Assunto').focus();
+                return false;
+            }
+
+            if (mensagem.length < 4) {
+                $("#campoRetorno").html('<b style="color: #f00">Preencha o campo mensagem</b>');
+                $('#Mensagem').focus();
+                return false;
+            }
+
+            //Enviando o E-mail
+            $("#campoRetorno").html("Enviando");
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->url(array('module' => 'minc', 'controller' => 'index', 'action' => 'email-contato')); ?>',
+                data: {nome: nome, email: email, assunto: assunto, mensagem: mensagem},
+                dataType: 'json',
+                success: function (data) {
+                    $("#campoRetorno").html(data['mensagem']);
+                    $('#Nome').val('');
+                    $('#Assunto').val('');
+                    $('#Mensagem').val('');
+                    $('#Email').val('');
                 }
-
-                if (email.length < 4) {
-                    $("#campoRetorno").html('<b style="color: #f00">Preencha o e-mail</b>');
-                    $('#Email').focus();
-                    return false;
-                }
-
-                if (assunto.length < 4) {
-                    $("#campoRetorno").html('<b style="color: #f00">Preencha o campo assunto</b>');
-                    $('#Assunto').focus();
-                    return false;
-                }
-
-                if (mensagem.length < 4) {
-                    $("#campoRetorno").html('<b style="color: #f00">Preencha o campo mensagem</b>');
-                    $('#Mensagem').focus();
-                    return false;
-                }
-
-                //Enviando o E-mail
-                $("#campoRetorno").html("Enviando");
-                $.ajax({
-                    type: "POST",
-                    url: '<?php echo $this->url(array('module' => 'minc', 'controller' => 'index', 'action' => 'email-contato')); ?>',
-                    data: {nome: nome, email: email, assunto: assunto, mensagem: mensagem},
-                    dataType: 'json',
-                    success: function(data) {
-                        $("#campoRetorno").html(data['mensagem']);
-                        $('#Nome').val('');
-                        $('#Assunto').val('');
-                        $('#Mensagem').val('');
-                        $('#Email').val('');
-                    }
-                });
-
             });
 
-            $("a[rel=modal]").click(function(ev) {
-                ev.preventDefault();
-
-                //alterado
-                var id = '.window';
-
-                var alturaTela = $(document).height();
-                var larguraTela = $(window).width();
-
-
-
-                //colocando o fundo preto
-                $('#mascara').css({'width': larguraTela, 'height': alturaTela});
-                $('#mascara').fadeIn(1000);
-                $('#mascara').fadeTo("slow", 0.8);
-
-                var left = ($(window).width() / 2) - ($(id).width() / 2);
-                var top = ($(window).height() / 2) - ($(id).height() / 2);
-
-                if (top < 0) {
-                    top = 10;
-                }
-
-                $(id).css({'top': top, 'left': left});
-
-                //inserido
-                href = $(this).attr("link");
-
-                $('#janelaLoad').html('<br /><br /><br /><div style="text-align:center;">Aguarde, carregando...</div>');
-                $('#janelaLoad').load(href);
-                $('#janelaLoad').css('height', $(id).height() - 32);
-                $(id).show();
-            });
-
-            $("#mascara").click(function() {
-                //$(this).hide();
-                //$(".window").hide();
-            });
-
-            $('.fechar').click(function(ev) {
-                ev.preventDefault();
-                $("#mascara").hide();
-                $(".window").hide();
-            });
         });
 
-        function fechaModal() {
+        $("a[rel=modal]").click(function (ev) {
+            ev.preventDefault();
+
+            //alterado
+            var id = '.window';
+
+            var alturaTela = $(document).height();
+            var larguraTela = $(window).width();
+
+
+            //colocando o fundo preto
+            $('#mascara').css({'width': larguraTela, 'height': alturaTela});
+            $('#mascara').fadeIn(1000);
+            $('#mascara').fadeTo("slow", 0.8);
+
+            var left = ($(window).width() / 2) - ($(id).width() / 2);
+            var top = ($(window).height() / 2) - ($(id).height() / 2);
+
+            if (top < 0) {
+                top = 10;
+            }
+
+            $(id).css({'top': top, 'left': left});
+
+            //inserido
+            href = $(this).attr("link");
+
+            $('#janelaLoad').html('<br /><br /><br /><div style="text-align:center;">Aguarde, carregando...</div>');
+            $('#janelaLoad').load(href);
+            $('#janelaLoad').css('height', $(id).height() - 32);
+            $(id).show();
+        });
+
+        $("#mascara").click(function () {
+            //$(this).hide();
+            //$(".window").hide();
+        });
+
+        $('.fechar').click(function (ev) {
+            ev.preventDefault();
             $("#mascara").hide();
             $(".window").hide();
-            //$("#mascara").click();
-        }
-    </script>
-    <!-- Load applications -->
+        });
+    });
 
-    <script type="text/javascript">
+    function fechaModal() {
+        $("#mascara").hide();
+        $(".window").hide();
+        //$("#mascara").click();
+    }
+</script>
+<!-- Load applications -->
 
-        $(document).ready(function() {
-            //one Page Navigation DOM calls cached
-            var menuRib = $(".menu-ribbon, .ribbons");
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        //one Page Navigation DOM calls cached
+        var menuRib = $(".menu-ribbon, .ribbons");
 //            menuRib.onePageNav();
+    });
+
+
+    function filtraBeneficiarias() {
+        $.post(
+            "<?php echo $this->url(array('module' => 'minc', 'controller' => 'index', 'action' => 'lista-beneficiaria')); ?>",
+            {CNPJ: $('#CNPJ').val(), NOME: $('#NOME').val(), OPERADORA: $('#OPERADORA').val()}
+        ).done(function (data) {
+            $('#janelaLoad').html(data);
         });
 
+    }
+</script>
 
-        function filtraBeneficiarias() {
-            $.post(
-                    "<?php echo $this->url(array('module' => 'minc', 'controller' => 'index', 'action' => 'lista-beneficiaria')); ?>",
-                    {CNPJ: $('#CNPJ').val(), NOME: $('#NOME').val(), OPERADORA: $('#OPERADORA').val()}
+<div class="window" style="overflow: hidden" id="janela1">
+    <img onclick="fechaModal()" style="cursor: pointer; float: right"
+         src="<?php echo $this->baseUrl('img/icone-fechar.png') ?>" width="92" height="22"/>
+    <div id="janelaLoad" style="overflow-y: auto; width: 100%;"></div>
+</div>
 
-            ).done(function(data) {
-                $('#janelaLoad').html(data);
-            });
-
-        }
-    </script>
-
-    <div class="window" style="overflow: hidden" id="janela1">
-        <img onclick="fechaModal()" style="cursor: pointer; float: right" src="<?php echo $this->baseUrl('img/icone-fechar.png') ?>" width="92" height="22" />
-        <div id="janelaLoad" style="overflow-y: auto; width: 100%;"></div>
-    </div>
-
-    <!-- mascara para cobrir o site -->
-    <div id="mascara"></div>
+<!-- mascara para cobrir o site -->
+<div id="mascara"></div>
 
 </body>
 

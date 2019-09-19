@@ -1,16 +1,17 @@
 <script src="<?php echo $this->baseUrl('js/jquery-1.9.1.js') ?>"></script>
 <script>
-    jQuery(document).ready(function() {
+    jQuery(document).ready(function () {
         var p = $('#fim').offset();
         parent.exibeRetorno(p.top);
     });
 </script>
 <style>
-    body{
+    body {
         margin: 0px;
     }
-    .error{
-        background-color: #e8a4a4; 
+
+    .error {
+        background-color: #e8a4a4;
         border: 2px solid #e06767;
         height: auto;
         font-family: arial;
@@ -18,9 +19,9 @@
         padding: 5px;
         margin: 0px 25px 0px 25px;
     }
-    
-    .sucesso{
-        background-color: #a0e07d; 
+
+    .sucesso {
+        background-color: #a0e07d;
         border: 2px solid #56a22d;
         height: auto;
         font-family: arial;
@@ -28,14 +29,14 @@
         padding: 5px;
         margin: 0px 25px 0px 25px;
     }
-    
+
 </style>
 <?php if (count($this->error) > 0): ?>
     <div class="error">
-        <?php 
-        if(is_array($this->error)){
+        <?php
+        if (is_array($this->error)) {
             foreach ($this->error as $k => $v) {
-                echo $v.'<br>';
+                echo $v . '<br>';
             }
         }
         ?>
@@ -46,7 +47,7 @@
         <b>Benefici&aacute;ria cadastrada com sucesso!</b><br><br>
         É responsabilidade da empresa beneficiária contatar uma operadora para contratar o oferecimento do Vale-Cultura.<br><br>
         Um E-mail com instru&ccedil;&otilde;es de acesso foi enviado para <?php echo $this->sucesso['DSEMAIL']; ?>
-        
+
         <script> parent.fechaForm();</script>
     </div>
 <?php } ?>

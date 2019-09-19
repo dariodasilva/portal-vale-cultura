@@ -1,31 +1,32 @@
 <div id="conteudo">
-    <form method="post" id="recuperarSenha" action="<?php echo $this->url(array('module' => 'minc', 'controller' => 'index', 'action' => 'recuperar-senha')); ?>">
+    <form method="post" id="recuperarSenha"
+          action="<?php echo $this->url(array('module' => 'minc', 'controller' => 'index', 'action' => 'recuperar-senha')); ?>">
         <table width="100%" border="0" cellpadding="1" cellspacing="0" align="center">
-        <tr>
-            <th><h3 class="footer-headline"><span>Recupere sua Senha</span></h3></th>
-        </tr>
-        <tr>
-            <td class="destacar bold w150" align="lefth">CPF:</td>
+            <tr>
+                <th><h3 class="footer-headline"><span>Recupere sua Senha</span></h3></th>
+            </tr>
+            <tr>
+                <td class="destacar bold w150" align="lefth">CPF:</td>
 
-        </tr>
-        <tr>
-            <td>
-                <input class="input_simples cpf" type="text" name="CPF" id="CPF"/>
-            </td>
-        </tr>
-        <tr>
-            <td class="destacar bold w150" align="right">&nbsp;</td>
-        </tr>
-        <tr>
-            <td>
-                <button class="btn btn btn-inverse" type="submit" style="float:center;" name="submit"
-                        value="Submit">Recuperar Senha
-                </button>
-            </td>
-        </tr>
-        <tr>
-            <td><a href="/contato" style="color: black;"><b>ou entre em contato conosco</b></a></td>
-        </tr>
+            </tr>
+            <tr>
+                <td>
+                    <input class="input_simples cpf" type="text" name="CPF" id="CPF"/>
+                </td>
+            </tr>
+            <tr>
+                <td class="destacar bold w150" align="right">&nbsp;</td>
+            </tr>
+            <tr>
+                <td>
+                    <button class="btn btn btn-inverse" type="submit" style="float:center;" name="submit"
+                            value="Submit">Recuperar Senha
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td><a href="/contato" style="color: black;"><b>ou entre em contato conosco</b></a></td>
+            </tr>
         </table>
     </form>
 

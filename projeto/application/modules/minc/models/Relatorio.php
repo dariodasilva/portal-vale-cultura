@@ -208,7 +208,7 @@ class Minc_Model_Relatorio
         $html .= '<td style="background: #f3f3f3;  height: 30px; line-height: 30px;"><br /><b>Data cadastro</b><br />&nbsp;&nbsp;&nbsp;&nbsp;</td>';
         $html .= '</tr>';
         foreach ($beneficiarias as $beneficiaria) {
-            $beneficiaria = (object) $beneficiaria;
+            $beneficiaria = (object)$beneficiaria;
             $html .= '<tr>';
             $html .= '<td>' . addMascara($beneficiaria->nrCnpj, 'cnpj') . '</td>';
             $html .= '<td>' . $beneficiaria->nmFantasia . '</td>';
