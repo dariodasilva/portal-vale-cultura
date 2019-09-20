@@ -144,47 +144,6 @@
         </tr>
     </table>
 </div>
-<div id="passo1" class="nextF">
-    <div class="action-pass">
-        <button type="button" style="float: right;" class="nextPass btn btn-info" data-val="passo2">Próximo</button>
-    </div>
-    <table align="center" border="0" class="tabela" width="95%"
-           background="<?php echo $this->baseUrl('img/benificiario.png') ?>">
-        <tr>
-            <td style="text-align: center;">
-                <h3 class="footer-headline"><span>Orientação ao usuário sobre as competências da operadora</span>
-                </h3>
-            </td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-        </tr>
-        <tr>
-            <td>
-                <p>
-                    A operadora é a empresa responsável por produzir e comercializar o cartão vale-cultura. Para se
-                    cadastrar no Programa de Cultura do Trabalhador e se tornar uma operadora, a empresa deve
-                    possuir:
-                </p>
-                <p>
-                <ul style="font-style: italic; font-weight: bold;">
-                    <li>I - Inscrição regular no Cadastro Nacional da Pessoa Jurídica (CNPJ);</li>
-                    <li>II - Qualificação técnica para produzir e comercializar o vale-cultura, observado o disposto no
-                        art. 6º da Lei 12.761/2012. (Decreto 8.084/2013, art. 5º, incisos I e II).
-                    </li>
-                </ul>
-                </p>
-                <p>
-                    A empresa interessada em aderir ao programa deverá também observar os requisitos previstos no <b>art.
-                        3º e 4º da instrução normativa nº 2/2013</b> (colocar link para a legislação), inclusive no que
-                    diz
-                    respeito ao representante legal da empresa junto ao Ministério da Cidadania, que tratará de todos os
-                    assuntos relacionados com sua participação no Programa de Cultura do Trabalhador.
-                </p>
-            </td>
-        </tr>
-    </table>
-</div>
 
 <div id="passo2" class="nextF" style="display: none;">
     <div class="action-pass">
@@ -336,8 +295,6 @@
                     <input name="DS_SITE" id="DS_SITE" type="text" class="input_simples w400"/>
                 </td>
             </tr>
-
-
         </table>
 
         <table align="center" border="0" class="tabela" width="95%">
@@ -729,11 +686,6 @@
                 <th><h3 class="footer-headline"><span>Veracidade</span></h3></th>
             </tr>
             <tr>
-                <td class="destacar bold">Texto de orientação ao usuário sobre as competências da operadora
-                    e do seu representante legal em relação ao Vale-Cultura (a ser definido)
-                </td>
-            </tr>
-            <tr>
                 <td class="destacar bold">&nbsp;</td>
             </tr>
             <tr>
@@ -767,14 +719,11 @@
         <table class="tabela">
             <tr>
                 <td class="centro">
-                    <button id="btnSalvar" class="btn btn btn-inverse" type="submit" style="float:center;"
-                            id="enviaForm">Salvar
+                    <button id="btnSalvar" class="btn btn btn-inverse" type="submit" id="enviaForm">Salvar</button>
+                    <button id="btnCancelar" class="btn btn btn-inverse" type="button" onclick="fechaModal();">
+                        Cancelar
                     </button>
-                    <button id="btnCancelar" class="btn btn btn-inverse" type="button" style="float:center;"
-                            onclick="fechaModal();">Cancelar
-                    </button>
-                    <button id="btnResetar" class="btn btn btn-inverse" type="reset" style="float:center;">Limpar
-                    </button>
+                    <button id="btnResetar" class="btn btn btn-inverse" type="reset">Limpar</button>
                 </td>
             </tr>
         </table>

@@ -309,9 +309,9 @@
                 </td>
             </tr>
             <tr class="descEmpresa">
-                <th valign="top">Raz&atilde;o Social:</th>
-                <th valign="top">Nome Fantasia:</th>
-                <th valign="top">Natureza Juridica:</th>
+                <th valign="top" width="33%">Raz&atilde;o Social:</th>
+                <th valign="top" width="34%">Nome Fantasia:</th>
+                <th valign="top" width="33%">Natureza Juridica:</th>
             </tr>
             <tr class="descEmpresa">
                 <td valign="top"><label id="EMPRESA_RAZAOSOCIAL">&nbsp;</label></td>
@@ -320,32 +320,23 @@
             </tr>
             <tr class="descEmpresa">
                 <th valign="top">Atividade Econ&ocirc;mica Principal:</th>
-                <th valign="top" colspan="2">Atividades Econ&ocirc;micas Secund&aacute;rias:</th>
+                <th valign="top">Atividades Econ&ocirc;micas Secund&aacute;rias:</th>
+                <th valign="top">Situação:</th>
             </tr>
             <tr class="descEmpresa">
                 <td valign="top"><label id="CNAE_PRIMARIO">&nbsp;</label></td>
-                <td valign="top" colspan="2"><label id="CNAE_SECUNDARIOS">&nbsp;</label></td>
+                <td valign="top"><label id="CNAE_SECUNDARIOS">&nbsp;</label></td>
+                <td valign="top"><label id="EMPRESA_SITUACAO">&nbsp;</label></td>
             </tr>
             <tr class="descEmpresa">
-                <th class="destacar bold">Regime de tributa&ccedil;&atilde;o</th>
-                <th class="destacar bold" colspan="2">Operadora</th>
+                <th class="destacar bold" colspan="3">Regime de tributa&ccedil;&atilde;o</th>
             </tr>
             <tr class="descEmpresa">
-                <td>
+                <td colspan="3">
                     <select name="EMPRESA_TIPO_LUCRO" id="EMPRESA_TIPO_LUCRO" class="select_simples w200">
                         <option value=""> - Selecione -</option>
                         <?php foreach ($this->tipoLucro as $lucro) { ?>
                             <option value="<?php echo $lucro['ID_TIPO_LUCRO'] ?>"> <?php echo $lucro['DS_TIPO_LUCRO'] ?> </option>
-                        <?php } ?>
-                    </select>
-                </td>
-                <td colspan="2">
-                    <select name="EMPRESA_OPERADORA" id="EMPRESA_OPERADORA" class="select_simples">
-                        <option value=""> - Selecione -</option>
-                        <?php foreach ($this->operadorasAtivas as $operadora) { ?>
-                            <option value="<?php echo $operadora['idOperadora'] ?>">
-                                <?php echo(!empty(trim($operadora['nmFantasia'])) ? $operadora['nmFantasia'] : $operadora['nmRazaoSocial']); ?>
-                            </option>
                         <?php } ?>
                     </select>
                 </td>
@@ -493,11 +484,6 @@
             <tr>
                 <th colspan="2" style="text-align: center;"><h3 class="footer-headline"><span>RESPONSÁVEL PELA GESTÃO DO PROGRAMA JUNTO AO MINC</span>
                     </h3></th>
-            </tr>
-            <tr>
-                <td colspan="2" class="destacar bold">Texto de orientação ao usuário sobre as competências da operadora
-                    e do seu representante legal em relação ao Vale-Cultura (a ser definido)
-                </td>
             </tr>
             <tr>
                 <td colspan="2" class="destacar bold">Informe abaixo os dados da pessoa responsável pela inserção das
@@ -690,14 +676,6 @@
                 <th style="text-align: center;"><h3 class="footer-headline"><span>Veracidade</span></h3></th>
             </tr>
             <tr>
-                <td class="destacar bold">Texto de orientação ao usuário sobre as competências da operadora
-                    e do seu representante legal em relação ao Vale-Cultura (a ser definido)
-                </td>
-            </tr>
-            <tr>
-                <td class="destacar bold">&nbsp;</td>
-            </tr>
-            <tr>
                 <td>
                     <input type="checkbox" name="ConfimaRegras" id="ConfimaRegras" style="float:left"/>
                     <div>&nbsp; Li e estou de acordo com as regras do Programa de Cultura do Trabalhador e confirmo, sob
@@ -803,6 +781,7 @@
 
             $('#EMPRESA_RAZAOSOCIAL').html('');
             $('#EMPRESA_NOMEFANTASIA').html('');
+            $('#EMPRESA_SITUACAO').html('');
             $('#NATUREZA_JURIDICA').html('');
             $('#CNAE_PRIMARIO').html('');
             $('#CNAE_SECUNDARIOS').html('');
@@ -873,6 +852,7 @@
             $('#NATUREZA_JURIDICA').html('');
             $('#CNAE_PRIMARIO').html('');
             $('#CNAE_SECUNDARIOS').html('');
+            $('#EMPRESA_SITUACAO').html('');
             $('#EMPRESA_COMPLEMENTO').val('');
             $('#EMPRESA_NUMERO').val('');
             $('#EMPRESA_CEP').val('');
@@ -914,6 +894,7 @@
                             $('#NATUREZA_JURIDICA').html(data.dados.naturezajuridica);
                             $('#CNAE_PRIMARIO').html(data.dados.CNAEPrimario);
                             $('#CNAE_SECUNDARIOS').html(data.dados.CNAESecundarios);
+                            $('#EMPRESA_SITUACAO').html(data.dados.situacaocnpj);
                             $('#EMPRESA_COMPLEMENTO').val(data.dados.dscomplementoendereco);
                             $('#EMPRESA_NUMERO').val(data.dados.nrcomplemento);
                             if (data.dados.cep != 'N') {
@@ -1077,9 +1058,6 @@
                     required: true
                 },
                 EMPRESA_TIPO_LUCRO: {
-                    valueNotEquals: ''
-                },
-                EMPRESA_OPERADORA: {
                     valueNotEquals: ''
                 },
 
@@ -1378,7 +1356,6 @@
     function bloqueaCadastro() {
         // Dados da empresa
         $('#EMPRESA_TIPO_LUCRO').attr('disabled', true);
-        $('#EMPRESA_OPERADORA').attr('disabled', true);
         $('#EMPRESA_CEP').attr('disabled', true);
         $('#EMPRESA_COMPLEMENTO').attr('disabled', true);
         $('#EMPRESA_NUMERO').attr('disabled', true);
@@ -1398,7 +1375,6 @@
     function desbloqueaCadastro() {
         // Dados da empresa
         $('#EMPRESA_TIPO_LUCRO').attr('disabled', false);
-        $('#EMPRESA_OPERADORA').attr('disabled', false);
         $('#EMPRESA_CEP').attr('disabled', false);
         $('#EMPRESA_COMPLEMENTO').attr('disabled', false);
         $('#EMPRESA_NUMERO').attr('disabled', false);

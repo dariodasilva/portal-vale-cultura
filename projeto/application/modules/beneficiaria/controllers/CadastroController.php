@@ -90,7 +90,7 @@ class Beneficiaria_CadastroController extends GenericController
             $CDCBO = (int)$this->getRequest()->getParam("RESPONSAVEL_CARGO");
             $IDTIPOLUCRO = $this->getRequest()->getParam("EMPRESA_TIPO_LUCRO");
             $NMFANTASIA = $this->getRequest()->getParam("EMPRESA_NMFANTASIA");
-            $IDOPERADORA = $this->getRequest()->getParam("EMPRESA_OPERADORA");
+
             $FAIXASALARIAL = $this->getRequest()->getParam("IDFAIXASALARIAL");
             $AUTORIZO_OPERADORA = $this->getRequest()->getParam("AUTORIZO_OPERADORA");
             $AUTORIZO_MINC = $this->getRequest()->getParam("AUTORIZO_MINC");
@@ -179,10 +179,6 @@ class Beneficiaria_CadastroController extends GenericController
 
             if (!$IDTIPOLUCRO) {
                 $ERROR["TIPOLUCRO"] = "Informe o tipo de tributação";
-            }
-
-            if (!$IDOPERADORA) {
-                $ERROR["OPERADORA"] = "Informe a operadora";
             }
 
             if (!$DSEMAIL) {
@@ -334,15 +330,14 @@ class Beneficiaria_CadastroController extends GenericController
                     $modelBeneficiariaHistorico->insert(array(
                         "DT_HISTORICO" => new Zend_Db_Expr("getdate()"),
                         "ID_BENEFICIARIA" => $beneficiariaInativa["ID_BENEFICIARIA"],
-                        "ID_OPERADORA" => $beneficiariaInativa["ID_OPERADORA"],
+                        "ID_OPERADORA" => $OPERADORA_VALE,
                         "DT_INSCRICAO" => $beneficiariaInativa["DT_INSCRICAO"],
                         "NR_COMPROVANTE_INSCRICAO" => $beneficiariaInativa["NR_COMPROVANTE_INSCRICAO"],
                         "NR_CERTIFICADO" => $beneficiariaInativa["NR_CERTIFICADO"],
                         "ST_DIVULGAR_DADOS" => $beneficiariaInativa["ST_DIVULGAR_DADOS"],
                         "ST_ATUALIZADO_OPERADORA" => $beneficiariaInativa["ST_ATUALIZADO_OPERADORA"],
                         "ST_AUTORIZA_MINC" => $beneficiariaInativa["ST_AUTORIZA_MINC"],
-                        "ST_AUTORIZA_VALE_FUNC" => $ST_AUTORIZA_VALE_FUNC,
-                        "ID_OPERADORA_AUTORIZADA" => $OPERADORA_VALE
+                        "ST_AUTORIZA_VALE_FUNC" => $ST_AUTORIZA_VALE_FUNC
                     ));
 
                     $Cols = array(
@@ -351,8 +346,7 @@ class Beneficiaria_CadastroController extends GenericController
                         "DT_INSCRICAO" => new Zend_Db_Expr("getdate()"),
                         "ST_DIVULGAR_DADOS" => (int)$AUTORIZO_OPERADORA,
                         "ST_AUTORIZA_MINC" => $AUTORIZO_MINC ? 1 : 2,
-                        "ST_AUTORIZA_VALE_FUNC" => $ST_AUTORIZA_VALE_FUNC,
-                        "ID_OPERADORA_AUTORIZADA" => $OPERADORA_VALE
+                        "ST_AUTORIZA_VALE_FUNC" => $ST_AUTORIZA_VALE_FUNC
                     );
                     $modelBeneficiaria->update($Cols, $idPessoaJuridica);
                 } else if (count($eBeneficiariaInativa) === 0) {
@@ -361,8 +355,7 @@ class Beneficiaria_CadastroController extends GenericController
                         "ID_OPERADORA" => $OPERADORA_VALE,
                         "ST_DIVULGAR_DADOS" => (int)$AUTORIZO_OPERADORA,
                         "ST_AUTORIZA_MINC" => $AUTORIZO_MINC ? 1 : 2,
-                        "ST_AUTORIZA_VALE_FUNC" => $ST_AUTORIZA_VALE_FUNC,
-                        "ID_OPERADORA_AUTORIZADA" => $OPERADORA_VALE
+                        "ST_AUTORIZA_VALE_FUNC" => $ST_AUTORIZA_VALE_FUNC
                     );
                     $modelBeneficiaria->insert($Cols);
                 }

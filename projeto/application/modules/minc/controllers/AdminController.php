@@ -450,7 +450,7 @@ class Minc_AdminController extends GenericController
         }
 
         // Dados do responsável da operadora
-        $dadosOperadora['responsaveis'] = $this->_retornaResponsaveis($idOperadora, 17);
+        $dadosOperadora['responsaveis'] = $this->_retornaResponsaveis($idOperadora, 17, 3);
 
         // Dados do não responsável da operadora
         $dadosOperadora['nao-responsaveis'] = $this->_retornaResponsaveis($idOperadora, 13, 3);
@@ -683,12 +683,11 @@ class Minc_AdminController extends GenericController
             $dadosBeneficiaria['faixaSalarial'] = $faixaSalarial;
             $dadosBeneficiaria['idOperadoraAutorizada'] = $b->idOperadoraAutorizada;
         }
-
         // Dados do responsável da beneficiaria
         $dadosBeneficiaria['responsaveis'] = $this->_retornaResponsaveis($idBeneficiaria, 16);
 
         // Dados do não responsável da beneficiaria
-        $dadosBeneficiaria['nao-responsaveis'] = $this->_retornaResponsaveis($idBeneficiaria, 13,3);
+        $dadosBeneficiaria['nao-responsaveis'] = $this->_retornaResponsaveis($idBeneficiaria, 13);
 
         // Dados da Operadora (Bandeira)
         $operadora = $modelOperadora->buscarDados(array('o.ID_OPERADORA = ?' => $dadosBeneficiaria['idOperadora']));
@@ -704,12 +703,6 @@ class Minc_AdminController extends GenericController
             $dadosBeneficiaria['stTipoSituacaoOperadora'] = $stOperadora[0]['stTipoSituacao'];
         }
 
-        // Dados da Operadora Autorizada
-        $operadoraAutorizada = $modelOperadora->buscarDados(array('o.ID_OPERADORA = ?' => $dadosBeneficiaria['idOperadoraAutorizada']));
-        $stOperadoraAutorizada = $modelSituacao->buscarSituacao(array('ID_PESSOA = ?' => $dadosBeneficiaria['idOperadoraAutorizada'], 'TP_ENTIDADE_VALE_CULTURA = ?' => 'O'));
-
-        $dadosBeneficiaria['nmFantasiaOperadoraAutorizada'] = $operadoraAutorizada[0]['nmFantasia'];
-        $dadosBeneficiaria['nmRazaoSocialOperadoraAutorizada'] = $operadoraAutorizada[0]['nmRazaoSocial'];
         // Situacao do Operador
         if (count($stOperadora) > 0) {
             $dadosBeneficiaria['dtSituacaoOperadoraAutorizada'] = $stOperadoraAutorizada[0]['dtSituacao'];
@@ -958,6 +951,24 @@ class Minc_AdminController extends GenericController
             }
 
             $listaResponsaveis[$r]['telefonesResponsavel'] = $listaTelefonesResponsaveis;
+
+            if (in_array($tipoVinculoPessoa, array(16, 17))) {
+                $where = array();
+                $where[17 == $tipoVinculoPessoa ? 'ID_OPERADORA = ?' : 'ID_BENEFICIARIA = ?'] = $idPessoaJuridica;
+                $where['ID_RESPONSAVEL = ?'] = $re->idPessoaVinculada;
+
+                $modelArquivo = 17 == $tipoVinculoPessoa ? new Application_Model_ArquivoOperadora() : new Application_Model_ArquivoBeneficiaria();
+                $arquivoAtual = $modelArquivo->select($where, "DT_UPLOAD_ARQUIVO DESC", 1);
+
+                if (count($arquivoAtual) > 0) {
+                    $arquivo = $arquivoAtual[0]['DS_CAMINHO_ARQUIVO'];
+                    $urlArquivo = $this->view->url(array('module' => (17 == $tipoVinculoPessoa ? 'operadora' : 'beneficiaria'),
+                        'controller' => 'index',
+                        'action' => 'abrir-arquivo',
+                        'arquivo' => $arquivo));
+                    $listaResponsaveis[$r]['urlArquivo'] = $urlArquivo;
+                }
+            }
 
             $r++;
         }

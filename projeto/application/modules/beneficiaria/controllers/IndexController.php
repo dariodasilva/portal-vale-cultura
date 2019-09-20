@@ -545,6 +545,31 @@ class Beneficiaria_IndexController extends GenericController
             parent::message('Email inválido!', '/beneficiaria/index/novo-responsavel', 'error');
         }
 
+        if (count($_FILES) == 0) {
+            throw new Exception("Procuração representante da empresa não enviado!", 500);
+        }
+
+        foreach ($_FILES as $k => $v) {
+            if ($k == 'ANEXO_11') {
+                if ($_FILES[$k]['error'] != 0) {
+                    throw new Exception("Procuração representante da empresa não enviado!", 500);
+                }
+            }
+            if ($_FILES[$k]['error'] == 0) {
+                if ($_FILES[$k]["size"] >= 5242880) {
+                    throw new Exception("Tamanho máximo do arquivo deve ser de 5mb!", 500);
+                }
+
+                if (strpos($_FILES[$k]['type'], 'pdf') === false) {
+                    throw new Exception("Apenas aquivos no formato PDF são válidos!", 500);
+                }
+            } else {
+                if ($_FILES[$k]['error'] != 4) {
+                    throw new Exception("Falha no envio de documento!", 500);
+                }
+            }
+        }
+
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->beginTransaction();
 
@@ -724,6 +749,31 @@ class Beneficiaria_IndexController extends GenericController
                 );
 
                 $modelSituacao->insert($Cols);
+            }
+
+            $modelArquivoBeneficiaria = new Application_Model_ArquivoBeneficiaria();
+            $uploaddir = defined('UPLOAD_DIR') ? UPLOAD_DIR : "/var/arquivos/arquivos-valecultura/";
+
+            foreach ($_FILES as $k => $v) {
+                if ($_FILES[$k]['error'] == 0) {
+                    $time = time();
+                    $mnArquivo = "{$idPessoaJuridica}_{$k}_{$idPessoaFisica}_{$time}.pdf";
+                    $uploadfile = $uploaddir . $mnArquivo;
+                    $dsArquivo = $this->getRequest()->getParam("{$k}_NOME_{$idPessoaFisica}");
+
+                    $Cols = array(
+                        'ID_BENEFICIARIA' => $idPessoaJuridica,
+                        'DS_CAMINHO_ARQUIVO' => $mnArquivo,
+                        'DS_ARQUIVO' => $dsArquivo,
+                        'ID_RESPONSAVEL' => $idPessoaFisica,
+                    );
+
+                    if (move_uploaded_file($_FILES[$k]['tmp_name'], $uploadfile)) {
+                        $modelArquivoBeneficiaria->insert($Cols);
+                    } else {
+                        throw new Exception("Erro ao salvar a Procuração representante da empresa!", 500);
+                    }
+                }
             }
 
             if ($enviaEmail) {
@@ -1806,5 +1856,44 @@ class Beneficiaria_IndexController extends GenericController
         $this->view->assign('CBOs', $CBOs);
         $this->view->assign('responsavel', $dadosResponsavel);
         $this->view->assign('idBeneficiaria', $idBeneficiaria);
+    }
+
+    public function atualizarDadosNaoResponsavelAction()
+    {
+        $idResponsavel = $this->_request->getParam('idResponsavel');
+        $idBeneficiaria = $this->_request->getParam('idBeneficiaria');
+        $CDCBO = $this->_request->getParam('CDCBO');
+
+        $modelCBOPessoaFisica = new Application_Model_CBOPessoaFisica();
+
+        try {
+            $where = array();
+            $where['ID_BENEFICIARIA = ?'] = $idBeneficiaria;
+            $where['ID_RESPONSAVEL = ?'] = $idResponsavel;
+
+            if ($CDCBO) {
+                // apaga o que for dessa empresa e responsável
+                $where = array(
+                    'ID_PESSOA_FISICA = ?' => $idResponsavel,
+                    'ID_PESSOA_JURIDICA = ?' => $idBeneficiaria
+                );
+
+                $modelCBOPessoaFisica->apagar($where);
+
+                $Cols = array(
+                    'CD_CBO' => $CDCBO,
+                    'ID_PESSOA_FISICA' => $idResponsavel,
+                    'ID_PESSOA_JURIDICA' => $idBeneficiaria
+                );
+
+                $modelCBOPessoaFisica->insert($Cols);
+            }
+
+            parent::message('Cargo atualizado com sucesso!', 'beneficiaria/index/editar-nao-responsavel/id/' . $idResponsavel, 'confirm');
+
+        } catch (Exception $exc) {
+            $msg = $exc->getCode() == 500 ? $exc->getMessage() : 'Erro ao atualizar o cargo!';
+            parent::message($msg, 'beneficiaria/index/editar-nao-responsavel/id/' . $idResponsavel, 'error');
+        }
     }
 }
