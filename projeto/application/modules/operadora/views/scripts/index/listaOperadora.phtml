@@ -46,7 +46,13 @@
                     <div class="box-header">
                         <h2><i class="icon-edit"></i>Gerenciar Empresas Operadoras</h2>
                         <div class="box-icon">
-
+                            <a href="#myModalOperadorasInfo"
+                               role="button"
+                               class="" data-toggle="modal">
+                                <img class="nextPass" src="<?php echo $this->baseUrl('img/help-icon.png'); ?>"
+                                     style="width: 25px; height: 25px; cursor: pointer; margin: 0;border: 0; padding: 6px;"
+                                     title="Informações para o preenchimento dos dados"/>
+                            </a>
                         </div>
                     </div>
                     <div class="box-content">
@@ -54,7 +60,7 @@
                             <div id="conteudo">
 
                                 <form method="post" action="listaOperadora.htm">
-                                    <table width="100%" class="table table-striped table-bordered bootstrap-datatable "
+                                    <table width="100%" class="table table-striped table-bordered bootstrap-datatable"
                                            style="margin-bottom: 50px; margin-top: 20px;">
                                         <tr>
 

@@ -42,8 +42,201 @@
         padding-left: 30px;
         border-bottom: 1px solid #ccc;
     }
+
+    .action-pass {
+        width: 95%;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        top: 500px;
+    }
 </style>
-<div id="conteudo">
+
+
+<div id="passo1" class="nextF">
+    <div class="action-pass">
+        <button type="button" style="float: right;" class="nextPass btn btn-info" data-val="passo2">Próximo</button>
+    </div>
+    <table align="center" border="0" class="tabela" width="95%"
+           background="<?php echo $this->baseUrl('img/benificiario.png') ?>">
+        <tr>
+            <td style="text-align: center;">
+                <h3 class="footer-headline"><span>Orientação ao usuário sobre as competências da operadora</span>
+                </h3>
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    A operadora é a empresa responsável por produzir e comercializar o cartão vale-cultura. Para se
+                    cadastrar no Programa de Cultura do Trabalhador e se tornar uma operadora, a empresa deve
+                    possuir:
+                </p>
+                <p>
+                <ul style="font-style: italic; font-weight: bold;">
+                    <li>I - Inscrição regular no Cadastro Nacional da Pessoa Jurídica (CNPJ);</li>
+                    <li>II - Qualificação técnica para produzir e comercializar o vale-cultura, observado o disposto no
+                        art. 6º da Lei 12.761/2012. (Decreto 8.084/2013, art. 5º, incisos I e II).
+                    </li>
+                </ul>
+                </p>
+                <p>
+                    A empresa interessada em aderir ao programa deverá também observar os requisitos previstos no <b>art.
+                        3º e 4º da instrução normativa nº 2/2013</b> (colocar link para a legislação), inclusive no que
+                    diz
+                    respeito ao representante legal da empresa junto ao Ministério da Cidadania, que tratará de todos os
+                    assuntos relacionados com sua participação no Programa de Cultura do Trabalhador.
+                </p>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div id="passo2" class="nextF" style="display: none;">
+    <div class="action-pass">
+        <button type="button" style="float: right;" class="nextPass btn btn-info" data-val="conteudo">Ir para
+            Formulário
+        </button>
+        <button type="button" style="float: right; margin-right: 10px !important;" class="nextPass btn btn-info"
+                data-val="passo1">Anterior
+        </button>
+    </div>
+    <table align="center" border="0" class="tabela" width="95%"
+           background="<?php echo $this->baseUrl('img/benificiario.png') ?>">
+        <tr>
+            <td style="text-align: center;">
+                <h3 class="footer-headline"><span>Orientação com as principais informações sobre o Vale-Cultura</span>
+                </h3>
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    A empresa operadora, possuidora do Certificado de Inscrição no Programa de Cultura do Trabalhador, é
+                    responsável por produzir e comercializar o cartão vale-cultura e habilitar as recebedoras ao
+                    recebimento do cartão vale-cultura.<br/>
+                    Também são deveres da operadora (<b>art. 6º do Decreto 8.084/2013</b>):
+                </p>
+                <p>
+                <ul style="font-style: italic; font-weight: bold;">
+                    <li>I - Observar limites de cobrança de taxa de administração;</li>
+                    <li>II - Apresentar ao Ministério da Cultura relatórios periódicos relativos a acesso e fruição de
+                        produtos e serviços culturais;
+                    </li>
+                    <li>III - Tomar providências para que empresas recebedoras cumpram os deveres previstos no art. 9º,
+                        e inabilitá-las em caso de descumprimento.
+                    </li>
+                </ul>
+                </p>
+                <p>
+                    Ressaltamos a importância de atentar à legislação do programa (incluir link para acesso à
+                    legislação), em especial ao <b>art. 12 da Lei 12.761/2012, aos arts. 6º, 7º e 8º do Decreto
+                        8.084/2013
+                        e à Instrução Normativa nº 2/2013</b>.
+                </p>
+            </td>
+        </tr>
+    </table>
+</div>
+<div id="passo1" class="nextF">
+    <div class="action-pass">
+        <button type="button" style="float: right;" class="nextPass btn btn-info" data-val="passo2">Próximo</button>
+    </div>
+    <table align="center" border="0" class="tabela" width="95%"
+           background="<?php echo $this->baseUrl('img/benificiario.png') ?>">
+        <tr>
+            <td style="text-align: center;">
+                <h3 class="footer-headline"><span>Orientação ao usuário sobre as competências da operadora</span>
+                </h3>
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    A operadora é a empresa responsável por produzir e comercializar o cartão vale-cultura. Para se
+                    cadastrar no Programa de Cultura do Trabalhador e se tornar uma operadora, a empresa deve
+                    possuir:
+                </p>
+                <p>
+                <ul style="font-style: italic; font-weight: bold;">
+                    <li>I - Inscrição regular no Cadastro Nacional da Pessoa Jurídica (CNPJ);</li>
+                    <li>II - Qualificação técnica para produzir e comercializar o vale-cultura, observado o disposto no
+                        art. 6º da Lei 12.761/2012. (Decreto 8.084/2013, art. 5º, incisos I e II).
+                    </li>
+                </ul>
+                </p>
+                <p>
+                    A empresa interessada em aderir ao programa deverá também observar os requisitos previstos no <b>art.
+                        3º e 4º da instrução normativa nº 2/2013</b> (colocar link para a legislação), inclusive no que
+                    diz
+                    respeito ao representante legal da empresa junto ao Ministério da Cidadania, que tratará de todos os
+                    assuntos relacionados com sua participação no Programa de Cultura do Trabalhador.
+                </p>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div id="passo2" class="nextF" style="display: none;">
+    <div class="action-pass">
+        <button type="button" style="float: right;" class="nextPass btn btn-info" data-val="conteudo">Ir para
+            Formulário
+        </button>
+        <button type="button" style="float: right; margin-right: 10px !important;" class="nextPass btn btn-info"
+                data-val="passo1">Anterior
+        </button>
+    </div>
+    <table align="center" border="0" class="tabela" width="95%"
+           background="<?php echo $this->baseUrl('img/benificiario.png') ?>">
+        <tr>
+            <td style="text-align: center;">
+                <h3 class="footer-headline"><span>Orientação com as principais informações sobre o Vale-Cultura</span>
+                </h3>
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    A empresa operadora, possuidora do Certificado de Inscrição no Programa de Cultura do Trabalhador, é
+                    responsável por produzir e comercializar o cartão vale-cultura e habilitar as recebedoras ao
+                    recebimento do cartão vale-cultura.<br/>
+                    Também são deveres da operadora (<b>art. 6º do Decreto 8.084/2013</b>):
+                </p>
+                <p>
+                <ul style="font-style: italic; font-weight: bold;">
+                    <li>I - Observar limites de cobrança de taxa de administração;</li>
+                    <li>II - Apresentar ao Ministério da Cultura relatórios periódicos relativos a acesso e fruição de
+                        produtos e serviços culturais;
+                    </li>
+                    <li>III - Tomar providências para que empresas recebedoras cumpram os deveres previstos no art. 9º,
+                        e inabilitá-las em caso de descumprimento.
+                    </li>
+                </ul>
+                </p>
+                <p>
+                    Ressaltamos a importância de atentar à legislação do programa (incluir link para acesso à
+                    legislação), em especial ao <b>art. 12 da Lei 12.761/2012, aos arts. 6º, 7º e 8º do Decreto
+                        8.084/2013
+                        e à Instrução Normativa nº 2/2013</b>.
+                </p>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div id="conteudo" class="nextF" style="display: none;">
     <div id="iframe" style="display:none; margin-bottom: -10px;">
         <iframe name="_frameForm" id="_frameForm" style="border: 0px #fff solid; width: 100%; height: 110px;"></iframe>
     </div>
@@ -67,8 +260,16 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="3" style="text-align: center;"><h3 class="footer-headline">
-                        <span>Dados da Empresa Operadora</span></h3></td>
+                <td colspan="3" style="text-align: center;">
+                    <h3 class="footer-headline">
+                        <span>
+                            Dados da Empresa Operadora <img class="nextPass" data-val="passo1"
+                                                            src="<?php echo $this->baseUrl('img/help-icon.png'); ?>"
+                                                            style="width: 25px; height: 25px; cursor: pointer; margin-top: 0;border: 0; padding: 0;"
+                                                            title="Informações para o preenchimento dos dados"/>
+                        </span>
+                    </h3>
+                </td>
             </tr>
             <tr>
                 <th valign="top" class="destacar bold top-left" colspan="3">CNPJ:</th>
@@ -597,6 +798,12 @@
     }
 
     jQuery(document).ready(function () {
+
+        $('.nextPass').click(function () {
+            $('.nextF').hide();
+            $('#' + $(this).attr('data-val')).show();
+        });
+
         gerarCaptcha();
 
         $("#SAC_DDD").mask("99");

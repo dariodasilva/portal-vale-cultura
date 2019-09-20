@@ -463,6 +463,21 @@ blockquote small {
     margin: -18px 15px 11px 0;
 }
 
+h2.footer-headline {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.5);
+    background: #555 \9;
+    border-radius: 6px 6px 6px 6px;
+    color: #fff;
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    padding: 10px 0 10px 20px;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    text-align: center;
+    line-height: 25px;
+}
+
 #contact {
     background-color: #2A5327;
     background-image: url('../img/sunglasses.png');
@@ -2141,10 +2156,11 @@ em {
     float: none;
 }
 
-#home .presentation h1{
+#home .presentation h1 {
     font-size: 42px;
     margin-bottom: 30px;
 }
+
 #home .about-me {
     margin-top: 50px;
 }
@@ -2192,7 +2208,7 @@ em {
     top: 1px !important;
 }
 
-.modal-header .close{
+.modal-header .close {
     padding: 1rem;
     margin: -1rem -1rem -1rem auto;
 }

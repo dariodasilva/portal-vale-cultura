@@ -391,7 +391,6 @@ class Minc_AdminController extends GenericController
 
     public function avaliarOperadoraAction()
     {
-
         // Manter Autenticado
         parent::autenticar(array('A'));
 
@@ -454,7 +453,7 @@ class Minc_AdminController extends GenericController
         $dadosOperadora['responsaveis'] = $this->_retornaResponsaveis($idOperadora, 17);
 
         // Dados do não responsável da operadora
-        $dadosOperadora['nao-responsaveis'] = $this->_retornaResponsaveis($idOperadora, 13);
+        $dadosOperadora['nao-responsaveis'] = $this->_retornaResponsaveis($idOperadora, 13, 3);
 
         // Email Institucional
         $emailInstitucional = array();
@@ -689,7 +688,7 @@ class Minc_AdminController extends GenericController
         $dadosBeneficiaria['responsaveis'] = $this->_retornaResponsaveis($idBeneficiaria, 16);
 
         // Dados do não responsável da beneficiaria
-        $dadosBeneficiaria['nao-responsaveis'] = $this->_retornaResponsaveis($idBeneficiaria, 13);
+        $dadosBeneficiaria['nao-responsaveis'] = $this->_retornaResponsaveis($idBeneficiaria, 13,3);
 
         // Dados da Operadora (Bandeira)
         $operadora = $modelOperadora->buscarDados(array('o.ID_OPERADORA = ?' => $dadosBeneficiaria['idOperadora']));
@@ -905,7 +904,7 @@ class Minc_AdminController extends GenericController
         }
     }
 
-    private function _retornaResponsaveis($idPessoaJuridica, $tipoVinculoPessoa = 16)
+    private function _retornaResponsaveis($idPessoaJuridica, $tipoVinculoPessoa = 16, $idPerfil = 2)
     {
         // Dados do responsável da operadora
         $modelPessoaVinculada = new Application_Model_PessoaVinculada();
@@ -913,7 +912,7 @@ class Minc_AdminController extends GenericController
         $where = array(
             'pv.id_Pessoa = ?' => $idPessoaJuridica,
             'pv.ID_TIPO_VINCULO_PESSOA = ?' => $tipoVinculoPessoa,
-            'up.id_Perfil = ?' => 2,
+            'up.id_Perfil = ?' => $idPerfil,
             'up.st_Usuario_Perfil = ?' => 'A'
         );
 

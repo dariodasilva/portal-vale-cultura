@@ -1,3 +1,4 @@
+<link href="<?php echo $this->baseUrl('js/circle/component.css') ?>" rel="stylesheet"/>
 <style type="text/css">
     .errorAjax {
         background-color: #e8a4a4;
@@ -69,8 +70,192 @@
     #divOperadorasUl li input {
         z-index: 1;
     }
+
+    .action-pass {
+        width: 95%;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        top: 500px;
+    }
 </style>
-<div id="conteudo">
+
+<div id="passo1" class="nextF">
+    <div class="action-pass">
+        <button type="button" style="float: right;" class="nextPass btn btn-info" data-val="passo2">Próximo</button>
+    </div>
+    <table align="center" border="0" class="tabela" width="95%"
+           background="<?php echo $this->baseUrl('img/benificiario.png') ?>">
+        <tr>
+            <td style="text-align: center;">
+                <h3 class="footer-headline"><span>Orientação ao usuário sobre as competências da beneficiária</span>
+                </h3>
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    A beneficiária é a empresa optante pelo Programa de Cultura do Trabalhador, autorizada a distribuir
+                    o vale-cultura a seus trabalhadores com vínculo empregatício. Para se cadastrar no programa a
+                    empresa
+                    deve atender aos seguintes requisitos:
+                </p>
+                <p>
+                <ul style="font-style: italic; font-weight: bold;">
+                    <li>I - Inscrição regular no CNPJ;</li>
+                    <li>II - Indicação de empresa operadora possuidora de Certificado de Inscrição no Programa de
+                        Cultura do Trabalhador;
+                    </li>
+                    <li>III - Indicação do número de trabalhadores com vínculo empregatício, conforme a faixa de renda
+                        mensal.
+                    </li>
+                </ul>
+                </p>
+                <p>
+                    Ressaltamos que o responsável pela empresa junto ao Ministério da Cidadania tratará de todos os
+                    assuntos relacionados com sua participação no Programa de Cultura do Trabalhador, portanto deve ser
+                    indicado um representante que possa responder pela empresa.
+                </p>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div id="passo2" class="nextF" style="display: none;">
+    <div class="action-pass">&nbsp;
+        <button type="button" style="float: right;" class="nextPass btn btn-info" data-val="passo3">Próximo</button>
+        <button type="button" style="float: right; margin-right: 10px !important;" class="nextPass btn btn-info"
+                data-val="passo1">Anterior
+        </button>
+    </div>
+    <table align="center" border="0" class="tabela" width="95%"
+           background="<?php echo $this->baseUrl('img/benificiario.png') ?>">
+        <tr>
+            <td style="text-align: center;">
+                <h3 class="footer-headline"><span>Orientação para o campo faixa salarial</span></h3>
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    Informe o número de funcionários vinculados à empresa, de acordo com as faixas salarias. Ressaltamos
+                    que estagiários não poderão ser adicionados, pois não preenchem o requisito necessário exigido pela
+                    legislação do Programa de Cultura do Trabalhador ? Vale-Cultura.
+                </p>
+            </td>
+        </tr>
+    </table>
+    <table align="center" border="0" class="tabela" width="95%"
+           background="<?php echo $this->baseUrl('img/benificiario.png') ?>">
+        <tr>
+            <td style="text-align: center;">
+                <h3 class="footer-headline"><span>Orientação quanto à escolha da operadora</span>
+                </h3>
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    Escolha uma entre as empresas operadoras cadastradas e autorizadas a emitir o cartão Vale-Cultura
+                    dos seus funcionários.
+                </p>
+                <p>
+                    A escolha da operadora, no momento do cadastro, é uma intenção. O empregador é livre para contratar
+                    qualquer uma das operadoras habilitadas no Programa de Cultura do Trabalhador ? Vale-Cultura.
+                    Ressaltamos que qualquer alteração, deverá ser registrada no sistema do Vale-Cultura e submetida à
+                    análise e aprovação do técnico do Ministério da Cidadania.
+                </p>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div id="passo3" class="nextF" style="display: none;">
+    <div class="action-pass">&nbsp;
+        <button type="button" style="float: right;" class="nextPass btn btn-info" data-val="passo4">Próximo</button>
+        <button type="button" style="float: right; margin-right: 10px !important;" class="nextPass btn btn-info"
+                data-val="passo2">Anterior
+        </button>
+    </div>
+    <table align="center" border="0" class="tabela" width="95%"
+           background="<?php echo $this->baseUrl('img/benificiario.png') ?>">
+        <tr>
+            <td style="text-align: center;">
+                <h3 class="footer-headline"><span>Orientação com as principais informações sobre o Vale-Cultura</span>
+                </h3>
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    A beneficiária é a empresa optante pelo Programa de Cultura do Trabalhador, autorizada a distribuir
+                    o vale-cultura a seus trabalhadores com vínculo empregatício.
+                </p>
+                <p>
+                    <b>Art. 11. São deveres da empresa beneficiária (art. 11 do Decreto 8.084/2013)</b>:
+                <ul style="font-style: italic; font-weight: bold;">
+                    <li>I - oferecer o vale-cultura nos termos do Capítulo III;</li>
+                    <li>II - prestar ao Ministério da Cultura as informações referentes aos usuários, conforme faixa de
+                        renda mensal, e mantê-las atualizadas;
+                    </li>
+                    <li>
+                        III - divulgar e incentivar o acesso e a fruição de produtos e serviços culturais pelos
+                        usuários.<br/>
+                        Ressaltamos a importância de atentar à legislação do programa (incluir link para acesso à
+                        legislação), em especial ao art. 12 da Lei 12.761/2012, e à Instrução Normativa nº 2/2013.
+                    </li>
+                </ul>
+                </p>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div id="passo4" class="nextF" style="display: none;">
+    <div class="action-pass">&nbsp;
+        <button type="button" style="float: right;" class="nextPass btn btn-info" data-val="conteudo">Ir para
+            Formulário
+        </button>
+        <button type="button" style="float: right; margin-right: 10px !important;" class="nextPass btn btn-info"
+                data-val="passo3">Anterior
+        </button>
+    </div>
+    <table align="center" border="0" class="tabela" width="95%"
+           background="<?php echo $this->baseUrl('img/benificiario.png') ?>">
+        <tr>
+            <td style="text-align: center;">
+                <h3 class="footer-headline"><span>Divulgação de dados da beneficiária</span></h3>
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    A divulgação dos dados implica tão somente em informar que a beneficiária participa ou participou
+                    do Programa de Cultura do Trabalhador, para fins de monitoramento e avaliação da política pública.
+                    Não serão divulgados dados pessoais ou sigilosos, apenas indicação de nome da empresa como
+                    participante do programa.
+                </p>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div id="conteudo" class="nextF" style="display: none;">
     <div id="iframe" style="display:none; margin-bottom: -10px;">
         <iframe name="_frameForm" id="_frameForm" style="border: 0px #fff solid; width: 100%; height: 110px;"></iframe>
     </div>
@@ -100,8 +285,16 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="3" style="text-align: center;"><h3 class="footer-headline"><span>Dados da Empresa Benefici&aacute;ria</span>
-                    </h3></td>
+                <td colspan="3" style="text-align: center;">
+                    <h3 class="footer-headline">
+                        <span>
+                            Dados da Empresa Benefici&aacute;ria <img class="nextPass" data-val="passo1"
+                                                                      src="<?php echo $this->baseUrl('img/help-icon.png'); ?>"
+                                                                      style="width: 25px; height: 25px; cursor: pointer; margin-top: 0;border: 0; padding: 0;"
+                                                                      title="Informações para o preenchimento dos dados"/>
+                        </span>
+                    </h3>
+                </td>
             </tr>
             <tr>
                 <th valign="top" class="destacar bold top-left" colspan="3">CNPJ:</th>
@@ -228,10 +421,6 @@
             <tr>
                 <td colspan="2" class="destacar bold">
                     Informe abaixo o n&uacute;mero de funcion&aacute;rios de acordo com a faixa salarial
-                    <a id="info-help" style="cursor: pointer">
-                        <img src="<?php echo $this->baseUrl('img/help-icon.png'); ?>"
-                             style="width: 25px; height: 25px;"/>
-                    </a>
                 </td>
             </tr>
 
@@ -590,6 +779,11 @@
     var confirmado = false;
 
     jQuery(document).ready(function () {
+
+        $('.nextPass').click(function () {
+            $('.nextF').hide();
+            $('#' + $(this).attr('data-val')).show();
+        });
 
         $(".cep").mask("99999-999");
         $(".data").mask("99/99/9999");
