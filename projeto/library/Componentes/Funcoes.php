@@ -308,7 +308,7 @@ function carregaHTMLCertificado()
             <tr>
                 <td align="center" colspan="3">
                     <img src="' . $img . '"><br><br>
-                    MINIST&Eacute;RIO DA CULTURA<br>
+                    MINIST&Eacute;RIO DA CIDADANIA<br>
                     SECRETARIA DE FOMENTO E INCENTIVO &Agrave; CULTURA - SEFIC
                 </td>
             </tr>
@@ -427,7 +427,7 @@ function carregaHTMLCertificadoBeneficiaria()
             <tr>
                 <td align="center" colspan="3">
                     <img src="' . $img . '"><br><br>
-                    MINIST&Eacute;RIO DA CULTURA<br>
+                    MINIST&Eacute;RIO DA CIDADANIA<br>
                     SECRETARIA DE FOMENTO E INCENTIVO &Agrave; CULTURA - SEFIC
                 </td>
             </tr>
@@ -578,11 +578,11 @@ function emailSenhaHTML()
                         URL: #URL#<br>
                         Senha: #Senha#<br><br>
 
-                        Em caso de dúvidas, sugestões, reclamações ou denúncias, envie e-mail para <a href="mailto:valecultura@cultura.gov.br">valecultura@cultura.gov.br</a>.<br><br>
+                        Em caso de dúvidas, sugestões, reclamações ou denúncias, envie e-mail para <a href="mailto:valecultura@cidadania.gov.br">valecultura@cidadania.gov.br</a>.<br><br>
 
                         <b>Secretaria de Fomento e Incentivo à Cultura</b>
                         <br>
-                        <b>Ministério da Cultura</b>
+                        <b>Ministério da Cidadania</b>
                     </body>
                 </html>';
     return $html;
@@ -607,12 +607,12 @@ function emailNoSenhaHTML()
                         URL: #URL#<br>
                         A sua senha já foi enviada anteriormente, para alterá-la acesse http://vale.cultura.gov.br/ e clique em "Esqueceu a senha?"<br>
 
-                        Em caso de dúvidas, sugestões, reclamações ou denúncias, envie e-mail para <a href="mailto:valecultura@cultura.gov.br">valecultura@cultura.gov.br</a>.
+                        Em caso de dúvidas, sugestões, reclamações ou denúncias, envie e-mail para <a href="mailto:cidadania@cidadania.gov.br">valecultura@cidadania.gov.br</a>.
 
                         <br><br>
                         <b>Secretaria de Fomento e Incentivo à Cultura</b>
                         <br>
-                        <b>Ministério da Cultura</b>
+                        <b>Ministério da Cidadania</b>
                     </body>
                 </html>';
     return $html;
@@ -663,7 +663,7 @@ function emailContatoHTML()
                                 </td>
                             </tr>
                         </table><br><br>
-                        <b>Ministério da Cultura</b>
+                        <b>Ministério da Cidadania</b>
                     </body>
                 </html>';
     return $html;
@@ -684,10 +684,10 @@ Oi #NOME_USUARIO#, uma redefinição de senha foi solicitada para o seu acesso ao 
 Para confirmar este pedido e definir uma nova senha para o seu acesso, por favor, clique no link abaixo:
 #URL#
 
-Se esta redefinição de senha não foi solicitada por você, nenhuma ação é necessária. Se precisar de ajuda envie e-mail para valecultura@cultura.gov.br
+Se esta redefinição de senha não foi solicitada por você, nenhuma ação é necessária. Se precisar de ajuda envie e-mail para valecultura@cidadania.gov.br
 
 Secretaria de Fomento e Incentivo à Cultura
-Ministério da Cultura
+Ministério da Cidadania
                         </pre>
                     </body>
                 </html>';
@@ -704,10 +704,10 @@ function emailAprovacaoHTML()
                     </head>
                     <body>
                         <h3>Vale-Cultura</h3>
-                        Foi apovado o cadastro da #PERFIL# #NOMEEMPRESA#.<br><br>
+                        Foi aprovado o cadastro da #PERFIL# #NOMEEMPRESA#.<br><br>
                         Para consultar o certificado acesse #URL# <br><br>
 
-                        <b>Ministério da Cultura</b>
+                        <b>Ministério da Cidadania</b>
                     </body>
                 </html>';
     return $html;
@@ -727,7 +727,7 @@ function emailAprovacaoOperadoraHTML()
                         Você agora deverá procurar uma das empresas operadoras de cartão habilitadas no programa para contratá-la.<br><br>
                         No seu cadastro você escolheu a operadora: #NOMEOPERADORA# e o telefone de contato desta empresa é: #SAC#. <br><br>
                         Se preferir poderá escolher outra operadora na lista de operadoras que se encontra disponível na página inicial do sistema Vale Cultura: #URL#." <br><br>
-                        <b>Ministério da Cultura</b>
+                        <b>Ministério da Cidadania</b>
                     </body>
                 </html>';
     return $html;
@@ -762,11 +762,11 @@ function emailAprovacaoBeneficiariaHTML()
                         Caso não esteja satisfeito com a operadora escolhida, você pode optar por outra.
                         Há uma lista das credenciadas pelo MinC na página inicial do sistema Vale-Cultura: <a href="#URL#">#URL#</a>
                         <br><br>
-                        Em caso de dúvidas, sugestões, reclamações ou denúncias, envie e-mail para <a href="mailto:valecultura@cultura.gov.br">valecultura@cultura.gov.br</a>.
+                        Em caso de dúvidas, sugestões, reclamações ou denúncias, envie e-mail para <a href="mailto:valecultura@cidadania.gov.br">valecultura@cidadania.gov.br</a>.
                         <br><br>
                         <b>Secretaria de Fomento e Incentivo à Cultura</b>
                         <br>
-                        <b>Ministério da Cultura</b>
+                        <b>Ministério da Cidadania</b>
                     </body>
                 </html>';
     return $html;
@@ -798,7 +798,7 @@ function emailReprovacaoBeneficiariaHTML()
                         <br><br>
                         <b>Secretaria de Fomento e Incentivo à Cultura</b>
                         <br>
-                        <b>Ministério da Cultura</b>
+                        <b>Ministério da Cidadania</b>
                     </body>
                 </html>';
     return $html;
@@ -819,7 +819,7 @@ function emailAprovacaoBeneficiariaParaOperadoraHTML()
                         Dados para contato da empresa: <br><br>
                         #NOMEBENEFICIARIA# - #CNPJBENEFICIARIA# <br><br>
                         #RESPONSAVEIS# <br><br>
-                        <b>Ministério da Cultura</b>
+                        <b>Ministério da Cidadania</b>
                     </body>
                 </html>';
     return $html;
