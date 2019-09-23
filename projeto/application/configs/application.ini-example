@@ -67,6 +67,8 @@ link.sobre-vale-cultura = "http://cultura.gov.br/vale-cultura"
 link.trabalhador-vale-cultura = "http://cultura.gov.br/vale-cultura/para-o-trabalhador"
 link.operadora-vale-cultura = "http://cultura.gov.br/vale-cultura/para-a-empresa-beneficiaria"
 link.email-vale-cultura = "valecultura@cidadania.gov.br"
+link.legislacao-vale-cultura = "http://cultura.gov.br/documentos/legislacao-vale-cultura"
+link.manual-vale-cultura = "downloads/Manual_Vale_Cultura_v6.0.pdf"
 
 [homologacao:producao]
 
