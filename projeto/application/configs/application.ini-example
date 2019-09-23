@@ -29,7 +29,7 @@ resources.frontController.defaultModule = "minc"
 resources.frontController.defaultControllerName = "index"
 resources.frontController.defaultAction = "index"
 
-resources.modules[] = 
+resources.modules[] =
 resources.frontController.plugins.ErrorHandler.class = Zend_Controller_Plugin_ErrorHandler
 resources.frontController.plugins.ErrorHandler.options.module = "minc"
 
@@ -37,7 +37,7 @@ resources.frontController.plugins.ErrorHandler.options.module = "minc"
 resources.layout.layoutPath = APPLICATION_PATH "/layouts/"
 resources.frontController.moduleDirectory = APPLICATION_PATH "/modules"
 
-;; Exibir erros
+;; Não exibir erros
 phpSettings.display_startup_errors = 0
 phpSettings.display_errors = 0
 resources.frontController.params.displayExceptions = 0
@@ -49,7 +49,6 @@ phpSettings.date.timezone = "America/Sao_Paulo"
 phpSettings.upload_max_filesize = 20M
 phpSettings.max_file_uploads = 20
 
-
 ;; Carrega Lib
 autoloaderNamespaces[] = "ValeCultura"
 resources.view.helperPathPrefix = "ValeCultura_View_Helper"
@@ -59,6 +58,15 @@ resources.view.helperPath = APPLICATION_PATH "/../library/ValeCultura/View/Helpe
 webservices.receita-federal.consultar.pessoa.username = username
 webservices.receita-federal.consultar.pessoa.password = password
 
+;; Imagens
+images.captcha = APPLICATION_PATH "/../../public/images/captcha"
+
+;; Links
+link.vale-cultura = "http://vale.cultura.gov.br"
+link.sobre-vale-cultura = "http://cultura.gov.br/vale-cultura"
+link.trabalhador-vale-cultura = "http://cultura.gov.br/vale-cultura/para-o-trabalhador"
+link.operadora-vale-cultura = "http://cultura.gov.br/vale-cultura/para-a-empresa-beneficiaria"
+link.email-vale-cultura = "valecultura@cidadania.gov.br"
 
 [homologacao:producao]
 
@@ -77,5 +85,8 @@ phpSettings.date.timezone = "America/Sao_Paulo"
 ;; Maximum number of files that can be uploaded via a single request
 phpSettings.upload_max_filesize = 20M
 phpSettings.max_file_uploads = 20
+
+;; Links
+link.vale-cultura = "http://vale.cultura.gov.br"
 
 [desenvolvimento:homologacao]

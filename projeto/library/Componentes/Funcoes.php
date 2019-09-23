@@ -561,6 +561,8 @@ function carregaHTMLCertificadoBeneficiaria()
 
 function emailSenhaHTML()
 {
+    $links = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('link');
+
     $html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
                 <html xmlns="http://www.w3.org/1999/xhtml">
                     <head>
@@ -578,7 +580,7 @@ function emailSenhaHTML()
                         URL: #URL#<br>
                         Senha: #Senha#<br><br>
 
-                        Em caso de dúvidas, sugestões, reclamações ou denúncias, envie e-mail para <a href="mailto:valecultura@cidadania.gov.br">valecultura@cidadania.gov.br</a>.<br><br>
+                        Em caso de dúvidas, sugestões, reclamações ou denúncias, envie e-mail para <a href="mailto:' . $links['email-vale-cultura'] . '">' . $links['email-vale-cultura'] . '</a>.<br><br>
 
                         <b>Secretaria de Fomento e Incentivo à Cultura</b>
                         <br>
@@ -590,6 +592,8 @@ function emailSenhaHTML()
 
 function emailNoSenhaHTML()
 {
+    $links = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('link');
+
     $html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
                 <html xmlns="http://www.w3.org/1999/xhtml">
                     <head>
@@ -605,9 +609,9 @@ function emailNoSenhaHTML()
                         Para acessar o sistema utilize os dados:<br>
 
                         URL: #URL#<br>
-                        A sua senha já foi enviada anteriormente, para alterá-la acesse http://vale.cultura.gov.br/ e clique em "Esqueceu a senha?"<br>
+                        A sua senha já foi enviada anteriormente, para alterá-la acesse <a href="' . $links['vale-cultura'] . '" target="_blank">' . $links['vale-cultura'] . '</a> e clique em "Esqueceu a senha?"<br>
 
-                        Em caso de dúvidas, sugestões, reclamações ou denúncias, envie e-mail para <a href="mailto:cidadania@cidadania.gov.br">valecultura@cidadania.gov.br</a>.
+                        Em caso de dúvidas, sugestões, reclamações ou denúncias, envie e-mail para <a href="mailto:' . $links['email-vale-cultura'] . '">' . $links['email-vale-cultura'] . '</a>.
 
                         <br><br>
                         <b>Secretaria de Fomento e Incentivo à Cultura</b>
@@ -671,6 +675,8 @@ function emailContatoHTML()
 
 function emailNovaSenhaHTML()
 {
+    $links = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('link');
+
     $html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
                 <html xmlns="http://www.w3.org/1999/xhtml">
                     <head>
@@ -684,7 +690,8 @@ Oi #NOME_USUARIO#, uma redefinição de senha foi solicitada para o seu acesso ao 
 Para confirmar este pedido e definir uma nova senha para o seu acesso, por favor, clique no link abaixo:
 #URL#
 
-Se esta redefinição de senha não foi solicitada por você, nenhuma ação é necessária. Se precisar de ajuda envie e-mail para valecultura@cidadania.gov.br
+Se esta redefinição de senha não foi solicitada por você, nenhuma ação é necessária. 
+Se precisar de ajuda envie e-mail para <a href="mailto:' . $links['email-vale-cultura'] . '">' . $links['email-vale-cultura'] . '</a>
 
 Secretaria de Fomento e Incentivo à Cultura
 Ministério da Cidadania
@@ -736,6 +743,8 @@ function emailAprovacaoOperadoraHTML()
 
 function emailAprovacaoBeneficiariaHTML()
 {
+    $links = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('link');
+
     $html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
                 <html xmlns="http://www.w3.org/1999/xhtml">
                     <head>
@@ -762,7 +771,7 @@ function emailAprovacaoBeneficiariaHTML()
                         Caso não esteja satisfeito com a operadora escolhida, você pode optar por outra.
                         Há uma lista das credenciadas pelo MinC na página inicial do sistema Vale-Cultura: <a href="#URL#">#URL#</a>
                         <br><br>
-                        Em caso de dúvidas, sugestões, reclamações ou denúncias, envie e-mail para <a href="mailto:valecultura@cidadania.gov.br">valecultura@cidadania.gov.br</a>.
+                        Em caso de dúvidas, sugestões, reclamações ou denúncias, envie e-mail para <a href="mailto:' . $links['email-vale-cultura'] . '">' . $links['email-vale-cultura'] . '</a>.
                         <br><br>
                         <b>Secretaria de Fomento e Incentivo à Cultura</b>
                         <br>
@@ -774,6 +783,8 @@ function emailAprovacaoBeneficiariaHTML()
 
 function emailReprovacaoBeneficiariaHTML()
 {
+    $links = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('link');
+
     $html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
                 <html xmlns="http://www.w3.org/1999/xhtml">
                     <head>
@@ -789,7 +800,9 @@ function emailReprovacaoBeneficiariaHTML()
                         Portanto, pedimos que acesse o sistema novamente para corrigir e/ou
                         complementar as informações necessárias.
                         <br>
-                        Entre no site: http://vale.cultura.gov.br
+                        Entre no site: <a
+                                        href="' . $links['vale-cultura'] . '" target="_blank"
+                                        style="text-decoration: underline;">' . $links['vale-cultura'] . '</a>
                         <br>
                         Com a intenção de ter sua empresa em nosso programa, ficaremos no aguardo
                         para prosseguir com a análise.

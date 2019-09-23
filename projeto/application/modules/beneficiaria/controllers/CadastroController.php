@@ -36,12 +36,15 @@ class Beneficiaria_CadastroController extends GenericController
         $CNAEPrincipal = $modelCNAE->select(array("NR_NIVEL_HIERARQUIA = ?" => 1), "ID_CNAE");
         $NaturezaJuridica = $modelNaturezaJuridica->select(array(), "DS_NATUREZA_JURIDICA");
 
+        $links = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('link');
+
         $this->view->assign("CBOs", $CBOs);
         $this->view->assign("faixasSalarial", $faixasSalarial);
         $this->view->assign("operadorasAtivas", $operadorasAtivas);
         $this->view->assign("tipoLucro", $tipoLucro);
         $this->view->assign("CNAEPrincipal", $CNAEPrincipal);
         $this->view->assign("naturezaJuridica", $NaturezaJuridica);
+        $this->view->assign("linkTrabalhador", $links['trabalhador-vale-cultura']);
     }
 
     public function cadastrarAction()

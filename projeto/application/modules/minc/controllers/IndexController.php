@@ -18,6 +18,10 @@ class Minc_IndexController extends GenericController
     public function indexAction()
     {
         $this->getHelper('layout')->disableLayout();
+
+        $links = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('link');
+
+        $this->view->assign("linkSobreValeCultura", $links['sobre-vale-cultura']);
     }
 
     public function esqueceusenhaAction()

@@ -24,7 +24,10 @@ class Operadora_CadastroController extends GenericController
         $modelCBO = new Application_Model_CBO();
         $CBOs = $modelCBO->select(array(), 'NM_CBO');
 
-        $this->view->CBOs = $CBOs;
+        $links = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('link');
+
+        $this->view->assign("CBOs", $CBOs);
+        $this->view->assign("linkOperadora", $links['operadora-vale-cultura']);
     }
 
     public function gerarcaptchaAction()
