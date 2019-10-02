@@ -531,7 +531,7 @@ class Operadora_CadastroController extends GenericController
 
                 if (count($pj) == 0) {
 
-                    $buscaReceita = $servicos->consultarPessoaReceitaFederal($cnpj, 'Juridica', false);
+                    $buscaReceita = $servicos->consultarPessoaReceitaFederal($cnpj, 'Juridica', true);
 
                     if (!$buscaReceita) {
                         $retorno['error'] = utf8_encode('Empresa não encontrada!');
@@ -546,6 +546,11 @@ class Operadora_CadastroController extends GenericController
 
                     $msg = '';
                     $idPessoa = $pj[0]['ID_PESSOA_JURIDICA'];
+
+                    if ("" == $idPessoa) {
+                        $pessoaJuridica = $modelPessoaJuridica->findCnpj(array('p.NR_CNPJ = ?' => $cnpj));
+                        $idPessoa = $pessoaJuridica['ID_PESSOA_JURIDICA'];
+                    }
 
                     if ($tipoPJ == 'O') {
                         $eOperadoraOuBeneficiaria = $modelOperadora->find($idPessoa);

@@ -78,6 +78,26 @@ class Application_Model_PessoaJuridica extends Application_Model_Pessoa
         return $this->getTable()->fetchAll($select);
     }
 
+    public function findCnpj($where = array())
+    {
+        $select = $this->getTable()->select();
+        $select->from(array('p' => 'CORPORATIVO.S_PESSOA_JURIDICA'), array('p.ID_PESSOA_JURIDICA',
+            'p.ID_TIPO_LUCRO',
+            'p.NR_CNPJ',
+            'p.NR_INSCRICAO_ESTADUAL',
+            'p.NM_RAZAO_SOCIAL',
+            'p.NM_FANTASIA',
+            'p.NR_CEI'));
+
+        if ($where) {
+            foreach ($where as $coluna => $valor) :
+                $select->where($coluna, $valor);
+            endforeach;
+        }
+
+        return $this->getTable()->fetchRow($select);
+    }
+
     public function find($id)
     {
         return $this->getTable()->find($id)->current();
