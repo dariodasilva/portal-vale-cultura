@@ -33,6 +33,8 @@ class Minc_IndexController extends GenericController
     {
         $this->getHelper('layout')->disableLayout();
 
+        $links = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('link');
+
         if ($_POST) {
 
             $modelUsuario = new Application_Model_Usuario;
@@ -57,7 +59,7 @@ class Minc_IndexController extends GenericController
                     }
                     try {
                         $senhaTemp = gerarCodigo();
-                        $url = 'http://vale.cultura.gov.br/minc/index/novasenha/cod/' . $senhaTemp . $CPF;
+                        $url = $links['vale-cultura'] . '/minc/index/novasenha/cod/' . $senhaTemp . $CPF;
 
                         $cols = array('DS_SENHA_TEMP' => md5($senhaTemp));
 
