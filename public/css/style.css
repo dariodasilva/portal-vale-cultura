@@ -1900,7 +1900,7 @@ div.sample-module {
     left: 0;
     top: 0;
     background: #FFF;
-    z-index: 9900;
+    z-index: 1030;
     border-radius: 10px;
     overflow: auto;
 }
@@ -1909,7 +1909,7 @@ div.sample-module {
     position: absolute;
     left: 0;
     top: 0;
-    z-index: 9000;
+    z-index: 1020;
     background-color: #000;
     display: none;
 }
@@ -1918,7 +1918,7 @@ div.sample-module {
     position: absolute;
     left: 0;
     top: 0;
-    z-index: 9000;
+    z-index: 1020;
     background-color: #000;
     display: none;
     opacity: 0.60;
