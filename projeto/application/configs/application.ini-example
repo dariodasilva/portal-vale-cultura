@@ -70,6 +70,14 @@ link.email-vale-cultura = "valecultura@cidadania.gov.br"
 link.legislacao-vale-cultura = "http://cultura.gov.br/documentos/legislacao-vale-cultura"
 link.manual-vale-cultura = "downloads/Manual_Vale_Cultura_v6.0.pdf"
 
+;; Email
+email.smtp-auth = 'login'
+email.smtp-host = 'mailapp.cultura.gov.br'
+email.smtp-username = 'srv_salic'
+email.smtp-password = 'emailSalic'
+email.smtp-port = 25
+email.smtp-from-email = 'valecultura@cidadania.gov.br'
+
 [homologacao:producao]
 
 ;; Usuario e Senha Serviço WebService Receita

@@ -90,25 +90,49 @@ class Application_Model_Email
 
     public function enviarEmail($email, $assunto, $texto, $perfil = 'PerfilGrupoValeCultura')
     {
-        $sql = "EXEC msdb.dbo.sp_send_dbmail
-                @profile_name          = 'PerfilGrupoValecultura'
-                ,@recipients           = '" . htmlspecialchars($email) . "'
-                ,@body                 = '" . $texto . "'
-                ,@body_format          = 'HTML'
-                ,@subject              = '" . $assunto . "'
-                ,@exclude_query_output = 1;";
+        /**
+         * @todo A procedure não está funcionando nos ambientes de homologação e produção,
+         *       por isso está sendo comentado o trecho e sendo feito o envio de email pela aplicação.
+         */
+//        $sql = "EXEC msdb.dbo.sp_send_dbmail
+//                @profile_name          = 'PerfilGrupoValecultura'
+//                ,@recipients           = '" . htmlspecialchars($email) . "'
+//                ,@body                 = '" . $texto . "'
+//                ,@body_format          = 'HTML'
+//                ,@subject              = '" . $assunto . "'
+//                ,@exclude_query_output = 1;";
+//
+//        try {
+//            $this->getTable()->getAdapter()->query($sql);
+//            return true;
+//        } catch (Exception $exc) {
+//            x($sql);
+//            xd($exc->getMessage());
+//            return true;
+//        }
+
+        $configEmail = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('email');
+
+        $config = array(//'ssl' => 'tls',
+            'auth' => $configEmail['smtp-auth'],
+            'username' => $configEmail['smtp-username'],
+            'password' => $configEmail['smtp-password'],
+            'port' => $configEmail['smtp-port']);
 
         try {
-            $this->getTable()->getAdapter()->query($sql);
+            $transport = new Zend_Mail_Transport_Smtp($configEmail['smtp-host'], $config);
+
+            $mail = new Zend_Mail();
+            $mail->setBodyHtml($texto);
+            $mail->addTo($email);
+            $mail->setFrom($configEmail['smtp-from-email']);
+            $mail->setSubject($assunto);
+            $mail->send($transport);
+
             return true;
         } catch (Exception $exc) {
-            x($sql);
             xd($exc->getMessage());
-            return true;
+            return false;
         }
-
     }
-
 }
-
-?>
