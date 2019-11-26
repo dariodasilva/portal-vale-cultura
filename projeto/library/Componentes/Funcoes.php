@@ -561,8 +561,6 @@ function carregaHTMLCertificadoBeneficiaria()
 
 function emailSenhaHTML()
 {
-    $links = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('link');
-
     $html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
                 <html xmlns="http://www.w3.org/1999/xhtml">
                     <head>
@@ -571,17 +569,22 @@ function emailSenhaHTML()
                     </head>
                     <body>
                         <h3>Vale-Cultura</h3>
+                        
+                        <br>
                         Olá! Muito obrigado por aderir ao Vale-Cultura. O cadastro de sua empresa foi realizado com sucesso!
-                        <br><br>
+                        <br>
                         Em breve você receberá uma nova mensagem sobre a avaliação do seu cadastro.
+                        <br>
+                        Para acessar o sistema utilize os dados:
                         <br><br>
-                        Para acessar o sistema utilize os dados:<br>
-
-                        URL: #URL#<br>
-                        Senha: #Senha#<br><br>
-
-                        Em caso de dúvidas, sugestões, reclamações ou denúncias, envie e-mail para <a href="mailto:' . $links['email-vale-cultura'] . '">' . $links['email-vale-cultura'] . '</a>.<br><br>
-
+                        <b>URL:</b> <a href="#URL#" target="_blank" style="text-decoration: underline;">#URL#</a>
+                        <br>
+                        <b>Senha:</b> #Senha#
+                        <br><br>
+                        Em caso de dúvidas, sugestões, reclamações ou denúncias, envie e-mail para <a href="mailto:#EMAIL#" style="text-decoration: underline;">#EMAIL#</a>.
+                        <br><br>
+                        Atenciosamente,
+                        <br><br>
                         <b>Secretaria de Fomento e Incentivo à Cultura</b>
                         <br>
                         <b>Ministério da Cidadania</b>
@@ -592,8 +595,6 @@ function emailSenhaHTML()
 
 function emailNoSenhaHTML()
 {
-    $links = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('link');
-
     $html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
                 <html xmlns="http://www.w3.org/1999/xhtml">
                     <head>
@@ -602,17 +603,20 @@ function emailNoSenhaHTML()
                     </head>
                     <body>
                         <h3>Vale-Cultura</h3>
+                        <br>
                         Olá! Muito obrigado por aderir ao Vale-Cultura. O cadastro de sua empresa foi realizado com sucesso!
-                        <br><br>
+                        <br>
                         Em breve você receberá uma nova mensagem sobre a avaliação do seu cadastro.
+                        <br>
+                        Para acessar o sistema utilize os dados:
                         <br><br>
-                        Para acessar o sistema utilize os dados:<br>
-
-                        URL: #URL#<br>
-                        A sua senha já foi enviada anteriormente, para alterá-la acesse <a href="' . $links['vale-cultura'] . '" target="_blank">' . $links['vale-cultura'] . '</a> e clique em "Esqueceu a senha?"<br>
-
-                        Em caso de dúvidas, sugestões, reclamações ou denúncias, envie e-mail para <a href="mailto:' . $links['email-vale-cultura'] . '">' . $links['email-vale-cultura'] . '</a>.
-
+                        <b>URL:</b> <a href="#URL#" target="_blank" style="text-decoration: underline;">#URL#</a>
+                        <br>
+                        A sua senha já foi enviada anteriormente, para alterá-la acesse <a href="#URL#" target="_blank" style="text-decoration: underline;">#URL#</a> e clique em "Esqueceu a senha?"
+                        <br><br>
+                        Em caso de dúvidas, sugestões, reclamações ou denúncias, envie e-mail para <a href="mailto:#EMAIL#" style="text-decoration: underline;">#EMAIL#</a>.
+                        <br><br>
+                        Atenciosamente,
                         <br><br>
                         <b>Secretaria de Fomento e Incentivo à Cultura</b>
                         <br>
@@ -632,7 +636,8 @@ function emailContatoHTML()
                     </head>
                     <body>
                         <h3>Contato - Vale-Cultura</h3>
-                        Contato realizado via sistema ValeCultura<br><br>
+                        <br><br>
+                        Contato realizado via sistema Vale Cultura<br><br>
                         <table border="0">
                             <tr>
                                 <td>
@@ -666,7 +671,12 @@ function emailContatoHTML()
                                     #MENSAGEM#
                                 </td>
                             </tr>
-                        </table><br><br>
+                        </table>
+                        <br><br>
+                        Atenciosamente,
+                        <br><br>
+                        <b>Secretaria de Fomento e Incentivo à Cultura</b>
+                        <br>
                         <b>Ministério da Cidadania</b>
                     </body>
                 </html>';
@@ -675,8 +685,6 @@ function emailContatoHTML()
 
 function emailNovaSenhaHTML()
 {
-    $links = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('link');
-
     $html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
                 <html xmlns="http://www.w3.org/1999/xhtml">
                     <head>
@@ -684,18 +692,23 @@ function emailNovaSenhaHTML()
                         <title>Vale-Cultura</title>
                     </head>
                     <body>
-                        <pre>
-Oi #NOME_USUARIO#, uma redefinição de senha foi solicitada para o seu acesso ao sistema do Vale-Cultura.
-
-Para confirmar este pedido e definir uma nova senha para o seu acesso, por favor, clique no link abaixo:
-#URL#
-
-Se esta redefinição de senha não foi solicitada por você, nenhuma ação é necessária. 
-Se precisar de ajuda envie e-mail para <a href="mailto:' . $links['email-vale-cultura'] . '">' . $links['email-vale-cultura'] . '</a>
-
-Secretaria de Fomento e Incentivo à Cultura
-Ministério da Cidadania
-                        </pre>
+                        <h3>Vale-Cultura</h3>
+                        <br><br>
+                        Oi #NOME_USUARIO#, uma redefinição de senha foi solicitada para o seu acesso ao sistema do Vale-Cultura.
+                        <br>
+                        Para confirmar este pedido e definir uma nova senha para o seu acesso, por favor, clique no link abaixo:
+                        <br>
+                        <a href="#URL#" target="_blank" style="text-decoration: underline;">#URL#</a>
+                        <br><br>
+                        Se esta redefinição de senha não foi solicitada por você, nenhuma ação é necessária. 
+                        <br>
+                        Se precisar de ajuda, envie e-mail para <a href="mailto:#EMAIL#" style="text-decoration: underline;">#EMAIL#</a>.
+                        <br><br>
+                        Atenciosamente,
+                        <br><br>
+                        <b>Secretaria de Fomento e Incentivo à Cultura</b>
+                        <br>
+                        <b>Ministério da Cidadania</b>
                     </body>
                 </html>';
     return $html;
@@ -711,9 +724,17 @@ function emailAprovacaoHTML()
                     </head>
                     <body>
                         <h3>Vale-Cultura</h3>
-                        Foi aprovado o cadastro da #PERFIL# #NOMEEMPRESA#.<br><br>
-                        Para consultar o certificado acesse #URL# <br><br>
-
+                        <br><br>
+                        Olá <b>#NOMERESPONSAVEL#</b>,
+                        <br><br>
+                        O cadastro da #PERFIL# #NOMEEMPRESA# no Vale-Cultura foi aprovado.
+                        <br>
+                        Para consultar o certificado de inscrição, acesse <a href="#URL#" target="_blank" style="text-decoration: underline;">#URL#</a>.
+                        <br><br>
+                        Atenciosamente,
+                        <br><br>
+                        <b>Secretaria de Fomento e Incentivo à Cultura</b>
+                        <br>
                         <b>Ministério da Cidadania</b>
                     </body>
                 </html>';
@@ -730,10 +751,21 @@ function emailAprovacaoOperadoraHTML()
                     </head>
                     <body>
                         <h3>Vale-Cultura</h3>
-                        A sua empresa: #PERFIL# #NOMEEMPRESA#, acabou de ser habilitada no programa Vale Cultura.<br><br>
-                        Você agora deverá procurar uma das empresas operadoras de cartão habilitadas no programa para contratá-la.<br><br>
-                        No seu cadastro você escolheu a operadora: #NOMEOPERADORA# e o telefone de contato desta empresa é: #SAC#. <br><br>
-                        Se preferir poderá escolher outra operadora na lista de operadoras que se encontra disponível na página inicial do sistema Vale Cultura: #URL#." <br><br>
+                        <br><br>
+                        Olá <b>#NOMERESPONSAVEL#</b>,
+                        <br><br>
+                        O cadastro da operadora #NOMEEMPRESA# no Vale-Cultura foi aprovado.
+                        <br>
+                        Agora sua empresa pode habilitar os estabelecimentos comerciais que vendem os produtos culturais previstos no anexo I da Instrução Normativa n°2/2013.
+                        <br>
+                        Além disso, sua empresa também está autorizada a produzir e comercializar o cartão Vale-Cultura para as empresas Beneficiárias cadastradas no programa.
+                        <br>
+                        Para consultar o certificado de inscrição, acesse <a href="#URL#" target="_blank" style="text-decoration: underline;">#URL#</a> e faça o seu login.
+                        <br><br>
+                        Atenciosamente,
+                        <br><br>
+                        <b>Secretaria de Fomento e Incentivo à Cultura</b>
+                        <br>
                         <b>Ministério da Cidadania</b>
                     </body>
                 </html>';
@@ -753,6 +785,7 @@ function emailAprovacaoBeneficiariaHTML()
                     </head>
                     <body>
                         <h3>Vale-Cultura</h3>
+                        <br><br>
                         Parabéns! O seu cadastro foi aprovado!
                         <br><br>
                         A sua participação estimula o desenvolvimento cultural e social dos trabalhadores de sua empresa e do País.
@@ -762,16 +795,18 @@ function emailAprovacaoBeneficiariaHTML()
                         e também paguem mensalidades de cursos de artes, audiovisual, dança, circo, fotografia, música, literatura ou teatro.
                         <br><br>
                         Esqueceu sua senha? <a href="#URL#">Clique aqui</a>
-                        <br><br>
+                        <br>
                         O próximo passo é entrar em contato com a operadora de sua preferência, escolhida no ato do cadastro,
                         para que ela possa emitir os cartões Vale-Cultura que serão utilizados pelos empregados da sua empresa.
-                        <br><br>
+                        <br>
                         No seu cadastro, você já escolheu a operadora #NOMEOPERADORA# e o telefone de contato dela é #SAC#.
-                        <br><br>
+                        <br>
                         Caso não esteja satisfeito com a operadora escolhida, você pode optar por outra.
                         Há uma lista das credenciadas pelo MinC na página inicial do sistema Vale-Cultura: <a href="#URL#">#URL#</a>
-                        <br><br>
+                        <br>
                         Em caso de dúvidas, sugestões, reclamações ou denúncias, envie e-mail para <a href="mailto:' . $links['email-vale-cultura'] . '">' . $links['email-vale-cultura'] . '</a>.
+                        <br><br>
+                        Atenciosamente,
                         <br><br>
                         <b>Secretaria de Fomento e Incentivo à Cultura</b>
                         <br>
@@ -783,8 +818,6 @@ function emailAprovacaoBeneficiariaHTML()
 
 function emailReprovacaoBeneficiariaHTML()
 {
-    $links = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('link');
-
     $html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
                 <html xmlns="http://www.w3.org/1999/xhtml">
                     <head>
@@ -792,20 +825,15 @@ function emailReprovacaoBeneficiariaHTML()
                         <title>Vale-Cultura</title>
                     </head>
                     <body>
-                        Olá #NOMERESPONSAVEL#,
+                        <h3>Vale-Cultura</h3>
                         <br><br>
-                        Informamos que foram detectadas inconsistências no seu cadastro, por isso
-                        ele foi reprovado.
+                        Olá <b>#NOMERESPONSAVEL#</b>,
+                        <br><br>
+                        Informamos que o seu cadastro no Programa de Cultura do Trabalhador não foi aprovado.
                         <br>
-                        Portanto, pedimos que acesse o sistema novamente para corrigir e/ou
-                        complementar as informações necessárias.
+                        Portanto, pedimos que acesse o sistema para verificar o motivo da reprovação.
                         <br>
-                        Entre no site: <a
-                                        href="' . $links['vale-cultura'] . '" target="_blank"
-                                        style="text-decoration: underline;">' . $links['vale-cultura'] . '</a>
-                        <br>
-                        Com a intenção de ter sua empresa em nosso programa, ficaremos no aguardo
-                        para prosseguir com a análise.
+                        Entre no site: <a href="#URL#" target="_blank" style="text-decoration: underline;">#URL#</a> e faça o seu login para consultar.
                         <br><br>
                         Atenciosamente,
                         <br><br>
@@ -827,11 +855,20 @@ function emailAprovacaoBeneficiariaParaOperadoraHTML()
                     </head>
                     <body>
                         <h3>Vale-Cultura</h3>
-                        A empresa beneficiária do Vale Cultura: #NOMEBENEFICIARIA# - #CNPJBENEFICIARIA# acabou de ser habilitada no programa. <br>
-                        Esta empresa escolheu a Operadora: #NOMEOPERADORA# como preferencial fornecedora de cartão. <br><br>
-                        Dados para contato da empresa: <br><br>
-                        #NOMEBENEFICIARIA# - #CNPJBENEFICIARIA# <br><br>
-                        #RESPONSAVEIS# <br><br>
+                        <br><br>
+                        A empresa beneficiária do Vale Cultura: #NOMEBENEFICIARIA# - #CNPJBENEFICIARIA# acabou de ser habilitada no programa.
+                        <br>
+                        Esta empresa escolheu a Operadora: #NOMEOPERADORA# como preferencial fornecedora de cartão.
+                        <br>
+                        Dados para contato da empresa: <br>
+                        #NOMEBENEFICIARIA# - #CNPJBENEFICIARIA# 
+                        <br><br>
+                        #RESPONSAVEIS# 
+                        <br><br>
+                        Atenciosamente,
+                        <br><br>
+                        <b>Secretaria de Fomento e Incentivo à Cultura</b>
+                        <br>
                         <b>Ministério da Cidadania</b>
                     </body>
                 </html>';
