@@ -724,18 +724,19 @@ class Beneficiaria_CadastroController extends GenericController
 
         $modelSituacao->insert($Cols);
 
+        $links = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('link');
+
         // Passo 13 - Enviar email para o responsável
+        $htmlEmail = emailNoSenhaHTML();
+
         if ($enviaEmailSenha) {
             $htmlEmail = emailSenhaHTML();
-            $htmlEmail = str_replace("#PERFIL#", "Beneficiária", $htmlEmail);
-            $htmlEmail = str_replace("#URL#", "http://vale.cultura.gov.br/", $htmlEmail);
             $htmlEmail = str_replace("#Senha#", $senha, $htmlEmail);
-            $modelEmail->enviarEmail($dsEmail, "Acesso ao sistema Vale Cultura", $htmlEmail);
-        } else {
-            $htmlEmail = emailNoSenhaHTML();
-            $htmlEmail = str_replace("#PERFIL#", "Beneficiária", $htmlEmail);
-            $htmlEmail = str_replace("#URL#", "http://vale.cultura.gov.br/", $htmlEmail);
-            $modelEmail->enviarEmail($dsEmail, "Acesso ao sistema Vale Cultura", $htmlEmail);
         }
+
+        $htmlEmail = str_replace("#PERFIL#", "Beneficiária", $htmlEmail);
+        $htmlEmail = str_replace('#URL#', $links['vale-cultura'], $htmlEmail);
+        $htmlEmail = str_replace('#EMAIL#', $links['email-vale-cultura'], $htmlEmail);
+        $modelEmail->enviarEmail($dsEmail, "Acesso ao sistema Vale Cultura", $htmlEmail);
     }
 }
