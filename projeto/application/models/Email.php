@@ -56,8 +56,6 @@ class Application_Model_Email
         $select->order($order);
         $select->limit($limit);
 
-//        xd($select->assemble());
-
         return $this->getTable()->fetchAll($select);
     }
 
