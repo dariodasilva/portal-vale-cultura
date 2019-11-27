@@ -69,11 +69,11 @@
             <tr>
                 <td colspan="3" style="text-align: center;">
                     <span style="font-size: 15px; color: red;">
-                        Empresário, se deseja oferecer o Vale-Cultura aos seus funcionários,
-                        <a style="color: #000; font-weight: bold;" target="_blank"
-                           href="<?php echo $this->linkOperadora; ?>">
-                            clique aqui
-                        </a>  e faça a adesão de sua empresa ao programa.
+                        Empresário, se deseja oferecer o Vale-Cultura aos seus funcionários, faça sua adesão clicando em
+                        <a style="color: #000; font-weight: bold;cursor: pointer" data-dismiss="modal"
+                           id="closeModalOperadora">
+                            Cadastrar Beneficiária
+                        </a>.
                     </span>
                 </td>
             </tr>
@@ -611,6 +611,12 @@
     }
 
     jQuery(document).ready(function () {
+
+        $('#closeModalOperadora').click(function () {
+            fechaModal();
+            $('#btnCadastroBeneficiaria').trigger('click');
+        });
+
         gerarCaptcha();
 
         $("#SAC_DDD").mask("99");
