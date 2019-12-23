@@ -67,6 +67,8 @@ class Minc_IndexController extends GenericController
                             $htmlEmail = emailNovaSenhaHTML();
                             $htmlEmail = str_replace('#URL#', $url, $htmlEmail);
                             $htmlEmail = str_replace('#NOME_USUARIO#', $recuperaUsuario[0]->NM_PESSOA_FISICA, $htmlEmail);
+                            $htmlEmail = str_replace('#EMAIL#', $links['email-vale-cultura'], $htmlEmail);
+
                             $enviarEmail = $modelEmail->enviarEmail($DSEMAIL, 'Acesso ao sistema Vale Cultura', $htmlEmail);
                             parent::message('Um e-mail foi enviado para ' . $DSEMAIL, '/', 'confirm');
                         } else {
