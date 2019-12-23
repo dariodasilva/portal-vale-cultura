@@ -99,6 +99,7 @@ class Minc_AdminController extends GenericController
         $dsJustificativa = $this->_request->getParam('dsJustificativa');
 
         try {
+            $links = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('link');
 
             $modelSituacao = new Application_Model_Situacao();
             $modelOperadora = new Application_Model_Operadora();
@@ -148,22 +149,25 @@ class Minc_AdminController extends GenericController
                     }
 
                     //Enviar e-mail
-                    $htmlEmail = emailAprovacaoHTML();
+                    $htmlEmail = emailAprovacaoOperadoraHTML();
                     $htmlEmail = str_replace('#PERFIL#', $opcao, $htmlEmail);
                     $htmlEmail = str_replace('#NOMEEMPRESA#', $nomeEmpresa, $htmlEmail);
-                    $htmlEmail = str_replace('#URL#', 'http://vale.cultura.gov.br', $htmlEmail);
+                    $htmlEmail = str_replace('#URL#', $links['vale-cultura'], $htmlEmail);
 
                     if (count($responsaveis) > 0) {
                         $responsavel = $responsaveis[0]['ID_PESSOA_VINCULADA'];
-                        $eamils = $modelEmail->select(array('ID_PESSOA = ?' => $responsavel));
-                        foreach ($eamils as $email) {
+
+                        $htmlEmail = str_replace('#NOMERESPONSAVEL#', $responsaveis[0]['NM_PESSOA_FISICA'], $htmlEmail);
+
+                        $emails = $modelEmail->select(array('ID_PESSOA = ?' => $responsavel));
+
+                        foreach ($emails as $email) {
                             $enviarEmail = $modelEmail->enviarEmail($email['DS_EMAIL'], 'Acesso ao sistema Vale Cultura', $htmlEmail);
                         }
                     }
                 }
                 parent::message('Operação realizada com sucesso!', '/minc/admin/avaliar-operadora/operadora/' . $id, 'success');
             } else {
-
                 if ($atualiza) {
                     // Gerar numeração do certificado
                     if ($idTipoSituacao == 2) {
@@ -223,18 +227,21 @@ class Minc_AdminController extends GenericController
                     }
 
                     //Enviar e-mail para o responsável da beneficiária
-                    $htmlEmail = emailAprovacaoBeneficiariaHTML();
+                    $htmlEmail = emailAprovacaoHTML();
                     $htmlEmail = str_replace('#PERFIL#', $opcao, $htmlEmail);
                     $htmlEmail = str_replace('#NOMEEMPRESA#', $nomeEmpresa, $htmlEmail);
-                    $htmlEmail = str_replace('#URL#', 'http://vale.cultura.gov.br', $htmlEmail);
+                    $htmlEmail = str_replace('#URL#', $links['vale-cultura'], $htmlEmail);
 
                     $htmlEmail = str_replace('#NOMEOPERADORA#', $nomeOperadora, $htmlEmail);
                     $htmlEmail = str_replace('#SAC#', $sacOperadora, $htmlEmail);
 
                     // Tem que enviar para todos os responsáveis da beneficiaria
                     foreach ($responsaveis as $respB) {
-                        $eamils = $modelEmail->select(array('ID_PESSOA = ?' => $respB['ID_PESSOA_VINCULADA']));
-                        foreach ($eamils as $email) {
+                        $emails = $modelEmail->select(array('ID_PESSOA = ?' => $respB['ID_PESSOA_VINCULADA']));
+                        $pessoa = $modelPessoaFisica->select(array('ID_PESSOA_FISICA = ?' => $respB['ID_PESSOA_VINCULADA']));
+
+                        $htmlEmail = str_replace('#NOMERESPONSAVEL#', $pessoa[0]['NM_PESSOA_FISICA'], $htmlEmail);
+                        foreach ($emails as $email) {
                             $enviarEmail = $modelEmail->enviarEmail($email['DS_EMAIL'], 'Acesso ao sistema Vale Cultura', $htmlEmail);
                         }
                     }
@@ -263,7 +270,7 @@ class Minc_AdminController extends GenericController
                     $htmlEmailOperadora = str_replace('#CNPJBENEFICIARIA#', addMascara($pessoaJuridica[0]['NR_CNPJ'], 'cnpj'), $htmlEmailOperadora);
                     $htmlEmailOperadora = str_replace('#NOMEOPERADORA#', $nomeOperadora, $htmlEmailOperadora);
                     $htmlEmailOperadora = str_replace('#RESPONSAVEIS#', $txtResponsavel, $htmlEmailOperadora);
-                    $htmlEmailOperadora = str_replace('#URL#', 'http://vale.cultura.gov.br', $htmlEmailOperadora);
+                    $htmlEmailOperadora = str_replace('#URL#', $links['vale-cultura'], $htmlEmailOperadora);
 
                     foreach ($responsaveisOperadora as $ro) {
                         $eamils = $modelEmail->select(array('ID_PESSOA = ?' => $ro->idPessoaVinculada));
@@ -271,18 +278,21 @@ class Minc_AdminController extends GenericController
                             $enviarEmail = $modelEmail->enviarEmail($email['DS_EMAIL'], 'Acesso ao sistema Vale Cultura', $htmlEmailOperadora);
                         }
                     }
-                } else if ($idTipoSituacao == 3) { // Caso o cadastro da empresa seja reprovado
+                } else if ($idTipoSituacao == 3) {
+                    // Caso o cadastro da empresa seja reprovado
+
                     $responsaveis = $modelPessoaVinculada->select(array('ID_PESSOA = ?' => $id, 'ST_PESSOA_VINCULADA = ?' => 'A'));
 
                     foreach ($responsaveis as $respB) {
                         $pessoa = $modelPessoaFisica->select(array('ID_PESSOA_FISICA = ?' => $respB['ID_PESSOA_VINCULADA']));
 
-                        $eamils = $modelEmail->select(array('ID_PESSOA = ?' => $respB['ID_PESSOA_VINCULADA']));
+                        $emails = $modelEmail->select(array('ID_PESSOA = ?' => $respB['ID_PESSOA_VINCULADA']));
 
                         $htmlEmail = emailReprovacaoBeneficiariaHTML();
                         $htmlEmail = str_replace('#NOMERESPONSAVEL#', $pessoa[0]['NM_PESSOA_FISICA'], $htmlEmail);
+                        $htmlEmail = str_replace('#URL#', $links['vale-cultura'], $htmlEmail);
 
-                        foreach ($eamils as $email) {
+                        foreach ($emails as $email) {
                             $enviarEmail = $modelEmail->enviarEmail($email['DS_EMAIL'], 'Acesso ao sistema Vale Cultura', $htmlEmail);
                         }
                     }
@@ -695,20 +705,13 @@ class Minc_AdminController extends GenericController
 
         $dadosBeneficiaria['nmFantasiaOperadora'] = $operadora[0]['nmFantasia'];
         $dadosBeneficiaria['nmRazaoSocialOperadora'] = $operadora[0]['nmRazaoSocial'];
+
         // Situacao do Operador
         if (count($stOperadora) > 0) {
             $dadosBeneficiaria['dtSituacaoOperadora'] = $stOperadora[0]['dtSituacao'];
             $dadosBeneficiaria['idTipoSituacaoOperadora'] = $stOperadora[0]['idTipoSituacao'];
             $dadosBeneficiaria['dsTipoSituacaoOperadora'] = $stOperadora[0]['dsTipoSituacao'];
             $dadosBeneficiaria['stTipoSituacaoOperadora'] = $stOperadora[0]['stTipoSituacao'];
-        }
-
-        // Situacao do Operador
-        if (count($stOperadora) > 0) {
-            $dadosBeneficiaria['dtSituacaoOperadoraAutorizada'] = $stOperadoraAutorizada[0]['dtSituacao'];
-            $dadosBeneficiaria['idTipoSituacaoOperadoraAutorizada'] = $stOperadoraAutorizada[0]['idTipoSituacao'];
-            $dadosBeneficiaria['dsTipoSituacaoOperadoraAutorizada'] = $stOperadoraAutorizada[0]['dsTipoSituacao'];
-            $dadosBeneficiaria['stTipoSituacaoOperadoraAutorizada'] = $stOperadoraAutorizada[0]['stTipoSituacao'];
         }
 
         $ultimaSituacaoCadastral = $modelBeneficiaria->ultimaSituacaoCadastral($idBeneficiaria);
