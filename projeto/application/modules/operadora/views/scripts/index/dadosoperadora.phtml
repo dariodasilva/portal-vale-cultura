@@ -247,8 +247,11 @@
                 }
             },
         });
-    });
 
+        $('#btnVoltar').click(function () {
+            window.location.href = "/admin/lista-operadora";
+        });
+    });
 
     function buscaCep(obj) {
         var cep = $(obj).val();

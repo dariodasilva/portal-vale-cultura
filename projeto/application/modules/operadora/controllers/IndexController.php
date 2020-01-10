@@ -880,9 +880,12 @@ class Operadora_IndexController extends GenericController
             }
 
             if ($enviaEmail) {
+                $links = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('link');
+
                 $htmlEmail = emailSenhaHTML();
                 $htmlEmail = str_replace('#PERFIL#', 'Operadora', $htmlEmail);
-                $htmlEmail = str_replace('#URL#', 'http://vale.cultura.gov.br', $htmlEmail);
+                $htmlEmail = str_replace('#URL#', $links['vale-cultura'], $htmlEmail);
+                $htmlEmail = str_replace('#EMAIL#', $links['email-vale-cultura'], $htmlEmail);
                 $htmlEmail = str_replace('#Senha#', $senha, $htmlEmail);
                 $enviarEmail = $modelEmail->enviarEmail($DSEMAIL, 'Acesso ao sistema Vale Cultura', $htmlEmail);
             }
@@ -1625,8 +1628,61 @@ class Operadora_IndexController extends GenericController
         } catch (Exception $ex) {
             parent::message('Ops, desculpe mas houve um erro na aplicação.', '/operadora/index/responsavel/', 'error');
         }
+    }
 
+    public function ativacaoNaoResponsavelAction()
+    {
 
+        $idOperadora = $this->_sessao['operadora'];
+        $idResponsavel = $this->getRequest()->getParam('id');
+        $ativacao = $this->getRequest()->getParam('ativar');
+        $tipoVinculo = 'A';
+        $msg = 'Ativado com sucesso!';
+
+        if ($ativacao == 'N') {
+            $tipoVinculo = 'I';
+            $msg = 'Desativado com sucesso!';
+        }
+
+        $modelPessoaVinculada = new Application_Model_PessoaVinculada();
+
+        try {
+
+            $where = array(
+                'pv.ID_PESSOA_VINCULADA = ?' => $idResponsavel,
+                'pv.ID_TIPO_VINCULO_PESSOA = ?' => 13,
+                'pv.ST_PESSOA_VINCULADA = ?' => 'A'
+            );
+
+            $eResponsavelOperadora = $modelPessoaVinculada->buscarDadosResponsavel($where);
+
+            if ((count($eResponsavelOperadora) > 0) && ($ativacao == 'S')) {
+                parent::message('O não responsável já está ativo em outra operadora!', '/operadora/index/nao-responsavel/', 'error');
+            }
+
+            $modelPessoaVinculada->update(array('ST_PESSOA_VINCULADA' => $tipoVinculo), $idOperadora, $idResponsavel);
+
+            if ($this->_sessao["PerfilGeral"] != 'A') {
+
+                // Atualiza o status
+                $modelSituacao = new Application_Model_Situacao();
+                $dadosSituacao = array(
+                    'ID_PESSOA' => $idOperadora,
+                    'DS_JUSTIFICATIVA' => 'Mudança em responsáveis da operadora.',
+                    'ID_USUARIO' => $this->_sessao['idUsuario'],
+                    'TP_ENTIDADE_VALE_CULTURA' => 'O',
+                    'ID_TIPO_SITUACAO' => 1
+                );
+
+                $modelSituacao->insert($dadosSituacao);
+
+            }
+
+            parent::message($msg, '/operadora/index/nao-responsavel/', 'confirm');
+
+        } catch (Exception $ex) {
+            parent::message('Ops, desculpe mas houve um erro na aplicação.', '/operadora/index/nao-responsavel/', 'error');
+        }
     }
 
     public function exportarExcelAction()
@@ -1965,9 +2021,12 @@ class Operadora_IndexController extends GenericController
             }
 
             if ($enviaEmail) {
+                $links = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('link');
+
                 $htmlEmail = emailSenhaHTML();
                 $htmlEmail = str_replace('#PERFIL#', 'Operadora', $htmlEmail);
-                $htmlEmail = str_replace('#URL#', 'http://vale.cultura.gov.br', $htmlEmail);
+                $htmlEmail = str_replace('#URL#', $links['vale-cultura'], $htmlEmail);
+                $htmlEmail = str_replace('#EMAIL#', $links['email-vale-cultura'], $htmlEmail);
                 $htmlEmail = str_replace('#Senha#', $senha, $htmlEmail);
 //                $enviarEmail = $modelEmail->enviarEmail($DSEMAIL, 'Acesso ao sistema Vale Cultura', $htmlEmail);
             }

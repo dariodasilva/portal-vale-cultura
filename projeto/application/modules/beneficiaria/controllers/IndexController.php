@@ -777,9 +777,12 @@ class Beneficiaria_IndexController extends GenericController
             }
 
             if ($enviaEmail) {
+                $links = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('link');
+
                 $htmlEmail = emailSenhaHTML();
                 $htmlEmail = str_replace('#PERFIL#', 'Operadora', $htmlEmail);
-                $htmlEmail = str_replace('#URL#', 'http://vale.cultura.gov.br', $htmlEmail);
+                $htmlEmail = str_replace('#URL#', $links['vale-cultura'], $htmlEmail);
+                $htmlEmail = str_replace('#EMAIL#', $links['email-vale-cultura'], $htmlEmail);
                 $htmlEmail = str_replace('#Senha#', $senha, $htmlEmail);
                 $enviarEmail = $modelEmail->enviarEmail($DSEMAIL, 'Acesso ao sistema Vale Cultura', $htmlEmail);
             }
@@ -1374,8 +1377,32 @@ class Beneficiaria_IndexController extends GenericController
         } catch (Exception $ex) {
             parent::message('Ops, desculpe mas houve um erro na aplicação.', '/beneficiaria/index/responsavel/', 'error');
         }
+    }
 
+    // ativação dos responsáveis das Beneficiárias
+    public function ativacaoNaoResponsavelAction()
+    {
+        $idBeneficiaria = $this->_sessao['beneficiaria'];
+        $idResponsavel = $this->getRequest()->getParam('id');
+        $ativacao = $this->getRequest()->getParam('ativar');
+        $tipoVinculo = 'A';
+        $msg = 'Ativado com sucesso!';
 
+        if ($ativacao == 'N') {
+            $tipoVinculo = 'I';
+            $msg = 'Desativado com sucesso!';
+        }
+
+        $modelPessoaVinculada = new Application_Model_PessoaVinculada();
+
+        try {
+
+            $modelPessoaVinculada->update(array('ST_PESSOA_VINCULADA' => $tipoVinculo), $idBeneficiaria, $idResponsavel);
+            parent::message($msg, '/beneficiaria/index/nao-responsavel/', 'confirm');
+
+        } catch (Exception $ex) {
+            parent::message('Ops, desculpe mas houve um erro na aplicação.', '/beneficiaria/index/nao-responsavel/', 'error');
+        }
     }
 
     public function autorizarDivulgacaoMincAction()
@@ -1760,11 +1787,14 @@ class Beneficiaria_IndexController extends GenericController
             }
 
             if ($enviaEmail) {
+                $links = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('link');
+
                 $htmlEmail = emailSenhaHTML();
                 $htmlEmail = str_replace('#PERFIL#', 'Operadora', $htmlEmail);
-                $htmlEmail = str_replace('#URL#', 'http://vale.cultura.gov.br', $htmlEmail);
+                $htmlEmail = str_replace('#URL#', $links['vale-cultura'], $htmlEmail);
+                $htmlEmail = str_replace('#EMAIL#', $links['email-vale-cultura'], $htmlEmail);
                 $htmlEmail = str_replace('#Senha#', $senha, $htmlEmail);
-                $enviarEmail = $modelEmail->enviarEmail($DSEMAIL, 'Acesso ao sistema Vale Cultura', $htmlEmail);
+//                $enviarEmail = $modelEmail->enviarEmail($DSEMAIL, 'Acesso ao sistema Vale Cultura', $htmlEmail);
             }
 
             $db->commit();

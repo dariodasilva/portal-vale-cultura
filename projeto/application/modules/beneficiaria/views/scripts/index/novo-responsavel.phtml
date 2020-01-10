@@ -34,7 +34,7 @@
                     </div>
                     <div class="box-content">
                         <fieldset>
-                            <form method="POST" id="formResponsavel"
+                            <form method="POST" id="formResponsavel" enctype="multipart/form-data"
                                   action="<?php echo $this->url(array('module' => 'beneficiaria', 'controller' => 'index', 'action' => 'salvar-responsavel')); ?>">
                                 <input type="hidden" name="idBeneficiaria" id="idBeneficiaria"
                                        value="<?php echo $this->idBeneficiaria; ?>"/>
@@ -95,6 +95,16 @@
                                                    id="FaxResponsavel">
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td>
+                                            Procuração representante da empresa:
+                                        </td>
+                                        <td colspan="2">
+                                            <input type="file" name="ANEXO_11" id="ANEXO_11"
+                                                   class="input_simples arquivosBlock files" required="required"/>
+                                            <label for="ANEXO_11" id="ERROR_ANEXO_11" class="error"
+                                                   style="display: none; margin-top: 2px"></label>
+                                        </td>
                                 </table>
 
                                 <div class="form-actions">
