@@ -1,0 +1,55 @@
+
+<div class="pagination pagination-centered">
+    <ul>
+        <?php if (isset($this->previous)): ?>
+            <li>
+                <a title="Primeira Página" href="<?php echo $this->url(array('pagina' => $this->first)); ?>">&laquo; Primeira</a>
+            </li>
+        <?php else: ?>
+            <li class="active">
+                <a title="Primeira Página" href="<?php echo $this->url(array('pagina' => $this->first)); ?>">&laquo; Primeira</a>
+            </li>
+        <?php endif; ?>
+
+        <?php if (isset($this->previous)): ?>
+            <li>
+                <a title="Página Anterior" href="<?php echo $this->url(array('pagina' => $this->previous)); ?>">&laquo; Anterior</a>
+            </li>
+        <?php else: ?>
+            <li class="active">
+                <a title="Página Anterior" href="<?php echo $this->url(array('pagina' => $this->previous)); ?>">&laquo; Anterior</a>
+            </li>
+        <?php endif; ?>
+        <!-- Links numerados -->
+        <?php foreach ($this->pagesInRange as $page): ?>
+            <?php if ($page != $this->current): ?>
+                <li>
+                    <a title="<?php echo $page; ?>" href="<?php echo $this->url(array('pagina' => $page)); ?>"><?php echo $page; ?></a>
+                </li>
+            <?php else: ?>
+                <li class="active">
+                    <a title="<?php echo $page; ?>" href="<?php echo $this->url(array('pagina' => $page)); ?>"><?php echo $page; ?></a>
+                </li>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        <!-- Fim links numerados -->    
+        <?php if (isset($this->next)): ?>
+            <li>
+                <a title="Próxima Página" href="<?php echo $this->url(array('pagina' => $this->next)); ?>">Próxima &raquo;</a>
+            </li>
+        <?php else: ?>
+            <li class="active">
+                <a title="Próxima Página" href="<?php echo $this->url(array('pagina' => $this->next)); ?>">Próxima &raquo;</a>
+            </li>
+        <?php endif; ?>
+        <?php if (isset($this->next)): ?>
+            <li>
+                <a title="Última Página" href="<?php echo $this->url(array('pagina' => $this->last)); ?>">Última &raquo;</a>
+            </li>
+        <?php else: ?>
+            <li class="active">
+                <a title="Última Página" href="<?php echo $this->url(array('pagina' => $this->last)); ?>">Última &raquo;</a>
+            </li>
+        <?php endif; ?>
+    </ul>
+</div>  

@@ -1,0 +1,78 @@
+<div id="conteudo">
+<table width="95%" border="0" align="center" cellpadding="8" cellspacing="0" class="footer-headline">
+    <tr>
+        <td align="center">Lista de Beneficiárias<br><font style="font-size: 8pt"><!--Total: <?php /* echo count($this->beneficiariasAtivas) */ ?>--></td></td>
+    </tr>
+    <!--tr>
+        <td align="center"><button class="btn btn-large btn btn-inverse " type="submit" name="submit" value="Submit">IMPRIMIR LISTA</button>&nbsp;&nbsp;</td>    
+    </tr-->
+</table>
+<div style="background-color: #e1e1e8; margin: 15px 0px 15px 0px; border:1px solid #bbb; -moz-border-radius: 8px; -webkit-border-radius: 8px; border-radius: 8px; width: 740px; position: relative; margin-left: -370px; left: 50%">
+    <center>
+        <table width="95%" border="0" cellpadding="5" cellspacing="0" align="center" class="form">
+            <tr>
+                <td>
+                    CNPJ
+                </td>
+                <td>
+                    Nome
+                </td>
+                <td>
+                    Operadora
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input name="CNPJ" id="CNPJ" type="text" style="width: 175px;" class="cnpj" value="<?php echo $this->cnpj ?>" />
+                </td>
+                <td>
+                    <input name="NOME" id="NOME" type="text" style="width: 175px;" value="<?php echo $this->nome ?>" />
+                </td>
+                <td>
+                    <select name="OPERADORA" id="OPERADORA" style="width: 175px;">
+                        <option value="0">- SELECIONE -</option>
+                        <?php foreach ($this->operadorasAtivas as $operadora): ?>
+                            <option value="<?php echo $operadora['idOperadora'] ?>" <?php echo $operadora['idOperadora'] == $this->operadora ? "selected" : '' ?>>
+                                <?php if (!empty($operadora['nmFantasia']) && $operadora['nmFantasia'] != ' ') { echo $operadora['nmFantasia']; } else { echo $operadora['nmRazaoSocial']; } ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+                <td valign="top" width="40%" align="center">
+                    <button class="btn btn-primary aprovar" onclick="filtraBeneficiarias()">Filtrar</button>
+                </td>
+            </tr>
+        </table>
+    </center>
+</div>
+
+<table width="95%" border="0" cellpadding="5" cellspacing="0" align="center">
+    <tr style="background-color: #eee;">
+        <th align="left" width="150px" style="padding: 3px">CNPJ</th>
+        <th align="left" style="padding: 3px">Nome</th>
+        <th align="left" style="padding: 3px">Operadora</th>
+    </tr>
+    <?php if (count($this->beneficiariasAtivas) > 0) { ?>
+        <?php foreach ($this->beneficiariasAtivas as $beneficiaria) { ?>
+            <tr style="border-bottom: 1px #ccc solid;">
+                <td><?php echo addMascara($beneficiaria['nrCNPJ']) ?></td>
+                <td><?php echo uc_latin1($beneficiaria['nmRazaoSocial']) ?></td>
+                <td><?php echo $beneficiaria['operadora'] ?></td>
+            </tr>
+        <?php } ?>
+    <?php } else { ?>
+        <tr>
+            <td colspan="2">Nenhuma Beneficiária</td>
+        </tr>
+    <?php } ?>
+</table>
+
+<script type="text/javascript">
+
+                       $(document).ready(function() {
+                           $('#CNPJ').mask("99.999.999/9999-99");
+
+                       });
+</script>
+
+</div>

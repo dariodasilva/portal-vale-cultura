@@ -1,0 +1,479 @@
+<html>
+<head>
+<title>Vico V-Card</title>
+
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="v-card">
+	<meta name="author" content="matirasa">
+	
+	<link rel="stylesheet" href="../../../wp-content/themes/vico/css/style.css"> 
+	<link rel="stylesheet" href="../../../wp-content/themes/vico/bootstrap/css/bootstrap.css"> 
+	<link rel="stylesheet" href="../../../wp-content/themes/vico/css/font-awesome.css">
+	<link rel="stylesheet" href="../../../wp-content/themes/vico/css/nanoscroller.css">
+	<link rel="stylesheet" href="../../../wp-content/themes/vico/css/jquery.fancybox.css"/>
+	<link rel="stylesheet" href="../../../wp-content/themes/vico/css/adipoli.css">
+  
+	<link href='../../../../fonts.googleapis.com/css@family=Titillium+Web_3A400,200,600,700' rel='stylesheet' type='text/css'>
+
+		
+	
+	
+	
+</head>
+<body>
+
+<!-- Menu Item -->
+	<div id="carousel-controls">
+		<div class="logo"><h2>matirasa</h2></div>
+		<span class="control current"><img src="../../../wp-content/themes/vico/img/icons/user.png" class="menu-icon" alt="">About</span>
+		<span class="control"><img src="../../../wp-content/themes/vico/img/icons/resume.png" class="menu-icon" alt="">Resume</span>
+		<span class="control"><img src="../../../wp-content/themes/vico/img/icons/social.png" class="menu-icon" alt="">Social</span>
+		<span class="control"><img src="../../../wp-content/themes/vico/img/icons/portfolio.png" class="menu-icon" alt="">Portfolio</span>
+		<span class="control"><img src="../../../wp-content/themes/vico/img/icons/contact.png" class="menu-icon" alt="">Contact</span>
+	</div>
+
+<div id="carousel">
+   
+	<div class="slide about container-fluid">
+	
+		<div class="header"><img src="../../../wp-content/themes/vico/img/icons/user.png" alt=""  class="main-icon">About 
+		<span class="download"><i class="icon-download-alt icon-large"></i>  Download V-Card</span>
+		</div>
+		
+        <div class="row-fluid">
+		<div class="span4">
+			<img src="../../../wp-content/themes/vico/img/profile.jpg" class="img-rounded" alt="">
+		</div>
+
+		<div class="span8">
+		<div id="about" class="nano">
+			<div class="content">
+			<h5>DESIGN & WEB DEVELOPER</h5>
+			<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s...</p>
+			<h5>STAY CONNECTED</h5>
+			<dl class="dl-horizontal">
+				<dt><i class=" icon-twitter-sign icon-2x"></i> </dt>
+				<dd>http://twitter.com/matirasa</dd>
+				<dt><i class="icon-facebook-sign icon-2x"></i> </dt>
+				<dd>http://facebook.com/agous.Riyadi</dd>
+			</dl>
+				<table class="table table-condensed">
+					  <tbody>
+						<tr>
+						  <td class="td-name"><span class="label label-info">Name</span></td>
+						  <td class="td-dot">:</td>
+						  <td>Agus Riyadi</td>
+						</tr>
+						<tr>
+						  <td><span class="label label-info">Company</span></td>
+						  <td>:</td>
+						  <td>matirasa studo</td>
+						</tr>
+						<tr>
+						  <td><span class="label label-info">Address</span></td>
+						  <td>:</td>
+						  <td>Ngasem, KpII/173 Yogyakarta 55132</td>
+						</tr>
+						 <tr>
+						  <td><span class="label label-info">Phone</span></td>
+						  <td>:</td>
+						  <td>+62 89 772 772 71</td>
+						</tr>
+						 <tr>
+						  <td><span class="label label-info">E Mail</span></td>
+						  <td>:</td>
+						  <td>logosmiles@gmail.com</td>
+						</tr>
+					  </tbody>
+				</table>
+			</div>	
+		</div>			
+		</div>
+		</div>
+	</div>
+	
+	<!-- Resume -->
+	<div class="slide resume container-fluid">
+		<div class="header"><img src="img/icons/resume.png" alt=""  class="main-icon">Resume
+		<span class="download"><i class="icon-download-alt icon-large"></i>  Download V-Card</span>
+		</div>
+	    <div class="row-fluid">
+			<div class="span9"><h5><i class="icon-paper-clip"></i> Employment</h5>
+				<div id="nest-content" class="nano">
+					<div class="content">
+						<h4>Gamatechno <span class="label label-info right">2011 - Now</span></h4>
+						<h5>Creative Director</h5>
+						<p>Donec ut nunc in urna dapibus tristique. Nam semper magna sit amet enim consequat placerat ac in velit.
+						Sed a neque libero. Praesent sed rutrum nisl.</p>
+						
+						<h4>Bimatry <span class="label label-info right">2010 - 2011</span></h4>
+						<h5>Graphic Designer</h5>
+						<p>Donec ut nunc in urna dapibus tristique. Nam semper magna sit amet enim consequat placerat ac in velit.
+						Sed a neque libero. Praesent sed rutrum nisl.</p>
+					
+						<h4>Calista <span class="label label-info right">2009 - 2010</span></h4>
+						<h5>Photograper</h5>
+						<p>Donec ut nunc in urna dapibus tristique. Nam semper magna sit amet enim consequat placerat ac in velit.
+						Sed a neque libero. Praesent sed rutrum nisl.</p>
+						
+						<h4>Richard Doe Arts <span class="label label-info right">2007 - 2009</span></h4>
+						<h5>Junior Graphic Designer</h5>
+						<p>Donec ut nunc in urna dapibus tristique. Nam semper magna sit amet enim consequat placerat ac in velit.
+						Sed a neque libero. Praesent sed rutrum nisl.</p>
+					</div>
+				</div>			
+			</div>
+			
+			<div class="span3">
+				<h5><i class="icon-dashboard"></i> My Skills</h5>
+				<div id="skill" class="nano">
+					<div class="content">	
+						<div id="g2"></div>
+						<div id="g3"></div>
+						<div id="g4"></div>		
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Social -->
+	<div class="slide social container-fluid">
+	<div class="header"><img src="img/icons/social.png" alt=""  class="main-icon">Social
+	<span class="download"><i class="icon-download-alt icon-large"></i>  Download V-Card</span>
+	</div>
+		<div class="row-fluid">
+		 
+		 	<div class="span6"><h5><i class="icon-camera-retro"></i> My Instagram</h5>
+			<div id="instagram-wrap" class="nano">
+				<div class="content">
+					<ul id="instagram"></ul>
+				</div>
+			</div>
+			</div>
+		 	<div class="span6"><h5><i class="icon-twitter"></i> My Tweet</h5>
+			<div id="twitter-wrap" class="nano">
+					<div class="content">
+						<div class="tweet"></div> 
+					</div>
+			</div>
+			</div>
+			
+		</div>
+
+	</div>
+	
+		<div class="slide portfolio container-fluid">
+	<div class="header"><img src="img/icons/portfolio.png" alt=""  class="main-icon">Portfolio
+	<span class="download"><i class="icon-download-alt icon-large"></i>  Download V-Card</span>
+	</div>
+		<div class="row-fluid">
+		<div id="portfolio" class="nano">
+		<div class="content">
+			<ul class="portfolio-thumbnails">
+				<li>
+					<a class="fancybox" href="img/images/one.jpg" title="Cras justo odio, dapibus ac facilisis in, egestas eget quam.">
+					<img alt="" class="img-portfolio" src="img/images/thumb-01.jpg">
+					</a>			
+				</li>
+				<li>
+					<a class="fancybox" href="img/images/02.jpg" title="Cras justo odio, dapibus ac facilisis in, egestas eget quam.">
+					<img alt="" class="img-portfolio" src="img/images/thumb-02.jpg">
+					</a>
+				</li>
+				 <li>
+					 <a class="fancybox" href="img/images/03.jpg" title="Cras justo odio, dapibus ac facilisis in, egestas eget quam.">
+					<img alt="" class="img-portfolio" src="img/images/thumb-03.jpg">
+					</a>
+				</li>
+				<li>
+					 <a class="fancybox" href="img/images/four.jpg" title="Cras justo odio, dapibus ac facilisis in, egestas eget quam.">
+					<img alt="" class="img-portfolio" src="img/images/thumb-08.jpg">
+					</a>
+				</li>
+				
+				<li>
+					<a class="fancybox" href="img/images/04.jpg" title="Cras justo odio, dapibus ac facilisis in, egestas eget quam.">
+					<img alt="" class="img-portfolio" src="img/images/thumb-04.jpg">
+					</a>			
+				</li>
+				<li>
+					<a class="fancybox" href="img/images/05.jpg" title="Cras justo odio, dapibus ac facilisis in, egestas eget quam.">
+					<img alt="" class="img-portfolio" src="img/images/thumb-05.jpg">
+					</a>
+				</li>
+				 <li>
+					 <a class="fancybox" href="img/images/06.jpg" title="Cras justo odio, dapibus ac facilisis in, egestas eget quam.">
+					<img alt="" class="img-portfolio" src="img/images/thumb-06.jpg">
+					</a>
+				</li>
+				<li>
+					 <a class="fancybox" href="img/images/07.jpg" title="Cras justo odio, dapibus ac facilisis in, egestas eget quam.">
+					<img alt="" class="img-portfolio" src="img/images/thumb-07.jpg">
+					</a>
+				</li>
+				<li>
+					<a class="fancybox" href="img/images/09.jpg" title="Cras justo odio, dapibus ac facilisis in, egestas eget quam.">
+					<img alt="" class="img-portfolio" src="img/images/thumb-09.jpg">
+					</a>			
+				</li>
+				<li>
+					<a class="fancybox" href="img/images/10.jpg" title="Cras justo odio, dapibus ac facilisis in, egestas eget quam.">
+					<img alt="" class="img-portfolio" src="img/images/thumb-10.jpg">
+					</a>
+				</li>
+				 <li>
+					 <a class="fancybox" href="img/images/11.jpg" title="Cras justo odio, dapibus ac facilisis in, egestas eget quam.">
+					<img alt="" class="img-portfolio" src="img/images/thumb-11.jpg">
+					</a>
+				</li>
+				<li>
+					 <a class="fancybox" href="img/images/12.jpg" title="Cras justo odio, dapibus ac facilisis in, egestas eget quam.">
+					<img alt="" class="img-portfolio" src="img/images/thumb-12.jpg">
+					</a>
+				</li>
+			</ul>
+		</div>
+		</div>
+		</div>	
+	</div>
+	
+	<div class="slide contact container-fluid">
+		<div class="header"><img src="img/icons/contact.png" alt=""  class="main-icon">Contact 
+		<span class="download"><i class="icon-download-alt icon-large"></i> Download V-Card</span>
+		</div>
+			
+					<div class="row-fluid">
+						<div class="span6"><h5><i class="icon-envelope-alt"></i> Stay in Touch</h5>
+							<div id="contact-form" class="nano">
+							<div class="content">
+							<form>
+								<fieldset>
+									<input type="text" class="span12" placeholder="Your Name">
+									<input type="text" class="span12" placeholder="Your Email">
+
+									<textarea class="span12" rows="4"></textarea>
+									
+									<button type="submit" class="btn right">Send</button>
+								</fieldset>
+							</form>	
+							</div>
+							</div>
+						</div>
+						<div class="span6"><h5><i class="icon-map-marker"></i> G Map</h5>
+						<div id="map" class="nano">
+							<div class="content">
+								<iframe class="gmap" src="../../../../www.map-generator.org/1aa76647-1e51-4aa7-9325-14b14b305072/iframe-map.aspx"></iframe><br>
+				
+								<address>
+									<strong>Evanto, Inc.</strong><br>
+									795 Folsom Ave, Suite 600<br>
+									San Francisco, CA 94107<br>
+									<abbr title="Phone">P:</abbr> (123) 456-7890
+								</address>
+							</div>
+						</div>
+						</div>
+					</div>
+	</div> 
+	
+	
+</div>
+
+	<script type="text/javascript" src="../../../wp-content/themes/vico/js/jquery.js"></script>
+	<script type="text/javascript" src="../../../wp-content/themes/vico/js/jquery.roundabout.js"></script>
+	<script type="text/javascript" src="../../../wp-content/themes/vico/js/easing.js"></script>
+	<script type="text/javascript" src="../../../wp-content/themes/vico/js/jqinstapics.min.js"></script>
+	<script type="text/javascript" src="../../../wp-content/themes/vico/js/jquery.tweet.js" ></script> 
+	<script type="text/javascript" src="../../../wp-content/themes/vico/js/jquery.nanoscroller.js" ></script> 
+	<script type="text/javascript" src="../../../wp-content/themes/vico/js/jquery.fancybox.js"></script>
+	<script type="text/javascript" src="../../../wp-content/themes/vico/js/jquery.adipoli.js"></script>
+	<script type="text/javascript" src="../../../wp-content/themes/vico/js/raphael.2.1.0.min.js"></script>
+	<script type="text/javascript" src="../../../wp-content/themes/vico/js/justgage.1.0.1.min.js"></script>
+	 
+   <script>
+   //jquery for skill set resume
+      var g2, g3, g4;
+    
+      window.onload = function(){
+       
+        var g2 = new JustGage({
+          id: "g2", 
+          value: 65, 
+          min: 0,
+          max: 100,
+          title: "Adobe Ilustrator",
+		  titleFontSize: 12,
+		  valueFontColor : "#fff",
+		  titleFontColor : "#fff",
+		  labelFontColor : "#fff",
+		  gaugeWidthScale: 0.4,  
+		  gaugeColor : "rgba(0, 0, 0,0.5)",
+		  levelColors: ["#fff"],
+          label: "percent"
+        });
+        
+        var g3 = new JustGage({
+          id: "g3", 
+          value: 75, 
+          min: 0,
+          max: 100,
+          title: "Photoshop",
+		  titleFontSize: 12,
+		  valueFontColor : "#fff",
+		  titleFontColor : "#fff",
+		  labelFontColor : "#fff",
+		  gaugeWidthScale: 0.4,  
+		   gaugeColor : "rgba(0, 0, 0,0.5)",
+		  levelColors: ["#fff"],
+          label: "percent"
+        });
+        
+        var g4 = new JustGage({
+          id: "g4", 
+          value: 85, 
+          min: 0,
+          max: 100,
+          title: "jQuery",
+		  titleFontSize: 12,
+		  valueFontColor : "#fff",
+		  titleFontColor : "#fff",
+		  labelFontColor : "#fff",
+		  gaugeWidthScale: 0.4,  
+		   gaugeColor : "rgba(0, 0, 0,0.5)",
+		  levelColors: ["#fff"],
+          label: "percent"
+        });
+
+      };
+    </script>
+
+<script type='text/javascript'>
+    jQuery(function($){
+		//tweet
+        $(".tweet").tweet({ 
+            username: "envato",
+            join_text: "auto",
+            avatar_size: 32,
+            count: 4,
+            loading_text: "loading tweets..."
+        });
+		//instagram
+        $("#instagram").jqinstapics({ 
+ 			 "user_id": "32149008",
+ 			 "access_token": "32149008.22c41e6.a6f769e8af33432c8a490e26ba5e9e0e",
+ 			 "count": 9
+		});
+		//nice scroll
+		$(".nano").nanoScroller();
+		//pancibox
+		$(".fancybox").fancybox({
+				openEffect	: 'elastic',
+				closeEffect	: 'elastic'
+			});
+		//adipoli
+		$('.img-portfolio').adipoli({
+			'startEffect' : 'overlay',
+			'hoverEffect' : 'boxRandom',
+			'animSpeed' : 100
+		});
+		//colorswitcher
+			$('#switcher-panel a').click(function(){
+		var colour = $(this).attr('id');
+		var cssUrl = ('theme_'+colour+'.css');
+		
+		var link = $("<link>");
+		link.attr({
+		        type: 'text/css',
+		        rel: 'stylesheet',
+		        href: 'css/skins/'+cssUrl
+				});
+				
+		$("head").append( link );
+		
+        $("img").each(function(){
+              $(this).attr("src", $(this).attr("src").replace("grey", "white"));  
+        });
+		});
+		
+		//background switcher
+		$('#bg_switcher a').click(function(){
+		var link = $(this).attr('href');
+		var cssLink = ('url('+link+')');
+		$('body').css('background',cssLink);
+		return false;
+		});
+		
+		//panel switcher		
+		 $('#panelHandle').hover(function() {
+            $('#sidePanel').stop(true, false).animate({
+                'left': '0px'
+            }, 900);
+        }, function() {
+            jQuery.noConflict();
+        });
+
+        jQuery('#sidePanel').hover(function() {
+            // Do nothing
+        }, function() {
+
+            jQuery.noConflict();
+            jQuery('#sidePanel').animate({
+                left: '-132px'
+            }, 800);
+
+        });
+
+
+    });
+</script> 
+
+
+<script type="text/javascript">
+(function($) {
+var $descriptions = $('#carousel-descriptions').children('li'),
+	$controls = $('#carousel-controls').find('span'),
+	$carousel = $('#carousel')
+		.roundabout({childSelector:".slide", 
+					minOpacity:0.2, 
+					minScale: 0.7,
+					//easing: 'easeOutElastic',
+					duration: 500,
+					reflect: true,
+					autoplay:false, 
+					autoplayDuration:1000, 
+					responsive: true,
+					btnToggleAutoplay:"#play-panel",
+					autoplayPauseOnHover:false 
+					})
+		.on('focus', '.slide', function() {
+			var slideNum = $carousel.roundabout("getChildInFocus");
+			
+			$descriptions.add($controls).removeClass('current');
+			$($descriptions.get(slideNum)).addClass('current');
+			$($controls.get(slideNum)).addClass('current');
+		});
+
+$controls.on('click dblclick', function() {
+	var slideNum = -1,
+		i = 0, len = $controls.length;
+
+	for (; i<len; i++) {
+		if (this === $controls.get(i)) {
+			slideNum = i;
+			break;
+		}
+	}
+	
+	if (slideNum >= 0) {
+		$controls.removeClass('current');
+		$(this).addClass('current');
+		$carousel.roundabout('animateToChild', slideNum);
+	}
+});
+
+}(jQuery));
+</script>
+</body>
+</html>
+

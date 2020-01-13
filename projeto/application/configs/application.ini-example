@@ -1,0 +1,64 @@
+[producao]
+;; Pasta padrão da library
+includePaths.library = APPLICATION_PATH "/../library"
+includePaths.library = APPLICATION_PATH "/../library/Componentes"
+
+;; Arquivos de configuração
+config.routes = APPLICATION_PATH "/configs/routes.ini"
+config.db = APPLICATION_PATH "/configs/db.ini"
+bootstrap.path = APPLICATION_PATH "/Bootstrap.php"
+bootstrap.class = "Bootstrap"
+appnamespace = "Application"
+
+;; Pastas de bibliotecas
+autoloaderNamespaces[] = "Componentes"
+
+;; Encoding
+resources.view.encoding = "UTF-8"
+
+;; Definindo a pasta padrão dos modulos
+resources.frontController.params.prefixDefaultModule = "1"
+
+;; Nomes dos módulos
+resources.modules.minc = "minc"
+resources.modules.operadora = "operadora"
+resources.modules.beneficiaria = "beneficiaria"
+
+;; Definindo o módulo padrão
+resources.frontController.defaultModule = "minc"
+resources.frontController.defaultControllerName = "index"
+resources.frontController.defaultAction = "index"
+
+resources.modules[] = 
+resources.frontController.plugins.ErrorHandler.class = Zend_Controller_Plugin_ErrorHandler
+resources.frontController.plugins.ErrorHandler.options.module = "minc"
+
+;; Definindo a pasta padrão dos layouts
+resources.layout.layoutPath = APPLICATION_PATH "/layouts/"
+resources.frontController.moduleDirectory = APPLICATION_PATH "/modules"
+
+;; Não exibir erros
+phpSettings.display_startup_errors = 0
+phpSettings.display_errors = 0
+resources.frontController.params.displayExceptions = 0
+
+;; Carrega Lib
+autoloaderNamespaces[] = "ValeCultura"
+resources.view.helperPathPrefix = "ValeCultura_View_Helper"
+resources.view.helperPath = APPLICATION_PATH "/../library/ValeCultura/View/Helper"
+
+;; Usuario e Senha Serviço WebService Receita
+webservices.receita-federal.consultar.pessoa.username = username
+webservices.receita-federal.consultar.pessoa.password = password
+
+[homologacao:producao]
+
+;; Usuario e Senha Serviço WebService Receita
+webservices.receita-federal.consultar.pessoa.username = username
+webservices.receita-federal.consultar.pessoa.password = password
+
+phpSettings.display_startup_errors = 1
+phpSettings.display_errors = 1
+resources.frontController.params.displayExceptions = 1
+
+[desenvolvimento:homologacao]
