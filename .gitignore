@@ -3,6 +3,7 @@ projeto/application/configs/db.ini
 public/.htaccess
 public/imagens
 .idea/*
-
-*~
-\#*
+.project
+.buildpath
+.settings
+.settings/*
