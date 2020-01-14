@@ -2,9 +2,11 @@
 
 include_once 'GenericController.php';
 
-class Beneficiaria_CadastroController extends GenericController {
+class Beneficiaria_CadastroController extends GenericController
+{
 
-    public function init() {
+    public function init()
+    {
 
         // Layout Padrão
         $this->view->layout()->setLayout('layout');
@@ -15,23 +17,26 @@ class Beneficiaria_CadastroController extends GenericController {
         parent::init();
     }
 
-    public function indexAction() {
+    public function indexAction()
+    {
 
         $this->getHelper('layout')->disableLayout();
 
-        $modelCBO               = new Application_Model_CBO();
-        $modelFaixaSalaria      = new Application_Model_TipoFaixaSalarial();
-        $modelSituacao          = new Application_Model_Situacao();
-        $modelTipoLucro         = new Application_Model_TipoLucro();
-        $modelCNAE              = new Application_Model_CNAE();
-        $modelNaturezaJuridica  = new Application_Model_NaturezaJuridica();
+        $modelCBO = new Application_Model_CBO();
+        $modelFaixaSalaria = new Application_Model_TipoFaixaSalarial();
+        $modelSituacao = new Application_Model_Situacao();
+        $modelTipoLucro = new Application_Model_TipoLucro();
+        $modelCNAE = new Application_Model_CNAE();
+        $modelNaturezaJuridica = new Application_Model_NaturezaJuridica();
 
-        $CBOs                   = $modelCBO->select(array(), 'NM_CBO');
-        $faixasSalarial         = $modelFaixaSalaria->select();
-        $operadorasAtivas       = $modelSituacao->selecionaOperadorasAtivas();
-        $tipoLucro              = $modelTipoLucro->select(array('ID_TIPO_LUCRO != ?' => 2), 'DS_TIPO_LUCRO');
-        $CNAEPrincipal          = $modelCNAE->select(array('NR_NIVEL_HIERARQUIA = ?' => 1), 'ID_CNAE');
-        $NaturezaJuridica       = $modelNaturezaJuridica->select(array(), 'DS_NATUREZA_JURIDICA');
+        $CBOs = $modelCBO->select(array(), 'NM_CBO');
+        $faixasSalarial = $modelFaixaSalaria->select();
+        $operadorasAtivas = $modelSituacao->selecionaOperadorasAtivas();
+        $tipoLucro = $modelTipoLucro->select(array('ID_TIPO_LUCRO != ?' => 2), 'DS_TIPO_LUCRO');
+        $CNAEPrincipal = $modelCNAE->select(array('NR_NIVEL_HIERARQUIA = ?' => 1), 'ID_CNAE');
+        $NaturezaJuridica = $modelNaturezaJuridica->select(array(), 'DS_NATUREZA_JURIDICA');
+
+        $links = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('link');
 
         $this->view->assign('CBOs', $CBOs);
         $this->view->assign('faixasSalarial', $faixasSalarial);
@@ -39,9 +44,11 @@ class Beneficiaria_CadastroController extends GenericController {
         $this->view->assign('tipoLucro', $tipoLucro);
         $this->view->assign('CNAEPrincipal', $CNAEPrincipal);
         $this->view->assign('naturezaJuridica', $NaturezaJuridica);
+        $this->view->assign("linkTrabalhador", $links['trabalhador-vale-cultura']);
     }
 
-    public function cadastrarAction() {
+    public function cadastrarAction()
+    {
         if ($_POST) {
 
             $this->getHelper('layout')->disableLayout();
@@ -75,12 +82,12 @@ class Beneficiaria_CadastroController extends GenericController {
             $NRCOMPLEMENTO = trim($this->getRequest()->getParam('EMPRESA_NUMERO'));
             $DSLOGRAENDERECO = trim($this->getRequest()->getParam('EMPRESA_ENDERECO'));
             $IDBAIRRO = $this->getRequest()->getParam('EMPRESA_BAIRRO');
-            $CDDDDFAX = (int) substr(str_replace('-', '', (str_replace(' ', '', str_replace('(', '', str_replace(')', '', $this->getRequest()->getParam('RESPONSAVEL_FAX')))))), 0, 2);
-            $NRFAX = (int) substr(str_replace('-', '', (str_replace(' ', '', str_replace('(', '', str_replace(')', '', $this->getRequest()->getParam('RESPONSAVEL_FAX')))))), 2);
-            $CDDDD = (int) substr(str_replace('-', '', (str_replace(' ', '', str_replace('(', '', str_replace(')', '', $this->getRequest()->getParam('RESPONSAVEL_FONE')))))), 0, 2);
-            $NRTELEFONE = (int) substr(str_replace('-', '', (str_replace(' ', '', str_replace('(', '', str_replace(')', '', $this->getRequest()->getParam('RESPONSAVEL_FONE')))))), 2);
+            $CDDDDFAX = (int)substr(str_replace('-', '', (str_replace(' ', '', str_replace('(', '', str_replace(')', '', $this->getRequest()->getParam('RESPONSAVEL_FAX')))))), 0, 2);
+            $NRFAX = (int)substr(str_replace('-', '', (str_replace(' ', '', str_replace('(', '', str_replace(')', '', $this->getRequest()->getParam('RESPONSAVEL_FAX')))))), 2);
+            $CDDDD = (int)substr(str_replace('-', '', (str_replace(' ', '', str_replace('(', '', str_replace(')', '', $this->getRequest()->getParam('RESPONSAVEL_FONE')))))), 0, 2);
+            $NRTELEFONE = (int)substr(str_replace('-', '', (str_replace(' ', '', str_replace('(', '', str_replace(')', '', $this->getRequest()->getParam('RESPONSAVEL_FONE')))))), 2);
             $DSEMAIL = trim($this->getRequest()->getParam('RESPONSAVEL_EMAIL'));
-            $CDCBO = (int) $this->getRequest()->getParam('RESPONSAVEL_CARGO');
+            $CDCBO = (int)$this->getRequest()->getParam('RESPONSAVEL_CARGO');
             $IDTIPOLUCRO = $this->getRequest()->getParam('EMPRESA_TIPO_LUCRO');
             $NMFANTASIA = $this->getRequest()->getParam('EMPRESA_NMFANTASIA');
             $IDOPERADORA = $this->getRequest()->getParam('EMPRESA_OPERADORA');
@@ -94,7 +101,7 @@ class Beneficiaria_CadastroController extends GenericController {
             // Validando as faixas salariais
             $erroFaixa = 1;
             foreach ($FAIXASALARIAL as $k => $v) {
-                if ((int) $v > 0) {
+                if ((int)$v > 0) {
                     $erroFaixa = 0;
                 }
             }
@@ -185,14 +192,14 @@ class Beneficiaria_CadastroController extends GenericController {
             } else {
 
                 $db = Zend_Db_Table::getDefaultAdapter();
-                
+
                 try {
 
                     // O ID já vem do cadastro
                     $idPessoaJuridica = $IDPJ;
 
                     // Passo 0 - Alterar nome fantasi
-                    if(trim($NMFANTASIA) != ''){
+                    if (trim($NMFANTASIA) != '') {
                         $Cols = array(
                             'NM_FANTASIA' => $NMFANTASIA
                         );
@@ -241,9 +248,9 @@ class Beneficiaria_CadastroController extends GenericController {
                     // nessas situações é permitido o recadastramento
                     $eBeneficiariaInativa = $modelSituacao->buscarSituacao(array('ID_PESSOA = ?' => $idPessoaJuridica, 'TP_ENTIDADE_VALE_CULTURA = ?' => 'B'));
                     // Passo 3 - Salvando os dados como Beneficiária
-                    if(count($eBeneficiariaInativa) > 0 &&
+                    if (count($eBeneficiariaInativa) > 0 &&
                         ($eBeneficiariaInativa[0]['idTipoSituacao'] == '3' ||
-                        $eBeneficiariaInativa[0]['idTipoSituacao'] == '4')) {
+                            $eBeneficiariaInativa[0]['idTipoSituacao'] == '4')) {
                         $beneficiariaInativa = $modelBeneficiaria->find($idPessoaJuridica);
                         $modelBeneficiariaHistorico->insert(array(
                             'DT_HISTORICO' => new Zend_Db_Expr('getdate()'),
@@ -261,51 +268,51 @@ class Beneficiaria_CadastroController extends GenericController {
                             'ID_BENEFICIARIA' => $idPessoaJuridica,
                             'ID_OPERADORA' => $IDOPERADORA == 'N' ? new Zend_Db_Expr('NULL') : $IDOPERADORA,
                             'DT_INSCRICAO' => new Zend_Db_Expr('getdate()'),
-                            'ST_DIVULGAR_DADOS' => (int) $AUTORIZO_OPERADORA,
+                            'ST_DIVULGAR_DADOS' => (int)$AUTORIZO_OPERADORA,
                             'ST_AUTORIZA_MINC' => $AUTORIZO_MINC ? 1 : 2
                         );
                         $modelBeneficiaria->update($Cols, $idPessoaJuridica);
-                    }else if(count($eBeneficiariaInativa) === 0){
+                    } else if (count($eBeneficiariaInativa) === 0) {
                         $Cols = array(
                             'ID_BENEFICIARIA' => $idPessoaJuridica,
                             'ID_OPERADORA' => $IDOPERADORA == 'N' ? new Zend_Db_Expr('NULL') : $IDOPERADORA,
-                            'ST_DIVULGAR_DADOS' => (int) $AUTORIZO_OPERADORA,
+                            'ST_DIVULGAR_DADOS' => (int)$AUTORIZO_OPERADORA,
                             'ST_AUTORIZA_MINC' => $AUTORIZO_MINC ? 1 : 2
                         );
                         $modelBeneficiaria->insert($Cols);
                     }
 
                     // Passo 4 - Cadastra Faixa Salarial
-                    if(count($eBeneficiariaInativa) > 0 &&
+                    if (count($eBeneficiariaInativa) > 0 &&
                         ($eBeneficiariaInativa[0]['idTipoSituacao'] == '3' ||
-                        $eBeneficiariaInativa[0]['idTipoSituacao'] == '4')){
+                            $eBeneficiariaInativa[0]['idTipoSituacao'] == '4')) {
 
                         foreach ($FAIXASALARIAL as $k => $v) {
-                            if((int) $v > 0){
+                            if ((int)$v > 0) {
                                 $Cols = array(
                                     'DT_HISTORICO' => new Zend_Db_Expr('getdate()'),
                                     'ID_BENEFICIARIA' => $idPessoaJuridica,
                                     'ID_TIPO_FAIXA_SALARIAL' => $k,
-                                    'QT_TRABALHADOR_FAIXA_SALARIAL' => (int) $v
+                                    'QT_TRABALHADOR_FAIXA_SALARIAL' => (int)$v
                                 );
                                 $modelTrabalhadorFaixaSalarialHistorico->insert($Cols);
                             }
                         }
                         foreach ($FAIXASALARIAL as $k => $v) {
-                            if ((int) $v > 0) {
+                            if ((int)$v > 0) {
                                 $Cols = array(
-                                    'QT_TRABALHADOR_FAIXA_SALARIAL' => (int) $v
+                                    'QT_TRABALHADOR_FAIXA_SALARIAL' => (int)$v
                                 );
                                 $modelTrabalhadorFaixaSalarial->update($Cols, $idPessoaJuridica, $k);
                             }
                         }
-                    }else if(count($eBeneficiariaInativa) === 0){
+                    } else if (count($eBeneficiariaInativa) === 0) {
                         foreach ($FAIXASALARIAL as $k => $v) {
-                            if ((int) $v > 0) {
+                            if ((int)$v > 0) {
                                 $Cols = array(
                                     'ID_BENEFICIARIA' => $idPessoaJuridica,
                                     'ID_TIPO_FAIXA_SALARIAL' => $k,
-                                    'QT_TRABALHADOR_FAIXA_SALARIAL' => (int) $v
+                                    'QT_TRABALHADOR_FAIXA_SALARIAL' => (int)$v
                                 );
                                 $modelTrabalhadorFaixaSalarial->insert($Cols);
                             }
@@ -489,19 +496,20 @@ class Beneficiaria_CadastroController extends GenericController {
 
                     $modelSituacao->insert($Cols);
 
+                    $links = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('link');
+
                     // Passo 13 - Enviar email para o responsável
+                    $htmlEmail = emailNoSenhaHTML();
+
                     if ($enviaEmailSenha) {
                         $htmlEmail = emailSenhaHTML();
-                        $htmlEmail = str_replace('#PERFIL#', 'Beneficiária', $htmlEmail);
-                        $htmlEmail = str_replace('#URL#', 'http://vale.cultura.gov.br/', $htmlEmail);
-                        $htmlEmail = str_replace('#Senha#', $senha, $htmlEmail);
-                        $enviarEmail = $modelEmail->enviarEmail($DSEMAIL, 'Acesso ao sistema Vale Cultura', $htmlEmail);
-                    } else {
-                        $htmlEmail = emailNoSenhaHTML();
-                        $htmlEmail = str_replace('#PERFIL#', 'Beneficiária', $htmlEmail);
-                        $htmlEmail = str_replace('#URL#', 'http://vale.cultura.gov.br/', $htmlEmail);
-                        $enviarEmail = $modelEmail->enviarEmail($DSEMAIL, 'Acesso ao sistema Vale Cultura', $htmlEmail);
+                        $htmlEmail = str_replace("#Senha#", $senha, $htmlEmail);
                     }
+
+                    $htmlEmail = str_replace("#PERFIL#", "Beneficiária", $htmlEmail);
+                    $htmlEmail = str_replace('#URL#', $links['vale-cultura'], $htmlEmail);
+                    $htmlEmail = str_replace('#EMAIL#', $links['email-vale-cultura'], $htmlEmail);
+                    $modelEmail->enviarEmail($DSEMAIL, "Acesso ao sistema Vale Cultura", $htmlEmail);
 
                     $sucesso['CADASTRO'] = "Beneficiária cadastrada com sucesso!";
                     $sucesso['DSEMAIL'] = $DSEMAIL;
@@ -515,24 +523,26 @@ class Beneficiaria_CadastroController extends GenericController {
         }
     }
 
-    public function gerarcaptchaAction() {
+    public function gerarcaptchaAction()
+    {
         $this->getHelper('layout')->disableLayout();
         $captcha = new Zend_Captcha_Image(); // Este é o nome da classe, no secrets...
         $captcha->setWordlen(5) // quantidade de letras, tente inserir outros valores
-                ->setImgDir('imagens/captcha')// o caminho para armazenar as imagens
-                ->setGcFreq(10)//especifica a cada quantas vezes o garbage collector vai rodar para eliminar as imagens inválidas
-                ->setExpiration(600000)// tempo de expiração em segundos.
-                ->setHeight(70) // tamanho da imagem de captcha
-                ->setWidth(200)// largura da imagem
-                ->setLineNoiseLevel(1) // o nivel das linhas, quanto maior, mais dificil fica a leitura
-                ->setDotNoiseLevel(2)// nivel dos pontos, experimente valores maiores
-                ->setFontSize(15)//tamanho da fonte em pixels
-                ->setFont('font/arial.ttf'); // caminho para a fonte a ser usada
+        ->setImgDir('imagens/captcha')// o caminho para armazenar as imagens
+        ->setGcFreq(10)//especifica a cada quantas vezes o garbage collector vai rodar para eliminar as imagens inválidas
+        ->setExpiration(600000)// tempo de expiração em segundos.
+        ->setHeight(70) // tamanho da imagem de captcha
+        ->setWidth(200)// largura da imagem
+        ->setLineNoiseLevel(1) // o nivel das linhas, quanto maior, mais dificil fica a leitura
+        ->setDotNoiseLevel(2)// nivel dos pontos, experimente valores maiores
+        ->setFontSize(15)//tamanho da fonte em pixels
+        ->setFont('font/arial.ttf'); // caminho para a fonte a ser usada
         $this->view->idCaptcha = $captcha->generate(); // passamos aqui o id do captcha para a view
         $this->view->captcha = $captcha->render($this->view); // e o proprio captcha para a view
     }
 
-    public function recuperaSegundoNivelCnaeAction() {
+    public function recuperaSegundoNivelCnaeAction()
+    {
         $this->getHelper('layout')->disableLayout();
 
         $modelCNAE = new Application_Model_CNAE();

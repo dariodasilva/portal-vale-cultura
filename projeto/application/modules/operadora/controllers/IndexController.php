@@ -817,9 +817,12 @@ class Operadora_IndexController extends GenericController {
             }
 
             if ($enviaEmail) {
+                $links = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('link');
+
                 $htmlEmail = emailSenhaHTML();
                 $htmlEmail = str_replace('#PERFIL#', 'Operadora', $htmlEmail);
-                $htmlEmail = str_replace('#URL#', 'http://vale.cultura.gov.br', $htmlEmail);
+                $htmlEmail = str_replace('#URL#', $links['vale-cultura'], $htmlEmail);
+                $htmlEmail = str_replace('#EMAIL#', $links['email-vale-cultura'], $htmlEmail);
                 $htmlEmail = str_replace('#Senha#', $senha, $htmlEmail);
                 $enviarEmail = $modelEmail->enviarEmail($DSEMAIL, 'Acesso ao sistema Vale Cultura', $htmlEmail);
             }

@@ -2,9 +2,11 @@
 
 include_once 'GenericController.php';
 
-class Minc_IndexController extends GenericController {
+class Minc_IndexController extends GenericController
+{
 
-    public function init() {
+    public function init()
+    {
         // Layout Padrão
         $this->view->layout()->setLayout('layout');
         // Título
@@ -13,17 +15,21 @@ class Minc_IndexController extends GenericController {
         parent::init();
     }
 
-    public function indexAction() {
+    public function indexAction()
+    {
         $this->getHelper('layout')->disableLayout();
     }
 
-    public function esqueceusenhaAction() {
+    public function esqueceusenhaAction()
+    {
         $this->getHelper('layout')->disableLayout();
     }
 
     public function recuperarSenhaAction()
     {
         $this->getHelper('layout')->disableLayout();
+
+        $links = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('link');
 
         if ($_POST) {
 
@@ -49,7 +55,7 @@ class Minc_IndexController extends GenericController {
                     }
                     try {
                         $senhaTemp = gerarCodigo();
-                        $url = 'http://vale.cultura.gov.br/minc/index/novasenha/cod/' . $senhaTemp . $CPF;
+                        $url = $links['vale-cultura'] . '/minc/index/novasenha/cod/' . $senhaTemp . $CPF;
 
                         $cols = array('DS_SENHA_TEMP' => md5($senhaTemp));
 
@@ -57,6 +63,8 @@ class Minc_IndexController extends GenericController {
                             $htmlEmail = emailNovaSenhaHTML();
                             $htmlEmail = str_replace('#URL#', $url, $htmlEmail);
                             $htmlEmail = str_replace('#NOME_USUARIO#', $recuperaUsuario[0]->NM_PESSOA_FISICA, $htmlEmail);
+                            $htmlEmail = str_replace('#EMAIL#', $links['email-vale-cultura'], $htmlEmail);
+
                             $enviarEmail = $modelEmail->enviarEmail($DSEMAIL, 'Acesso ao sistema Vale Cultura', $htmlEmail);
                             parent::message('Um e-mail foi enviado para ' . $DSEMAIL, '/', 'confirm');
                         } else {
@@ -77,15 +85,16 @@ class Minc_IndexController extends GenericController {
         }
     }
 
-    public function novasenhaAction() {
+    public function novasenhaAction()
+    {
 
         $modelUsuario = new Application_Model_Usuario();
 
-        $session        = new Zend_Session_Namespace('user');
-        $atualizaSenha  = false;
-        $cod            = $this->getRequest()->getParam('cod');
-        $cpf            = substr($cod, strlen($cod) - 11);
-        $validador      = substr($cod, 0, strlen($cod) - 11);
+        $session = new Zend_Session_Namespace('user');
+        $atualizaSenha = false;
+        $cod = $this->getRequest()->getParam('cod');
+        $cpf = substr($cod, strlen($cod) - 11);
+        $validador = substr($cod, 0, strlen($cod) - 11);
 
         if (!isset($session->usuario["idUsuario"])) {
 
@@ -128,13 +137,14 @@ class Minc_IndexController extends GenericController {
         }
     }
 
-    public function alterarsenhaactionAction() {
+    public function alterarsenhaactionAction()
+    {
         if ($_POST) {
 
-            $modelUsuario   = new Application_Model_Usuario;
-            $session        = new Zend_Session_Namespace('user');
+            $modelUsuario = new Application_Model_Usuario;
+            $session = new Zend_Session_Namespace('user');
 
-            $NOVA_SENHA          = $this->getRequest()->getParam('NOVA_SENHA');
+            $NOVA_SENHA = $this->getRequest()->getParam('NOVA_SENHA');
             $NOVA_SENHA_CONFIRMA = $this->getRequest()->getParam('NOVA_SENHA_CONFIMA');
 
             if (isset($session->usuario["idUsuario"])) {
@@ -161,16 +171,17 @@ class Minc_IndexController extends GenericController {
         }
     }
 
-    public function emailContatoAction() {
+    public function emailContatoAction()
+    {
         $this->getHelper('layout')->disableLayout();
         $retorno = array();
         if ($_POST) {
             try {
                 $modelEmail = new Application_Model_Email();
-                $nome       = $this->getRequest()->getParam('nome');
-                $email      = $this->getRequest()->getParam('email');
-                $assunto    = $this->getRequest()->getParam('assunto');
-                $mensagem   = $this->getRequest()->getParam('mensagem');
+                $nome = $this->getRequest()->getParam('nome');
+                $email = $this->getRequest()->getParam('email');
+                $assunto = $this->getRequest()->getParam('assunto');
+                $mensagem = $this->getRequest()->getParam('mensagem');
 
                 $htmlEmail = emailContatoHTML();
                 $htmlEmail = str_replace('#NOME#', $nome, $htmlEmail);
@@ -195,7 +206,8 @@ class Minc_IndexController extends GenericController {
         echo json_encode($retorno);
     }
 
-    public function listaOperadoraAction() {
+    public function listaOperadoraAction()
+    {
 
         $this->getHelper('layout')->disableLayout();
 
@@ -208,30 +220,30 @@ class Minc_IndexController extends GenericController {
 
         $todasOperadoras = array(
             'ativas' => $operadorasAtivas,
-            'operando'  => $operadorasOperando
+            'operando' => $operadorasOperando
         );
 
 
-        $listaOperadoras  = array();
+        $listaOperadoras = array();
         foreach ($todasOperadoras as $situacao => $operadoras) {
             foreach ($operadoras as $op) {
                 $listaOperadoras[$op['idOperadora']]['situacao'] = $situacao;
-                $listaOperadoras[$op['idOperadora']]['nrCNPJ']       = addMascara($op['nrCNPJ']);
-                $listaOperadoras[$op['idOperadora']]['nmFantasia']   = $op['nmFantasia'];
+                $listaOperadoras[$op['idOperadora']]['nrCNPJ'] = addMascara($op['nrCNPJ']);
+                $listaOperadoras[$op['idOperadora']]['nmFantasia'] = $op['nmFantasia'];
                 $listaOperadoras[$op['idOperadora']]['nmRazaoSocial'] = $op['nmRazaoSocial'];
-                $listaOperadoras[$op['idOperadora']]['dsSite']       = $op['dsSite'];
+                $listaOperadoras[$op['idOperadora']]['dsSite'] = $op['dsSite'];
 
                 $listaTelefones = array();
                 $t = 0;
                 $telefones = $modelTelefone->buscarTelefones(array('ID_PESSOA = ?' => $op['idOperadora'], 'tt.ID_TIPO_TELEFONE = ?' => 7));
 
-                if(count($telefones) > 0){
-                    foreach($telefones as $tel){
-                        $listaTelefones[$t]['idTipoTelefone']   = $tel['idTipoTelefone'];
-                        $listaTelefones[$t]['nrTelefone']       = $tel['nrTelefone'];
-                        $listaTelefones[$t]['cdDDD']            = $tel['cdDDD'];
-                        $listaTelefones[$t]['dsTelefone']       = $tel['dsTelefone'];
-                        $listaTelefones[$t]['dsTipoTelefone']   = $tel['dsTipoTelefone'];
+                if (count($telefones) > 0) {
+                    foreach ($telefones as $tel) {
+                        $listaTelefones[$t]['idTipoTelefone'] = $tel['idTipoTelefone'];
+                        $listaTelefones[$t]['nrTelefone'] = $tel['nrTelefone'];
+                        $listaTelefones[$t]['cdDDD'] = $tel['cdDDD'];
+                        $listaTelefones[$t]['dsTelefone'] = $tel['dsTelefone'];
+                        $listaTelefones[$t]['dsTipoTelefone'] = $tel['dsTipoTelefone'];
                         $t++;
                     }
                 }
@@ -243,15 +255,16 @@ class Minc_IndexController extends GenericController {
 
     }
 
-    public function listaBeneficiariaAction() {
+    public function listaBeneficiariaAction()
+    {
         $where = array();
-        if($_POST){
+        if ($_POST) {
 
-            $CNPJ       = $this->getRequest()->getParam('CNPJ');
-            $NOME       = $this->getRequest()->getParam('NOME');
-            $OPERADORA  = $this->getRequest()->getParam('OPERADORA');
-            $DTINICIO   = $this->getRequest()->getParam('DTINICIO');
-            $DTFIM      = $this->getRequest()->getParam('DTFIM');
+            $CNPJ = $this->getRequest()->getParam('CNPJ');
+            $NOME = $this->getRequest()->getParam('NOME');
+            $OPERADORA = $this->getRequest()->getParam('OPERADORA');
+            $DTINICIO = $this->getRequest()->getParam('DTINICIO');
+            $DTFIM = $this->getRequest()->getParam('DTFIM');
 
             if ($CNPJ) {
                 $where['pj.nr_Cnpj = ?'] = str_replace('/', '', str_replace('-', '', str_replace('.', '', $CNPJ)));
@@ -318,9 +331,9 @@ class Minc_IndexController extends GenericController {
         }
 
         $this->getHelper('layout')->disableLayout();
-        $modelSituacao          = new Application_Model_Situacao();
-        $beneficiariasAtivas    = $modelSituacao->selecionaBeneficiariasAtivas($where);
-        $operadoras             = $modelSituacao->selecionaOperadorasAtivasInativas();
+        $modelSituacao = new Application_Model_Situacao();
+        $beneficiariasAtivas = $modelSituacao->selecionaBeneficiariasAtivas($where);
+        $operadoras = $modelSituacao->selecionaOperadorasAtivasInativas();
 
         //$this->view->assign('beneficiariasAtivas', $beneficiariasAtivas);
         $this->view->assign('operadorasAtivas', $operadoras);
