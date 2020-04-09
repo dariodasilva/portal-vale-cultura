@@ -97,8 +97,8 @@
             <tr>
                 <td colspan="3" style="text-align: center;">
                     <p style="font-size: 16px;">
-                        Este cadastro é específico para empresas interessadas em oferecer o Vale-Cultura aos seus
-                        funcionários.
+                        Este cadastro ï¿½ especï¿½fico para empresas interessadas em oferecer o Vale-Cultura aos seus
+                        funcionï¿½rios.
                     </p>
                     <p style="font-size: 16px; color: red;">
                         Trabalhador/a, se deseja receber o Vale-Cultura
@@ -125,7 +125,7 @@
                        data-val="passo1B" data-toggle="modal">
                         <img src="<?php echo $this->baseUrl('img/help-icon.png'); ?>"
                              style="width: 25px; height: 25px; cursor: pointer; margin-top: 0;border: 0; padding: 0;"
-                             title="Sobre os Deveres da Beneficiária"/></a>
+                             title="Sobre os Deveres da Beneficiï¿½ria"/></a>
                 </th>
             </tr>
             <tr>
@@ -150,7 +150,7 @@
             <tr class="descEmpresa">
                 <th valign="top">Atividade Econ&ocirc;mica Principal:</th>
                 <th valign="top">Atividades Econ&ocirc;micas Secund&aacute;rias:</th>
-                <th valign="top">Situação:</th>
+                <th valign="top">Situaï¿½ï¿½o:</th>
             </tr>
             <tr class="descEmpresa">
                 <td valign="top"><label id="CNAE_PRIMARIO">&nbsp;</label></td>
@@ -274,15 +274,15 @@
                 <td colspan="3" valign="top" class="destacar bold">
                     <input type="radio" value="T" name="AUTORIZAR_VALE_TODOS_FUNCIONARIOS"
                            class="AUTORIZAR_VALE_TODOS_FUNCIONARIOS" checked="checked"/>
-                    Você deseja ofertar o Vale-Cultura a todos os funcionários da empresa?
+                    Vocï¿½ deseja ofertar o Vale-Cultura a todos os funcionï¿½rios da empresa?
                 </td>
             </tr>
             <tr>
                 <td colspan="3" valign="top" class="destacar bold">
                     <input type="radio" value="S" name="AUTORIZAR_VALE_TODOS_FUNCIONARIOS"
                            class="AUTORIZAR_VALE_TODOS_FUNCIONARIOS"/>
-                    Você deseja, inicialmente, ofertar o Vale-Cultura aos funcionários da empresa que recebem até cinco
-                    salários mínimos?
+                    Vocï¿½ deseja, inicialmente, ofertar o Vale-Cultura aos funcionï¿½rios da empresa que recebem atï¿½ cinco
+                    salï¿½rios mï¿½nimos?
                 </td>
             </tr>
         </table>
@@ -296,8 +296,8 @@
 
             <tr>
                 <td valign="top" class="destacar bold">
-                    <b>Escolha uma entre as empresas operadoras cadastradas e autorizadas a emitir o cartão Vale-cultura
-                        dos seus funcionários.</b>
+                    <b>Escolha uma entre as empresas operadoras cadastradas e autorizadas a emitir o cartï¿½o Vale-cultura
+                        dos seus funcionï¿½rios.</b>
                     <a href="#myModalSobreListaOperadoras"
                        role="button"
                        class="" data-toggle="modal">
@@ -313,8 +313,11 @@
                                     <li>
                                         <input type="radio" name="OPERADORA_VALE" class="OPERADORA_VALE"
                                                value="<?php echo $operadora['idOperadora'] ?>"/>
-                                        &nbsp;
-                                        <?php echo(!empty(trim($operadora['nmFantasia'])) ? $operadora['nmFantasia'] : $operadora['nmRazaoSocial']); ?>
+                                        &nbsp;<?php
+                                            $nmFantasia = trim($operadora['nmFantasia']);
+                                            $strNome = empty($nmFantasia) ? $operadora['nmRazaoSocial'] : $nmFantasia;
+                                            echo $strNome;
+                                        ?>
                                     </li>
                                 <?php } ?>
                             </ul>
@@ -328,13 +331,13 @@
             <tr>
                 <th colspan="2" style="text-align: center;">
                     <h3 class="footer-headline">
-                        <span>Responsável pela empresa junto ao Programa de Cultura do Trabalhador</span>
+                        <span>ResponsÃ¡vel pela empresa junto ao Programa de Cultura do Trabalhador</span>
                     </h3>
                 </th>
             </tr>
             <tr>
                 <td colspan="2" class="destacar bold">
-                    <b>Informe abaixo os dados do responsável pela empresa junto ao Ministério da Cidadania.</b>
+                    <b>Informe abaixo os dados do responsÃ¡vel pela empresa junto ao MinistÃ©rio da Cidadania.</b>
                 </td>
             </tr>
 
@@ -344,10 +347,10 @@
 
             <tr>
                 <td colspan="2" class="destacar bold">
-                    É o representante legal da empresa?
+                    ï¿½ o representante legal da empresa?
                     <input type="radio" value="1" name="responsavel_empresa" class="responsavel_empresa"
                            checked="checked"/> Sim
-                    <input type="radio" value="0" name="responsavel_empresa" class="responsavel_empresa"/> Não
+                    <input type="radio" value="0" name="responsavel_empresa" class="responsavel_empresa"/> NÃ£o
                 </td>
             </tr>
             <tr>
@@ -363,7 +366,7 @@
             </tr>
             <tr>
                 <td colspan="3" class="destacar bold">
-                    <h4 class="">Dados do responsável pelo preenchimento do formulário</h4>
+                    <h4 class="">Dados do responsï¿½vel pelo preenchimento do formulï¿½rio</h4>
                 </td>
             </tr>
             <tr>
@@ -491,7 +494,7 @@
             </tr>
             <tr id="arquivo_10">
                 <td class="arquivoTd" colspan="3">
-                    Procuração representante da empresa:
+                    Procuraï¿½ï¿½o representante da empresa:
                     <input type="file" name="ANEXO_11" id="ANEXO_11" class="input_simples arquivosBlock files"/>
                     <label for="ANEXO_11" id="ERROR_ANEXO_11" class="error"
                            style="display: none; margin-top: 2px"></label>
@@ -503,14 +506,14 @@
             <tr>
                 <td colspan="3" valign="top">
                     <input type="checkbox" name="AUTORIZO_MINC" id="AUTORIZO_MINC" checked="checked"/>
-                    Autorizo o MC a divulgar que sou empresa beneficiária cadastrada junto ao Programa de Cultura do
+                    Autorizo o MC a divulgar que sou empresa beneficiï¿½ria cadastrada junto ao Programa de Cultura do
                     Trabalhador.
                     <a href="#myModalSobreAutorizacaoBeneficiaria"
                        role="button"
                        class="" data-toggle="modal">
                         <img src="<?php echo $this->baseUrl('img/help-icon.png'); ?>"
                              style="width: 25px; height: 25px; cursor: pointer; margin-top: 0;border: 0; padding: 0;"
-                             title="Sobre a Divulgação de Dados da Beneficiaria"/></a>
+                             title="Sobre a Divulgaï¿½ï¿½o de Dados da Beneficiaria"/></a>
                 </td>
             </tr>
             <tr>
@@ -537,14 +540,14 @@
                 <td>
                     <input type="checkbox" name="ConfimaRegras" id="ConfimaRegras" style="float:left"/>
                     <div>&nbsp; Li e estou de acordo com as regras do Programa de Cultura do Trabalhador e confirmo, sob
-                        as penas da lei, a veracidade de todas as informações prestadas neste cadastro.
+                        as penas da lei, a veracidade de todas as informaï¿½ï¿½es prestadas neste cadastro.
                     </div>
                 </td>
             </tr>
             <tr>
                 <td>
                     <input type="checkbox" name="ConfimaSecult" id="ConfimaSecult" style="float:left"/>
-                    <div>&nbsp; Autorizo o MC a divulgar os dados da empresa como beneficiária do Programa de
+                    <div>&nbsp; Autorizo o MC a divulgar os dados da empresa como beneficiï¿½ria do Programa de
                         Cultura do Trabalhador.
                     </div>
                 </td>
@@ -552,7 +555,7 @@
             <tr>
                 <td>
                     <input type="checkbox" name="ConfimaLei" id="ConfimaLei" style="float:left"/>
-                    <div>&nbsp; Confirmo sob pena de lei a veracidade de todas as informações prestadas neste cadastro.
+                    <div>&nbsp; Confirmo sob pena de lei a veracidade de todas as informaï¿½ï¿½es prestadas neste cadastro.
                     </div>
                 </td>
             </tr>
@@ -591,12 +594,12 @@
 
 <div style="position: absolute; width: 80%; margin-top: -50px; z-index:9900; display: none;" id="myModal">
     <div class="alert alert-error">
-        <strong>ATENÇÃO!</strong> <br><br>
-        Prezado Beneficiário,
+        <strong>ATENï¿½ï¿½O!</strong> <br><br>
+        Prezado Beneficiï¿½rio,
 
-        Você não está autorizando a liberação do seu contato para nenhuma empresa operadora.
-        Isto poderá dificultar o contato da operadora com a sua empresa.
-        Favor entrar em contato com a empresa operadora de sua preferência para viabilizar a contratação dos serviços.
+        Vocï¿½ nï¿½o estï¿½ autorizando a liberaï¿½ï¿½o do seu contato para nenhuma empresa operadora.
+        Isto poderï¿½ dificultar o contato da operadora com a sua empresa.
+        Favor entrar em contato com a empresa operadora de sua preferï¿½ncia para viabilizar a contrataï¿½ï¿½o dos serviï¿½os.
         <br><br>
         <button class="btn btn-mini btn-success" onclick="enviarForm()" value="Submit">Confirmar</button>
         <button class="btn btn-mini btn-warning" onclick="$('#myModal').fadeOut(); $('#mascara2').fadeOut();">Cancelar
@@ -982,7 +985,7 @@
 
         $("#AUTORIZO_MINC").change(function () {
             if (!$(this).is(':checked')) {
-                var c = confirm('Tem certeza que não quer ter o nome da sua empresa no rol de beneficiárias que concedem o Vale-Cultura aos seus trabalhadores?');
+                var c = confirm('Tem certeza que nï¿½o quer ter o nome da sua empresa no rol de beneficiï¿½rias que concedem o Vale-Cultura aos seus trabalhadores?');
                 if (c == false) {
                     $(this).prop('checked', true);
                 }
@@ -1006,7 +1009,7 @@
         var output = [];
         for (var i = 0, f; f = files[i]; i++) {
             if (f.type !== 'application/pdf') {
-                $('#ERROR_' + $(evt.currentTarget).attr('id')).html("Apenas aquivos no formato PDF são validos");
+                $('#ERROR_' + $(evt.currentTarget).attr('id')).html("Apenas aquivos no formato PDF sï¿½o validos");
                 $('#ERROR_' + $(evt.currentTarget).attr('id')).show();
             }
 
@@ -1230,7 +1233,7 @@
         $('#RESPONSAVEL_FONE').attr('disabled', true);
         $('#RESPONSAVEL_FAX').attr('disabled', true);
         $('#RESPONSAVEL_EMAIL_CONFIRMA').attr('disabled', true);
-        // Botão de Salvar
+        // Botï¿½o de Salvar
         $('#btnSalvar').hide();
     }
 
@@ -1249,7 +1252,7 @@
         $('#RESPONSAVEL_FONE').attr('disabled', false);
         $('#RESPONSAVEL_FAX').attr('disabled', false);
         $('#RESPONSAVEL_EMAIL_CONFIRMA').attr('disabled', false);
-        // Botão de Salvar
+        // Botï¿½o de Salvar
         $('#btnSalvar').show();
     }
 
