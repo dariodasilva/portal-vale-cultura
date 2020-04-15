@@ -1093,7 +1093,7 @@
 
     function gerarCaptcha() {
         $.ajax({
-            type: "GET",
+            type: 'GET',
             url: '<?php echo $this->url(array('module' => 'operadora', 'controller' => 'cadastro', 'action' => 'gerarcaptcha')); ?>',
             success: function (data) {
                 $('#captcha').html(data);
