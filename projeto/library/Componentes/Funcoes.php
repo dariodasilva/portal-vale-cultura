@@ -731,7 +731,7 @@ function emailAprovacaoHTML()
                         <br>
                         Para consultar o certificado de inscri��o, acesse <a href="#URL#" target="_blank" style="text-decoration: underline;">#URL#</a>.
                         <br><br>
-                        Atenciosamente,
+                         Atenciosamente,
                         <br><br>
                         <b>Secretaria de Fomento e Incentivo � Cultura</b>
                         <br>
