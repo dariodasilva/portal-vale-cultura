@@ -1,9 +1,9 @@
 <?php
 
-/* FUNÇÃO ÚTIL PARA DEBUG */
+/* FUNï¿½ï¿½O ï¿½TIL PARA DEBUG */
 function xd($obj)
 {
-    if (getenv('APPLICATION_ENV') == 'desenvolvimento') {
+    if(getenv('APPLICATION_ENV') == 'desenvolvimento'){
         echo "<div style='background-color:#DFDFDF; border:1px #666666 solid; text-align:left;'>";
         echo "<pre>";
         print_r($obj);
@@ -13,10 +13,10 @@ function xd($obj)
     }
 }
 
-/* FUNÇÃO ÚTIL PARA DEBUG SEM  DIE */
+/* FUNï¿½ï¿½O ï¿½TIL PARA DEBUG SEM  DIE */
 function x($obj)
 {
-    if (getenv('APPLICATION_ENV') == 'desenvolvimento') {
+    if(getenv('APPLICATION_ENV') == 'desenvolvimento'){
         echo "<div style='background-color:#DFDFDF; border:1px #666666 solid; text-align:left;'>";
         echo "<pre>";
         print_r($obj);
@@ -93,7 +93,7 @@ function removeAcentos($string, $slug = false)
 
     // Slug?
     if ($slug) {
-        // Troca tudo que nÃ£o for letra ou número por um caractere ($slug)
+        // Troca tudo que nÃ£o for letra ou nï¿½mero por um caractere ($slug)
         $string = preg_replace('/[^a-z0-9]/i', '-', $string);
         // Tira os caracteres ($slug) repetidos
         $string = preg_replace('/' . $slug . '{2,}/i', $slug, $string);
@@ -123,10 +123,10 @@ function addMascara($str = '', $tipo = 'cnpj')
             break;
 
         case 'telefone':
-            if (strlen($str) > 10) {
-                $str = '(' . substr($str, 0, 2) . ') ' . substr($str, 2, 5) . '-' . substr($str, 7);
-            } else {
-                $str = '(' . substr($str, 0, 2) . ') ' . substr($str, 2, 4) . '-' . substr($str, 6);
+            if(strlen($str) > 10){
+                $str = '('.substr($str, 0, 2).') '.substr($str, 2, 5).'-'.substr($str, 7);
+            }else{
+                $str = '('.substr($str, 0, 2).') '.substr($str, 2, 4).'-'.substr($str, 6);
             }
             break;
 
@@ -148,13 +148,12 @@ function retornaDigitos($str = '')
     return $str;
 }
 
-function validaCPF($cpf)
-{ // Verifiva se o número digitado contém todos os digitos
+function validaCPF($cpf) { // Verifiva se o nï¿½mero digitado contï¿½m todos os digitos
     $cpf = str_pad(preg_replace('[^0-9]', '', $cpf), 11, '0', STR_PAD_LEFT);
 
     if (strlen($cpf) != 11 || $cpf == '00000000000' || $cpf == '11111111111' || $cpf == '22222222222' || $cpf == '33333333333' || $cpf == '44444444444' || $cpf == '55555555555' || $cpf == '66666666666' || $cpf == '77777777777' || $cpf == '88888888888' || $cpf == '99999999999') {
         return false;
-    } else {   // Calcula os numeros para verificar se o CPF é verdadeiro
+    } else {   // Calcula os numeros para verificar se o CPF ï¿½ verdadeiro
         for ($t = 9; $t < 11; $t++) {
             for ($d = 0, $c = 0; $c < $t; $c++) {
                 $d += $cpf{$c} * (($t + 1) - $c);
@@ -187,10 +186,11 @@ function validaCNPJ($cnpj)
     if (count($num) != 14) {
         return false;
     }
-    //Etapa 3: O número 00000000000 embora nÃ£o seja um cnpj real resultaria um cnpj vÃ¡lido apÃ³s o calculo dos dÃ­gitos verificares e por isso precisa ser filtradas nesta etapa.
+    //Etapa 3: O nï¿½mero 00000000000 embora nÃ£o seja um cnpj real resultaria um cnpj vÃ¡lido apÃ³s o calculo dos dÃ­gitos verificares e por isso precisa ser filtradas nesta etapa.
     if ($num[0] == 0 && $num[1] == 0 && $num[2] == 0 && $num[3] == 0 && $num[4] == 0 && $num[5] == 0 && $num[6] == 0 && $num[7] == 0 && $num[8] == 0 && $num[9] == 0 && $num[10] == 0 && $num[11] == 0) {
         return false;
-    } //Etapa 4: Calcula e compara o primeiro dÃ­gito verificador.
+    }
+    //Etapa 4: Calcula e compara o primeiro dÃ­gito verificador.
     else {
         $j = 5;
         for ($i = 0; $i < 4; $i++) {
@@ -248,7 +248,7 @@ function validaEmail($email)
     $domino = "[a-zA-Z0-9\._-]+.";
     $extensao = "([a-zA-Z]{2,4})$";
 
-    $pattern = $conta . $domino . $extensao;
+    $pattern = $conta.$domino.$extensao;
 
     if (@ereg($pattern, $email))
         return true;
@@ -277,7 +277,7 @@ function convertArrayKeysToUtf8(array $array)
 function uc_latin1($str)
 {
     $str = strtoupper(strtr($str, LATIN1_LC_CHARS, LATIN1_UC_CHARS));
-    return strtr($str, array("ß" => "SS"));
+    return strtr($str, array("ï¿½" => "SS"));
 }
 
 function strtolower_iso8859_1($s)
@@ -285,10 +285,10 @@ function strtolower_iso8859_1($s)
     $i = strlen($s);
     while ($i > 0) {
         --$i;
-        $c = ord($s[$i]);
+        $c =ord($s[$i]);
         if (($c & 0xC0) == 0xC0) {
             // two most significante bits on
-            if (($c != 215) and ($c != 223)) { // two chars OK as is
+            if (($c != 215) and ($c != 223)){ // two chars OK as is
                 // to get lowercase set 3. most significante bit if needed:
                 $s[$i] = chr($c | 0x20);
             }
@@ -433,7 +433,7 @@ function carregaHTMLCertificadoBeneficiaria()
             </tr>
             <tr>
                 <td align="center" colspan="3" style="padding: 10px;">
-                    CERTIFICADO DE INSCRIÇ&Atilde;O NO PROGRAMA DE CULTURA DO TRABALHADOR
+                    CERTIFICADO DE INSCRIï¿½&Atilde;O NO PROGRAMA DE CULTURA DO TRABALHADOR
                 </td>
             </tr>
             <tr>
@@ -548,7 +548,7 @@ function carregaHTMLCertificadoBeneficiaria()
                             </td>
                             <td align="center" width="400px">
                                 #NATJUR#<br>
-                                Natureza Jurídica
+                                Natureza Jurï¿½dica
                             </td>
                     </table>
                 </td>
@@ -571,9 +571,9 @@ function emailSenhaHTML()
                         <h3>Vale-Cultura</h3>
                         
                         <br>
-                        Olá! Muito obrigado por aderir ao Vale-Cultura. O cadastro de sua empresa foi realizado com sucesso!
+                        Olï¿½! Muito obrigado por aderir ao Vale-Cultura. O cadastro de sua empresa foi realizado com sucesso!
                         <br>
-                        Em breve você receberá uma nova mensagem sobre a avaliação do seu cadastro.
+                        Em breve vocï¿½ receberï¿½ uma nova mensagem sobre a avaliaï¿½ï¿½o do seu cadastro.
                         <br>
                         Para acessar o sistema utilize os dados:
                         <br><br>
@@ -581,16 +581,16 @@ function emailSenhaHTML()
                         <br>
                         <b>Senha:</b> #Senha#
                         <br><br>
-                        Em caso de dúvidas, sugestões, reclamações ou denúncias, envie e-mail para <a href="mailto:#EMAIL#" style="text-decoration: underline;">#EMAIL#</a>.
+                        Em caso de dï¿½vidas, sugestï¿½es, reclamaï¿½ï¿½es ou denï¿½ncias, envie e-mail para <a href="mailto:#EMAIL#" style="text-decoration: underline;">#EMAIL#</a>.
                         <br><br>
                         Atenciosamente,
                         <br><br>
-                        <b>Secretaria de Fomento e Incentivo à Cultura</b>
+                        <b>Secretaria de Fomento e Incentivo ï¿½ Cultura</b>
                         <br>
-                        <b>Ministério da Cidadania</b>
+                        <b>Ministï¿½rio da Cidadania</b>
                     </body>
                 </html>';
-    return $html;
+    return utf8_decode($html);
 }
 
 function emailNoSenhaHTML()
@@ -604,26 +604,26 @@ function emailNoSenhaHTML()
                     <body>
                         <h3>Vale-Cultura</h3>
                         <br>
-                        Olá! Muito obrigado por aderir ao Vale-Cultura. O cadastro de sua empresa foi realizado com sucesso!
+                        Olï¿½! Muito obrigado por aderir ao Vale-Cultura. O cadastro de sua empresa foi realizado com sucesso!
                         <br>
-                        Em breve você receberá uma nova mensagem sobre a avaliação do seu cadastro.
+                        Em breve vocï¿½ receberï¿½ uma nova mensagem sobre a avaliaï¿½ï¿½o do seu cadastro.
                         <br>
                         Para acessar o sistema utilize os dados:
                         <br><br>
                         <b>URL:</b> <a href="#URL#" target="_blank" style="text-decoration: underline;">#URL#</a>
                         <br>
-                        A sua senha já foi enviada anteriormente, para alterá-la acesse <a href="#URL#" target="_blank" style="text-decoration: underline;">#URL#</a> e clique em "Esqueceu a senha?"
+                        A sua senha jï¿½ foi enviada anteriormente, para alterï¿½-la acesse <a href="#URL#" target="_blank" style="text-decoration: underline;">#URL#</a> e clique em "Esqueceu a senha?"
                         <br><br>
-                        Em caso de dúvidas, sugestões, reclamações ou denúncias, envie e-mail para <a href="mailto:#EMAIL#" style="text-decoration: underline;">#EMAIL#</a>.
+                        Em caso de dï¿½vidas, sugestï¿½es, reclamaï¿½ï¿½es ou denï¿½ncias, envie e-mail para <a href="mailto:#EMAIL#" style="text-decoration: underline;">#EMAIL#</a>.
                         <br><br>
                         Atenciosamente,
                         <br><br>
-                        <b>Secretaria de Fomento e Incentivo à Cultura</b>
+                        <b>Secretaria de Fomento e Incentivo ï¿½ Cultura</b>
                         <br>
-                        <b>Ministério da Cidadania</b>
+                        <b>Ministï¿½rio da Cidadania</b>
                     </body>
                 </html>';
-    return $html;
+    return utf8_decode($html);
 }
 
 function emailContatoHTML()
@@ -675,18 +675,18 @@ function emailContatoHTML()
                         <br><br>
                         Atenciosamente,
                         <br><br>
-                        <b>Secretaria de Fomento e Incentivo à Cultura</b>
+                        <b>Secretaria de Fomento e Incentivo ï¿½ Cultura</b>
                         <br>
-                        <b>Ministério da Cidadania</b>
+                        <b>Ministï¿½rio da Cidadania</b>
                     </body>
                 </html>';
-    return $html;
+    return utf8_decode($html);
 }
 
 function emailNovaSenhaHTML()
 {
     $html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-                <html xmlns="http://www.w3.org/1999/xhtml">
+                <<html xmlns="http://www.w3.org/1999/xhtml">
                     <head>
                         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
                         <title>Vale-Cultura</title>
@@ -694,24 +694,24 @@ function emailNovaSenhaHTML()
                     <body>
                         <h3>Vale-Cultura</h3>
                         <br><br>
-                        Oi #NOME_USUARIO#, uma redefinição de senha foi solicitada para o seu acesso ao sistema do Vale-Cultura.
+                        Oi #NOME_USUARIO#, uma redefiniï¿½ï¿½o de senha foi solicitada para o seu acesso ao sistema do Vale-Cultura.
                         <br>
                         Para confirmar este pedido e definir uma nova senha para o seu acesso, por favor, clique no link abaixo:
                         <br>
                         <a href="#URL#" target="_blank" style="text-decoration: underline;">#URL#</a>
                         <br><br>
-                        Se esta redefinição de senha não foi solicitada por você, nenhuma ação é necessária. 
+                        Se esta redefiniï¿½ï¿½o de senha nï¿½o foi solicitada por vocï¿½, nenhuma aï¿½ï¿½o ï¿½ necessï¿½ria. 
                         <br>
                         Se precisar de ajuda, envie e-mail para <a href="mailto:#EMAIL#" style="text-decoration: underline;">#EMAIL#</a>.
                         <br><br>
                         Atenciosamente,
                         <br><br>
-                        <b>Secretaria de Fomento e Incentivo à Cultura</b>
+                        <b>Secretaria de Fomento e Incentivo ï¿½ Cultura</b>
                         <br>
-                        <b>Ministério da Cidadania</b>
+                        <b>Ministï¿½rio da Cidadania</b>
                     </body>
                 </html>';
-    return $html;
+    return utf8_decode($html);
 }
 
 function emailAprovacaoHTML()
@@ -725,20 +725,20 @@ function emailAprovacaoHTML()
                     <body>
                         <h3>Vale-Cultura</h3>
                         <br><br>
-                        Olá <b>#NOMERESPONSAVEL#</b>,
+                        Olï¿½ <b>#NOMERESPONSAVEL#</b>,
                         <br><br>
                         O cadastro da #PERFIL# #NOMEEMPRESA# no Vale-Cultura foi aprovado.
                         <br>
-                        Para consultar o certificado de inscrição, acesse <a href="#URL#" target="_blank" style="text-decoration: underline;">#URL#</a>.
+                        Para consultar o certificado de inscriï¿½ï¿½o, acesse <a href="#URL#" target="_blank" style="text-decoration: underline;">#URL#</a>.
                         <br><br>
                         Atenciosamente,
                         <br><br>
-                        <b>Secretaria de Fomento e Incentivo à Cultura</b>
+                        <b>Secretaria de Fomento e Incentivo ï¿½ Cultura</b>
                         <br>
-                        <b>Ministério da Cidadania</b>
+                        <b>Ministï¿½rio da Cidadania</b>
                     </body>
                 </html>';
-    return $html;
+    return utf8_decode($html);
 }
 
 function emailAprovacaoOperadoraHTML()
@@ -752,26 +752,25 @@ function emailAprovacaoOperadoraHTML()
                     <body>
                         <h3>Vale-Cultura</h3>
                         <br><br>
-                        Olá <b>#NOMERESPONSAVEL#</b>,
+                        Olï¿½ <b>#NOMERESPONSAVEL#</b>,
                         <br><br>
                         O cadastro da operadora #NOMEEMPRESA# no Vale-Cultura foi aprovado.
                         <br>
-                        Agora sua empresa pode habilitar os estabelecimentos comerciais que vendem os produtos culturais previstos no anexo I da Instrução Normativa n°2/2013.
+                        Agora sua empresa pode habilitar os estabelecimentos comerciais que vendem os produtos culturais previstos no anexo I da Instruï¿½ï¿½o Normativa nï¿½2/2013.
                         <br>
-                        Além disso, sua empresa também está autorizada a produzir e comercializar o cartão Vale-Cultura para as empresas Beneficiárias cadastradas no programa.
+                        Alï¿½m disso, sua empresa tambï¿½m estï¿½ autorizada a produzir e comercializar o cartï¿½o Vale-Cultura para as empresas Beneficiï¿½rias cadastradas no programa.
                         <br>
-                        Para consultar o certificado de inscrição, acesse <a href="#URL#" target="_blank" style="text-decoration: underline;">#URL#</a> e faça o seu login.
+                        Para consultar o certificado de inscriï¿½ï¿½o, acesse <a href="#URL#" target="_blank" style="text-decoration: underline;">#URL#</a> e faï¿½a o seu login.
                         <br><br>
                         Atenciosamente,
                         <br><br>
-                        <b>Secretaria de Fomento e Incentivo à Cultura</b>
+                        <b>Secretaria de Fomento e Incentivo ï¿½ Cultura</b>
                         <br>
-                        <b>Ministério da Cidadania</b>
+                        <b>Ministï¿½rio da Cidadania</b>
                     </body>
                 </html>';
-    return $html;
+    return utf8_decode($html);
 }
-
 
 function emailAprovacaoBeneficiariaHTML()
 {
@@ -786,34 +785,34 @@ function emailAprovacaoBeneficiariaHTML()
                     <body>
                         <h3>Vale-Cultura</h3>
                         <br><br>
-                        Parabéns! O seu cadastro foi aprovado!
+                        Parabï¿½ns! O seu cadastro foi aprovado!
                         <br><br>
-                        A sua participação estimula o desenvolvimento cultural e social dos trabalhadores de sua empresa e do País.
+                        A sua participaï¿½ï¿½o estimula o desenvolvimento cultural e social dos trabalhadores de sua empresa e do Paï¿½s.
                         <br><br>
-                        A sua decisão de conceder o Vale-Cultura no valor fixo mensal de R$50,00 aos seus empregados vai permitir que eles comprem instrumentos
+                        A sua decisï¿½o de conceder o Vale-Cultura no valor fixo mensal de R$50,00 aos seus empregados vai permitir que eles comprem instrumentos
                         musicais, CDs, DVDs, livros, revistas e jornais , ingressos para teatro, cinema, museus,
-                        e também paguem mensalidades de cursos de artes, audiovisual, dança, circo, fotografia, música, literatura ou teatro.
+                        e tambï¿½m paguem mensalidades de cursos de artes, audiovisual, danï¿½a, circo, fotografia, mï¿½sica, literatura ou teatro.
                         <br><br>
                         Esqueceu sua senha? <a href="#URL#">Clique aqui</a>
                         <br>
-                        O próximo passo é entrar em contato com a operadora de sua preferência, escolhida no ato do cadastro,
-                        para que ela possa emitir os cartões Vale-Cultura que serão utilizados pelos empregados da sua empresa.
+                        O prï¿½ximo passo ï¿½ entrar em contato com a operadora de sua preferï¿½ncia, escolhida no ato do cadastro,
+                        para que ela possa emitir os cartï¿½es Vale-Cultura que serï¿½o utilizados pelos empregados da sua empresa.
                         <br>
-                        No seu cadastro, você já escolheu a operadora #NOMEOPERADORA# e o telefone de contato dela é #SAC#.
+                        No seu cadastro, vocï¿½ jï¿½ escolheu a operadora #NOMEOPERADORA# e o telefone de contato dela ï¿½ #SAC#.
                         <br>
-                        Caso não esteja satisfeito com a operadora escolhida, você pode optar por outra.
-                        Há uma lista das credenciadas pelo MinC na página inicial do sistema Vale-Cultura: <a href="#URL#">#URL#</a>
+                        Caso nï¿½o esteja satisfeito com a operadora escolhida, vocï¿½ pode optar por outra.
+                        Hï¿½ uma lista das credenciadas pelo MinC na pï¿½gina inicial do sistema Vale-Cultura: <a href="#URL#">#URL#</a>
                         <br>
-                        Em caso de dúvidas, sugestões, reclamações ou denúncias, envie e-mail para <a href="mailto:' . $links['email-vale-cultura'] . '">' . $links['email-vale-cultura'] . '</a>.
+                        Em caso de dï¿½vidas, sugestï¿½es, reclamaï¿½ï¿½es ou denï¿½ncias, envie e-mail para <a href="mailto:' . $links['email-vale-cultura'] . '">' . $links['email-vale-cultura'] . '</a>.
                         <br><br>
                         Atenciosamente,
                         <br><br>
-                        <b>Secretaria de Fomento e Incentivo à Cultura</b>
+                        <b>Secretaria de Fomento e Incentivo ï¿½ Cultura</b>
                         <br>
-                        <b>Ministério da Cidadania</b>
+                        <b>Ministï¿½rio da Cidadania</b>
                     </body>
                 </html>';
-    return $html;
+    return utf8_decode($html);
 }
 
 function emailReprovacaoBeneficiariaHTML()
@@ -827,22 +826,22 @@ function emailReprovacaoBeneficiariaHTML()
                     <body>
                         <h3>Vale-Cultura</h3>
                         <br><br>
-                        Olá <b>#NOMERESPONSAVEL#</b>,
+                        Olï¿½ <b>#NOMERESPONSAVEL#</b>,
                         <br><br>
-                        Informamos que o seu cadastro no Programa de Cultura do Trabalhador não foi aprovado.
+                        Informamos que o seu cadastro no Programa de Cultura do Trabalhador nï¿½o foi aprovado.
                         <br>
-                        Portanto, pedimos que acesse o sistema para verificar o motivo da reprovação.
+                        Portanto, pedimos que acesse o sistema para verificar o motivo da reprovaï¿½ï¿½o.
                         <br>
-                        Entre no site: <a href="#URL#" target="_blank" style="text-decoration: underline;">#URL#</a> e faça o seu login para consultar.
+                        Entre no site: <a href="#URL#" target="_blank" style="text-decoration: underline;">#URL#</a> e faï¿½a o seu login para consultar.
                         <br><br>
                         Atenciosamente,
                         <br><br>
-                        <b>Secretaria de Fomento e Incentivo à Cultura</b>
+                        <b>Secretaria de Fomento e Incentivo ï¿½ Cultura</b>
                         <br>
-                        <b>Ministério da Cidadania</b>
+                        <b>Ministï¿½rio da Cidadania</b>
                     </body>
                 </html>';
-    return $html;
+    return utf8_decode($html);
 }
 
 function emailAprovacaoBeneficiariaParaOperadoraHTML()
@@ -856,9 +855,9 @@ function emailAprovacaoBeneficiariaParaOperadoraHTML()
                     <body>
                         <h3>Vale-Cultura</h3>
                         <br><br>
-                        A empresa beneficiária do Vale Cultura: #NOMEBENEFICIARIA# - #CNPJBENEFICIARIA# acabou de ser habilitada no programa.
+                        A empresa beneficiï¿½ria do Vale Cultura: #NOMEBENEFICIARIA# - #CNPJBENEFICIARIA# acabou de ser habilitada no programa.
                         <br>
-                        Esta empresa escolheu a Operadora: #NOMEOPERADORA# como preferencial fornecedora de cartão.
+                        Esta empresa escolheu a Operadora: #NOMEOPERADORA# como preferencial fornecedora de cartï¿½o.
                         <br>
                         Dados para contato da empresa: <br>
                         #NOMEBENEFICIARIA# - #CNPJBENEFICIARIA# 
@@ -867,10 +866,10 @@ function emailAprovacaoBeneficiariaParaOperadoraHTML()
                         <br><br>
                         Atenciosamente,
                         <br><br>
-                        <b>Secretaria de Fomento e Incentivo à Cultura</b>
+                        <b>Secretaria de Fomento e Incentivo ï¿½ Cultura</b>
                         <br>
-                        <b>Ministério da Cidadania</b>
+                        <b>Ministï¿½rio da Cidadania</b>
                     </body>
                 </html>';
-    return $html;
+    return utf8_decode($html);
 }
