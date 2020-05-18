@@ -1,20 +1,17 @@
 <?php
 
-class Application_Model_CBOPessoaFisica
-{
+class Application_Model_CBOPessoaFisica {
 
     private $table = null;
 
-    public function getTable()
-    {
+    public function getTable() {
         if (is_null($this->table)) {
             $this->table = new Application_Model_DbTable_CBOPessoaFisica();
         }
         return $this->table;
     }
 
-    public function select($where = array(), $order = null, $limit = null)
-    {
+    public function select($where = array(), $order = null, $limit = null) {
         $select = $this->getTable()->select()->order($order)->limit($limit);
 
         foreach ($where as $coluna => $valor) :
@@ -24,29 +21,24 @@ class Application_Model_CBOPessoaFisica
         return $this->getTable()->fetchAll($select)->toArray();
     }
 
-    public function find($id)
-    {
+    public function find($id) {
         return $this->getTable()->find($id)->current();
     }
 
-    public function insert(array $request)
-    {
+    public function insert(array $request) {
         return $this->getTable()->createRow()->setFromArray($request)->save();
     }
 
-    public function update(array $request, $idPessoaFisicaCbo)
-    {
-        $where["ID_PESSOA_FISICA_CBO = ?"] = $idPessoaFisicaCbo;
+    public function update(array $request, $idPessoaFisicaCbo) {
+        $where["ID_PESSOA_FISICA_CBO = ?"]   = $idPessoaFisicaCbo;
         return $this->getTable()->update($request, $where);
     }
-
-    public function apagar(array $where)
-    {
+    
+    public function apagar(array $where) {
         return $this->getTable()->delete($where);
     }
 
-    public function delete($id)
-    {
+    public function delete($id) {
         return $this->getTable()->find($id)->current()->delete();
     }
 

@@ -1,3 +1,5 @@
+
+
 <div class="container-fluid-full">
     <div class="row-fluid">
 
@@ -6,15 +8,13 @@
 
             <div class="row-fluid actions">
                 <!--input type="text" class="search span12" placeholder="O que deseja buscar?" /-->
-            </div>
+            </div>	
             <div class="nav-collapse sidebar-nav">
                 <ul class="nav nav-tabs nav-stacked main-menu">
-                    <li>
-                        <a href="<?php echo $this->url(array('module' => 'minc', 'controller' => 'login', 'action' => 'logout'), null, true); ?>"><i
-                                    class="icon-lock"></i><span class="hidden-tablet"> Sair do Sistema</span></a></li>
+                    <li><a href="<?php echo $this->url(array('module' => 'minc', 'controller' => 'login', 'action' => 'logout'),null,true); ?>"><i class="icon-lock"></i><span class="hidden-tablet"> Sair do Sistema</span></a></li>
                 </ul>
             </div>
-
+            
         </div>
         <!-- end: Main Menu -->
 
@@ -23,34 +23,29 @@
 
             <div>
                 <h1> <?php echo $this->message ?></h1>
-                <div><br>
-                    <h2>Entre em contato com o administrador do sistema.</h2><br></div>
+                <div><br><h2>Entre em contato com o administrador do sistema.</h2><br></div>
             </div>
-            <div>
-                <h2>
-                    <button class="btn" onclick="javascript:history.back(-1);">Clique aqui para voltar</button>
-                </h2>
-            </div>
-            <br/><br/>
-
+            <div><h2><button class="btn" onclick="javascript:history.back(-1);">Clique aqui para voltar</button></h2></div>
+            <br /><br />
+            
             <?php //if ($this->ambiente == "development") : ?>
             <div class="msg error">
-                <h1>EXCE&Ccedil;&Atilde;O:</h1>
-                <pre><?php echo $this->exception->getMessage(); ?></pre>
-                <br/>
+                    <h1>EXCE&Ccedil;&Atilde;O:</h1>
+                    <pre><?php echo $this->exception->getMessage();?></pre>
+                    <br />
 
-                <h1>TRACE:</h1>
-                <pre><?php echo $this->exception->getTraceAsString(); ?></pre>
-                <br/>
+                    <h1>TRACE:</h1>
+                    <pre><?php echo $this->exception->getTraceAsString();?></pre>
+                    <br />
 
-                <h1>PAR&Acirc;METROS DA REQUISI&Ccedil;&Atilde;O:</h1>
-                <pre><?php echo var_dump($this->request->getParams()); ?></pre>
+                    <h1>PAR&Acirc;METROS DA REQUISI&Ccedil;&Atilde;O:</h1>
+                    <pre><?php echo var_dump($this->request->getParams());?></pre>
             </div>
             <?php //endif; ?>
             <div class="row-fluid">
 
                 <div class="span12" ontablet="span12" ondesktop="span8">
-
+                    	
                 </div>
             </div>
         </div>
@@ -59,5 +54,5 @@
     </div><!--/fluid-row-->
 
 
-    </body>
-    </html>
+</body>
+</html>

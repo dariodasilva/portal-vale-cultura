@@ -6,7 +6,7 @@
 
             <div class="row-fluid actions">
 
-                <input type="text" class="search span12" placeholder="O que deseja buscar?"/>
+                <input type="text" class="search span12" placeholder="O que deseja buscar?" />
 
             </div>
             <?php include_once 'menu.phtml'; ?>
@@ -22,20 +22,13 @@
                     <div class="box-header">
                         <h2><i class="icon-edit"></i>Gerenciar Empresas Benefici&aacute;rias</h2>
                         <div class="box-icon">
-                            <a href="#myModalBeneficiariasInfo"
-                               role="button"
-                               class="" data-toggle="modal">
-                                <img class="nextPass" src="<?php echo $this->baseUrl('img/help-icon.png'); ?>"
-                                     style="width: 25px; height: 25px; cursor: pointer; margin: 0;border: 0; padding: 6px;"
-                                     title="Informações para o preenchimento dos dados"/>
-                            </a>
+
                         </div>
                     </div>
                     <div class="box-content">
                         <fieldset>
                             <div id="conteudo">
-                                <form action="<?php echo $this->url(array('module' => 'minc', 'controller' => 'admin', 'action' => 'lista-beneficiarios')); ?>"
-                                      method="POST">
+                                <form action="<?php echo $this->url(array('module' => 'minc', 'controller' => 'admin', 'action' => 'lista-beneficiarios')); ?>" method="POST" >
                                     <table class="table table-striped table-bordered bootstrap-datatable ">
                                         <!--tr>
                                             <td colspan="3">
@@ -55,11 +48,10 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input name="CNPJ" type="text" class="cnpj"
-                                                       value="<?php echo $this->cnpj ?>"/>
+                                                <input name="CNPJ" type="text" class="cnpj" value="<?php echo $this->cnpj ?>" />
                                             </td>
                                             <td>
-                                                <input name="NOME" type="text" value="<?php echo $this->nome ?>"/>
+                                                <input name="NOME" type="text" value="<?php echo $this->nome ?>" />
                                             </td>
                                             <td>
                                                 <select name="SITUACAO">
@@ -80,32 +72,22 @@
                                                 Data de Cadastro (Maxima)
                                             </td>
                                             <td>
-                                                Autoriza divulga&ccedil;&atilde;o dos dados
+                                               Autoriza divulga&ccedil;&atilde;o dos dados
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <input type="text" name="DTINICIO" id="DTINICIO"
-                                                       value="<?php echo $this->dtInicio ?>" class="data"/>
+                                                <input type="text" name="DTINICIO" id="DTINICIO" value="<?php echo $this->dtInicio ?>" class="data" />
                                             </td>
                                             <td>
-                                                <input type="text" name="DTFIM" id="DTFIM"
-                                                       value="<?php echo $this->dtFim ?>" class="data"/>
+                                                <input type="text" name="DTFIM" id="DTFIM" value="<?php echo $this->dtFim ?>" class="data" />
                                             </td>
                                             <td>
                                                 <select name="STAUTORIZAMINC">
-                                                    <option value="null" <?php echo((isset($this->stAutorizaMinc) && $this->stAutorizaMinc === 'null') ? "selected" : ''); ?>>
-                                                        - SELECIONE -
-                                                    </option>
-                                                    <option value="0" <?php echo((isset($this->stAutorizaMinc) && $this->stAutorizaMinc === '0') ? "selected" : ''); ?>>
-                                                        N&atilde;o respondeu
-                                                    </option>
-                                                    <option value="1" <?php echo((isset($this->stAutorizaMinc) && $this->stAutorizaMinc === '1') ? "selected" : ''); ?>>
-                                                        Autorizou
-                                                    </option>
-                                                    <option value="2" <?php echo((isset($this->stAutorizaMinc) && $this->stAutorizaMinc === '2') ? "selected" : ''); ?>>
-                                                        N&atilde;o autorizou
-                                                    </option>
+                                                    <option value="null" <?php echo ((isset($this->stAutorizaMinc) && $this->stAutorizaMinc === 'null') ? "selected" : ''); ?>>- SELECIONE -</option>
+                                                    <option value="0" <?php echo ((isset($this->stAutorizaMinc) && $this->stAutorizaMinc === '0') ? "selected" : ''); ?>>N&atilde;o respondeu</option>
+                                                    <option value="1" <?php echo ((isset($this->stAutorizaMinc) && $this->stAutorizaMinc === '1') ? "selected" : ''); ?>>Autorizou</option>
+                                                    <option value="2" <?php echo ((isset($this->stAutorizaMinc) && $this->stAutorizaMinc === '2') ? "selected" : ''); ?>>N&atilde;o autorizou</option>
                                                 </select>
                                             </td>
                                         </tr>
@@ -117,35 +99,26 @@
                                     </table>
                                 </form>
                                 <form method="post" action="listaOperadora.htm">
-                                    <table class="table table-striped table-bordered bootstrap-datatable "
-                                           style="margin-bottom: 50px; margin-top: 20px;">
+                                    <table class="table table-striped table-bordered bootstrap-datatable " style="margin-bottom: 50px; margin-top: 20px;">
                                         <?php if (count($this->beneficiarias) <= 0): ?>
                                             <tr>
-                                                <td class="destacar bold centro" colspan="4"><strong>Nenhuma Benefici&aacute;ria
-                                                        localizada!</strong></td>
+                                                <td class="destacar bold centro" colspan="4"><strong>Nenhuma Benefici&aacute;ria localizada!</strong></td>
                                             </tr>
                                         <?php else: ?>
                                             <tr>
                                                 <td class="destacar bold centro"><strong>CNPJ</strong></td>
                                                 <td class="destacar bold centro"><strong>Nome</strong></td>
-                                                <td class="destacar bold centro" style="text-align: center;"><strong>Data
-                                                        de Cadastro</strong></td>
-                                                <td class="destacar bold centro" style="text-align: center;"><strong>Status</strong>
-                                                </td>
-                                                <td class="destacar bold centro" style="text-align: center;"><strong>Autoriza
-                                                        divulga&ccedil;&atilde;o</strong></td>
-                                                <td class="destacar bold centro" style="text-align: center;"><strong>Visualizar</strong>
-                                                </td>
-                                                <td class="destacar bold centro" style="text-align: center;"><strong>Editar</strong>
-                                                </td>
+                                                <td class="destacar bold centro" style="text-align: center;"><strong>Data de Cadastro</strong></td>
+                                                <td class="destacar bold centro" style="text-align: center;"><strong>Status</strong></td>
+                                                <td class="destacar bold centro" style="text-align: center;"><strong>Autoriza divulga&ccedil;&atilde;o</strong></td>
+                                                <td class="destacar bold centro" style="text-align: center;"><strong>Visualizar</strong></td>
+                                                <td class="destacar bold centro" style="text-align: center;"><strong>Editar</strong></td>
                                             </tr>
                                             <?php foreach ($this->beneficiarias as $b): ?>
                                                 <tr>
-                                                    <td class="centro"
-                                                        width="150px"><?php echo $this->mascara($b->nrCnpj, 'cnpj'); ?></td>
-                                                    <td><?php echo ($b->nmFantasia === " ") ? $b->nmRazaoSocial : $b->nmFantasia; ?></td>
-                                                    <td class="centro"
-                                                        style="text-align: center;"><?php echo $b->dtInscricao; ?></td>
+                                                    <td class="centro" width="150px"><?php echo $this->mascara($b->nrCnpj, 'cnpj'); ?></td>
+                                                    <td><?php echo ($b->nmFantasia===" ") ? $b->nmRazaoSocial : $b->nmFantasia; ?></td>
+                                                    <td class="centro" style="text-align: center;"><?php echo $b->dtInscricao; ?></td>
                                                     <td style="text-align: center; color: <?php echo $this->verificarSituacao($b->situacao, 'cor', 'B'); ?>">
                                                         <?php echo $this->verificarSituacao($b->situacao, 'st', 'B'); ?>
                                                     </td>
@@ -159,14 +132,12 @@
                                                         <?php endif; ?>
                                                     </td>
                                                     <td class="centro" style="text-align: center;">
-                                                        <a class="btn btn-success"
-                                                           href="<?php echo $this->url(array('module' => 'minc', 'controller' => 'admin', 'action' => 'avaliar-beneficiaria', 'beneficiaria' => $b->idBeneficiaria)); ?>">
+                                                        <a class="btn btn-success" href="<?php echo $this->url(array('module' => 'minc', 'controller' => 'admin', 'action' => 'avaliar-beneficiaria', 'beneficiaria' => $b->idBeneficiaria)); ?>">
                                                             <i class="icon-zoom-in "></i>
                                                         </a>
                                                     </td>
                                                     <td class="centro" style="text-align: center;">
-                                                        <a class="btn btn-success" title="Acessar como administrador"
-                                                           href="<?php echo $this->url(array('module' => 'beneficiaria', 'controller' => 'index', 'action' => 'index', 'beneficiaria' => $b->idBeneficiaria, 'operadora' => $b->idOperadora)); ?>">
+                                                        <a class="btn btn-success" title="Acessar como administrador" href="<?php echo $this->url(array('module' => 'beneficiaria', 'controller' => 'index', 'action' => 'index', 'beneficiaria' => $b->idBeneficiaria, 'operadora' => $b->idOperadora)); ?>">
                                                             <i class="icon-ambulance"></i>
                                                         </a>
                                                     </td>
@@ -207,7 +178,7 @@
 
 </div><!--/.fluid-container-->
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $(".cnpj").mask("99.999.999/9999-99");
         $(".data").mask("99/99/9999");
     });

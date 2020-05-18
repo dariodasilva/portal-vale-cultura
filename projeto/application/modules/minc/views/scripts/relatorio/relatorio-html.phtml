@@ -2,64 +2,62 @@
     * {
         font-family: Arial;
     }
-
-    .cresceFonte {
+    .cresceFonte{
         font-size: 10pt;
-
+        
     }
-
-    tr {
+    tr{
         border-bottom: 1px solid #ccc;
     }
 </style>
 
 <table width="100%" cellpadding="0" class="tablesorter" border="0" style="font-size: 7pt;">
     <thead>
-    <tr>
-        <td align="center" colspan="7" valign="top" height="140px">
-            <div id="imgLogo">
-                <img src="<?php echo $this->baseUrl('img/Coat_of_arms_of_Brazil.gif'); ?>" width="60px"/><br><br>
-            </div>
-            MINIST&Eacute;RIO DA CULTURA<br>
-            SECRETARIA DE FOMENTO E INCENTIVO &Agrave; CULTURA - SEFIC<BR>
-            PROGRAMA DE CULTURA DO TRABALHADOR - VALE-CULTURA<BR>
-            RELATÓRIO DE ACOMPANHAMENTO DE INSCRIÇÃO DE EMPRESAS BENEFICIÁRIAS
+        <tr>
+            <td align="center" colspan="7" valign="top" height="140px">
+                <div id="imgLogo">
+                    <img src="<?php echo $this->baseUrl('img/Coat_of_arms_of_Brazil.gif'); ?>" width="60px" /><br><br>
+                </div>
+                MINIST&Eacute;RIO DA CULTURA<br>
+                SECRETARIA DE FOMENTO E INCENTIVO &Agrave; CULTURA - SEFIC<BR>
+                PROGRAMA DE CULTURA DO TRABALHADOR - VALE-CULTURA<BR>
+                RELATÓRIO DE ACOMPANHAMENTO DE INSCRIÇÃO DE EMPRESAS BENEFICIÁRIAS
 
-        </td>
-    </tr>
-    <tr>
-        <td colspan="7" align="right"><?php echo date('d/m/Y H:i:s') ?></td>
-    </tr>
-    <tr class="cresceFonte">
-        <th width="23%" bgcolor="#ccc">
-            <strong><b>Nome da Empresa</b></strong>
-        </th>
-        <th width="10%" bgcolor="#ccc" align="center">
-            <strong><b>CNPJ</b></strong>
-        </th>
-        <th id="titulo2" class="destacar bold centro" width="15%" bgcolor="#ccc">
-            <strong><b>Municipio / UF</b></strong>
-        </th>
-        <th id="titulo3" class="destacar bold centro" width="9%" bgcolor="#ccc">
-            <strong><b>Data de Cadastro</b></strong>
-        </th>
-        <th id="titulo4" class="destacar bold centro" width="13%" bgcolor="#ccc">
-            <strong><b>Status</b></strong>
-        </th>
-        <th id="titulo5" class="destacar bold centro" width="25%" bgcolor="#ccc">
-            <strong><b>Natureza Juridica</b></strong>
-        </th>
-        <th id="titulo6" class="destacar bold centro" width="5%" bgcolor="#ccc">
-            <strong><b>Qtd. Func.</b></strong>
-        </th>
-        <th id="titulo6" class="destacar bold centro" width="10%" bgcolor="#ccc">
-            <strong><b>Operadora</b></strong>
-        </th>
-    </tr>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="7" align="right"><?php echo date('d/m/Y H:i:s') ?></td>
+        </tr>
+        <tr class="cresceFonte">
+            <th width="23%" bgcolor="#ccc">
+                <strong><b>Nome da Empresa</b></strong>
+            </th>
+            <th width="10%" bgcolor="#ccc" align="center">
+                <strong><b>CNPJ</b></strong>
+            </th>
+            <th id="titulo2" class="destacar bold centro" width="15%" bgcolor="#ccc">
+                <strong><b>Municipio / UF</b></strong>
+            </th>
+            <th id="titulo3" class="destacar bold centro" width="9%" bgcolor="#ccc">
+                <strong><b>Data de Cadastro</b></strong>
+            </th>
+            <th id="titulo4"  class="destacar bold centro" width="13%" bgcolor="#ccc">
+                <strong><b>Status</b></strong>
+            </th>
+            <th id="titulo5"  class="destacar bold centro" width="25%" bgcolor="#ccc">
+                <strong><b>Natureza Juridica</b></strong>
+            </th>
+            <th id="titulo6"  class="destacar bold centro" width="5%" bgcolor="#ccc">
+                <strong><b>Qtd. Func.</b></strong>
+            </th>
+            <th id="titulo6"  class="destacar bold centro" width="10%" bgcolor="#ccc">
+                <strong><b>Operadora</b></strong>
+            </th>
+        </tr>
     </thead>
-
+                               
     <tbody>
-    <?php foreach ($this->beneficiarias as $b): ?>
+        <?php foreach ($this->beneficiarias as $b): ?>
         <tr class="cresceFonte">
             <td height="30px" style="border-bottom: 1px solid #eee">
                 <?php echo $b->nmRazaoSocial; ?>
@@ -89,19 +87,19 @@
                 <?php echo $b->operadora ?>
             </td>
         </tr>
-    <?php endforeach; ?>
+        <?php endforeach; ?>
     </tbody>
 </table>
-
-<table width="100%" cellpadding="0" class="tablesorter" border="0" style="font-size: 7pt;">
+                            
+<table width="100%" cellpadding="0"  class="tablesorter" border="0" style="font-size: 7pt;">
     <tr>
         <td colspan="7">
             <br>
             <center>
                 <b>
-                    <?php echo 'Total de ' . number_format($this->qtdFuncionarios, 0, ',', '.'); ?> Funcionários
+                    <?php echo 'Total de '.number_format($this->qtdFuncionarios, 0, ',', '.'); ?> Funcionários
                     <br>
-                    <?php echo 'Total de ' . $this->qtdBeneficiarias; ?> Empresas Beneficiárias
+                    <?php echo 'Total de '.$this->qtdBeneficiarias; ?> Empresas Beneficiárias
                 </b>
             </center>
         </td>

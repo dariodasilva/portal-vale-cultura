@@ -1,3 +1,4 @@
+
 <div class="pagination pagination-centered">
     <ul>
         <?php if (isset($this->previous)): ?>
@@ -12,30 +13,26 @@
 
         <?php if (isset($this->previous)): ?>
             <li>
-                <a class="enviar" title="Página Anterior" valor="<?php echo $this->previous; ?>" href="#">&laquo;
-                    Anterior</a>
+                <a class="enviar" title="Página Anterior" valor="<?php echo $this->previous; ?>" href="#">&laquo; Anterior</a>
             </li>
         <?php else: ?>
             <li class="active">
-                <a class="enviar" title="Página Anterior" valor="<?php echo $this->previous; ?>" href="#">&laquo;
-                    Anterior</a>
+                <a class="enviar" title="Página Anterior" valor="<?php echo $this->previous; ?>" href="#">&laquo; Anterior</a>
             </li>
         <?php endif; ?>
         <!-- Links numerados -->
         <?php foreach ($this->pagesInRange as $page): ?>
             <?php if ($page != $this->current): ?>
                 <li>
-                    <a class="enviar" title="<?php echo $page; ?>" valor="<?php echo $page; ?>"
-                       href="#"><?php echo $page; ?></a>
+                    <a class="enviar" title="<?php echo $page; ?>" valor="<?php echo $page; ?>" href="#"><?php echo $page; ?></a>
                 </li>
             <?php else: ?>
                 <li class="active">
-                    <a class="enviar" title="<?php echo $page; ?>" valor="<?php echo $page; ?>"
-                       href="#"><?php echo $page; ?></a>
+                    <a class="enviar" title="<?php echo $page; ?>" valor="<?php echo $page; ?>" href="#"><?php echo $page; ?></a>
                 </li>
             <?php endif; ?>
         <?php endforeach; ?>
-        <!-- Fim links numerados -->
+        <!-- Fim links numerados -->    
         <?php if (isset($this->next)): ?>
             <li>
                 <a class="enviar" title="Próxima Página" valor="<?php echo $this->next; ?>" href="#">Próxima &raquo;</a>

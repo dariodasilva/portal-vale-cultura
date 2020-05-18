@@ -3,5 +3,5 @@
 class Application_Model_DbTable_Pessoa extends Zend_Db_Table_Abstract
 {
     protected $_schema = 'CORPORATIVO';
-    protected $_name = 'S_PESSOA';
+    protected $_name    = 'S_PESSOA';
 }

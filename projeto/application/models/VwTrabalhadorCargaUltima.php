@@ -1,7 +1,6 @@
 <?php
 
-class Application_Model_VwTrabalhadorCargaUltima
-{
+class Application_Model_VwTrabalhadorCargaUltima {
 
     private $table = null;
 
@@ -34,17 +33,15 @@ class Application_Model_VwTrabalhadorCargaUltima
             ->query()->fetchColumn();
         return $intTotal;
     }
-
-    public function getTable()
-    {
+    
+    public function getTable() {
         if (is_null($this->table)) {
             $this->table = new Application_Model_DbTable_VwTrabalhadorCargaUltima();
         }
         return $this->table;
     }
 
-    public function select($where = array(), $order = null, $limit = null)
-    {
+    public function select($where = array(), $order = null, $limit = null) {
         $select = $this->getTable()->select()->order($order)->limit($limit);
 
         foreach ($where as $coluna => $valor) :
@@ -54,8 +51,7 @@ class Application_Model_VwTrabalhadorCargaUltima
         return $this->getTable()->fetchAll($select)->toArray();
     }
 
-    public function find($id)
-    {
+    public function find($id) {
         return $this->getTable()->find($id)->current();
     }
 }

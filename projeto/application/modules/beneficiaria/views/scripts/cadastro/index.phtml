@@ -1,6 +1,5 @@
-<link href="<?php echo $this->baseUrl('js/circle/component.css') ?>" rel="stylesheet"/>
-<style type="text/css">
-    .errorAjax {
+<style>
+    .errorAjax{
         background-color: #e8a4a4;
         border: 2px solid #e06767;
         height: auto;
@@ -9,91 +8,35 @@
         padding: 5px;
         margin: 0px;
     }
-
-    .tabela th {
+    .tabela th{
         text-align: left;
     }
-
-    .descEmpresa {
+    .descEmpresa{
         display: none;
     }
-
-    .descEmpresa label {
+    .descEmpresa label{
         cursor: default;
     }
-
-    #msgAjaxPJ {
+    #msgAjaxPJ{
         display: none;
         color: red;
         cursor: default;
     }
-
-    #msgAjaxPF, #msgAjaxPFEmpresa, #msgAjaxPFNaoEmpresa {
+    #msgAjaxPF{
         display: none;
         color: red;
         cursor: default;
-    }
-
-    #divOperadoras {
-        height: 160px;
-        margin-top: 10px;
-        border: 1px solid #000000;
-        z-index: 9999999;
-    }
-
-    #divOperadorasUl {
-        height: 120px;
-        overflow-y: auto;
-        z-index: 99999999;
-    }
-
-    #divOperadoras h4 {
-        text-align: left;
-        border-bottom: 1px solid #000000;
-        background-color: #d0d0d0;
-        margin: 0;
-        padding: 5px;
-    }
-
-    #divOperadorasUl ul {
-        margin: 10px 0 10px 25px;
-    }
-
-    #divOperadorasUl li {
-        list-style: none;
-    }
-
-    #divOperadorasUl li label.error {
-        float: right;
-    }
-
-    #divOperadorasUl li input {
-        z-index: 1;
-    }
-
-    .action-pass {
-        width: 95%;
-        margin: 0;
-        padding: 0;
-        position: absolute;
-        top: 500px;
     }
 </style>
-
-<div id="conteudo" class="" style="">
+<div id="conteudo">
     <div id="iframe" style="display:none; margin-bottom: -10px;">
-        <iframe name="_frameForm" id="_frameForm" style="border: 0px #fff solid; width: 100%; height: 110px;"></iframe>
+        <iframe name="_frameForm" id="_frameForm" style="border: 0px #fff solid; width: 100%; height: 110px;" ></iframe>
     </div>
-    <form id="cadastroBeneficiaria" target="_frameForm"
-          action="<?php echo $this->url(array('module' => 'beneficiaria', 'controller' => 'cadastro', 'action' => 'cadastrar')); ?>"
-          method="post">
-        <input type="hidden" name="IDPJ" id="IDPJ" value="0"/>
-        <input type="hidden" name="IDPF" id="IDPF" value="0"/>
-        <input type="hidden" name="ID_EMPRESA_PF" id="ID_EMPRESA_PF" value="0"/>
-        <input type="hidden" name="ID_NAO_EMPRESA_PF" id="ID_NAO_EMPRESA_PF" value="0"/>
-        <input type="hidden" name="ID_ENDERECO" id="ID_ENDERECO" value="0"/>
-        <table align="center" border="0" class="tabela" width="95%"
-               background="<?php echo $this->baseUrl('img/benificiario.png') ?>">
+    <form id="cadastroBeneficiaria" target="_frameForm" action="<?php echo $this->url(array('module' => 'beneficiaria', 'controller' => 'cadastro', 'action' => 'cadastrar')); ?>" method="post">
+        <input type="hidden" name="IDPJ" id="IDPJ" value="0" />
+        <input type="hidden" name="IDPF" id="IDPF" value="0" />
+        <input type="hidden" name="ID_ENDERECO" id="ID_ENDERECO" value="0" />
+        <table align="center" border="0" class="tabela" width="95%" background="<?php echo $this->baseUrl('img/benificiario.png') ?>">
             <tr>
                 <td colspan="3" style="text-align: center;">
                     <p style="font-size: 16px;">
@@ -110,13 +53,7 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="3" style="text-align: center;">
-                    <h3 class="footer-headline">
-                        <span>
-                            Dados da Empresa Benefici&aacute;ria
-                        </span>
-                    </h3>
-                </td>
+                <td colspan="3" style="text-align: center;"><h3 class="footer-headline"><span>Dados da Empresa Benefici&aacute;ria</span></h3></td>
             </tr>
             <tr>
                 <th valign="top" class="destacar bold top-left" colspan="3">
@@ -129,18 +66,16 @@
                 </th>
             </tr>
             <tr>
-                <td valign="top" width="33%"><input name="EMPRESA_CNPJ" id="EMPRESA_CNPJ" type="text"
-                                                    class="input_simples w200 cnpj"/></td>
+                <td valign="top" width="33%"><input name="EMPRESA_CNPJ" id="EMPRESA_CNPJ" type="text" class="input_simples w200 cnpj" /></td>
                 <td valign="top" colspan="2">
-                    <img src="<?php echo $this->baseUrl('img/ajax-loader_4.gif'); ?>" id="imgPJ"
-                         style="display: none;"/>
+                    <img src="<?php echo $this->baseUrl('img/ajax-loader_4.gif');?>" id="imgPJ"  style="display: none;" />
                     <label id="msgAjaxPJ"></label>
                 </td>
             </tr>
             <tr class="descEmpresa">
-                <th valign="top" width="33%">Raz&atilde;o Social:</th>
-                <th valign="top" width="34%">Nome Fantasia:</th>
-                <th valign="top" width="33%">Natureza Juridica:</th>
+                <th valign="top">Raz&atilde;o Social: </th>
+                <th valign="top">Nome Fantasia: </th>
+                <th valign="top">Natureza Juridica: </th>
             </tr>
             <tr class="descEmpresa">
                 <td valign="top"><label id="EMPRESA_RAZAOSOCIAL">&nbsp;</label></td>
@@ -154,39 +89,43 @@
             </tr>
             <tr class="descEmpresa">
                 <td valign="top"><label id="CNAE_PRIMARIO">&nbsp;</label></td>
-                <td valign="top"><label id="CNAE_SECUNDARIOS">&nbsp;</label></td>
-                <td valign="top"><label id="EMPRESA_SITUACAO">&nbsp;</label></td>
+                <td valign="top" colspan="2"><label id="CNAE_SECUNDARIOS">&nbsp;</label></td>
             </tr>
             <tr class="descEmpresa">
-                <th class="destacar bold" colspan="3">Regime de tributa&ccedil;&atilde;o</th>
+                <th class="destacar bold">Regime de tributa&ccedil;&atilde;o</th>
+                <th class="destacar bold" colspan="2">Operadora</th>
             </tr>
             <tr class="descEmpresa">
-                <td colspan="3">
+                <td>
                     <select name="EMPRESA_TIPO_LUCRO" id="EMPRESA_TIPO_LUCRO" class="select_simples w200">
-                        <option value=""> - Selecione -</option>
+                        <option value=""> - Selecione - </option>
                         <?php foreach ($this->tipoLucro as $lucro) { ?>
                             <option value="<?php echo $lucro['ID_TIPO_LUCRO'] ?>"> <?php echo $lucro['DS_TIPO_LUCRO'] ?> </option>
+                        <?php } ?>
+                    </select>
+                </td>
+                <td colspan="2">
+                    <select name="EMPRESA_OPERADORA" id="EMPRESA_OPERADORA" class="select_simples">
+                        <option value=""> - Selecione - </option>
+                        <?php foreach ($this->operadorasAtivas as $operadora) { ?>
+                        <option value="<?php echo $operadora['idOperadora'] ?>"> <?php if (!empty($operadora['nmFantasia']) && $operadora['nmFantasia'] != ' ') { echo $operadora['nmFantasia']; } else { echo $operadora['nmRazaoSocial']; } ?> </option>
                         <?php } ?>
                     </select>
                 </td>
             </tr>
         </table>
 
-        <table align="center" border="0" class="tabela" width="95%"
-               background="<?php echo $this->baseUrl('img/benificiario.png') ?>">
+        <table align="center" border="0" class="tabela" width="95%" background="<?php echo $this->baseUrl('img/benificiario.png') ?>">
             <tr>
-                <td colspan="3" style="text-align: center;"><h3 class="footer-headline">Endere&ccedil;o comercial</h3>
-                </td>
+                <td colspan="3" style="text-align: center;"><h3 class="footer-headline">Endere&ccedil;o comercial</h3></td>
             </tr>
             <tr>
                 <th valign="top" class="destacar bold">CEP:</th>
-                <td valign="top" colspan="2"><img src="<?php echo $this->baseUrl('img/ajax-loader_4.gif'); ?>"
-                                                  id="imgPJ" style="display: none;"/></td>
+                <td valign="top" colspan="2"><img src="<?php echo $this->baseUrl('img/ajax-loader_4.gif');?>" id="imgPJ"  style="display: none;" /></td>
             </tr>
             <tr>
                 <td valign="top">
-                    <input name="EMPRESA_CEP" id="EMPRESA_CEP" valor="" onchange="buscaCep(this)" type="text"
-                           class="input_simples w500 block cep"/>
+                    <input name="EMPRESA_CEP" id="EMPRESA_CEP" valor="" onchange="buscaCep(this)" type="text" class="input_simples w500 block cep" />
                     <label for="EMPRESA_CEP" id="EMPRESA_CEP_VALIDADOR" class="error" style="display: none"></label>
                 </td>
                 <td align="left" colspan="2">
@@ -201,18 +140,17 @@
             <tr>
                 <td valign="top">
                     <select name="EMPRESA_UF" id="EMPRESA_UF" disabled="true" class="select_simples w200 block">
-                        <option> - Informe o CEP -</option>
+                        <option> - Informe o CEP - </option>
                     </select>
                 </td>
                 <td valign="top">
-                    <select name="EMPRESA_MUNICIPIO" id="EMPRESA_MUNICIPIO" disabled="true"
-                            class="select_simples w200 block">
-                        <option> - Informe o CEP -</option>
+                    <select name="EMPRESA_MUNICIPIO" id="EMPRESA_MUNICIPIO" disabled="true" class="select_simples w200 block">
+                        <option> - Informe o CEP - </option>
                     </select>
                 </td>
                 <td valign="top">
                     <select name="EMPRESA_BAIRRO" id="EMPRESA_BAIRRO" disabled="true" class="select_simples w200 block">
-                        <option> - Informe o CEP -</option>
+                        <option> - Informe o CEP - </option>
                     </select>
                 </td>
             </tr>
@@ -223,51 +161,37 @@
             </tr>
             <tr>
                 <td valign="top">
-                    <input name="EMPRESA_ENDERECO" id="EMPRESA_ENDERECO" disabled="true" value="- Informe o CEP -"
-                           type="text" class="input_simples w200 block"/>
+                    <input name="EMPRESA_ENDERECO" id="EMPRESA_ENDERECO" disabled="true" value="- Informe o CEP -" type="text" class="input_simples w200 block" />
                 </td>
-                <td valign="top"><input name="EMPRESA_COMPLEMENTO" id="EMPRESA_COMPLEMENTO" type="text"
-                                        class="input_simples w200 block" maxlength="100"/></td>
-                <td valign="top"><input name="EMPRESA_NUMERO" id="EMPRESA_NUMERO" maxlength="10" type="text"
-                                        class="input_simples w100 block"/></td>
+                <td valign="top"><input name="EMPRESA_COMPLEMENTO" id="EMPRESA_COMPLEMENTO" type="text" class="input_simples w200 block" /></td>
+                <td valign="top"><input name="EMPRESA_NUMERO" id="EMPRESA_NUMERO" maxlength="10" type="text" class="input_simples w100 block" /></td>
             </tr>
         </table>
 
         <table width="95%" align="center" class="tabela">
             <tr>
-                <td colspan="2" style="text-align: center;"><h3 class="footer-headline"><span>Faixas Salariais</span>
-                    </h3></td>
+                <td colspan="2" style="text-align: center;"><h3 class="footer-headline"><span>Faixas Salariais</span></h3></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="destacar bold">Informe abaixo o n&uacute;mero de funcion&aacute;rios de acordo com a faixa salarial</td>
             </tr>
 
-            <tr>
-                <td colspan="2" class="destacar bold">
-                    <b>Informe abaixo o n&uacute;mero de funcion&aacute;rios de acordo com a faixa salarial:</b>
-                    <a href="#myModalSobreFaixaSalarial"
-                       role="button"
-                       class="" data-toggle="modal">
-                        <img src="<?php echo $this->baseUrl('img/help-icon.png'); ?>"
-                             style="width: 25px; height: 25px; cursor: pointer; margin-top: 0;border: 0; padding: 0;"
-                             title="Sobre a Faixa Salarial"/></a>
-                    <br/>
-                </td>
-            </tr>
 
             <?php
             foreach ($this->faixasSalarial as $faixaSalarial) {
                 ?>
                 <tr>
                     <td><?php echo $faixaSalarial['DS_TIPO_FAIXA_SALARIAL'] ?></td>
-                    <td><input type="text" onkeyup="num(this);" maxlength="8"
-                               class="nrFuncionarios input_simples numerico"
-                               name="IDFAIXASALARIAL[<?php echo $faixaSalarial['ID_TIPO_FAIXA_SALARIAL'] ?>]"/></td>
+                    <td><input type="text" onkeyup="num(this);" maxlength="8" class="nrFuncionarios input_simples numerico" name="IDFAIXASALARIAL[<?php echo $faixaSalarial['ID_TIPO_FAIXA_SALARIAL'] ?>]" /></td>
                 </tr>
                 <?php
             }
             ?>
 
+
             <tr>
                 <td>Total de funcion&aacute;rios:</td>
-                <td><input type="text" id="totalFuncionarios" disabled="true" class="input_simples"/></td>
+                <td><input type="text" id="totalFuncionarios" disabled="true" class="input_simples" /></td>
             </tr>
 
             <tr>
@@ -371,93 +295,23 @@
             </tr>
             <tr>
                 <td colspan="3">
-                    <div id="msgAjaxNaoEmpresa" class="errorAjax" style="display:none;"></div>
-                </td>
-            </tr>
-            <tr>
-                <td valign="top" class="w100">CPF: <img src="<?php echo $this->baseUrl('img/ajax-loader_4.gif'); ?>"
-                                                        id="imgPFNaoEmpresa" style="display: none;"/></td>
-                <td valign="top">Nome:</td>
-                <td valign="top" class="destacar bold">Cargo:</td>
-            </tr>
-            <tr>
-                <td valign="top"><input name="RESPONSAVEL_NAO_EMPRESA_CPF" id="RESPONSAVEL_NAO_EMPRESA_CPF" type="text"
-                                        class="input_simples cpf"/></td>
-                <td valign="top"><input disabled="true" name="RESPONSAVEL_NAO_EMPRESA_NOME"
-                                        id="RESPONSAVEL_NAO_EMPRESA_NOME" type="text"
-                                        class="input_simples" maxlength="100"/></td>
-                <td valign="top">
-                    <select name="RESPONSAVEL_NAO_EMPRESA_CARGO" id="RESPONSAVEL_NAO_EMPRESA_CARGO">
-                        <option> - SELECIONE -</option>
-                        <?php
-                        foreach ($this->CBOs as $CBO) {
-                            ?>
-                            <option value="<?php echo $CBO['CD_CBO'] ?>">
-                                <?php echo $CBO['NM_CBO'] ?>
-                            </option>
-                            <?php
-                        }
-                        ?>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td valign="top" class="destacar bold">E-mail:</td>
-                <td valign="top" class="destacar bold">Fone:</td>
-                <td valign="top" class="destacar bold" colspan="2">Fax:</td>
-            </tr>
-            <tr>
-                <td><input name="RESPONSAVEL_NAO_EMPRESA_EMAIL" id="RESPONSAVEL_NAO_EMPRESA_EMAIL" type="text"
-                           class="input_simples w300" maxlength="80"/></td>
-                <td valign="top"><input name="RESPONSAVEL_NAO_EMPRESA_FONE" id="RESPONSAVEL_NAO_EMPRESA_FONE"
-                                        type="text"
-                                        class="input_simples w100 telefone"/></td>
-                <td valign="top"><input name="RESPONSAVEL_NAO_EMPRESA_FAX" id="RESPONSAVEL_NAO_EMPRESA_FAX" type="text"
-                                        class="input_simples w100 telefone" colspan="2"/></td>
-            </tr>
-            <tr>
-                <td valign="top" class="destacar bold">Confirme o E-mail:</td>
-                <td colspan="2"></td>
-            </tr>
-            <tr>
-                <td><input name="RESPONSAVEL_NAO_EMPRESA_EMAIL_CONFIRMA" id="RESPONSAVEL_NAO_EMPRESA_EMAIL_CONFIRMA"
-                           type="text" maxlength="80"
-                           class="input_simples w300"/></td>
-                <td colspan="2"></td>
-            </tr>
-        </table>
-
-        <table id="responsavel-empresa" align="center" border="0" class="tabela" width="95%"
-               background="<?php echo $this->baseUrl('img/benificiario.png') ?>">
-            <tr>
-                <td colspan="3"></td>
-            </tr>
-            <tr>
-                <td colspan="3" class="destacar bold">
-                    <h4 class="">Dados do representante legal da empresa</h4>
-                </td>
-            </tr>
-
-            <tr>
-                <td colspan="3">
                     <div id="msgAjax" class="errorAjax" style="display:none;"></div>
                 </td>
             </tr>
-
             <tr>
-                <td valign="top" class="w100">CPF: <img src="<?php echo $this->baseUrl('img/ajax-loader_4.gif'); ?>"
-                                                        id="imgPF" style="display: none;"/></td>
+                <td colspan="3" class="destacar bold">Informe abaixo os dados da pessoa respons�vel pela inser��o das informa��es da empresa junto ao Minist�rio da Cultura.</td>
+            </tr>
+            <tr>
+                <td valign="top" class="w100">CPF: <img src="<?php echo $this->baseUrl('img/ajax-loader_4.gif');?>" id="imgPF" style="display: none;" /></td>
                 <td valign="top">Nome:</td>
                 <td valign="top" class="destacar bold">Cargo:</td>
             </tr>
             <tr>
-                <td valign="top"><input name="RESPONSAVEL_CPF" id="RESPONSAVEL_CPF" type="text"
-                                        class="input_simples cpf"/></td>
-                <td valign="top"><input disabled="true" name="RESPONSAVEL_NOME" id="RESPONSAVEL_NOME" type="text"
-                                        class="input_simples" maxlength="100"/></td>
+                <td valign="top"><input name="RESPONSAVEL_CPF" id="RESPONSAVEL_CPF" type="text" class="input_simples cpf" /></td>
+                <td valign="top"><input disabled="true" name="RESPONSAVEL_NOME" id="RESPONSAVEL_NOME" type="text" class="input_simples" /></td>
                 <td valign="top">
                     <select name="RESPONSAVEL_CARGO" id="RESPONSAVEL_CARGO">
-                        <option> - SELECIONE -</option>
+                        <option> - SELECIONE - </option>
                         <?php
                         foreach ($this->CBOs as $CBO) {
                             ?>
@@ -476,20 +330,16 @@
                 <td valign="top" class="destacar bold" colspan="2">Fax:</td>
             </tr>
             <tr>
-                <td><input name="RESPONSAVEL_EMAIL" id="RESPONSAVEL_EMAIL" type="text" class="input_simples w300"
-                           maxlength="80"/></td>
-                <td valign="top"><input name="RESPONSAVEL_FONE" id="RESPONSAVEL_FONE" type="text"
-                                        class="input_simples w100 telefone"/></td>
-                <td valign="top"><input name="RESPONSAVEL_FAX" id="RESPONSAVEL_FAX" type="text"
-                                        class="input_simples w100 telefone" colspan="2"/></td>
+                <td><input name="RESPONSAVEL_EMAIL" id="RESPONSAVEL_EMAIL" type="text" class="input_simples w300" /></td>
+                <td valign="top"><input name="RESPONSAVEL_FONE" id="RESPONSAVEL_FONE" type="text" class="input_simples w100 telefone" /></td>
+                <td valign="top"><input name="RESPONSAVEL_FAX" id="RESPONSAVEL_FAX" type="text" class="input_simples w100 telefone"  colspan="2" /></td>
             </tr>
             <tr>
                 <td valign="top" class="destacar bold">Confirme o E-mail:</td>
                 <td colspan="2"></td>
             </tr>
             <tr>
-                <td><input name="RESPONSAVEL_EMAIL_CONFIRMA" id="RESPONSAVEL_EMAIL_CONFIRMA" type="text"
-                           class="input_simples w300" maxlength="80"/></td>
+                <td><input name="RESPONSAVEL_EMAIL_COMFIRMA" id="RESPONSAVEL_EMAIL_COMFIRMA" type="text" class="input_simples w300" /></td>
                 <td colspan="2"></td>
             </tr>
             <tr id="arquivo_10">
@@ -519,14 +369,13 @@
             <tr>
                 <td colspan="3" valign="top" class="destacar bold">
                     <input type="radio" value="1" name="AUTORIZO_OPERADORA" checked="checked">
-                    Autorizo o MC a divulgar meus dados de contato a operadora selecionada.
+                    Autorizo o MinC a divulgar meus dados de contato a operadora selecionada.
                 </td>
             </tr>
             <tr>
                 <td colspan="3" valign="top" class="destacar bold">
                     <input type="radio" value="2" name="AUTORIZO_OPERADORA">
-                    Autorizo o MC a divulgar meus dados de contato a todas operadoras cadastradas no sistema
-                    Vale-Cultura.
+                    Autorizo o MinC a divulgar meus dados de contato a todas operadoras cadastradas no sistema Vale-Cultura.
                 </td>
             </tr>
 
@@ -559,31 +408,19 @@
                     </div>
                 </td>
             </tr>
-            <tr>
-                <td>Digite o c&oacute;digo abaixo: <input name="captcha[input]" id="captcha[input]"
-                                                          class="input_simples" type="text"></td>
-            </tr>
-            <tr>
-                <td id="captcha" style="height: 80px"></td>
-            </tr>
         </table>
-        <br/>
+        <br />
         <table class="tabela">
             <tr>
                 <td class="centro">
-                    <button id="btnSalvar" class="btn btn btn-inverse" type="submit" style=""
-                            id="enviaForm">Salvar
-                    </button>
-                    <button id="btnCancelar" class="btn btn btn-inverse" type="button" style=""
-                            onclick="fechaModal();">Cancelar
-                    </button>
-                    <button id="btnResetar" class="btn btn btn-inverse" type="reset" style="">Limpar
-                    </button>
+                    <button id="btnSalvar"   class="btn btn btn-inverse" type="submit" style="float:center;" id="enviaForm">Salvar</button>
+                    <button id="btnCancelar" class="btn btn btn-inverse" type="button" style="float:center;" onclick="fechaModal();">Cancelar</button>
+                    <button id="btnResetar"  class="btn btn btn-inverse" type="reset" style="float:center;">Limpar</button>
                 </td>
             </tr>
         </table>
 
-        <br clear="all"/>
+        <br clear="all" />
 
         <table id="btFechar" style="display:none" class="tabela">
             <tr></tr>
@@ -602,58 +439,41 @@
         Favor entrar em contato com a empresa operadora de sua prefer&ecirc;ncia para viabilizar a contrata&ccedil;&atilde;o dos servi&ccedil;os.
         <br><br>
         <button class="btn btn-mini btn-success" onclick="enviarForm()" value="Submit">Confirmar</button>
-        <button class="btn btn-mini btn-warning" onclick="$('#myModal').fadeOut(); $('#mascara2').fadeOut();">Cancelar
-        </button>
+        <button class="btn btn-mini btn-warning" onclick="$('#myModal').fadeOut(); $('#mascara2').fadeOut();">Cancelar</button>
     </div>
 </div>
-
 <div class="mascara" id="mascara2"></div>
 
-<script type="text/javascript">
+<script>
 
-    function num(dom) {
-        dom.value = dom.value.replace(/\D/g, '');
+    function num(dom){
+        dom.value=dom.value.replace(/\D/g,'');
     }
 
     var confirmado = false;
 
-    jQuery(document).ready(function () {
+    jQuery(document).ready(function() {
 
         $(".cep").mask("99999-999");
         $(".data").mask("99/99/9999");
         $(".cpf").mask("999.999.999-99");
         $(".cnpj").mask("99.999.999/9999-99");
         $(".telefone").mask("(99) 9999-9999?9");
-        // $(".telefone-simples").mask("9999-9999?9");
-
-        $(".telefone-simples").blur(function () {
-            mascaraDeTelefone($(this)[0]);
-        });
-
-        $(".telefone-simples").focus(function () {
-            tiraHifen($(this)[0]);
-        });
-
-        $(".data-simples").mask("99/99/9999");
 
         gerarCaptcha();
         calculaTotalFuncionarios();
 
-        $('#btnResetar').click(function () {
+        $('#btnResetar').click(function(){
             $('#IDPJ').val('');
-            $('#ID_EMPRESA_PF').val('');
-            $('#ID_NAO_EMPRESA_PF').val('');
-
             $('#EMPRESA_RAZAOSOCIAL').html('');
             $('#EMPRESA_NOMEFANTASIA').html('');
-            $('#EMPRESA_SITUACAO').html('');
             $('#NATUREZA_JURIDICA').html('');
             $('#CNAE_PRIMARIO').html('');
             $('#CNAE_SECUNDARIOS').html('');
             $('#EMPRESA_COMPLEMENTO').val('');
             $('#EMPRESA_NUMERO').val('');
             $('#EMPRESA_CEP').val('');
-            $('#EMPRESA_CEP').attr('valor', '');
+            $('#EMPRESA_CEP').attr('valor','');
             $('#ID_ENDERECO').val('0');
 
             $('#EMPRESA_UF').html('<option> - Informe o CEP - </option>');
@@ -665,51 +485,10 @@
             $('#msgAjaxPJ').show();
             $('#msgAjaxPF').html('');
             $('#msgAjaxPF').show();
-
-            $('#msgAjaxPFNaoEmpresa').html('');
-            $('#msgAjaxPFNaoEmpresa').show();
-        });
-
-        $('.responsavel_empresa').click(function () {
-            $('#responsavel-nao-empresa').addClass('hide');
-
-            $("#RESPONSAVEL_NAO_EMPRESA_CPF").rules("remove");
-            $("#RESPONSAVEL_NAO_EMPRESA_FONE").rules("remove");
-            $("#RESPONSAVEL_NAO_EMPRESA_EMAIL").rules("remove");
-            $("#RESPONSAVEL_NAO_EMPRESA_EMAIL_CONFIRMA").rules("remove");
-
-            if ($(this).val() == 0) {
-                $('#responsavel-nao-empresa').removeClass('hide');
-
-                $("#RESPONSAVEL_NAO_EMPRESA_CPF").rules("add", {
-                    required: true,
-                    messages: {
-                        required: "Informe o CPF"
-                    }
-                });
-
-                $("#RESPONSAVEL_NAO_EMPRESA_FONE").rules("add", {
-                    required: true,
-                    messages: {
-                        required: "Campo obrigat&oacute;rio"
-                    }
-                });
-
-                $("#RESPONSAVEL_NAO_EMPRESA_EMAIL").rules("add", {
-                    required: true,
-                    email: true,
-                    messages: {
-                        required: "Informe o E-mail",
-                        email: "Digite um e-mail v&aacute;lido"
-                    }
-                });
-
-                $("#RESPONSAVEL_NAO_EMPRESA_EMAIL_CONFIRMA").rules("add", 'emailnaoempresacheck');
-            }
         });
 
         // Vamos buscar os dados do CNPJ Agora!
-        $('#EMPRESA_CNPJ').focusout(function () {
+        $('#EMPRESA_CNPJ').focusout(function(){
 
             $('#IDPJ').val('');
             $('#EMPRESA_RAZAOSOCIAL').html('');
@@ -717,11 +496,10 @@
             $('#NATUREZA_JURIDICA').html('');
             $('#CNAE_PRIMARIO').html('');
             $('#CNAE_SECUNDARIOS').html('');
-            $('#EMPRESA_SITUACAO').html('');
             $('#EMPRESA_COMPLEMENTO').val('');
             $('#EMPRESA_NUMERO').val('');
             $('#EMPRESA_CEP').val('');
-            $('#EMPRESA_CEP').attr('valor', '');
+            $('#EMPRESA_CEP').attr('valor','');
             $('#ID_ENDERECO').val('0');
 
 //            $('.descEmpresa').hide();
@@ -732,37 +510,36 @@
 
             var txt = $(this).val();
 
-            if (txt == '__.___.___/____-__') {
+            if(txt == '__.___.___/____-__'){
                 $('#imgPJ').hide();
-            } else {
+            }else{
 
                 $.ajax({
                     type: "POST",
                     url: '<?php echo $this->url(array('module' => 'operadora', 'controller' => 'cadastro', 'action' => 'busca-pessoa-juridica')); ?>',
                     data: {EMPRESA_CNPJ: $(this).val(), tipoPJ: 'B'},
                     dataType: 'json',
-                    success: function (data) {
+                    success: function(data) {
 
                         $('#imgPJ').hide();
-                        if (data.error != '') {
+                        if(data.error != ''){
                             $('#msgAjaxPJ').html(data.error);
                             $('#msgAjaxPJ').show();
-                        } else {
+                        }else{
                             // Preenche os dados
                             $('#IDPJ').val(data.dados.idpj);
                             $('#EMPRESA_RAZAOSOCIAL').html(data.dados.razaosocial);
-                            if (data.dados.nomefantasia === " ") {
-                                $('#EMPRESA_NOMEFANTASIA').html('<input name="EMPRESA_NMFANTASIA" id="EMPRESA_NMFANTASIA" maxlength="100" type="text" class="input_simples w200 block" />');
-                            } else {
+                            if(data.dados.nomefantasia===" "){
+                                $('#EMPRESA_NOMEFANTASIA').html('<input name="EMPRESA_NMFANTASIA" id="EMPRESA_NMFANTASIA" type="text" class="input_simples w200 block" />');
+                            }else{
                                 $('#EMPRESA_NOMEFANTASIA').html(data.dados.nomefantasia);
                             }
                             $('#NATUREZA_JURIDICA').html(data.dados.naturezajuridica);
                             $('#CNAE_PRIMARIO').html(data.dados.CNAEPrimario);
                             $('#CNAE_SECUNDARIOS').html(data.dados.CNAESecundarios);
-                            $('#EMPRESA_SITUACAO').html(data.dados.situacaocnpj);
                             $('#EMPRESA_COMPLEMENTO').val(data.dados.dscomplementoendereco);
                             $('#EMPRESA_NUMERO').val(data.dados.nrcomplemento);
-                            if (data.dados.cep != 'N') {
+                            if(data.dados.cep != 'N'){
                                 $('#EMPRESA_CEP').val(data.dados.cep);
                                 $('#EMPRESA_CEP').attr('valor', data.dados.cep);
                                 $('#ID_ENDERECO').val(data.dados.idendereco);
@@ -771,7 +548,7 @@
                                     url: '<?php echo $this->url(array('module' => 'operadora', 'controller' => 'cadastro', 'action' => 'buscaenderecoporcep')); ?>',
                                     data: {CEP: data.dados.cep},
                                     dataType: 'json',
-                                    success: function (data) {
+                                    success: function(data) {
                                         carregaEndereco(data);
                                     }
                                 });
@@ -781,7 +558,7 @@
                             desbloqueaCadastro();
                         }
 
-                    }, error: function (data) {
+                    },error: function(data) {
                         $('#msgAjaxPJ').html(data.error);
                         $('#msgAjaxPJ').show();
                         $('#imgPJ').hide();
@@ -791,8 +568,9 @@
 
         });
 
+
         // Vamos buscar os dados do CNPJ Agora!
-        $('#RESPONSAVEL_CPF').focusout(function () {
+        $('#RESPONSAVEL_CPF').focusout(function(){
 
             $('#IDPF').val('');
             $('#RESPONSAVEL_NOME').val('');
@@ -801,22 +579,22 @@
 
             var txt = $(this).val();
 
-            if (txt == '___.___.___-__') {
+            if(txt == '___.___.___-__'){
                 $('#imgPF').hide();
-            } else {
+            }else{
 
                 $.ajax({
                     type: "POST",
                     url: '<?php echo $this->url(array('module' => 'operadora', 'controller' => 'cadastro', 'action' => 'busca-pessoa-fisica')); ?>',
                     data: {RESPONSAVEL_CPF: $(this).val(), TIPO_VINCULO: 'B'},
                     dataType: 'json',
-                    success: function (data) {
+                    success: function(data) {
 
-                        if (data.error != '') {
+                        if(data.error != ''){
                             $('#msgAjax').html(data.error);
                             $('#msgAjax').show();
                             $('#imgPF').hide();
-                        } else {
+                        }else{
                             // Preenche os dados
                             $('#IDPF').val(data.dados.idpf);
                             $('#RESPONSAVEL_NOME').val(data.dados.nome);
@@ -824,68 +602,28 @@
                             $('#imgPF').hide();
                         }
 
-                    }, error: function (data) {
+                    },error: function(data) {
                         $('#msgAjax').html(data.error);
                         $('#msgAjax').show();
                         $('#imgPF').hide();
                     }
                 });
             }
+
         });
 
-        // Vamos buscar os dados do CNPJ Agora!
-        $('#RESPONSAVEL_NAO_EMPRESA_CPF').focusout(function () {
 
-            $('#ID_NAO_EMPRESA_PF').val('');
-            $('#RESPONSAVEL_NAO_EMPRESA_NOME').val('');
-            $('#msgAjaxNaoEmpresa').hide();
-            $('#imgPFNaoEmpresa').show();
-
-            var txt = $(this).val();
-
-            if (txt == '___.___.___-__') {
-                $('#imgPFNaoEmpresa').hide();
-            } else {
-
-                $.ajax({
-                    type: "POST",
-                    url: '<?php echo $this->url(array('module' => 'operadora', 'controller' => 'cadastro', 'action' => 'busca-pessoa-fisica')); ?>',
-                    data: {RESPONSAVEL_CPF: $(this).val(), TIPO_VINCULO: 'B'},
-                    dataType: 'json',
-                    success: function (data) {
-
-                        if (data.error != '') {
-                            $('#msgAjaxNaoEmpresa').html(data.error);
-                            $('#msgAjaxNaoEmpresa').show();
-                            $('#imgPFNaoEmpresa').hide();
-                        } else {
-                            // Preenche os dados
-                            $('#ID_NAO_EMPRESA_PF').val(data.dados.idpf);
-                            $('#RESPONSAVEL_NAO_EMPRESA_NOME').val(data.dados.nome);
-                            $('#RESPONSAVEL_NAO_EMPRESA_CARGO').focus();
-                            $('#imgPFNaoEmpresa').hide();
-                        }
-
-                    }, error: function (data) {
-                        $('#msgAjaxNaoEmpresa').html(data.error);
-                        $('#msgAjaxNaoEmpresa').show();
-                        $('#imgPFNaoEmpresa').hide();
-                    }
-                });
-            }
-        });
-
-        $('.nrFuncionarios').change(function () {
+        $('.nrFuncionarios').change(function() {
             calculaTotalFuncionarios();
         });
 
-        $(".numerico").keyup(function () {
+        $(".numerico").keyup(function() {
             if (isNaN($(this).val())) {
                 $(this).val(0);
             }
         });
 
-        $('.telefone').focusout(function () {
+        $('.telefone').focusout(function() {
             var phone, element;
             element = $(this);
             element.unmask();
@@ -897,7 +635,7 @@
             }
         }).trigger('focusout');
 
-        $.validator.addMethod('valueNotEquals', function (value, element, arg) {
+        $.validator.addMethod('valueNotEquals', function(value, element, arg) {
             return arg !== value;
         }, "Campo obrigat&oacute;rio");
 
@@ -912,7 +650,7 @@
                 RESPONSAVEL_EMAIL: {
                     required: true, email: true
                 },
-                RESPONSAVEL_EMAIL_CONFIRMA: 'emailcheck',
+                RESPONSAVEL_EMAIL_COMFIRMA: 'emailcheck',
                 RESPONSAVEL_CPF: {
                     required: true
                 },
@@ -925,9 +663,8 @@
                 EMPRESA_TIPO_LUCRO: {
                     valueNotEquals: ''
                 },
-
-                OPERADORA_VALE: {
-                    required: true
+                EMPRESA_OPERADORA: {
+                    valueNotEquals: ''
                 }
             },
             messages: {
@@ -945,23 +682,20 @@
                     required: "Informe o CPF"
                 },
                 captchaForm: {
-                    required: "Campo obrigat&oacute;rio"
+                    required: "Campo obrigat&oacute;rio agaga"
                 },
                 RESPONSAVEL_FONE: {
                     required: "Campo obrigat&oacute;rio"
-                },
-                OPERADORA_VALE: {
-                    required: "Campo obrigat&oacute;rio"
                 }
             },
-            submitHandler: function (form) {
+            submitHandler: function(form) {
 
-                // if (!($('#AUTORIZO_OPERADORA_SELECIONADA').is(":checked") || $('#AUTORIZO_TODAS_OPERADORAS').is(":checked")) && !confirmado) {
-                //     $('#mascara2').fadeIn();
-                //     $('#myModal').slideDown();
-                // } else {
-                form.submit();
-                // }
+               // if (!($('#AUTORIZO_OPERADORA_SELECIONADA').is(":checked") || $('#AUTORIZO_TODAS_OPERADORAS').is(":checked")) && !confirmado) {
+               //     $('#mascara2').fadeIn();
+               //     $('#myModal').slideDown();
+               // } else {
+                    form.submit();
+               // }
             }
         });
         var left = ($('.window').width() / 2) - ($('#myModal').width() / 2);
@@ -973,20 +707,20 @@
         $('#myModal').css({'top': top, 'left': left});
         $('#mascara2').css({'width': $('.window').width() + 10, 'height': $('.window').height() + 10});
 
-        $('#AUTORIZO_TODAS_OPERADORAS').change(function () {
-            if ($(this).is(":checked")) {
-                $('#AUTORIZO_OPERADORA_SELECIONADA').attr("checked", true);
+        $('#AUTORIZO_TODAS_OPERADORAS').change(function(){
+            if($(this).is(":checked")){
+                $('#AUTORIZO_OPERADORA_SELECIONADA').attr("checked",true);
                 $('#AUTORIZO_OPERADORA_SELECIONADA').attr("disabled", true);
-            } else {
+            }else{
                 $('#AUTORIZO_OPERADORA_SELECIONADA').removeAttr("checked");
                 $('#AUTORIZO_OPERADORA_SELECIONADA').removeAttr("disabled");
             }
         });
 
-        $("#AUTORIZO_MINC").change(function () {
-            if (!$(this).is(':checked')) {
+        $("#AUTORIZO_MINC").change(function(){
+            if(!$(this).is(':checked')){
                 var c = confirm('Tem certeza que n�o quer ter o nome da sua empresa no rol de benefici�rias que concedem o Vale-Cultura aos seus trabalhadores?');
-                if (c == false) {
+                if(c == false){
                     $(this).prop('checked', true);
                 }
             }
@@ -1066,10 +800,10 @@
 
     function buscaCep(obj) {
 
-        valor = $(obj).attr('valor');
-        valorAtual = $(obj).val().replace("-", "");
+        valor       = $(obj).attr('valor');
+        valorAtual  = $(obj).val().replace("-", "");
 
-        if ((valor != '') && valor == valorAtual) {
+        if((valor != '') && valor == valorAtual){
             return false;
         }
 
@@ -1080,7 +814,7 @@
             url: '<?php echo $this->url(array('module' => 'operadora', 'controller' => 'cadastro', 'action' => 'buscaenderecoporcep')); ?>',
             data: {CEP: $(obj).val()},
             dataType: 'json',
-            success: function (data) {
+            success: function(data) {
                 carregaEndereco(data);
             }
         });
@@ -1095,7 +829,7 @@
         $.ajax({
             type: 'GET',
             url: '<?php echo $this->url(array('module' => 'operadora', 'controller' => 'cadastro', 'action' => 'gerarcaptcha')); ?>',
-            success: function (data) {
+            success: function(data) {
                 $('#captcha').html(data);
                 setTimeout('gerarCaptcha()', 600000);
             }
@@ -1107,10 +841,10 @@
             $('#EMPRESA_CEP_VALIDADOR').fadeOut();
             if (data.dados.TP_CEP != 0) {
                 if (data.dados.NM_LOGRADOURO.length > 0) {
-                    $('#EMPRESA_ENDERECO').val(data.dados.DS_TIPO_LOGRADOURO + ' ' + data.dados.NM_LOGRADOURO);
-                    if (data.dados.DS_TIPO_LOGRADOURO !== 'M' && data.dados.DS_TIPO_LOGRADOURO !== 'D' && data.dados.DSTIPOLOGRADOURO !== 'P') {
+                    $('#EMPRESA_ENDERECO').val(data.dados.DS_TIPO_LOGRADOURO+' '+data.dados.NM_LOGRADOURO);
+                    if(data.dados.DS_TIPO_LOGRADOURO !== 'M' && data.dados.DS_TIPO_LOGRADOURO !== 'D' && data.dados.DSTIPOLOGRADOURO !== 'P'){
                         $('#EMPRESA_ENDERECO').attr('disabled', 'true');
-                    } else {
+                    }else{
                         $('#EMPRESA_ENDERECO').val('');
                         $('#EMPRESA_ENDERECO').removeAttr('disabled');
                     }
@@ -1122,7 +856,8 @@
 
                 $('#EMPRESA_BAIRRO').html('');
 
-                for (var i = 0; i < data.dados.bairros.length; i++) {
+                for (var i = 0; i < data.dados.bairros.length; i++)
+                {
                     var complemento = '';
                     if (i == 0) {
                         complemento = 'selected';
@@ -1170,7 +905,7 @@
 
         var totalFuncionaios;
         totalFuncionaios = 0;
-        $("#cadastroBeneficiaria").find('.nrFuncionarios').each(function () {
+        $("#cadastroBeneficiaria").find('.nrFuncionarios').each(function() {
             if (eval($(this).val()) > 0) {
                 totalFuncionaios = eval(totalFuncionaios) + eval($(this).val());
             }
@@ -1185,7 +920,7 @@
             url: '<?php echo $this->url(array('module' => 'beneficiaria', 'controller' => 'cadastro', 'action' => 'recupera-segundo-nivel-cnae')); ?>',
             data: {IDCNAE: $(obj).val()},
             dataType: 'json',
-            success: function (data) {
+            success: function(data) {
                 carregaCnaeSecundario(data['CNAEs']);
             }
         });
@@ -1218,9 +953,10 @@
     }
 
 
-    function bloqueaCadastro() {
+    function bloqueaCadastro(){
         // Dados da empresa
         $('#EMPRESA_TIPO_LUCRO').attr('disabled', true);
+        $('#EMPRESA_OPERADORA').attr('disabled', true);
         $('#EMPRESA_CEP').attr('disabled', true);
         $('#EMPRESA_COMPLEMENTO').attr('disabled', true);
         $('#EMPRESA_NUMERO').attr('disabled', true);
@@ -1233,13 +969,14 @@
         $('#RESPONSAVEL_FONE').attr('disabled', true);
         $('#RESPONSAVEL_FAX').attr('disabled', true);
         $('#RESPONSAVEL_EMAIL_CONFIRMA').attr('disabled', true);
-        // Bot?o de Salvar
+        // Bot�o de Salvar
         $('#btnSalvar').hide();
     }
 
-    function desbloqueaCadastro() {
+    function desbloqueaCadastro(){
         // Dados da empresa
         $('#EMPRESA_TIPO_LUCRO').attr('disabled', false);
+        $('#EMPRESA_OPERADORA').attr('disabled', false);
         $('#EMPRESA_CEP').attr('disabled', false);
         $('#EMPRESA_COMPLEMENTO').attr('disabled', false);
         $('#EMPRESA_NUMERO').attr('disabled', false);
@@ -1252,32 +989,8 @@
         $('#RESPONSAVEL_FONE').attr('disabled', false);
         $('#RESPONSAVEL_FAX').attr('disabled', false);
         $('#RESPONSAVEL_EMAIL_CONFIRMA').attr('disabled', false);
-        // Bot?o de Salvar
+        // Bot�o de Salvar
         $('#btnSalvar').show();
     }
 
-    function mascaraDeTelefone(telefone) {
-        const textoAtual = telefone.value;
-        const isCelular = textoAtual.length === 9;
-        let textoAjustado;
-
-        if (isCelular) {
-            const parte1 = textoAtual.slice(0, 5);
-            const parte2 = textoAtual.slice(5, 9);
-            textoAjustado = `${parte1}-${parte2}`
-        } else {
-            const parte1 = textoAtual.slice(0, 4);
-            const parte2 = textoAtual.slice(4, 8);
-            textoAjustado = `${parte1}-${parte2}`
-        }
-
-        telefone.value = textoAjustado;
-    }
-
-    function tiraHifen(telefone) {
-        const textoAtual = telefone.value;
-        const textoAjustado = textoAtual.replace(/\-/g, '');
-
-        telefone.value = textoAjustado;
-    }
 </script>

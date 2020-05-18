@@ -6,7 +6,7 @@
 
             <div class="row-fluid actions">
 
-                <input type="text" class="search span12" placeholder="O que deseja buscar?"/>
+                <input type="text" class="search span12" placeholder="O que deseja buscar?" />
 
             </div>
             <?php include_once 'menu.phtml'; ?>
@@ -15,6 +15,7 @@
 
         <!-- start: Content -->
         <div id="content" class="span10">
+
 
 
             <div class="row-fluid"><!--/span-->
@@ -46,21 +47,19 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <input type="text" class="input_simples w150" name="RESPONSAVEL_CPF"
-                                                   required id="RESPONSAVEL_CPF">
+                                            <input type="text" class="input_simples w150" name="RESPONSAVEL_CPF" required id="RESPONSAVEL_CPF">
                                         </td>
                                         <td>
-                                            <img src="<?php echo $this->baseUrl('img/ajax-loader_4.gif'); ?>" id="imgPF"
-                                                 style="display: none;"/>
+                                            <img src="<?php echo $this->baseUrl('img/ajax-loader_4.gif');?>" id="imgPF" style="display: none;" />
                                             <b><label id="RESPONSAVEL_NOME"></label></b>
                                         </td>
                                         <td>
                                             <select name="CDCBO" id="CDCBO" required>
-                                                <option value=""> - SELECIONE -</option>
-                                                <?php foreach ($this->CBOs as $CBO): ?>
-                                                    <option value="<?php echo $CBO['CD_CBO']; ?>">
-                                                        <?php echo $CBO['NM_CBO']; ?>
-                                                    </option>
+                                                <option value=""> - SELECIONE - </option>
+                                                <?php foreach($this->CBOs as $CBO): ?>
+                                                <option value="<?php echo $CBO['CD_CBO']; ?>">
+                                                    <?php echo $CBO['NM_CBO']; ?>
+                                                </option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </td>
@@ -71,12 +70,10 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <input type="text" class="input_simples w150" required maxlength="80"
-                                                   name="emailResponsavel" id="emailResponsavel">
+                                            <input type="text" class="input_simples w150" required name="emailResponsavel" id="emailResponsavel">
                                         </td>
                                         <td colspan="2">
-                                            <input type="text" class="input_simples w150" required maxlength="80"
-                                                   name="confirmEmailResponsavel" id="confirmEmailResponsavel">
+                                            <input type="text" class="input_simples w150" required name="confirmEmailResponsavel" id="confirmEmailResponsavel">
                                             <span id="erroEmail" style="color: red; font-weight: bold;"></span>
                                             <span id="txtErroEmail" style="color: red; font-weight: bold;"></span>
                                         </td>
@@ -87,17 +84,15 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <input type="text" class="input_simples w150 telefone" required
-                                                   name="TelResponsavel" id="TelResponsavel">
+                                            <input type="text" class="input_simples w150 telefone" required name="TelResponsavel" id="TelResponsavel">
                                         </td>
                                         <td colspan="2">
-                                            <input type="text" class="input_simples w150 telefone" name="FaxResponsavel"
-                                                   id="FaxResponsavel">
+                                            <input type="text" class="input_simples w150 telefone" name="FaxResponsavel" id="FaxResponsavel">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            Procuração representante da empresa:
+                                            Procuraï¿½ï¿½o representante da empresa:
                                         </td>
                                         <td colspan="2">
                                             <input type="file" name="ANEXO_11" id="ANEXO_11"
@@ -109,12 +104,11 @@
 
                                 <div class="form-actions">
                                     <button type="submit" id="btnCadastrar" class="btn btn-primary">Cadastrar</button>
-                                    <a href="<?php echo $this->url(array('module' => 'beneficiaria', 'controller' => 'index', 'action' => 'responsavel'), '', true); ?>"
-                                       class="btn btn-danger">Cancelar</a>
+                                    <a href="<?php echo $this->url(array('module' => 'beneficiaria', 'controller' => 'index', 'action' => 'responsavel'), '', true);?>" class="btn btn-danger">Cancelar</a>
                                 </div>
                             </form>
 
-                            <br clear="all"/>
+                            <br clear="all" />
                         </fieldset>
                     </div>
                 </div>
@@ -132,12 +126,12 @@
 </div>
 
 <script>
-    jQuery(document).ready(function () {
+    jQuery(document).ready(function() {
 
         $('#btnCadastrar').hide();
 
         // Vamos buscar os dados do CNPJ Agora!
-        $('#RESPONSAVEL_CPF').focusout(function () {
+        $('#RESPONSAVEL_CPF').focusout(function(){
 
             $('#IDPF').val('');
             $('#RESPONSAVEL_NOME').html('');
@@ -147,22 +141,22 @@
             var txt = $(this).val();
             var idEmpresa = $('#idBeneficiaria').val();
 
-            if (txt == '___.___.___-__') {
+            if(txt == '___.___.___-__'){
                 $('#imgPF').hide();
-            } else {
+            }else{
 
                 $.ajax({
                     type: "POST",
                     url: '<?php echo $this->url(array('module' => 'operadora', 'controller' => 'cadastro', 'action' => 'busca-pessoa-fisica')); ?>',
                     data: {RESPONSAVEL_CPF: $(this).val(), TIPO_VINCULO: 'BN', idEmpresa: idEmpresa},
                     dataType: 'json',
-                    success: function (data) {
+                    success: function(data) {
 
-                        if (data.error != '') {
+                        if(data.error != ''){
                             $('#RESPONSAVEL_NOME').html(data.error);
                             $('#imgPF').hide();
                             $('#btnCadastrar').hide();
-                        } else {
+                        }else{
                             // Preenche os dados
                             $('#IDPF').val(data.dados.idpf);
                             $('#RESPONSAVEL_NOME').html(data.dados.nome);
@@ -171,7 +165,7 @@
                             $('#btnCadastrar').show();
                         }
 
-                    }, error: function (data) {
+                    },error: function(data) {
                         $('#RESPONSAVEL_NOME').html(data.error);
                         $('#imgPF').hide();
                         $('#btnCadastrar').hide();
@@ -181,13 +175,13 @@
 
         });
 
-        $('#formResponsavel').submit(function () {
+        $('#formResponsavel').submit(function(){
 
             var original = $('#emailResponsavel').val();
             var valor = $('#confirmEmailResponsavel').val();
 
-            if (valor != original) {
-                $('#txtErroEmail').html('Email não confere!');
+            if(valor != original){
+                $('#txtErroEmail').html('Email nï¿½o confere!');
                 return false;
             }
 

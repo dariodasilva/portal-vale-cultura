@@ -6,16 +6,16 @@
 
             <div class="row-fluid actions">
 
-                <input type="text" class="search span12" placeholder="O que deseja buscar?"/>
+                <input type="text" class="search span12" placeholder="O que deseja buscar?" />
 
             </div>
 
             <?php
-            if ($this->usuarioLogado['PerfilGeral'] == 'C') {
-                include_once 'menuConsulta.phtml';
-            } else {
-                include_once 'menu.phtml';
-            }
+                if($this->usuarioLogado['PerfilGeral'] == 'C'){
+                    include_once 'menuConsulta.phtml';
+                } else {
+                    include_once 'menu.phtml';
+                }
             ?>
 
         </div>
@@ -23,33 +23,26 @@
 
         <!-- start: Content -->
         <div id="content" class="span10">
-            <?php foreach ($this->beneficiarias as $b) {
-                if (!$b->stAutorizaMinc) { ?>
+            <?php foreach($this->beneficiarias as $b) {
+                if(!$b->stAutorizaMinc){ ?>
                     <div class="box span8" ontablet="span12" ondesktop="span8">
                         <div class="box-header" style="background-color: #FF9800;">
-                            <h2><i class="icon-warning-sign" style="background-color: #FF9800;"></i>AUTORIZAÇÃO PARA
-                                DIVULGAÇÃO DOS DADOS</h2>
+                            <h2><i class="icon-warning-sign" style="background-color: #FF9800;"></i>AUTORIZAÇÃO PARA DIVULGAÇÃO DOS DADOS</h2>
                         </div>
                         <div class="box-content" style="height:120px">
                             <div class="span12" style="height:120px">
-                                Na qualidade de titular da empresa beneficiária junto ao Ministério, <b>AUTORIZO</b> a
-                                divulgação do nome da empresa (<?php echo $b->nmRazaoSocial ?>) como participante do
-                                Programa de Cultura do Trabalhador. A presente autorização é concedida a título gratuito
-                                e em todo território nacional. <br><br>
+                                Na qualidade de titular da empresa beneficiária junto ao Ministério, <b>AUTORIZO</b> a divulgação do nome da empresa (<?php echo $b->nmRazaoSocial ?>) como participante do Programa de Cultura do Trabalhador. A presente autorização é concedida a título gratuito e em todo território nacional. <br><br>
                                 <div class="row-fluid">
-                                    <form method="POST"
-                                          action="<?php echo $this->url(array('module' => 'beneficiaria', 'controller' => 'index', 'action' => 'autorizar-divulgacao-minc')); ?>">
-                                        <input type="hidden" name="beneficiaria"
-                                               value="<?php echo $b->idBeneficiaria ?>">
-                                        <input type="submit" name="autorizacao" value="AUTORIZO"
-                                               class="btn btn-primary">
+                                    <form method="POST" action="<?php echo $this->url(array('module' => 'beneficiaria', 'controller' => 'index', 'action' => 'autorizar-divulgacao-minc')); ?>">
+                                        <input type="hidden" name="beneficiaria" value="<?php echo $b->idBeneficiaria ?>">
+                                        <input type="submit" name="autorizacao" value="AUTORIZO" class="btn btn-primary">
                                         <input type="submit" name="autorizacao" value="NÃO AUTORIZO" class="btn">
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <?php break;
+                <?php break;
                 }
             } ?>
             <div class="row-fluid">
@@ -60,18 +53,13 @@
                     <div class="box-content" style="height:308px">
                         <div class="span12" style="height:308px">
                             <p>
-                                O Programa de Cultura do Trabalhador, que criou o <b>Vale-Cultura</b>, foi instituído em
-                                Lei e <b>não tem prazo de término</b>.
+                                O Programa de Cultura do Trabalhador, que criou o <b>Vale-Cultura</b>, foi instituído em Lei e <b>não tem prazo de término</b>.
                             </p>
                             <p>
-                                O que tem previsão de término no exercício 2017, ano-calendário 2016, é o incentivo
-                                fiscal concedido às empresas que são tributadas com base no lucro real. Entretanto, a
-                                renovação desse incentivo já está em tramitação e deve ser publicada em breve.
+                                O que tem previsão de término no exercício 2017, ano-calendário 2016, é o incentivo fiscal concedido às empresas que são tributadas com base no lucro real. Entretanto, a renovação desse incentivo já está em tramitação e deve ser publicada em breve.
                             </p>
                             <p>
-                                Além do benefício fiscal, <b>TODAS AS EMPRESAS</b> que participam do programa, ofertando
-                                o Vale-Cultura aos seus funcionários, tem benefícios sociais e trabalhistas,
-                                independente do seu regime de tributação.
+                                Além do benefício fiscal, <b>TODAS AS EMPRESAS</b> que participam do programa, ofertando o Vale-Cultura aos seus funcionários, tem benefícios sociais e trabalhistas, independente do seu regime de tributação.
                             </p>
                             <p>
                                 Vale-Cultura. Bom para empresa! Bom para o Trabalhador!
@@ -84,5 +72,5 @@
         <!-- end: Content -->
 
     </div><!--/fluid-row-->
-    </body>
-    </html>
+</body>
+</html>

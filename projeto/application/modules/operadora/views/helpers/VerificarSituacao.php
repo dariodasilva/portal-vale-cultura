@@ -5,8 +5,7 @@
  *
  * @author tarcisio
  */
-class Zend_View_Helper_VerificarSituacao
-{
+class Zend_View_Helper_VerificarSituacao {
 
     /**
      * MÃ©todo para verificar o status da operadora
@@ -14,8 +13,7 @@ class Zend_View_Helper_VerificarSituacao
      * @param integer $idOperadora
      * @return string
      */
-    public function verificarSituacao($idSituacao = null, $info = null, $tipo = 'O')
-    {
+    public function verificarSituacao($idSituacao = null, $info = null, $tipo = 'O') {
 
         $dadosSituacao = array();
         $dadosSituacao['idTipoSituacao'] = 0;
@@ -24,7 +22,7 @@ class Zend_View_Helper_VerificarSituacao
 
         if (!empty($idSituacao)) {
             $dadosSituacao['idTipoSituacao'] = $idSituacao;
-
+            
             switch ($idSituacao) {
                 case ID_SITUACAO_AGUARDANDO_ANALISE:
                     $dadosSituacao['corSituacao'] = '#FF7B00';
@@ -35,23 +33,23 @@ class Zend_View_Helper_VerificarSituacao
                     $dadosSituacao['corSituacao'] = '#66B20A';
                     $dadosSituacao['dsSituacao'] = 'Autorizado';
                     break;
-
+                
                 case ID_SITUACAO_NAO_AUTORIZADO:
                     $dadosSituacao['corSituacao'] = '#E00000';
                     $dadosSituacao['dsSituacao'] = 'Não autorizado';
                     break;
-
+                
                 case ID_SITUACAO_INATIVO:
                     $dadosSituacao['corSituacao'] = '#FF7B00';
                     $dadosSituacao['dsSituacao'] = 'Inativo';
                     break;
-
+                
                 default:
                     $dadosSituacao['corSituacao'] = '#E00000';
                     $dadosSituacao['dsSituacao'] = 'Situação não encontrada!';
                     break;
             }
-
+            
         }
 
         if (!empty($info)) {

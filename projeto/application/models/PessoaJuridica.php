@@ -26,11 +26,6 @@ class Application_Model_PessoaJuridica extends Application_Model_Pessoa
 
     public function buscarPessoaJuridica($where = array(), $order = null, $limit = null)
     {
-        $subselect = $this->getTable()->select()
-            ->setIntegrityCheck(false)
-            ->from(array('h' => 'CORPORATIVO.H_SITUACAO_CADASTRAL_PJ'),
-                   array('h.ID_PESSOA_JURIDICA', new Zend_Db_Expr("MAX(h.DT_SITUACAO_CADASTRAL) AS ultimaData")))
-            ->group(array('h.ID_PESSOA_JURIDICA'));
 
         $select = $this->getTable()->select();
         $select->setIntegrityCheck(false);
@@ -42,25 +37,9 @@ class Application_Model_PessoaJuridica extends Application_Model_Pessoa
             'p.NM_FANTASIA',
             'p.NR_CEI'));
 
-        $select->joinLeft(array('nj' => 'CORPORATIVO.S_NATUREZA_JURIDICA'),
-            'p.CD_NATUREZA_JURIDICA = nj.CD_NATUREZA_JURIDICA',
-            array('nj.CD_NATUREZA_JURIDICA', 'nj.DS_NATUREZA_JURIDICA')
-        );
 
-        $select->joinLeft(array('hspj' => new Zend_Db_Expr("({$subselect})")),
-            'hspj.ID_PESSOA_JURIDICA = p.ID_PESSOA_JURIDICA',
-            array('hspj.ultimaData')
-        );
-
-        $select->joinLeft(array('sitpj' => 'CORPORATIVO.H_SITUACAO_CADASTRAL_PJ'),
-            'sitpj.ID_PESSOA_JURIDICA = hspj.ID_PESSOA_JURIDICA
-            AND sitpj.DT_SITUACAO_CADASTRAL = hspj.ultimaData',
-            array('sitpj.CD_SITUACAO_CADASTRAL')
-        );
-
-        $select->joinLeft(array('sit' => 'CORPORATIVO.S_TIPO_SITUACAO_CADASTRAL_PJ'),
-            'sit.CD_SITUACAO_CADASTRAL = sitpj.CD_SITUACAO_CADASTRAL',
-            array('sit.DS_SITUACAO_CADASTRAL')
+        $select->joinLeft(array('nj' => 'CORPORATIVO.S_NATUREZA_JURIDICA'), 'p.CD_NATUREZA_JURIDICA = nj.CD_NATUREZA_JURIDICA', array('nj.CD_NATUREZA_JURIDICA',
+            'nj.DS_NATUREZA_JURIDICA')
         );
 
         if ($where) {

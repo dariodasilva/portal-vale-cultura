@@ -13,19 +13,16 @@
     <title>Vale Cultura - Minist&eacute;rio da Cultura</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
-    <meta name="" content="Vale Cultura">
+    <meta name="Jesse da Silva Lucas -  Gabriel Neiva Machado" content="Vale Cultura">
 
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/bootstrap.css') ?>" type="text/css"/>
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/bootstrap-responsive.css') ?>" type="text/css"/>
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/font-awesome.css') ?>" type="text/css"/>
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/prettyPhoto.css" type="text/css') ?>" type="text/css"/>
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/js/circle/component.css') ?>" type="text/css"
-          media="screen"/>
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/js/mosaic/hover.zoom.css') ?>" type="text/css"
-          media="screen"/>
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/style.css') ?>" type="text/css"/>
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/colorpicker.css') ?>" type="text/css"/>
-    <link rel="stylesheet" href="<?php echo $this->baseUrl('css/jquery-ui-datepicker.css') ?>" type="text/css"/>
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/bootstrap.css') ?>"/>
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/bootstrap-responsive.css') ?>"/>
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/font-awesome.css') ?>"/>
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/prettyPhoto.css" type="text/css') ?>"/>
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/js/circle/component.css') ?>" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/js/mosaic/hover.zoom.css') ?>" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/style.css') ?>"/>
+    <link rel="stylesheet" href="<?php echo $this->baseUrl('/css/colorpicker.css') ?>"/>
     <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600,300' rel='stylesheet' type='text/css'>
 
@@ -41,7 +38,6 @@
     <link rel="apple-touch-icon-precomposed" href="<?php echo $this->baseUrl('/ico/logo.png') ?>">
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="<?php echo $this->baseUrl('js/jquery-1.10.1.js') ?>"></script>
-    <script src="<?php echo $this->baseUrl('js/jquery-ui-1.11.4.min.js') ?>"></script>
 </head>
 
 <body>
@@ -83,7 +79,7 @@
             <a target="_blank" href="#home" onclick="manual();">Manual do usuário</a>
         </li>-->
         <li class="current">
-            <!--<img src="<?php /*echo $this->baseUrl('img/logoMincPreta.png') */ ?>"/>-->
+            <!--<img src="<?php /*echo $this->baseUrl('img/logoMincPreta.png') */?>"/>-->
         </li>
     </ul>
 </div>
@@ -97,20 +93,16 @@
             <a href="#home">Páginal Inicial</a>
         </li>
         <li>
-            <a href="#home" link="<?php echo $this->baseUrl('beneficiaria/cadastro') ?>" rel="modal">Cadastrar
-                Beneficiária</a>
+            <a href="#home" link="<?php echo $this->baseUrl('beneficiaria/cadastro') ?>" rel="modal">Cadastrar Beneficiária</a>
         </li>
         <li>
-            <a href="#home" link="<?php echo $this->baseUrl('operadora/cadastro') ?>" rel="modal">Cadastrar
-                Operadora</a>
+            <a href="#home" link="<?php echo $this->baseUrl('operadora/cadastro') ?>" rel="modal">Cadastrar Operadora</a>
         </li>
         <li>
-            <a href="#home" link="<?php echo $this->baseUrl('minc/index/lista-beneficiaria') ?>" rel="modal">Lista das
-                Beneficiária</a>
+            <a href="#home" link="<?php echo $this->baseUrl('minc/index/lista-beneficiaria') ?>" rel="modal">Lista das Beneficiária</a>
         </li>
         <li>
-            <a href="#home" link="<?php echo $this->baseUrl('minc/index/lista-operadora') ?>" rel="modal">Lista das
-                Operadoras</a>
+            <a href="#home" link="<?php echo $this->baseUrl('minc/index/lista-operadora') ?>" rel="modal">Lista das Operadoras</a>
         </li>
         <li>
             <a href="/contato">Fale Conosco</a>
@@ -128,21 +120,15 @@
                     <div class="presentation">
                         <div>
                             <h1>Vale-Cultura</h1>
-                            <p>Unir cultura e trabalho é gerar valor, transformar a realidade e promover
-                                desenvolvimento. Ganha o trabalhador, ganha a empresa e ganha o Brasil! Acesse já o
-                                nosso site e venha conhecer um pouco mais sobre esta política cultural. <a
-                                        href="<?php echo $this->linkSobreValeCultura; ?>" target="_blank"
-                                        style="text-decoration: underline;">SAIBA MAIS!</a></p>
+                            <p>Unir cultura e trabalho é gerar valor, transformar a realidade e promover desenvolvimento. Ganha o trabalhador, ganha a empresa e ganha o Brasil! Acesse já o nosso site e venha conhecer um pouco mais sobre esta política cultural. <a href="http://antigo.cultura.gov.br/valecultura" target="_blank" style="text-decoration: underline;">SAIBA MAIS!</a></p>
                         </div>
                     </div>
 
-                    <form class="form-2" method="post" style="text-align:center"
-                          action="<?php echo $this->url(array('module' => 'minc', 'controller' => 'login', 'action' => 'auth'), null, true); ?>">
+                    <form class="form-2" method="post" style="text-align:center" action="<?php echo $this->url(array('module' => 'minc', 'controller' => 'login', 'action' => 'auth'), null, true); ?>">
                         <h1><span class="log-in">Acesso ao Sistema de</span><span class="sign-up">Cadastro</span></h1>
                         <div class="control-group">
                             <label for="acessologin" class="control-label" style="text-align:left">
-                                <input name="acessologin" id="acessologin" class="cpf" type="text"
-                                       placeholder="Digite seu CPF">
+                                <input name="acessologin" id="acessologin" class="cpf" type="text" placeholder="Digite seu CPF">
                             </label>
                         </div>
                         <div class="control-group">
@@ -152,8 +138,7 @@
                         </div>
                         <div class="clearfix">
                             <input type="submit" name="submit" value="Confirmar">
-                            <a href="#home" link="<?php echo $this->baseUrl('minc/index/esqueceusenha') ?>" rel="modal">Esqueceu
-                                a senha?</a>
+                            <a href="#home" link="<?php echo $this->baseUrl('minc/index/esqueceusenha') ?>" rel="modal">Esqueceu a senha?</a>
                         </div>
                     </form>
                 </div>
@@ -168,7 +153,7 @@
         <button type="button" onclick="fechaModal()" class="close-btn close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
         </button>
-        <!--<img onclick="fechaModal()" class="close-btn" src="<?php /*echo $this->baseUrl('img/icone-fechar.png') */ ?>" width="92" height="22"/>-->
+        <!--<img onclick="fechaModal()" class="close-btn" src="<?php /*echo $this->baseUrl('img/icone-fechar.png') */?>" width="92" height="22"/>-->
     </div>
     <div id="janelaLoad" style="overflow-y: auto; width: 100%;"></div>
 </div>
@@ -180,337 +165,6 @@
 
 <!-- mascara para cobrir o site -->
 <div id="mascara"></div>
-
-<div class="modal hide fade" id="myModalSobreOperadora">
-    <div class="modal-header">
-        &nbsp;
-        <button type="button" class="close" data-dismiss="modal">x</button>
-    </div>
-    <div class="modal-body">
-        <table id="passo1" align="center" border="0" class="tabela nextF" width="95%"
-               background="<?php echo $this->baseUrl('img/benificiario.png') ?>">
-            <tr>
-                <td style="text-align: center;">
-                    <h3 class="footer-headline"><span>Competências da Operadora</span>
-                    </h3>
-                </td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-            </tr>
-            <tr>
-                <td>
-                    <p>
-                        A operadora é a empresa responsável por produzir e comercializar o cartão vale-cultura. Para se
-                        cadastrar no Programa de Cultura do Trabalhador e se tornar uma operadora, a empresa deve
-                        possuir:
-                    </p>
-                    <p>
-                    <ul style="font-style: italic; font-weight: bold;">
-                        <li>I - Inscrição regular no Cadastro Nacional da Pessoa Jurídica (CNPJ);</li>
-                        <li>
-                            II - Qualificação técnica para produzir e comercializar o vale-cultura, observado o disposto
-                            no art. 6º da Lei 12.761/2012. (Decreto 8.084/2013, art. 5º, incisos I e II).
-                        </li>
-                    </ul>
-                    </p>
-                    <p>
-                        A empresa interessada em aderir ao programa deverá também observar os requisitos previstos no
-                        <b>art. 3º e 4º da instrução normativa nº 2/2013</b> (<a
-                                href="http://cultura.gov.br/documentos/legislacao-vale-cultura"
-                                target="_blank" style="cursor: pointer; color: #000; font-weight: bold;">Acesso à
-                            legislação</a>), inclusive no que diz respeito ao representante legal da empresa junto ao
-                        Ministério da Cidadania, que tratará de todos os assuntos relacionados com sua participação no
-                        Programa de Cultura do Trabalhador.
-                    </p>
-                </td>
-            </tr>
-        </table>
-        <table id="passo2" align="center" border="0" class="tabela nextF" width="95%"
-               background="<?php echo $this->baseUrl('img/benificiario.png') ?>" style="display: none;">
-            <tr>
-                <td style="text-align: center;">
-                    <h3 class="footer-headline"><span>Informações Importantes</span>
-                    </h3>
-                </td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-            </tr>
-            <tr>
-                <td>
-                    <p>
-                        A empresa operadora, possuidora do Certificado de Inscrição no Programa de Cultura do
-                        Trabalhador, é responsável por produzir e comercializar o cartão vale-cultura e habilitar as
-                        recebedoras ao recebimento do cartão vale-cultura.<br/> Também são deveres da operadora (<b>art.
-                            6º do Decreto 8.084/2013</b>):
-                    </p>
-                    <p>
-                    <ul style="font-style: italic; font-weight: bold;">
-                        <li>I - Observar limites de cobrança de taxa de administração;</li>
-                        <li>
-                            II - Apresentar ao Ministério da Cultura relatórios periódicos relativos a acesso e fruição
-                            de produtos e serviços culturais;
-                        </li>
-                        <li>
-                            III - Tomar providências para que empresas recebedoras cumpram os deveres previstos no art.
-                            9º, e inabilitá-las em caso de descumprimento.
-                        </li>
-                    </ul>
-                    </p>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div class="modal-footer">
-        <button type="button" id="button-passo1" class="nextPass btn btn-info nextF" data-val="passo2">Próximo</button>
-        <button type="button" id="button-passo2" class="nextPass btn btn-info nextF" data-val="passo1"
-                style="display: none;">Anterior
-        </button>
-        <a href="#" class="btn" data-dismiss="modal">Fechar</a>
-    </div>
-</div>
-
-<div class="modal hide fade" id="myModalInicioComercializacao">
-    <div class="modal-header">
-        &nbsp;
-        <button type="button" class="close" data-dismiss="modal">x</button>
-    </div>
-    <div class="modal-body">
-        <table id="" align="center" border="0" class="tabela" width="95%"
-               background="<?php echo $this->baseUrl('img/benificiario.png') ?>">
-            <tr>
-                <td style="text-align: center;">
-                    <h3 class="footer-headline"><span>Sobre o Início da Comercialização</span></h3>
-                </td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-            </tr>
-            <tr>
-                <td>
-                    <p>
-                        A data de início da comercialização indica o momento em que a empresa estará apta a
-                        comercializar o cartão Vale-Cultura. Isso significa que todos os meios necessários à
-                        operacionalização do benefício devem estar providenciados, o que inclui mecanismos para gestão
-                        dos dados de utilização do cartão (<b>Instrução Normativa nº 2/2013, arts. 16, 17 e 18</b>).
-                    </p>
-                    <p>
-                        A partir da data indicada, a empresa aparecerá no sistema Vale-Cultura como uma operadora do
-                        programa e poderá ser uma das opções de escolhas das beneficiárias.
-                    </p>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div class="modal-footer">
-        <a href="#" class="btn" data-dismiss="modal">Fechar</a>
-    </div>
-</div>
-
-<div class="modal hide fade" id="myModalSobreBeneficiaria">
-    <div class="modal-header">
-        &nbsp;
-        <button type="button" class="close" data-dismiss="modal">x</button>
-    </div>
-    <div class="modal-body">
-        <table id="passo1B" align="center" border="0" class="tabela nextFB" width="95%"
-               background="<?php echo $this->baseUrl('img/benificiario.png') ?>">
-            <tr>
-                <td style="text-align: center;">
-                    <h3 class="footer-headline"><span>Deveres da Beneficiária</span>
-                    </h3>
-                </td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-            </tr>
-            <tr>
-                <td>
-                    <p>
-                        A beneficiária é a empresa optante pelo Programa de Cultura do Trabalhador, autorizada a
-                        distribuir o vale-cultura a seus trabalhadores com vínculo empregatício.
-                    </p>
-                    <p>
-                        <b>Art. 11. São deveres da empresa beneficiária (art. 11 do Decreto 8.084/2013)</b>:
-                    <ul style="font-style: italic; font-weight: bold;">
-                        <li>I - oferecer o vale-cultura nos termos do Capítulo III;</li>
-                        <li>II - prestar ao Ministério da Cultura as informações referentes aos usuários, conforme faixa
-                            de renda mensal, e mantê-las atualizadas;
-                        </li>
-                        <li>
-                            III - divulgar e incentivar o acesso e a fruição de produtos e serviços culturais pelos
-                            usuários.<br/>
-                            Ressaltamos a importância de atentar à legislação do programa (<a
-                                    href="http://cultura.gov.br/documentos/legislacao-vale-cultura"
-                                    target="_blank" style="cursor: pointer; color: #000; font-weight: bold;">Acesso à legislação</a>),
-                            em especial ao art. 12 da Lei 12.761/2012, e à Instrução Normativa nº 2/2013.
-                        </li>
-                    </ul>
-                    </p>
-                </td>
-            </tr>
-
-        </table>
-
-        <table id="passo2B" align="center" border="0" class="tabela nextFB" width="95%"
-               background="<?php echo $this->baseUrl('img/benificiario.png') ?>" style="display: none;">
-            <tr>
-                <td style="text-align: center;">
-                    <h3 class="footer-headline">
-                        <span>Informações Importantes</span>
-                    </h3>
-                </td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-            </tr>
-            <tr>
-                <td>
-                    <p>
-                        A beneficiária é a empresa optante pelo Programa de Cultura do Trabalhador, autorizada a
-                        distribuir o vale-cultura a seus trabalhadores com vínculo empregatício. Para se cadastrar no
-                        programa a empresa deve atender aos seguintes requisitos:
-                    </p>
-                    <p>
-                    <ul style="font-style: italic; font-weight: bold;">
-                        <li>I - Inscrição regular no CNPJ;</li>
-                        <li>II - Indicação de empresa operadora possuidora de Certificado de Inscrição no Programa de
-                            Cultura do Trabalhador;
-                        </li>
-                        <li>III - Indicação do número de trabalhadores com vínculo empregatício, conforme a faixa de
-                            renda mensal.
-                        </li>
-                    </ul>
-                    </p>
-                    <p>
-                        Ressaltamos que o responsável pela empresa junto ao Ministério da Cidadania tratará de todos os
-                        assuntos relacionados com sua participação no Programa de Cultura do Trabalhador, portanto deve
-                        ser indicado um representante que possa responder pela empresa.
-                    </p>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div class="modal-footer">
-        <button type="button" id="button-passo1B" class="nextPassB btn btn-info nextFB" data-val="passo2B">Próximo</button>
-        <button type="button" id="button-passo2B" class="nextPassB btn btn-info nextFB" data-val="passo1B"
-                style="display: none;">Anterior
-        </button>
-        <a href="#" class="btn" data-dismiss="modal">Fechar</a>
-    </div>
-</div>
-
-<div class="modal hide fade" id="myModalSobreFaixaSalarial">
-    <div class="modal-header">
-        &nbsp;
-        <button type="button" class="close" data-dismiss="modal">x</button>
-    </div>
-    <div class="modal-body">
-        <table align="center" border="0" class="tabela" width="95%"
-               background="<?php echo $this->baseUrl('img/benificiario.png') ?>">
-            <tr>
-                <td style="text-align: center;">
-                    <h3 class="footer-headline"><span>Faixa Salarial</span></h3>
-                </td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-            </tr>
-            <tr>
-                <td>
-                    <p>
-                        Informe o número de funcionários vinculados à empresa, de acordo com as faixas salarias.
-                        Ressaltamos
-                        que estagiários não poderão ser adicionados, pois não preenchem o requisito necessário exigido
-                        pela
-                        legislação do Programa de Cultura do Trabalhador - Vale-Cultura.
-                    </p>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div class="modal-footer">
-        <a href="#" class="btn" data-dismiss="modal">Fechar</a>
-    </div>
-</div>
-
-<div class="modal hide fade" id="myModalSobreListaOperadoras">
-    <div class="modal-header">
-        &nbsp;
-        <button type="button" class="close" data-dismiss="modal">x</button>
-    </div>
-    <div class="modal-body">
-        <table align="center" border="0" class="tabela" width="95%"
-               background="<?php echo $this->baseUrl('img/benificiario.png') ?>">
-            <tr>
-                <td style="text-align: center;">
-                    <h3 class="footer-headline"><span>Escolha da Operadora</span>
-                    </h3>
-                </td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-            </tr>
-            <tr>
-                <td>
-                    <p>
-                        Escolha uma entre as empresas operadoras cadastradas e autorizadas a emitir o cartão
-                        Vale-Cultura
-                        dos seus funcionários.
-                    </p>
-                    <p>
-                        A escolha da operadora, no momento do cadastro, é uma intenção. O empregador é livre para
-                        contratar
-                        qualquer uma das operadoras habilitadas no Programa de Cultura do Trabalhador - Vale-Cultura.
-                        Ressaltamos que qualquer alteração, deverá ser registrada no sistema do Vale-Cultura e submetida
-                        à
-                        análise e aprovação do técnico do Ministério da Cidadania.
-                    </p>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div class="modal-footer">
-        <a href="#" class="btn" data-dismiss="modal">Fechar</a>
-    </div>
-</div>
-
-
-<div class="modal hide fade" id="myModalSobreAutorizacaoBeneficiaria">
-    <div class="modal-header">
-        &nbsp;
-        <button type="button" class="close" data-dismiss="modal">x</button>
-    </div>
-    <div class="modal-body">
-        <table align="center" border="0" class="tabela" width="95%"
-               background="<?php echo $this->baseUrl('img/benificiario.png') ?>">
-            <tr>
-                <td style="text-align: center;">
-                    <h3 class="footer-headline"><span>Divulgação de dados da beneficiária</span></h3>
-                </td>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-            </tr>
-            <tr>
-                <td>
-                    <p>
-                        A divulgação dos dados implica tão somente em informar que a beneficiária participa ou
-                        participou
-                        do Programa de Cultura do Trabalhador, para fins de monitoramento e avaliação da política
-                        pública.
-                        Não serão divulgados dados pessoais ou sigilosos, apenas indicação de nome da empresa como
-                        participante do programa.
-                    </p>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div class="modal-footer">
-        <a href="#" class="btn" data-dismiss="modal">Fechar</a>
-    </div>
-</div>
 
 <script type="text/javascript" src="<?php echo $this->baseUrl('js/bootstrap.js') ?>"></script>
 <script type="text/javascript" src="<?php echo $this->baseUrl('js/waypoints.js') ?>"></script>
@@ -551,19 +205,6 @@
     }
 
     $(document).ready(function () {
-
-        $('body').on('click', '.nextPassB', function () {
-            $('.nextFB').hide();
-            $('#' + $(this).attr('data-val')).show();
-            $('#button-' + $(this).attr('data-val')).show();
-        });
-
-        $('body').on('click', '.nextPass', function () {
-            $('.nextF').hide();
-            $('#' + $(this).attr('data-val')).show();
-            $('#button-' + $(this).attr('data-val')).show();
-        });
-
         $('#enviaMail').click(function () {
             var nome = $('#Nome').val();
             var assunto = $('#Assunto').val();
@@ -710,25 +351,6 @@
         if (document.cookie.indexOf("msg_autorizacao") < 0) {
             carregaMensagemAutorizacao();
         }
-
-        $('input.datepickerClass').live('focus', function () {
-            if (false == $(this).hasClass('hasDatepicker')) {
-                $(this).datepicker({
-                    //format: 'dd/mm/yyyy',
-                    language: 'pt-BR',
-                    separator: ' ',
-                    minDate: new Date(),
-                    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-                    dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
-                    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-                    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-                    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-                    nextText: 'Próximo',
-                    prevText: 'Anterior',
-                    dateFormat: 'dd/mm/yy'
-                });
-            }
-        });
     });
 
 

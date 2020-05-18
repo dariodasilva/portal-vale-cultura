@@ -1,5 +1,5 @@
-<style type="text/css">
-    .descricao {
+<style>
+    .descricao{
         min-height: 30px;
         line-height: 30px;
         border-bottom: solid 1px #f3f3f3;
@@ -13,9 +13,9 @@
 
             <div class="row-fluid actions">
 
-                <input type="text" class="search span12" placeholder="O que deseja buscar?"/>
+                <input type="text" class="search span12" placeholder="O que deseja buscar?" />
 
-            </div>
+            </div>	
             <?php include_once 'menu.phtml'; ?>
         </div>
         <!-- end: Main Menu -->
@@ -24,11 +24,12 @@
         <div id="content" class="span10">
 
 
+
             <div class="row-fluid"><!--/span-->
 
             </div>
 
-            <div class="row-fluid"></div>
+            <div class="row-fluid"></div>	
 
             <div class="row-fluid">
 
@@ -41,64 +42,60 @@
                     </div>
                     <div class="box-content">
                         <fieldset>
-
+                            
                             <table class="table table-bordered table-hover">
                                 <thead>
-                                <tr>
-                                    <th>Nome:</th>
-                                    <th width="130">CPF:</th>
-                                    <th>Cargo:</th>
-                                    <th width="250">Emails:</th>
-                                    <th width="140">Telefones:</th>
-                                    <th width="130">&nbsp;</th>
-                                    <th width="100">&nbsp;</th>
-                                </tr>
+                                    <tr>
+                                        <th>Nome:</th>
+                                        <th width="130">CPF:</th>
+                                        <th>Cargo:</th>
+                                        <th width="250">Emails:</th>
+                                        <th width="140">Telefones:</th>
+                                        <th width="130">&nbsp;</th>
+                                        <th width="100">&nbsp;</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                <?php foreach ($this->responsaveis as $resp): ?>
+                                    <?php foreach($this->responsaveis as $resp):?>
                                     <tr>
                                         <td><?php echo $resp['nmResponsavel']; ?></td>
                                         <td><?php echo $resp['nrCpfResponsavel']; ?></td>
                                         <td><?php echo $resp['cargoResponsavel']; ?></td>
                                         <td>
-                                            <?php foreach ($resp['emailsResponsavel'] as $em): ?>
-                                                <div class="descricao"><?php echo $em['dsEmail']; ?></div>
+                                            <?php foreach($resp['emailsResponsavel'] as $em):?>
+                                            <div class="descricao"><?php echo $em['dsEmail']; ?></div>
                                             <?php endforeach; ?>
                                         </td>
                                         <td>
-                                            <?php foreach ($resp['telefonesResponsavel'] as $tel): ?>
-                                                <?php if ($tel['idTipoTelefone'] == 2): ?>
-                                                    <div class="descricao"><?php echo $tel['TelResponsavel']; ?></div>
-                                                <?php elseif ($tel['idTipoTelefone'] == 4): ?>
-                                                    <div class="descricao"><?php echo $tel['FaxResponsavel']; ?></div>
-                                                <?php endif; ?>
+                                            <?php foreach($resp['telefonesResponsavel'] as $tel):?>
+                                            <?php if ($tel['idTipoTelefone'] == 2): ?>
+                                            <div class="descricao"><?php echo $tel['TelResponsavel']; ?></div>
+                                            <?php elseif ($tel['idTipoTelefone'] == 4): ?>
+                                            <div class="descricao"><?php echo $tel['FaxResponsavel']; ?></div>
+                                            <?php endif; ?>
                                             <?php endforeach; ?>
                                         </td>
                                         <td valig="center">
                                             <?php if ($resp['stAtivo'] == 'A'): ?>
                                                 <?php if ($this->qtdAtivos > 1): ?>
-                                                    <a href="<?php echo $this->url(array('module' => 'operadora', 'controller' => 'index', 'action' => 'ativacao-responsavel', 'id' => $resp['idResponsavel'], 'ativar' => 'N'), '', true); ?>"
-                                                       style="width: 100px;" class="btn btn-danger">Desativar</a>
+                                                <a href="<?php echo $this->url(array('module' => 'operadora', 'controller' => 'index', 'action' => 'ativacao-responsavel', 'id' => $resp['idResponsavel'], 'ativar' => 'N'), '', true);?>" style="width: 100px;" class="btn btn-danger">Desativar</a>
                                                 <?php endif; ?>
                                             <?php else: ?>
-                                                <a href="<?php echo $this->url(array('module' => 'operadora', 'controller' => 'index', 'action' => 'ativacao-responsavel', 'id' => $resp['idResponsavel'], 'ativar' => 'S'), '', true); ?>"
-                                                   style="width: 100px;" class="btn btn-success">Ativar</a>
+                                            <a href="<?php echo $this->url(array('module' => 'operadora', 'controller' => 'index', 'action' => 'ativacao-responsavel', 'id' => $resp['idResponsavel'], 'ativar' => 'S'), '', true);?>" style="width: 100px;" class="btn btn-success">Ativar</a>
                                             <?php endif; ?>
                                         </td>
                                         <td valig="center">
-                                            <a href="<?php echo $this->url(array('module' => 'operadora', 'controller' => 'index', 'action' => 'editar-responsavel', 'id' => $resp['idResponsavel']), '', true); ?>"
-                                               style="width: 70px;" class="btn btn-success">Editar</a>
+                                            <a href="<?php echo $this->url(array('module' => 'operadora', 'controller' => 'index', 'action' => 'editar-responsavel', 'id' => $resp['idResponsavel']), '', true);?>" style="width: 70px;" class="btn btn-success">Editar</a>
                                         </td>
                                     </tr>
-                                <?php endforeach; ?>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
-
+                            
                             <div class="form-actions">
-                                <a href="<?php echo $this->url(array('module' => 'operadora', 'controller' => 'index', 'action' => 'novo-responsavel'), '', true); ?>"
-                                   class="btn btn-primary">Novo responsável</a>
+                                <a href="<?php echo $this->url(array('module' => 'operadora', 'controller' => 'index', 'action' => 'novo-responsavel'), '', true);?>" class="btn btn-primary">Novo responsável</a>
                             </div>
-                            <br clear="all"/>
+                            <br clear="all" />
                         </fieldset>
                     </div>
                 </div>
@@ -114,8 +111,9 @@
 </div>
 
 <script>
-    jQuery(document).ready(function () {
-
-
+    jQuery(document).ready(function() {
+        
+        
+            
     });
 </script>

@@ -4,14 +4,13 @@ include_once 'GenericController.php';
 
 class Api_RecebedorasController extends ValeCultura_Controller_Rest_Abstract
 {
-    public function indexAction()
-    {
+    public function indexAction() {
         $ano = $this->getRequest()->getParam('ano');
         $mes = $this->getRequest()->getParam('mes');
         $regiao = $this->getRequest()->getParam('regiao');
         $uf = $this->getRequest()->getParam('uf');
-
-        $mdl = new Application_Model_AcumuladoRecebedora();
+        
+        $mdl = new Application_Model_AcumuladoRecebedora();    
 
         if (isset($regiao) || isset($uf)) {
             $this->getResponse()->setBody(Zend_Json::encode($mdl->getPorLocalizacao($regiao, $uf)));
@@ -22,23 +21,20 @@ class Api_RecebedorasController extends ValeCultura_Controller_Rest_Abstract
         }
         $this->getResponse()->setHeader('Content-Type', 'application/json; charset=utf-8');
     }
-
+    
     /**
      * The get action handles GET requests and receives an 'id' parameter; it
      * should respond with the server resource state of the resource identified
      * by the 'id' value.
      */
-    public function getAction()
-    {
-    }
+    public function getAction() {}
 
     /**
      * The head action handles HEAD requests and receives an 'id' parameter; it
      * should respond with the server resource state of the resource identified
      * by the 'id' value.
      */
-    public function headAction()
-    {
+    public function headAction(){
 
     }
 
@@ -46,8 +42,7 @@ class Api_RecebedorasController extends ValeCultura_Controller_Rest_Abstract
      * The post action handles POST requests; it should accept and digest a
      * POSTed resource representation and persist the resource state.
      */
-    public function postAction()
-    {
+    public function postAction(){
 
     }
 
@@ -56,8 +51,7 @@ class Api_RecebedorasController extends ValeCultura_Controller_Rest_Abstract
      * should update the server resource state of the resource identified by
      * the 'id' value.
      */
-    public function putAction()
-    {
+    public function putAction(){
 
     }
 
@@ -66,8 +60,7 @@ class Api_RecebedorasController extends ValeCultura_Controller_Rest_Abstract
      * parameter; it should update the server resource state of the resource
      * identified by the 'id' value.
      */
-    public function deleteAction()
-    {
+    public function deleteAction(){
 
     }
 }

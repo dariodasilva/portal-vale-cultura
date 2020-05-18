@@ -18,10 +18,6 @@ class Minc_ContatoController extends GenericController
     public function indexAction()
     {
         $this->getHelper('layout')->disableLayout();
-
-        $links = Zend_Controller_Front::getInstance()->getParam('bootstrap')->getOption('link');
-
-        $this->view->assign("linksValeCultura", $links);
     }
 
     public function emailContatoAction()

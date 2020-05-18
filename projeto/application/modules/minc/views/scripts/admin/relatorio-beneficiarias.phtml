@@ -1,6 +1,7 @@
+
 <script>
-    $(document).ready(function () {
-        $('.imprimir').click(function () {
+    $(document).ready(function() {
+        $('.imprimir').click(function() {
             $('#CorpoHTML').html($('#corpoImprime').html());
             $('#cabecalho').html($('#cabecaImprime').html());
             $('#formImprime').submit();
@@ -8,11 +9,11 @@
     });
 </script>
 <style>
-    .ocuta {
+    .ocuta{
         display: none;
     }
 
-    .cresceFonte {
+    .cresceFonte{
         font-size: 10pt;
     }
 </style>
@@ -24,9 +25,9 @@
 
             <div class="row-fluid actions">
 
-                <input type="text" class="search span12" placeholder="O que deseja buscar?"/>
+                <input type="text" class="search span12" placeholder="O que deseja buscar?" />
 
-            </div>
+            </div>	
             <?php include_once 'menu.phtml'; ?>
 
         </div>
@@ -35,11 +36,10 @@
         <!-- start: Content -->
         <div id="content" class="span10">
 
-            <div class="row-fluid">
+            <div class="row-fluid" >
 
                 <div class="box span12">
-                    <form action="<?php echo $this->url(array('module' => 'minc', 'controller' => 'admin', 'action' => 'relatorio-beneficiarias')); ?>"
-                          method="POST">
+                    <form action="<?php echo $this->url(array('module' => 'minc', 'controller' => 'admin', 'action' => 'relatorio-beneficiarias')); ?>" method="POST" >
                         <table class="table table-striped table-bordered bootstrap-datatable ">
                             <!--tr>
                                 <td colspan="3">
@@ -107,109 +107,105 @@
                     ?>
 
                     <div class="box-header">
-                        <h2><i class="icon-edit"></i>Relatório de Acompanhamento de Inscrição de Empresas Beneficiárias
-                        </h2>
+                        <h2><i class="icon-edit"></i>Relatório de Acompanhamento de Inscrição de Empresas Beneficiárias</h2>
                         <div class="box-icon">
 
                         </div>
                     </div>
-                    <div id="corpoImprime" style="border:0px solid #000">
+                    <div id="corpoImprime" style="border:0px solid #000" >
                         <table>
                             <?php
                             $cont = 0;
                             $totalFuncionarios = 0;
                             foreach ($this->beneficiarias as $b):
-                            ?>
-                            <?php
-                            if ($cont >= 25)
-                                $cont = 0;
-                            $cont += 1;
-                            if ($cont == 1) {
-                            ?>
-                        </table><!-- #QUEBRAPAGINA# -->
-                        <table width="100%" cellpadding="0"
-                               class="table table-striped table-bordered bootstrap-datatable " border="0"
-                               style="font-size: 7pt;">
-                            <tr class="ocuta">
-                                <td align="center" colspan="7" valign="top" height="140px">
-                                    <img src="<?php echo $img ?>" width="60px"/><br><br>
-                                    MINIST&Eacute;RIO DA CULTURA<br>
-                                    SECRETARIA DE FOMENTO E INCENTIVO &Agrave; CULTURA - SEFIC<BR>
-                                    PROGRAMA DE CULTURA DO TRABALHADOR - VALE-CULTURA<BR>
-                                    RELATÓRIO DE ACOMPANHAMENTO DE INSCRIÇÃO DE EMPRESAS BENEFICIÁRIAS
-
-                                </td>
-                            </tr>
-                            <tr class="ocuta">
-                                <td></td>
-                                <td colspan="6" align="right"><?php echo date('d/m/Y H:i:s') ?></td>
-                            </tr>
-                            <tr class="cresceFonte">
-                                <td id="titulo1" class="destacar bold centro" width="23%" bgcolor="#ccc">
-                                    <strong><b>Nome da Empresa</b></strong>
-                                </td>
-                                <td id="titulo2" class="destacar bold centro" width="15%" bgcolor="#ccc">
-                                    <strong><b>Municipio / UF</b></strong>
-                                </td>
-                                <td id="titulo3" class="destacar bold centro" width="9%" bgcolor="#ccc">
-                                    <strong><b>Data de Cadastro</b></strong>
-                                </td>
-                                <td id="titulo4" class="destacar bold centro" width="13%" bgcolor="#ccc">
-                                    <strong><b>Status</b></strong>
-                                </td>
-                                <td id="titulo5" class="destacar bold centro" width="25%" bgcolor="#ccc">
-                                    <strong><b>Natureza Juridica</b></strong>
-                                </td>
-                                <td id="titulo6" class="destacar bold centro" width="5%" bgcolor="#ccc">
-                                    <strong><b>Qtd. Func.</b></strong>
-                                </td>
-                                <td id="titulo6" class="destacar bold centro" width="10%" bgcolor="#ccc">
-                                    <strong><b>Operadora</b></strong>
-                                </td>
-                            </tr>
-                            <?php } ?>
-
-                            <tr class="cresceFonte">
-                                <td height="30px" style="border-bottom: 1px solid #eee">
-                                    <?php echo $b->nmFantasia ?>
-                                </td>
-                                <td style="border-bottom: 1px solid #eee">
-                                    <?php echo ucfirst(strtolower_iso8859_1($b->nmMunicipio)) ?>
-                                    / <?php echo $b->sgUF ?>
-                                </td>
-                                <td style="border-bottom: 1px solid #eee">
-                                    <?php echo $b->dtInscricao ?>
-                                </td>
-                                <td style="border-bottom: 1px solid #eee">
-                                    <?php echo $this->verificarSituacao($b->idBeneficiaria, 'st', 'B'); ?>
-                                </td>
-                                <td style="border-bottom: 1px solid #eee">
-                                    <?php echo ucfirst(strtolower_iso8859_1($b->dsNaturezaJuridica)) ?>
-                                </td>
-                                <td style="border-bottom: 1px solid #eee">
-                                    <?php
-                                    $qtdFuncionarios = $b->qtdFuncionarios > 0 ? $b->qtdFuncionarios : 0;
-                                    echo number_format($qtdFuncionarios, 0, ',', '.');
+                                ?>
+                                <?php
+                                if ($cont >= 25)
+                                    $cont = 0;
+                                $cont += 1;
+                                if ($cont == 1) {
                                     ?>
-                                </td>
-                                <td style="border-bottom: 1px solid #eee">
-                                    <?php echo $b->operadora ?>
-                                </td>
-                            </tr>
-                            <?php
-                            $totalFuncionarios += $b->qtdFuncionarios;
+                                </table><!-- #QUEBRAPAGINA# -->
+                                <table width="100%" cellpadding="0"  class="table table-striped table-bordered bootstrap-datatable " border="0" style="font-size: 7pt;">
+                                    <tr class="ocuta">
+                                        <td align="center" colspan="7" valign="top" height="140px">
+                                            <img src="<?php echo $img ?>" width="60px" /><br><br>
+                                            MINIST&Eacute;RIO DA CULTURA<br>
+                                            SECRETARIA DE FOMENTO E INCENTIVO &Agrave; CULTURA - SEFIC<BR>
+                                            PROGRAMA DE CULTURA DO TRABALHADOR - VALE-CULTURA<BR>
+                                            RELATÓRIO DE ACOMPANHAMENTO DE INSCRIÇÃO DE EMPRESAS BENEFICIÁRIAS
+
+                                        </td>
+                                    </tr>
+                                    <tr  class="ocuta">
+                                        <td></td>
+                                        <td colspan="6" align="right"><?php echo date('d/m/Y H:i:s') ?></td>
+                                    </tr>
+                                    <tr class="cresceFonte">
+                                        <td id="titulo1" class="destacar bold centro" width="23%" bgcolor="#ccc">
+                                            <strong><b>Nome da Empresa</b></strong>
+                                        </td>
+                                        <td id="titulo2" class="destacar bold centro" width="15%" bgcolor="#ccc">
+                                            <strong><b>Municipio / UF</b></strong>
+                                        </td>
+                                        <td id="titulo3" class="destacar bold centro" width="9%" bgcolor="#ccc">
+                                            <strong><b>Data de Cadastro</b></strong>
+                                        </td>
+                                        <td id="titulo4"  class="destacar bold centro" width="13%" bgcolor="#ccc">
+                                            <strong><b>Status</b></strong>
+                                        </td>
+                                        <td id="titulo5"  class="destacar bold centro" width="25%" bgcolor="#ccc">
+                                            <strong><b>Natureza Juridica</b></strong>
+                                        </td>
+                                        <td id="titulo6"  class="destacar bold centro" width="5%" bgcolor="#ccc">
+                                            <strong><b>Qtd. Func.</b></strong>
+                                        </td>
+                                        <td id="titulo6"  class="destacar bold centro" width="10%" bgcolor="#ccc">
+                                            <strong><b>Operadora</b></strong>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
+
+                                <tr class="cresceFonte">
+                                    <td height="30px" style="border-bottom: 1px solid #eee">
+                                        <?php echo $b->nmFantasia ?>
+                                    </td>
+                                    <td style="border-bottom: 1px solid #eee">
+                                        <?php echo ucfirst(strtolower_iso8859_1($b->nmMunicipio)) ?> / <?php echo $b->sgUF ?>
+                                    </td>
+                                    <td style="border-bottom: 1px solid #eee">
+                                        <?php echo $b->dtInscricao ?>
+                                    </td>
+                                    <td style="border-bottom: 1px solid #eee">
+                                        <?php echo $this->verificarSituacao($b->idBeneficiaria, 'st', 'B'); ?>
+                                    </td>
+                                    <td style="border-bottom: 1px solid #eee">
+                                        <?php echo ucfirst(strtolower_iso8859_1($b->dsNaturezaJuridica)) ?>
+                                    </td>
+                                    <td style="border-bottom: 1px solid #eee">
+                                        <?php
+                                            $qtdFuncionarios = $b->qtdFuncionarios > 0 ? $b->qtdFuncionarios : 0;
+                                            echo number_format($qtdFuncionarios,0, ',', '.');
+                                        ?>
+                                    </td>
+                                    <td style="border-bottom: 1px solid #eee">
+                                        <?php echo $b->operadora ?>
+                                    </td>
+                                </tr>
+                            <?php 
+                            $totalFuncionarios += $b->qtdFuncionarios; 
                             endforeach; ?>
                             <tr>
                                 <td colspan="7">
                                     <br>
-                                    <center>
-                                        <b>
-                                            <?php echo number_format($totalFuncionarios, 0, ',', '.'); ?> Funcionários
-                                            <br>
-                                            <?php echo count($this->beneficiarias); ?> Registros
-                                        </b>
-                                    </center>
-                                </td>
+                            <center>
+                                <b>
+                                    <?php echo number_format($totalFuncionarios,0, ',', '.'); ?> Funcionários
+                                    <br>
+                                    <?php echo count($this->beneficiarias); ?> Registros
+                                </b>
+                            </center>
+                            </td>
                             </tr>
                         </table>
                     </div>
@@ -225,16 +221,15 @@
 
     </div><!--/fluid-row-->
     <div id="retorno" style="display: none">
-        <form action="<?php echo $this->url(array('module' => 'minc', 'controller' => 'admin', 'action' => 'gerar-pdf')); ?>"
-              id="formImprime" method="POST" target="iframe">
+        <form action="<?php echo $this->url(array('module' => 'minc', 'controller' => 'admin', 'action' => 'gerar-pdf')); ?>" id="formImprime" method="POST" target="iframe" >
             <textarea name="HTML" id="CorpoHTML"></textarea>
             <textarea name="cabecalho" id="cabecalho"></textarea>
 
 
-            <input type="hidden" name="nomeArquivo" value="relatorioBeneficiarias"/>
+            <input type="hidden" name="nomeArquivo" value="relatorioBeneficiarias" />
         </form>
-        <iframe name="iframe"/>
+        <iframe name="iframe" />
     </div>
 
-    </body>
-    </html>
+</body>
+</html>

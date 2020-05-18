@@ -11,10 +11,10 @@ class Beneficiaria_IndexController extends GenericController
     public function init()
     {
 
-        // Layout Padrão
+        // Layout Padrï¿½o
         $this->view->layout()->setLayout('layout');
 
-        // Título
+        // Tï¿½tulo
         $this->view->assign('titulo', 'Beneficiaria');
 
         parent::autenticar(array('R', 'A'));
@@ -52,7 +52,7 @@ class Beneficiaria_IndexController extends GenericController
                 $sessao["beneficiaria"] = '';
                 $sessao["operadora"] = '';
                 $session->usuario = $sessao;
-                parent::message('Beneficiária não foi localizada!', '/minc/admin', 'error');
+                parent::message('Beneficiï¿½ria nï¿½o foi localizada!', '/minc/admin', 'error');
             }
         }
 
@@ -64,7 +64,7 @@ class Beneficiaria_IndexController extends GenericController
         $dadosBeneficiaria = array();
         $idBeneficiaria = $this->_sessao['beneficiaria'];
         if (empty($idBeneficiaria)) {
-            parent::message('Beneficiária não foi localizada!', '/minc/admin', 'error');
+            parent::message('Beneficiï¿½ria nï¿½o foi localizada!', '/minc/admin', 'error');
         }
 
         // Dados da beneficiaria
@@ -129,13 +129,13 @@ class Beneficiaria_IndexController extends GenericController
             // CNAE Principal
             $whereP = array('p.ID_PESSOA_JURIDICA = ?' => $op->idBeneficiaria, 'p.ST_CNAE = ?' => 'P');
             $cnaePrincipal = $modelCNAEPj->listarCnae($whereP);
-            // CNAEs Secundários
+            // CNAEs Secundï¿½rios
             $whereS = array('p.ID_PESSOA_JURIDICA = ?' => $op->idBeneficiaria, 'p.ST_CNAE = ?' => 'S');
             $cnaeSecundarios = $modelCNAEPj->listarCnae($whereS);
             $dadosBeneficiaria['idCnaeSecundarios'] = array();
         }
 
-        // Envia as informações para a view
+        // Envia as informaï¿½ï¿½es para a view
         $this->view->assign('beneficiaria', $dadosBeneficiaria);
         $this->view->assign('naturezaJuridica', $naturezaJuridica);
         $this->view->assign('tipoLucro', $tipoLucro);
@@ -172,7 +172,7 @@ class Beneficiaria_IndexController extends GenericController
             $where['NR_CEP = ?'] = $NRCEP;
             $logradouro = $modelLogradouro->selectEndereco($where);
             if (count($logradouro) < 1 || strlen($NRCEP) != 8) {
-                parent::message('CEP inválido', '/beneficiaria/index/dados-beneficiaria/', 'error');
+                parent::message('CEP invï¿½lido', '/beneficiaria/index/dados-beneficiaria/', 'error');
             } else {
                 $IDLOGRADOURO = $logradouro[0]['ID_LOGRADOURO'];
                 $STLOGRADOURO = $logradouro[0]['ST_LOGRADOURO'];
@@ -180,7 +180,7 @@ class Beneficiaria_IndexController extends GenericController
             }
 
             if (!$IDTIPOLUCRO) {
-                parent::message('Informe o tipo de tributação', '/beneficiaria/index/dados-beneficiaria/', 'error');
+                parent::message('Informe o tipo de tributaï¿½ï¿½o', '/beneficiaria/index/dados-beneficiaria/', 'error');
             }
 
             $db = Zend_Db_Table::getDefaultAdapter();
@@ -239,7 +239,7 @@ class Beneficiaria_IndexController extends GenericController
 
                         $dadosSituacao = array(
                             'ID_PESSOA' => $idBeneficiaria,
-                            'DS_JUSTIFICATIVA' => 'Alteração da Operadora.',
+                            'DS_JUSTIFICATIVA' => 'Alteraï¿½ï¿½o da Operadora.',
                             'ID_USUARIO' => $this->_sessao['idUsuario'],
                             'TP_ENTIDADE_VALE_CULTURA' => 'B',
                             'ID_TIPO_SITUACAO' => 1
@@ -321,7 +321,7 @@ class Beneficiaria_IndexController extends GenericController
             // CNAE Principal
             $whereP = array('p.ID_PESSOA_JURIDICA = ?' => $idBeneficiaria, 'p.ST_CNAE = ?' => 'P');
             $cnaePrincipal = $modelCNAEPj->listarCnae($whereP);
-            // CNAEs Secundários
+            // CNAEs Secundï¿½rios
             $whereS = array('p.ID_PESSOA_JURIDICA = ?' => $idBeneficiaria, 'p.ST_CNAE = ?' => 'S');
             $cnaeSecundarios = $modelCNAEPj->listarCnae($whereS);
             $dadosBeneficiaria['idCnaeSecundarios'] = array();
@@ -339,7 +339,7 @@ class Beneficiaria_IndexController extends GenericController
                 }
             }
 
-            // Dados do responsável da beneficiaria
+            // Dados do responsï¿½vel da beneficiaria
             $modelPessoaVinculada = new Application_Model_PessoaVinculada();
 
             $where = array(
@@ -359,15 +359,15 @@ class Beneficiaria_IndexController extends GenericController
                                 <tr>
                                     <td align="center" width="400px">
                                         ' . uc_latin1($re->nmPessoaFisica) . '<br>
-                                        Nome do Responsável pela Empresa junto ao Ministério da Cultura
+                                        Nome do Responsï¿½vel pela Empresa junto ao Ministï¿½rio da Cultura
                                     </td>
                                     <td align="center" width="400px">
                                         ' . uc_latin1($re->nrCpf) . '<br>
-                                        CPF do Responsável pela Empresa junto ao Ministério da Cultura
+                                        CPF do Responsï¿½vel pela Empresa junto ao Ministï¿½rio da Cultura
                                     </td>
                                     <td align="center" width="400px">
                                         ' . uc_latin1($re->nmCbo) . '<br>
-                                        Cargo do Responsável pela Empresa junto ao Ministério da Cultura
+                                        Cargo do Responsï¿½vel pela Empresa junto ao Ministï¿½rio da Cultura
                                     </td>
                                 </tr>
                             </table><br><br>';
@@ -444,7 +444,7 @@ class Beneficiaria_IndexController extends GenericController
                             );
                             $acao = 'update';
                         } else {
-                            parent::message('Sem permissão para substituição', '/beneficiaria/index/arquivos/', 'error');
+                            parent::message('Sem permissï¿½o para substituiï¿½ï¿½o', '/beneficiaria/index/arquivos/', 'error');
                             return;
                         }
                     } else {
@@ -523,7 +523,7 @@ class Beneficiaria_IndexController extends GenericController
 
         // Validando Form
         if ($IDPF == '0') {
-            parent::message('CPF não encontrado!', '/beneficiaria/index/novo-responsavel', 'error');
+            parent::message('CPF nï¿½o encontrado!', '/beneficiaria/index/novo-responsavel', 'error');
         }
 
         if (strlen($NRTELEFONE) < 8) {
@@ -542,32 +542,7 @@ class Beneficiaria_IndexController extends GenericController
         }
 
         if (!validaEmail($DSEMAIL)) {
-            parent::message('Email inválido!', '/beneficiaria/index/novo-responsavel', 'error');
-        }
-
-        if (count($_FILES) == 0) {
-            throw new Exception("Procuração representante da empresa não enviado!", 500);
-        }
-
-        foreach ($_FILES as $k => $v) {
-            if ($k == 'ANEXO_11') {
-                if ($_FILES[$k]['error'] != 0) {
-                    throw new Exception("Procuração representante da empresa não enviado!", 500);
-                }
-            }
-            if ($_FILES[$k]['error'] == 0) {
-                if ($_FILES[$k]["size"] >= 5242880) {
-                    throw new Exception("Tamanho máximo do arquivo deve ser de 5mb!", 500);
-                }
-
-                if (strpos($_FILES[$k]['type'], 'pdf') === false) {
-                    throw new Exception("Apenas aquivos no formato PDF são válidos!", 500);
-                }
-            } else {
-                if ($_FILES[$k]['error'] != 4) {
-                    throw new Exception("Falha no envio de documento!", 500);
-                }
-            }
+            parent::message('Email invï¿½lido!', '/beneficiaria/index/novo-responsavel', 'error');
         }
 
         $db = Zend_Db_Table::getDefaultAdapter();
@@ -575,11 +550,11 @@ class Beneficiaria_IndexController extends GenericController
 
         try {
 
-            // Vincular o responsável
+            // Vincular o responsï¿½vel
             $idPessoaFisica = $IDPF;
             $idPessoaJuridica = $idBeneficiaria;
 
-            //Verifica se já existe esse número cadastrado
+            //Verifica se jï¿½ existe esse nï¿½mero cadastrado
             $where = array(
                 'ID_PESSOA = ?' => $idPessoaFisica,
                 'SG_PAIS = ?' => 'BRA',
@@ -604,7 +579,7 @@ class Beneficiaria_IndexController extends GenericController
             }
 
             if (strlen($NRFAX) > 7) {
-                //Verifica se já existe esse número cadastrado
+                //Verifica se jï¿½ existe esse nï¿½mero cadastrado
                 $where = array(
                     'ID_PESSOA = ?' => $idPessoaFisica,
                     'SG_PAIS = ?' => 'BRA',
@@ -628,7 +603,7 @@ class Beneficiaria_IndexController extends GenericController
                 }
             }
 
-            // Verificar se já existe o email
+            // Verificar se jï¿½ existe o email
             $where = array(
                 'ID_PESSOA = ?' => $idPessoaFisica,
                 'DS_EMAIL = ?' => $DSEMAIL,
@@ -654,24 +629,25 @@ class Beneficiaria_IndexController extends GenericController
 
             //Inserindo CBO do responsavel
             if ($CDCBO) {
-                // Verifica se já existe esse registro para não duplicar
+
+                // Verifica se jï¿½ existe esse registro para nï¿½o duplicar
                 $whereCDCBO = array(
                     'ID_PESSOA_FISICA = ?' => $idPessoaFisica,
                     'ID_PESSOA_JURIDICA = ?' => $idPessoaJuridica,
+                    'CD_CBO = ?' => $CDCBO
                 );
 
                 $existeCDCBO = $modelCBOPessoaFisica->select($whereCDCBO);
 
-                $Cols = array(
-                    'ID_PESSOA_FISICA' => $idPessoaFisica,
-                    'ID_PESSOA_JURIDICA' => $idPessoaJuridica,
-                    'CD_CBO' => $CDCBO
-                );
-
                 if (count($existeCDCBO) == 0) {
+
+                    $Cols = array(
+                        'ID_PESSOA_FISICA' => $idPessoaFisica,
+                        'ID_PESSOA_JURIDICA' => $idPessoaJuridica,
+                        'CD_CBO' => $CDCBO
+                    );
+
                     $modelCBOPessoaFisica->insert($Cols);
-                } else {
-                    $modelCBOPessoaFisica->update($Cols, $existeCDCBO[0]['ID_PESSOA_FISICA_CBO']);
                 }
             }
 
@@ -721,7 +697,7 @@ class Beneficiaria_IndexController extends GenericController
                 $enviaEmail = true;
             }
 
-            //Verifica se usuario já tem o perfil
+            //Verifica se usuario jï¿½ tem o perfil
             $where = array(
                 'ID_USUARIO = ?' => $idUsuario,
                 'ID_PERFIL   = ?' => 2
@@ -739,7 +715,7 @@ class Beneficiaria_IndexController extends GenericController
 
             if ($this->_sessao["PerfilGeral"] != 'A') {
 
-                //Cria Situação para a Operadora
+                //Cria Situaï¿½ï¿½o para a Operadora
                 $Cols = array(
                     'ID_PESSOA' => $idPessoaJuridica,
                     'ID_USUARIO' => $idUsuario,
@@ -749,31 +725,6 @@ class Beneficiaria_IndexController extends GenericController
                 );
 
                 $modelSituacao->insert($Cols);
-            }
-
-            $modelArquivoBeneficiaria = new Application_Model_ArquivoBeneficiaria();
-            $uploaddir = defined('UPLOAD_DIR') ? UPLOAD_DIR : "/var/arquivos/arquivos-valecultura/";
-
-            foreach ($_FILES as $k => $v) {
-                if ($_FILES[$k]['error'] == 0) {
-                    $time = time();
-                    $mnArquivo = "{$idPessoaJuridica}_{$k}_{$idPessoaFisica}_{$time}.pdf";
-                    $uploadfile = $uploaddir . $mnArquivo;
-                    $dsArquivo = $this->getRequest()->getParam("{$k}_NOME_{$idPessoaFisica}");
-
-                    $Cols = array(
-                        'ID_BENEFICIARIA' => $idPessoaJuridica,
-                        'DS_CAMINHO_ARQUIVO' => $mnArquivo,
-                        'DS_ARQUIVO' => $dsArquivo,
-                        'ID_RESPONSAVEL' => $idPessoaFisica,
-                    );
-
-                    if (move_uploaded_file($_FILES[$k]['tmp_name'], $uploadfile)) {
-                        $modelArquivoBeneficiaria->insert($Cols);
-                    } else {
-                        throw new Exception("Erro ao salvar a Procuração representante da empresa!", 500);
-                    }
-                }
             }
 
             if ($enviaEmail) {
@@ -788,11 +739,11 @@ class Beneficiaria_IndexController extends GenericController
             }
 
             $db->commit();
-            parent::message('Responsável cadastrado com sucesso!', '/beneficiaria/index/responsavel', 'confirm');
+            parent::message('Responsï¿½vel cadastrado com sucesso!', '/beneficiaria/index/responsavel', 'confirm');
 
         } catch (Exception $exc) {
             $db->rollBack();
-            parent::message('Erro ao cadastrar o responsável.', '/beneficiaria/index/novo-responsavel', 'error');
+            parent::message('Erro ao cadastrar o responsï¿½vel.', '/beneficiaria/index/novo-responsavel', 'error');
         }
 
     }
@@ -808,13 +759,13 @@ class Beneficiaria_IndexController extends GenericController
         $modelTelefone = new Application_Model_Telefone();
 
         $where = array(
+            'pv.ID_TIPO_VINCULO_PESSOA = ?' => 16,
             'pv.id_Pessoa = ?' => $idBeneficiaria,
             'up.id_Perfil = ?' => 2,
-            'up.st_Usuario_Perfil = ?' => 'A',
-            'pv.ID_TIPO_VINCULO_PESSOA = ?' => 16
+            'up.st_Usuario_Perfil = ?' => 'A'
         );
 
-        // Dados do responsável da beneficiaria
+        // Dados do responsï¿½vel da beneficiaria
         $responsavel = $modelPessoaVinculada->buscarDadosResponsavel($where);
         $i = 0;
         $ativos = 0;
@@ -831,7 +782,7 @@ class Beneficiaria_IndexController extends GenericController
             $dadosResponsavel[$i]['cdCbo'] = $re->cdCbo;
             $dadosResponsavel[$i]['stAtivo'] = $re->ST_PESSOA_VINCULADA;
 
-            // Email do responsável da operadora
+            // Email do responsï¿½vel da operadora
             $emails = $modelEmail->buscarEmails(array('ID_PESSOA = ?' => $re->idPessoaVinculada));
 
             $listaEmails = array();
@@ -845,7 +796,7 @@ class Beneficiaria_IndexController extends GenericController
             }
             $dadosResponsavel[$i]['emailsResponsavel'] = $listaEmails;
 
-            // Telefones do responsável da operadora
+            // Telefones do responsï¿½vel da operadora
             $telefones = $modelTelefone->buscarTelefones(array('ID_PESSOA = ?' => $re->idPessoaVinculada));
             $listaTelefones = array();
 
@@ -881,10 +832,10 @@ class Beneficiaria_IndexController extends GenericController
 
     public function editarResponsavelAction()
     {
+
         $idResponsavel = $this->getRequest()->getParam('id');
         $dadosResponsavel = array();
         $idBeneficiaria = $this->_sessao['beneficiaria'];
-        $urlArquivo = null;
 
         $modelPessoaVinculada = new Application_Model_PessoaVinculada();
         $modelEmail = new Application_Model_Email();
@@ -895,7 +846,7 @@ class Beneficiaria_IndexController extends GenericController
             'pv.ID_PESSOA_VINCULADA = ?' => $idResponsavel,
         );
 
-        // Dados do responsável
+        // Dados do responsï¿½vel
         $responsavel = $modelPessoaVinculada->buscarDadosResponsavel($where);
 
         if (count($responsavel) > 0) {
@@ -907,7 +858,7 @@ class Beneficiaria_IndexController extends GenericController
             $dadosResponsavel['cdCbo'] = $responsavel[0]->cdCbo;
             $dadosResponsavel['stAtivo'] = $responsavel[0]->ST_PESSOA_VINCULADA;
 
-            // Email do responsável da operadora
+            // Email do responsï¿½vel da operadora
             $emails = $modelEmail->buscarEmails(array('ID_PESSOA = ?' => $responsavel[0]->idPessoaVinculada));
 
             $listaEmails = array();
@@ -922,7 +873,7 @@ class Beneficiaria_IndexController extends GenericController
 
             $dadosResponsavel['emailsResponsavel'] = $listaEmails;
 
-            // Telefones do responsável da operadora
+            // Telefones do responsï¿½vel da operadora
             $telefones = $modelTelefone->buscarTelefones(array('ID_PESSOA = ?' => $responsavel[0]->idPessoaVinculada));
             $listaTelefones = array();
 
@@ -945,22 +896,8 @@ class Beneficiaria_IndexController extends GenericController
 
             $dadosResponsavel['telefonesResponsavel'] = $listaTelefones;
 
-            $where = array();
-            $where['ID_BENEFICIARIA = ?'] = $idBeneficiaria;
-            $where['ID_RESPONSAVEL = ?'] = $idResponsavel;
-
-            $modelArquivoBeneficiaria = new Application_Model_ArquivoBeneficiaria();
-            $arquivoAtual = $modelArquivoBeneficiaria->select($where, "DT_UPLOAD_ARQUIVO DESC", 1);
-
-            if (count($arquivoAtual) > 0) {
-                $arquivo = $arquivoAtual[0]['DS_CAMINHO_ARQUIVO'];
-                $urlArquivo = $this->view->url(array('module' => 'beneficiaria',
-                    'controller' => 'index',
-                    'action' => 'abrir-arquivo',
-                    'arquivo' => $arquivo));
-            }
         } else {
-            parent::message('Erro ao localizar o responsável.', '/beneficiaria/index/responsavel', 'error');
+            parent::message('Erro ao localizar o responsï¿½vel.', '/beneficiaria/index/responsavel', 'error');
         }
 
         $modelCBO = new Application_Model_CBO();
@@ -969,11 +906,12 @@ class Beneficiaria_IndexController extends GenericController
         $this->view->assign('CBOs', $CBOs);
         $this->view->assign('responsavel', $dadosResponsavel);
         $this->view->assign('idBeneficiaria', $idBeneficiaria);
-        $this->view->assign('urlArquivo', $urlArquivo);
+
     }
 
     public function atualizarDadosResponsavelAction()
     {
+
         $idResponsavel = $this->_request->getParam('idResponsavel');
         $idBeneficiaria = $this->_request->getParam('idBeneficiaria');
         $CDCBO = $this->_request->getParam('CDCBO');
@@ -981,35 +919,9 @@ class Beneficiaria_IndexController extends GenericController
         $modelCBOPessoaFisica = new Application_Model_CBOPessoaFisica();
 
         try {
-            $where = array();
-            $where['ID_BENEFICIARIA = ?'] = $idBeneficiaria;
-            $where['ID_RESPONSAVEL = ?'] = $idResponsavel;
-
-            $modelArquivoBeneficiaria = new Application_Model_ArquivoBeneficiaria();
-            $arquivoAtual = $modelArquivoBeneficiaria->select($where, "DT_UPLOAD_ARQUIVO DESC", 1);
-
-            if (count($arquivoAtual) == 0 && $_FILES['ANEXO_11']['error'] == 4) {
-                throw new Exception("Procuração representante da empresa não enviado!", 500);
-            }
-
-            foreach ($_FILES as $k => $v) {
-                if ($_FILES[$k]['error'] == 0) {
-                    if ($_FILES[$k]["size"] >= 5242880) {
-                        throw new Exception("Tamanho máximo do arquivo deve ser de 5mb!", 500);
-                    }
-
-                    if (strpos($_FILES[$k]['type'], 'pdf') === false) {
-                        throw new Exception("Apenas aquivos no formato PDF são válidos!", 500);
-                    }
-                } else {
-                    if ($_FILES[$k]['error'] != 4) {
-                        throw new Exception("Falha no envio de documento!", 500);
-                    }
-                }
-            }
 
             if ($CDCBO) {
-                // apaga o que for dessa empresa e responsável
+                // apaga o que for dessa empresa e responsï¿½vel
                 $where = array(
                     'ID_PESSOA_FISICA = ?' => $idResponsavel,
                     'ID_PESSOA_JURIDICA = ?' => $idBeneficiaria
@@ -1026,36 +938,10 @@ class Beneficiaria_IndexController extends GenericController
                 $modelCBOPessoaFisica->insert($Cols);
             }
 
-            $uploaddir = defined('UPLOAD_DIR') ? UPLOAD_DIR : "/var/arquivos/arquivos-valecultura/";
-
-            foreach ($_FILES as $k => $v) {
-                if ($_FILES[$k]['error'] == 0) {
-                    $time = time();
-                    $mnArquivo = "{$idBeneficiaria}_{$k}_{$idResponsavel}_{$time}.pdf";
-                    $uploadfile = $uploaddir . $mnArquivo;
-                    $dsArquivo = $this->getRequest()->getParam("{$k}_NOME_{$idResponsavel}");
-
-                    $Cols = array(
-                        'ID_BENEFICIARIA' => $idBeneficiaria,
-                        'DS_CAMINHO_ARQUIVO' => $mnArquivo,
-                        'DS_ARQUIVO' => $dsArquivo,
-                        'ID_RESPONSAVEL' => $idResponsavel,
-                    );
-
-                    if (move_uploaded_file($_FILES[$k]['tmp_name'], $uploadfile)) {
-                        $modelArquivoBeneficiaria->insert($Cols);
-                    } else {
-                        throw new Exception("Erro ao salvar a Procuração representante da empresa!", 500);
-                    }
-                }
-            }
-
-
             parent::message('Cargo atualizado com sucesso!', 'beneficiaria/index/editar-responsavel/id/' . $idResponsavel, 'confirm');
 
         } catch (Exception $exc) {
-            $msg = $exc->getCode() == 500 ? $exc->getMessage() : 'Erro ao atualizar o cargo!';
-            parent::message($msg, 'beneficiaria/index/editar-responsavel/id/' . $idResponsavel, 'error');
+            parent::message('Erro ao atualizar o cargo!', 'beneficiaria/index/editar-responsavel/id/' . $idResponsavel, 'error');
         }
     }
 
@@ -1099,7 +985,7 @@ class Beneficiaria_IndexController extends GenericController
                     );
                     $modelTelefone->insert($Cols);
                 } else {
-                    parent::message($this->getRequest()->getParam('TelResponsavel') . '  já está cadastrado!', 'beneficiaria/index/editar-responsavel/id/' . $idResponsavel, 'error');
+                    parent::message($this->getRequest()->getParam('TelResponsavel') . '  jï¿½ estï¿½ cadastrado!', 'beneficiaria/index/editar-responsavel/id/' . $idResponsavel, 'error');
                 }
             }
 
@@ -1123,7 +1009,7 @@ class Beneficiaria_IndexController extends GenericController
                 $modelTelefone->delete($idTelefone);
             }
 
-            parent::message('Telefone excluído com sucesso!', 'beneficiaria/index/editar-responsavel/id/' . $idResponsavel, 'confirm');
+            parent::message('Telefone excluï¿½do com sucesso!', 'beneficiaria/index/editar-responsavel/id/' . $idResponsavel, 'confirm');
 
         } catch (Exception $exc) {
             parent::message('Erro ao excluir o telefone!', 'beneficiaria/index/editar-responsavel/id/' . $idResponsavel, 'error');
@@ -1137,9 +1023,9 @@ class Beneficiaria_IndexController extends GenericController
         $idResponsavel = $this->_request->getParam('idResponsavel');
         $email = trim($this->getRequest()->getParam('emailResponsavel'));
 
-        // Faz a verificação usando a função
+        // Faz a verificaï¿½ï¿½o usando a funï¿½ï¿½o
         if (!validaEmail($email)) {
-            parent::message('E-mail inválido!', 'beneficiaria/index/editar-responsavel/id/' . $idResponsavel, 'error');
+            parent::message('E-mail invï¿½lido!', 'beneficiaria/index/editar-responsavel/id/' . $idResponsavel, 'error');
         }
 
 
@@ -1164,7 +1050,7 @@ class Beneficiaria_IndexController extends GenericController
                     );
                     $modelEmail->insert($Cols);
                 } else {
-                    parent::message($email . '  já está cadastrado!', 'beneficiaria/index/editar-responsavel/id/' . $idResponsavel, 'error');
+                    parent::message($email . '  jï¿½ estï¿½ cadastrado!', 'beneficiaria/index/editar-responsavel/id/' . $idResponsavel, 'error');
                 }
 
             }
@@ -1189,7 +1075,7 @@ class Beneficiaria_IndexController extends GenericController
                 $modelEmail->delete($idEmail);
             }
 
-            parent::message('Email excluído com sucesso!', 'beneficiaria/index/editar-responsavel/id/' . $idResponsavel, 'confirm');
+            parent::message('Email excluï¿½do com sucesso!', 'beneficiaria/index/editar-responsavel/id/' . $idResponsavel, 'confirm');
 
         } catch (Exception $exc) {
             parent::message('Erro ao excluir o email!', 'beneficiaria/index/editar-responsavel/id/' . $idResponsavel, 'error');
@@ -1268,7 +1154,7 @@ class Beneficiaria_IndexController extends GenericController
 
                     $dadosSituacao = array(
                         'ID_PESSOA' => $idBeneficiaria,
-                        'DS_JUSTIFICATIVA' => 'Alteração das faixas salariais.',
+                        'DS_JUSTIFICATIVA' => 'Alteraï¿½ï¿½o das faixas salariais.',
                         'ID_USUARIO' => $this->_sessao['idUsuario'],
                         'TP_ENTIDADE_VALE_CULTURA' => 'B',
                         'ID_TIPO_SITUACAO' => 1
@@ -1352,7 +1238,7 @@ class Beneficiaria_IndexController extends GenericController
 
     }
 
-    // ativação dos responsáveis das Beneficiárias
+    // ativaï¿½ï¿½o dos responsï¿½veis das Beneficiï¿½rias
     public function ativacaoResponsavelAction()
     {
 
@@ -1375,11 +1261,11 @@ class Beneficiaria_IndexController extends GenericController
             parent::message($msg, '/beneficiaria/index/responsavel/', 'confirm');
 
         } catch (Exception $ex) {
-            parent::message('Ops, desculpe mas houve um erro na aplicação.', '/beneficiaria/index/responsavel/', 'error');
+            parent::message('Ops, desculpe mas houve um erro na aplicaï¿½ï¿½o.', '/beneficiaria/index/responsavel/', 'error');
         }
     }
 
-    // ativação dos responsáveis das Beneficiárias
+    // ativaï¿½ï¿½o dos responsï¿½veis das Beneficiï¿½rias
     public function ativacaoNaoResponsavelAction()
     {
         $idBeneficiaria = $this->_sessao['beneficiaria'];
@@ -1401,7 +1287,7 @@ class Beneficiaria_IndexController extends GenericController
             parent::message($msg, '/beneficiaria/index/nao-responsavel/', 'confirm');
 
         } catch (Exception $ex) {
-            parent::message('Ops, desculpe mas houve um erro na aplicação.', '/beneficiaria/index/nao-responsavel/', 'error');
+            parent::message('Ops, desculpe mas houve um erro na aplicaï¿½ï¿½o.', '/beneficiaria/index/nao-responsavel/', 'error');
         }
     }
 
@@ -1424,135 +1310,18 @@ class Beneficiaria_IndexController extends GenericController
                 );
 
                 $modelBeneficiaria->update($Cols, $idBeneficiaria);
-                parent::message('Atualização realizada com sucesso!', '/minc/admin', 'confirm');
-            } else if ($autorizacao === "NÃO AUTORIZO") {
+                parent::message('Atualizaï¿½ï¿½o realizada com sucesso!', '/minc/admin', 'confirm');
+            } else if ($autorizacao === "Nï¿½O AUTORIZO") {
                 $Cols = array(
                     'ST_AUTORIZA_MINC' => 2
                 );
 
                 $modelBeneficiaria->update($Cols, $idBeneficiaria);
-                parent::message('Divulgação não autorizada!', '/minc/admin', 'confirm');
+                parent::message('Divulgaï¿½ï¿½o nï¿½o autorizada!', '/minc/admin', 'confirm');
             }
         } else {
-            parent::message('Beneficiária não foi localizada!', '/minc/admin', 'error');
+            parent::message('Beneficiï¿½ria nï¿½o foi localizada!', '/minc/admin', 'error');
         }
-    }
-
-    public function abrirArquivoAction()
-    {
-        $idBeneficiaria = $this->_sessao['beneficiaria'];
-
-        $uploaddir = defined('UPLOAD_DIR') ? UPLOAD_DIR : "/var/arquivos/arquivos-valecultura/";
-        $arquivo = $this->getRequest()->getParam('arquivo');
-
-        $beneficiariaArquivo = (int)substr($arquivo, 0, (strpos($arquivo, '_')));
-
-        if ($beneficiariaArquivo == $idBeneficiaria) {
-            if (file_exists($uploaddir . $arquivo)) {
-                $len = filesize($uploaddir . $arquivo);
-                header("Content-type: application/pdf");
-                header("Content-Length: $len");
-                header("Content-Disposition: inline; filename= $arquivo");
-                $existente = readfile($uploaddir . $arquivo);
-            } else {
-                parent::message('Arquivo não encontrado', '/beneficiaria/index/dados-beneficiaria', 'error');
-            }
-        } else {
-            parent::message('Acesso não permitido', '/beneficiaria/index/dados-beneficiaria', 'error');
-        }
-        die;
-    }
-
-    public function naoResponsavelAction()
-    {
-
-        $dadosResponsavel = array();
-        $idBeneficiaria = $this->_sessao['beneficiaria'];
-
-        $modelPessoaVinculada = new Application_Model_PessoaVinculada();
-        $modelEmail = new Application_Model_Email();
-        $modelTelefone = new Application_Model_Telefone();
-
-        $where = array(
-            'pv.id_Pessoa = ?' => $idBeneficiaria,
-            'up.id_Perfil = ?' => 2,
-            'up.st_Usuario_Perfil = ?' => 'A',
-            'pv.ID_TIPO_VINCULO_PESSOA = ?' => 13
-        );
-
-        // Dados do responsável da beneficiaria
-        $responsavel = $modelPessoaVinculada->buscarDadosResponsavel($where);
-        $i = 0;
-        $ativos = 0;
-        foreach ($responsavel as $re) {
-
-            if ($re->ST_PESSOA_VINCULADA == 'A') {
-                $ativos++;
-            }
-
-            $dadosResponsavel[$i]['idResponsavel'] = $re->idPessoaVinculada;
-            $dadosResponsavel[$i]['nmResponsavel'] = $re->nmPessoaFisica;
-            $dadosResponsavel[$i]['nrCpfResponsavel'] = addMascara($re->nrCpf, 'cpf');
-            $dadosResponsavel[$i]['cargoResponsavel'] = $re->nmCbo;
-            $dadosResponsavel[$i]['cdCbo'] = $re->cdCbo;
-            $dadosResponsavel[$i]['stAtivo'] = $re->ST_PESSOA_VINCULADA;
-
-            // Email do responsável da operadora
-            $emails = $modelEmail->buscarEmails(array('ID_PESSOA = ?' => $re->idPessoaVinculada));
-
-            $listaEmails = array();
-            if (count($emails) > 0) {
-
-                $e = 0;
-                foreach ($emails as $em) {
-                    $listaEmails[$e]['dsEmail'] = $em->dsEmail;
-                    $e++;
-                }
-            }
-            $dadosResponsavel[$i]['emailsResponsavel'] = $listaEmails;
-
-            // Telefones do responsável da operadora
-            $telefones = $modelTelefone->buscarTelefones(array('ID_PESSOA = ?' => $re->idPessoaVinculada));
-            $listaTelefones = array();
-
-            if (count($telefones) > 0) {
-
-                $t = 0;
-                foreach ($telefones as $tel) {
-                    if ($tel->idTipoTelefone == 2) {
-                        $listaTelefones[$t]['idTipoTelefone'] = 2;
-                        $listaTelefones[$t]['TelResponsavel'] = 'Tel: (' . $tel->cdDDD . ') ' . $tel->nrTelefone;
-                    }
-                    if ($tel->idTipoTelefone == 4) {
-                        $listaTelefones[$t]['idTipoTelefone'] = 4;
-                        $listaTelefones[$t]['FaxResponsavel'] = 'Fax: (' . $tel->cdDDD . ') ' . $tel->nrTelefone;
-                    }
-
-                    $t++;
-                }
-            }
-
-            $dadosResponsavel[$i]['telefonesResponsavel'] = $listaTelefones;
-
-            $i++;
-        }
-
-        $modelCBO = new Application_Model_CBO();
-        $CBOs = $modelCBO->select(array(), 'NM_CBO', null);
-
-        $this->view->assign('CBOs', $CBOs);
-        $this->view->assign('responsaveis', $dadosResponsavel);
-        $this->view->assign('qtdAtivos', $ativos);
-    }
-
-    public function novoNaoResponsavelAction()
-    {
-        $idBeneficiaria = $this->_sessao['beneficiaria'];
-        $modelCBO = new Application_Model_CBO();
-        $CBOs = $modelCBO->select(array(), 'NM_CBO', null);
-
-        $this->view->assign('CBOs', $CBOs);
-        $this->view->assign('idBeneficiaria', $idBeneficiaria);
     }
 
     public function salvarNaoResponsavelAction()
@@ -1587,7 +1356,7 @@ class Beneficiaria_IndexController extends GenericController
         try {
             // Validando Form
             if ($IDPF == '0') {
-                throw new Exception('CPF não encontrado!', 500);
+                throw new Exception('CPF nï¿½o encontrado!', 500);
             }
 
             if (strlen($NRTELEFONE) < 8) {
@@ -1597,7 +1366,7 @@ class Beneficiaria_IndexController extends GenericController
             if ($CDDDD) {
                 $verificaDDD = $modelDDD->select(array('CD_DDD = ?' => $CDDDD));
                 if (count($verificaDDD) == 0) {
-                    throw new Exception('DDD inválido!', 500);
+                    throw new Exception('DDD invï¿½lido!', 500);
                 }
             }
 
@@ -1606,14 +1375,14 @@ class Beneficiaria_IndexController extends GenericController
             }
 
             if (!validaEmail($DSEMAIL)) {
-                throw new Exception('Email inválido!', 500);
+                throw new Exception('Email invï¿½lido!', 500);
             }
 
-            // Vincular o responsável
+            // Vincular o responsï¿½vel
             $idPessoaFisica = $IDPF;
             $idPessoaJuridica = $idBeneficiaria;
 
-            //Verifica se já existe esse número cadastrado
+            //Verifica se jï¿½ existe esse nï¿½mero cadastrado
             $where = array(
                 'ID_PESSOA = ?' => $idPessoaFisica,
                 'SG_PAIS = ?' => 'BRA',
@@ -1638,7 +1407,7 @@ class Beneficiaria_IndexController extends GenericController
             }
 
             if (strlen($NRFAX) > 7) {
-                //Verifica se já existe esse número cadastrado
+                //Verifica se jï¿½ existe esse nï¿½mero cadastrado
                 $where = array(
                     'ID_PESSOA = ?' => $idPessoaFisica,
                     'SG_PAIS = ?' => 'BRA',
@@ -1662,7 +1431,7 @@ class Beneficiaria_IndexController extends GenericController
                 }
             }
 
-            // Verificar se já existe o email
+            // Verificar se jï¿½ existe o email
             $where = array(
                 'ID_PESSOA = ?' => $idPessoaFisica,
                 'DS_EMAIL = ?' => $DSEMAIL,
@@ -1689,7 +1458,7 @@ class Beneficiaria_IndexController extends GenericController
             //Inserindo CBO do responsavel
             if ($CDCBO) {
 
-                // Verifica se já existe esse registro para não duplicar
+                // Verifica se jï¿½ existe esse registro para nï¿½o duplicar
                 $whereCDCBO = array(
                     'ID_PESSOA_FISICA = ?' => $idPessoaFisica,
                     'ID_PESSOA_JURIDICA = ?' => $idPessoaJuridica,
@@ -1756,7 +1525,7 @@ class Beneficiaria_IndexController extends GenericController
                 $enviaEmail = true;
             }
 
-            //Verifica se usuario já tem o perfil
+            //Verifica se usuario jï¿½ tem o perfil
             $where = array(
                 'ID_USUARIO = ?' => $idUsuario,
                 'ID_PERFIL   = ?' => 2
@@ -1774,7 +1543,7 @@ class Beneficiaria_IndexController extends GenericController
 
             if ($this->_sessao["PerfilGeral"] != 'A') {
 
-                //Cria Situação para a Operadora
+                //Cria Situaï¿½ï¿½o para a Operadora
                 $Cols = array(
                     'ID_PESSOA' => $idPessoaJuridica,
                     'ID_USUARIO' => $idUsuario,
@@ -1798,10 +1567,10 @@ class Beneficiaria_IndexController extends GenericController
             }
 
             $db->commit();
-            parent::message('Não Responsável cadastrado com sucesso!', '/beneficiaria/index/nao-responsavel', 'confirm');
+            parent::message('Nï¿½o Responsï¿½vel cadastrado com sucesso!', '/beneficiaria/index/nao-responsavel', 'confirm');
 
         } catch (Exception $exc) {
-            $mgs = $exc->getCode() == 500 ? $exc->getMessage() : 'Erro ao cadastrar o não responsável.';
+            $mgs = $exc->getCode() == 500 ? $exc->getMessage() : 'Erro ao cadastrar o nï¿½o responsï¿½vel.';
             $db->rollBack();
             parent::message($mgs, '/beneficiaria/index/novo-nao-responsavel', 'error');
         }
@@ -1823,7 +1592,7 @@ class Beneficiaria_IndexController extends GenericController
             'pv.ID_PESSOA_VINCULADA = ?' => $idResponsavel,
         );
 
-        // Dados do responsável
+        // Dados do responsï¿½vel
         $responsavel = $modelPessoaVinculada->buscarDadosResponsavel($where);
 
         if (count($responsavel) > 0) {
@@ -1835,7 +1604,7 @@ class Beneficiaria_IndexController extends GenericController
             $dadosResponsavel['cdCbo'] = $responsavel[0]->cdCbo;
             $dadosResponsavel['stAtivo'] = $responsavel[0]->ST_PESSOA_VINCULADA;
 
-            // Email do responsável da operadora
+            // Email do responsï¿½vel da operadora
             $emails = $modelEmail->buscarEmails(array('ID_PESSOA = ?' => $responsavel[0]->idPessoaVinculada));
 
             $listaEmails = array();
@@ -1850,7 +1619,7 @@ class Beneficiaria_IndexController extends GenericController
 
             $dadosResponsavel['emailsResponsavel'] = $listaEmails;
 
-            // Telefones do responsável da operadora
+            // Telefones do responsï¿½vel da operadora
             $telefones = $modelTelefone->buscarTelefones(array('ID_PESSOA = ?' => $responsavel[0]->idPessoaVinculada));
             $listaTelefones = array();
 
@@ -1877,7 +1646,7 @@ class Beneficiaria_IndexController extends GenericController
             $where['ID_BENEFICIARIA = ?'] = $idBeneficiaria;
             $where['ID_RESPONSAVEL = ?'] = $idResponsavel;
         } else {
-            parent::message('Erro ao localizar o responsável.', '/beneficiaria/index/responsavel', 'error');
+            parent::message('Erro ao localizar o responsï¿½vel.', '/beneficiaria/index/responsavel', 'error');
         }
 
         $modelCBO = new Application_Model_CBO();
@@ -1902,7 +1671,7 @@ class Beneficiaria_IndexController extends GenericController
             $where['ID_RESPONSAVEL = ?'] = $idResponsavel;
 
             if ($CDCBO) {
-                // apaga o que for dessa empresa e responsável
+                // apaga o que for dessa empresa e responsï¿½vel
                 $where = array(
                     'ID_PESSOA_FISICA = ?' => $idResponsavel,
                     'ID_PESSOA_JURIDICA = ?' => $idBeneficiaria

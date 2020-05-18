@@ -590,7 +590,7 @@ function emailSenhaHTML()
                         <b>Ministério da Cidadania</b>
                     </body>
                 </html>';
-    return $html;
+    return utf8_decode($html);
 }
 
 function emailNoSenhaHTML()
@@ -623,7 +623,7 @@ function emailNoSenhaHTML()
                         <b>Ministério da Cidadania</b>
                     </body>
                 </html>';
-    return $html;
+    return utf8_decode($html);
 }
 
 function emailContatoHTML()
@@ -680,7 +680,7 @@ function emailContatoHTML()
                         <b>Ministério da Cidadania</b>
                     </body>
                 </html>';
-    return $html;
+    return utf8_decode($html);
 }
 
 function emailNovaSenhaHTML()
@@ -711,7 +711,7 @@ function emailNovaSenhaHTML()
                         <b>Ministério da Cidadania</b>
                     </body>
                 </html>';
-    return $html;
+    return utf8_decode($html);
 }
 
 function emailAprovacaoHTML()
@@ -738,7 +738,7 @@ function emailAprovacaoHTML()
                         <b>Ministério da Cidadania</b>
                     </body>
                 </html>';
-    return $html;
+    return utf8_decode($html);
 }
 
 function emailAprovacaoOperadoraHTML()
@@ -769,7 +769,7 @@ function emailAprovacaoOperadoraHTML()
                         <b>Ministério da Cidadania</b>
                     </body>
                 </html>';
-    return $html;
+    return utf8_decode($html);
 }
 
 
@@ -813,7 +813,7 @@ function emailAprovacaoBeneficiariaHTML()
                         <b>Ministério da Cidadania</b>
                     </body>
                 </html>';
-    return $html;
+    return utf8_decode($html);
 }
 
 function emailReprovacaoBeneficiariaHTML()
@@ -842,7 +842,7 @@ function emailReprovacaoBeneficiariaHTML()
                         <b>Ministério da Cidadania</b>
                     </body>
                 </html>';
-    return $html;
+    return utf8_decode($html);
 }
 
 function emailAprovacaoBeneficiariaParaOperadoraHTML()
@@ -872,5 +872,5 @@ function emailAprovacaoBeneficiariaParaOperadoraHTML()
                         <b>Ministério da Cidadania</b>
                     </body>
                 </html>';
-    return $html;
+    return utf8_decode($html);
 }

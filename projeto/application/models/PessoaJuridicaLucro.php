@@ -1,20 +1,17 @@
 <?php
 
-class Application_Model_PessoaJuridicaLucro
-{
+class Application_Model_PessoaJuridicaLucro {
 
     private $table = null;
 
-    public function getTable()
-    {
+    public function getTable() {
         if (is_null($this->table)) {
             $this->table = new Application_Model_DbTable_PessoaJuridicaLucro();
         }
         return $this->table;
     }
-
-    public function select($where = array(), $order = null, $limit = null)
-    {
+   
+    public function select($where = array(), $order = null, $limit = null) {
         $select = $this->getTable()->select()->order($order)->limit($limit);
 
         foreach ($where as $coluna => $valor) :
@@ -25,23 +22,19 @@ class Application_Model_PessoaJuridicaLucro
         return $this->getTable()->fetchAll($select)->toArray();
     }
 
-    public function find($id)
-    {
+    public function find($id) {
         return $this->getTable()->find($id)->current();
     }
-
-    public function insert(array $request)
-    {
+    
+    public function insert(array $request) {
         return $this->getTable()->createRow()->setFromArray($request)->save();
     }
-
-    public function delete($id)
-    {
+    
+    public function delete($id) {
         return $this->getTable()->find($id)->current()->delete();
     }
-
-    public function update(array $request, array $where)
-    {
+    
+    public function update(array $request, array $where) {
         return $this->getTable()->update($request, $where);
     }
 

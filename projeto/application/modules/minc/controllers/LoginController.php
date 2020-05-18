@@ -2,11 +2,9 @@
 
 include_once 'GenericController.php';
 
-class Minc_LoginController extends GenericController
-{
+class Minc_LoginController extends GenericController {
 
-    public function init()
-    {
+    public function init() {
 
         // Layout padrão
         $this->view->layout()->setLayout('layout');
@@ -17,19 +15,16 @@ class Minc_LoginController extends GenericController
         parent::init();
     }
 
-    public function indexAction()
-    {
-
+    public function indexAction() {
+        
     }
-
-    public function logoutAction()
-    {
+    
+    public function logoutAction() {
         session_destroy();
         $this->_redirect('/');
     }
 
-    public function authAction()
-    {
+    public function authAction() {
 
         $obj = array();
         $this->getHelper('layout')->disableLayout();
@@ -48,27 +43,27 @@ class Minc_LoginController extends GenericController
             $result = $modelUsuario->dadosLogin($where);
 
             if (count($result) > 0) {
-                $obj['idUsuario'] = $result[0]->idUsuario;
-                $obj['idPessoa'] = $result[0]->idPessoa;
-                $obj['dtCadastro'] = $result[0]->dtRegistro;
-                $obj['Nome'] = $result[0]->NM_PESSOA_FISICA;
-                $obj['PerfilGeral'] = 'C';
-                $obj['beneficiaria'] = '';
-                $obj['operadora'] = '';
+                $obj['idUsuario']       = $result[0]->idUsuario;
+                $obj['idPessoa']        = $result[0]->idPessoa;
+                $obj['dtCadastro']      = $result[0]->dtRegistro;
+                $obj['Nome']            = $result[0]->NM_PESSOA_FISICA;
+                $obj['PerfilGeral']     = 'C';
+                $obj['beneficiaria']    = '';
+                $obj['operadora']       = '';
 
                 $perfil = $modelUsuarioPerfil->listarPerfis(array('ID_USUARIO = ?' => $result[0]->idUsuario, 'ST_USUARIO_PERFIL = ?' => 'A'));
-
+                
                 if (count($perfil) > 0) {
                     foreach ($perfil as $p) {
                         // Verifica se é responsável
                         if (($p->IDPERFIL == 2) || ($p->IDPERFIL == 3)) {
                             $obj['PerfilGeral'] = 'R';
-                        } else if ($p->IDPERFIL == 1) {
+                        }else if ($p->IDPERFIL == 1) {
                             $obj['PerfilGeral'] = 'A';
                         }
                     }
                 }
-
+                
             } else {
                 parent::message('Login Inv&aacute;lido', '/', 'error');
             }
@@ -76,7 +71,7 @@ class Minc_LoginController extends GenericController
             // Adicionar o Usuario na sessao
             $session = new Zend_Session_Namespace('user');
             $session->usuario = $obj;
-
+            
             // Enviar o usuario para o perfil 
             if ($obj['PerfilGeral'] == '4') {
                 $this->_redirect('/minc/consulta');
@@ -84,7 +79,7 @@ class Minc_LoginController extends GenericController
                 $this->_redirect('/minc/admin');
             }
         }
-
+        
         die();
     }
 

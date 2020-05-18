@@ -2,13 +2,11 @@
 
 include_once 'GenericController.php';
 
-class Minc_ConsultaController extends GenericController
-{
+class Minc_ConsultaController extends GenericController {
 
     private $session;
-
-    public function init()
-    {
+    
+    public function init() {
 
         // Layout Padrão
         $this->view->layout()->setLayout('layout');
@@ -17,31 +15,29 @@ class Minc_ConsultaController extends GenericController
         $this->view->assign('titulo', 'Minc');
 
         // Manter Autenticado
-        parent::autenticar(array('C', 'A'));
+        parent::autenticar(array('C','A'));
 
         // Inicialização Generic
         parent::init();
     }
 
-    public function indexAction()
-    {
-
+    public function indexAction() {
+        
     }
 
-    public function listaOperadoraAction()
-    {
-
-        $modelOperadoras = new Application_Model_Operadora();
-        $modelSituacoes = new Application_Model_TipoSituacao();
-        $where = array();
-
+    public function listaOperadoraAction() {
+        
+        $modelOperadoras    = new Application_Model_Operadora();
+        $modelSituacoes     = new Application_Model_TipoSituacao();
+        $where              = array();
+                
         if ($_POST) {
 
-            $CNPJ = $this->getRequest()->getParam('CNPJ');
-            $NOME = $this->getRequest()->getParam('NOME');
-            $SITUACAO = $this->getRequest()->getParam('SITUACAO');
-            $DTINICIO = $this->getRequest()->getParam('DTINICIO');
-            $DTFIM = $this->getRequest()->getParam('DTFIM');
+            $CNPJ       = $this->getRequest()->getParam('CNPJ');
+            $NOME       = $this->getRequest()->getParam('NOME');
+            $SITUACAO   = $this->getRequest()->getParam('SITUACAO');
+            $DTINICIO   = $this->getRequest()->getParam('DTINICIO');
+            $DTFIM      = $this->getRequest()->getParam('DTFIM');
 
             if ($CNPJ) {
                 $where['pj.NR_CNPJ = ?'] = str_replace('/', '', str_replace('-', '', str_replace('.', '', $CNPJ)));
@@ -73,7 +69,7 @@ class Minc_ConsultaController extends GenericController
             $this->view->assign('cnpj', $CNPJ);
             $this->view->assign('nome', $NOME);
             $this->view->assign('situacao', $SITUACAO);
-
+            
             if (is_array($DTINICIO)) {
                 $this->view->assign('dtInicio', $DTINICIO[0] . '/' . $DTINICIO[1] . '/' . $DTINICIO[2]);
             } else {
@@ -97,7 +93,7 @@ class Minc_ConsultaController extends GenericController
                     parent::message('Data de Cadastro (Máxima) inválida.', '/minc/consulta/lista-beneficiarios/', 'error');
                 }
             }
-
+            
         } else {
             $this->view->assign('cnpj', '');
             $this->view->assign('nome', '');
@@ -105,19 +101,18 @@ class Minc_ConsultaController extends GenericController
             $this->view->assign('dtInicio', '');
             $this->view->assign('dtFim', '');
         }
-
+        
         // Listar todas as operadoras
-        $operadoras = $modelOperadoras->buscarDados($where, "o.DT_INSCRICAO asc");
+        $operadoras      = $modelOperadoras->buscarDados($where, "o.DT_INSCRICAO asc");
         $this->view->assign('operadoras', $operadoras);
         $this->view->assign('qtdOperadoras', count($operadoras));
-
+        
         $situacoes = $modelSituacoes->select();
         $this->view->assign('situacoes', $situacoes);
-
+        
     }
 
-    public function avaliarOperadoraAction()
-    {
+    public function avaliarOperadoraAction() {
 
         // onde são montado os dados da operadora
         $dadosOperadora = array();
@@ -140,36 +135,36 @@ class Minc_ConsultaController extends GenericController
         $historico = $modelSituacao->listarSituacoes(array('ID_PESSOA = ?' => $idOperadora, 'TP_ENTIDADE_VALE_CULTURA = ?' => 'O'));
         foreach ($operadora as $op) {
             // tbOperadora
-            $dadosOperadora['idOperadora'] = $op->idOperadora;
-            $dadosOperadora['dtInscricao'] = $op->dtInscricao;
-            $dadosOperadora['nrComprovanteInscricao'] = $op->nrComprovanteInscricao;
-            $dadosOperadora['nrCertificado'] = $op->nrCertificado;
+            $dadosOperadora['idOperadora']              = $op->idOperadora;
+            $dadosOperadora['dtInscricao']              = $op->dtInscricao;
+            $dadosOperadora['nrComprovanteInscricao']   = $op->nrComprovanteInscricao;
+            $dadosOperadora['nrCertificado']            = $op->nrCertificado;
             //tbPessoa
-            $dadosOperadora['idpessoa'] = $op->idPessoa;
-            $dadosOperadora['dtregistro'] = $op->dtRegistro;
+            $dadosOperadora['idpessoa']                 = $op->idPessoa;
+            $dadosOperadora['dtregistro']               = $op->dtRegistro;
             //tbPessoaJuridica
-            $dadosOperadora['nrCnpj'] = $op->nrCnpj;
-            $dadosOperadora['nrInscricaoEstadual'] = $op->nrInscricaoEstadual;
-            $dadosOperadora['nmRazaoSocial'] = $op->nmRazaoSocial;
-            $dadosOperadora['nmFantasia'] = $op->nmFantasia;
-            //INSERSAO DO CAMPO URL
-            $dadosOperadora['dsSite'] = $op->dsSite;
-            $dadosOperadora['nrCei'] = $op->nrCei;
-            $dadosOperadora['cdNaturezaJuridica'] = $op->cdNaturezaJuridica;
+            $dadosOperadora['nrCnpj']                   = $op->nrCnpj;
+            $dadosOperadora['nrInscricaoEstadual']      = $op->nrInscricaoEstadual;
+            $dadosOperadora['nmRazaoSocial']            = $op->nmRazaoSocial;
+            $dadosOperadora['nmFantasia']               = $op->nmFantasia;
+			//INSERSAO DO CAMPO URL
+			$dadosOperadora['dsSite']                   = $op->dsSite;
+            $dadosOperadora['nrCei']                    = $op->nrCei;
+            $dadosOperadora['cdNaturezaJuridica']       = $op->cdNaturezaJuridica;
             //tbEndereco
-            $dadosOperadora['dsComplementoEndereco'] = $op->dsComplementoEndereco;
-            $dadosOperadora['nrComplemento'] = $op->nrComplemento;
+            $dadosOperadora['dsComplementoEndereco']    = $op->dsComplementoEndereco;
+            $dadosOperadora['nrComplemento']            = $op->nrComplemento;
             //tbBairro
-            $dadosOperadora['nmBairro'] = $op->nmBairro;
+            $dadosOperadora['nmBairro']                 = $op->nmBairro;
             //tbLogradouro
-            $dadosOperadora['logradouro'] = strlen($op->dsLograEndereco) > 3 ? $op->dsLograEndereco : $op->dsTipoLogradouro . ' ' . $op->nmLogradouro;
-            $dadosOperadora['cep'] = $op->nrCep;
-            $dadosOperadora['Pais'] = $op->nmPais;
-            $dadosOperadora['Estado'] = $op->sgUF;
-            $dadosOperadora['Municipio'] = $op->nmMunicipio;
+            $dadosOperadora['logradouro']               = strlen($op->dsLograEndereco) > 3 ? $op->dsLograEndereco : $op->dsTipoLogradouro . ' ' . $op->nmLogradouro;
+            $dadosOperadora['cep']                      = $op->nrCep;
+            $dadosOperadora['Pais']                     = $op->nmPais;
+            $dadosOperadora['Estado']                   = $op->sgUF;
+            $dadosOperadora['Municipio']                = $op->nmMunicipio;
 
             // Situacao do Operador
-            $dadosOperadora['dtSituacao'] = isset($stOperadora[0]) ? $stOperadora[0]['dtSituacao'] : '';
+            $dadosOperadora['dtSituacao']     = isset($stOperadora[0]) ? $stOperadora[0]['dtSituacao'] : '';
             $dadosOperadora['idTipoSituacao'] = isset($stOperadora[0]) ? $stOperadora[0]['idTipoSituacao'] : '';
             $dadosOperadora['dsTipoSituacao'] = isset($stOperadora[0]) ? $stOperadora[0]['dsTipoSituacao'] : '';
             $dadosOperadora['stTipoSituacao'] = isset($stOperadora[0]) ? $stOperadora[0]['stTipoSituacao'] : '';
@@ -177,26 +172,26 @@ class Minc_ConsultaController extends GenericController
 
         // Dados do responsável da operadora
         $modelPessoaVinculada = new Application_Model_PessoaVinculada();
-
+        
         $where = array(
             'pv.ID_TIPO_VINCULO_PESSOA = ?' => 17,
-            'pv.id_Pessoa = ?' => $idOperadora,
-            'up.id_Perfil = ?' => 3,
-            'up.st_Usuario_Perfil = ?' => 'A'
+            'pv.id_Pessoa = ?'              => $idOperadora, 
+            'up.id_Perfil = ?'              => 3, 
+            'up.st_Usuario_Perfil = ?'      => 'A'
         );
-
+        
         $responsavel = $modelPessoaVinculada->buscarDadosResponsavel($where);
 
         $listaResponsaveis = array();
         $r = 0;
-        foreach ($responsavel as $re) {
-
-            $listaResponsaveis[$r]['idResponsavel'] = $re->idPessoaVinculada;
-            $listaResponsaveis[$r]['nmResponsavel'] = $re->nmPessoaFisica;
+        foreach ($responsavel as $re){
+            
+            $listaResponsaveis[$r]['idResponsavel']    = $re->idPessoaVinculada;
+            $listaResponsaveis[$r]['nmResponsavel']    = $re->nmPessoaFisica;
             $listaResponsaveis[$r]['nrCpfResponsavel'] = $re->nrCpf;
             $listaResponsaveis[$r]['cargoResponsavel'] = $re->nmCbo;
-            $listaResponsaveis[$r]['stAtivo'] = $re->ST_PESSOA_VINCULADA;
-
+            $listaResponsaveis[$r]['stAtivo']          = $re->ST_PESSOA_VINCULADA;
+            
             // Email do responsável da operadora
             $modelEmail = new Application_Model_Email();
             $listaEmailsResponsaveis = array();
@@ -206,13 +201,13 @@ class Minc_ConsultaController extends GenericController
                 $listaEmailsResponsaveis[$em]['emailResponsavel'] = $e->dsEmail;
                 $em++;
             }
-
+            
             $listaResponsaveis[$r]['emailsResponsavel'] = $listaEmailsResponsaveis;
 
-
+            
             // Telefones do responsável da operadora
-            $modelTelefone = new Application_Model_Telefone();
-            $telefones = $modelTelefone->buscarTelefones(array('ID_PESSOA = ?' => $re->idPessoaVinculada));
+            $modelTelefone  = new Application_Model_Telefone();
+            $telefones      = $modelTelefone->buscarTelefones(array('ID_PESSOA = ?' => $re->idPessoaVinculada));
 
             $listaTelefonesResponsaveis = array();
             $tel = 0;
@@ -227,12 +222,12 @@ class Minc_ConsultaController extends GenericController
                 }
                 $tel++;
             }
-
+            
             $listaResponsaveis[$r]['telefonesResponsavel'] = $listaTelefonesResponsaveis;
-
+            
             $r++;
         }
-
+        
         $dadosOperadora['responsaveis'] = $listaResponsaveis;
 
         // Arquivos da operadora
@@ -246,20 +241,19 @@ class Minc_ConsultaController extends GenericController
         $this->view->assign('historico', $historico);
     }
 
-    public function listaBeneficiariosAction()
-    {
+    public function listaBeneficiariosAction() {
         // Listar todas as operadoras
-        $modelBeneficiaria = new Application_Model_Beneficiaria();
-        $modelSituacoes = new Application_Model_TipoSituacao();
-        $where = array();
-
+        $modelBeneficiaria  = new Application_Model_Beneficiaria();
+        $modelSituacoes     = new Application_Model_TipoSituacao();
+        $where              = array();
+        
         if ($_POST) {
 
-            $CNPJ = $this->getRequest()->getParam('CNPJ');
-            $NOME = $this->getRequest()->getParam('NOME');
-            $SITUACAO = $this->getRequest()->getParam('SITUACAO');
-            $DTINICIO = $this->getRequest()->getParam('DTINICIO');
-            $DTFIM = $this->getRequest()->getParam('DTFIM');
+            $CNPJ       = $this->getRequest()->getParam('CNPJ');
+            $NOME       = $this->getRequest()->getParam('NOME');
+            $SITUACAO   = $this->getRequest()->getParam('SITUACAO');
+            $DTINICIO   = $this->getRequest()->getParam('DTINICIO');
+            $DTFIM      = $this->getRequest()->getParam('DTFIM');
 
             if ($CNPJ) {
                 $where['pj.NR_CNPJ = ?'] = str_replace('/', '', str_replace('-', '', str_replace('.', '', $CNPJ)));
@@ -291,7 +285,7 @@ class Minc_ConsultaController extends GenericController
             $this->view->assign('cnpj', $CNPJ);
             $this->view->assign('nome', $NOME);
             $this->view->assign('situacao', $SITUACAO);
-
+            
             if (is_array($DTINICIO)) {
                 $this->view->assign('dtInicio', $DTINICIO[0] . '/' . $DTINICIO[1] . '/' . $DTINICIO[2]);
             } else {
@@ -315,7 +309,7 @@ class Minc_ConsultaController extends GenericController
                     parent::message('Data de Cadastro (Máxima) inválida.', '/minc/consulta/lista-beneficiarios/', 'error');
                 }
             }
-
+            
         } else {
             $this->view->assign('cnpj', '');
             $this->view->assign('nome', '');
@@ -323,7 +317,7 @@ class Minc_ConsultaController extends GenericController
             $this->view->assign('dtInicio', '');
             $this->view->assign('dtFim', '');
         }
-
+        
         $beneficiarias = $modelBeneficiaria->buscarDados($where, "b.DT_INSCRICAO desc");
 
         $pagina = intval($this->_getParam('pagina', 1));
@@ -342,8 +336,7 @@ class Minc_ConsultaController extends GenericController
         $this->view->assign('qtdBeneficiarias', count($beneficiarias));
     }
 
-    public function avaliarBeneficiariaAction()
-    {
+    public function avaliarBeneficiariaAction() {
 
         // onde são montado os dados da operadora
         $dadosBeneficiaria = array();
@@ -368,38 +361,38 @@ class Minc_ConsultaController extends GenericController
         foreach ($beneficiaria as $b) {
 
             // tbOperadora
-            $dadosBeneficiaria['idOperadora'] = $b->idOperadora;
+            $dadosBeneficiaria['idOperadora']               = $b->idOperadora;
             // tbBeneficiaria
-            $dadosBeneficiaria['idBeneficiaria'] = $b->idBeneficiaria;
-            $dadosBeneficiaria['dtInscricao'] = $b->dtInscricao;
-            $dadosBeneficiaria['nrComprovanteInscricao'] = $b->nrComprovanteInscricao;
-            $dadosBeneficiaria['nrCertificado'] = $b->nrCetificado;
+            $dadosBeneficiaria['idBeneficiaria']            = $b->idBeneficiaria;
+            $dadosBeneficiaria['dtInscricao']               = $b->dtInscricao;
+            $dadosBeneficiaria['nrComprovanteInscricao']    = $b->nrComprovanteInscricao;
+            $dadosBeneficiaria['nrCertificado']             = $b->nrCetificado;
             //tbPessoa
-            $dadosBeneficiaria['idpessoa'] = $b->idPessoa;
-            $dadosBeneficiaria['dtregistro'] = $b->dtRegistro;
+            $dadosBeneficiaria['idpessoa']                  = $b->idPessoa;
+            $dadosBeneficiaria['dtregistro']                = $b->dtRegistro;
             //tbPessoaJuridica
-            $dadosBeneficiaria['nrCnpj'] = $b->nrCnpj;
-            $dadosBeneficiaria['nrInscricaoEstadual'] = $b->nrInscricaoEstadual;
-            $dadosBeneficiaria['nmRazaoSocial'] = $b->nmRazaoSocial;
-            $dadosBeneficiaria['nmFantasia'] = $b->nmFantasia;
-            $dadosBeneficiaria['nrCei'] = $b->nrCei;
-            $dadosBeneficiaria['cdNaturezaJuridica'] = $b->cdNaturezaJuridica;
-            $dadosBeneficiaria['dsNaturezaJuridica'] = $b->dsNaturezaJuridica;
-            $dadosBeneficiaria['dsTipoLucro'] = $b->dsTipoLucro;
-            $dadosBeneficiaria['idTipoLucro'] = $b->idTipoLucro;
+            $dadosBeneficiaria['nrCnpj']                    = $b->nrCnpj;
+            $dadosBeneficiaria['nrInscricaoEstadual']       = $b->nrInscricaoEstadual;
+            $dadosBeneficiaria['nmRazaoSocial']             = $b->nmRazaoSocial;
+            $dadosBeneficiaria['nmFantasia']                = $b->nmFantasia;
+            $dadosBeneficiaria['nrCei']                     = $b->nrCei;
+            $dadosBeneficiaria['cdNaturezaJuridica']        = $b->cdNaturezaJuridica;
+            $dadosBeneficiaria['dsNaturezaJuridica']        = $b->dsNaturezaJuridica;
+            $dadosBeneficiaria['dsTipoLucro']               = $b->dsTipoLucro;
+            $dadosBeneficiaria['idTipoLucro']               = $b->idTipoLucro;
             //tbEndereco
-            $dadosBeneficiaria['dsComplementoEndereco'] = $b->dsComplementoEndereco;
-            $dadosBeneficiaria['nrComplemento'] = $b->nrComplemento;
+            $dadosBeneficiaria['dsComplementoEndereco']     = $b->dsComplementoEndereco;
+            $dadosBeneficiaria['nrComplemento']             = $b->nrComplemento;
             //tbBairro
-            $dadosBeneficiaria['nmBairro'] = $b->nmBairro;
+            $dadosBeneficiaria['nmBairro']                  = $b->nmBairro;
             //tbLogradouro
-            $dadosBeneficiaria['logradouro'] = strlen($b->dsLograEndereco) > 3 ? $b->dsLograEndereco : $b->dsTipoLogradouro . ' ' . $b->nmLogradouro;
-            $dadosBeneficiaria['cep'] = $b->nrCep;
-            $dadosBeneficiaria['Pais'] = $b->nmPais;
-            $dadosBeneficiaria['Estado'] = $b->sgUF;
-            $dadosBeneficiaria['Municipio'] = $b->nmMunicipio;
+            $dadosBeneficiaria['logradouro']                = strlen($b->dsLograEndereco) > 3 ? $b->dsLograEndereco : $b->dsTipoLogradouro . ' ' . $b->nmLogradouro;
+            $dadosBeneficiaria['cep']                       = $b->nrCep;
+            $dadosBeneficiaria['Pais']                      = $b->nmPais;
+            $dadosBeneficiaria['Estado']                    = $b->sgUF;
+            $dadosBeneficiaria['Municipio']                 = $b->nmMunicipio;
             // Situacao do Operador
-            $dadosBeneficiaria['dtSituacao'] = isset($stBeneficiaria[0]) ? $stBeneficiaria[0]['dtSituacao'] : '';
+            $dadosBeneficiaria['dtSituacao']     = isset($stBeneficiaria[0]) ? $stBeneficiaria[0]['dtSituacao'] : '';
             $dadosBeneficiaria['idTipoSituacao'] = isset($stBeneficiaria[0]) ? $stBeneficiaria[0]['idTipoSituacao'] : '';
             $dadosBeneficiaria['dsTipoSituacao'] = isset($stBeneficiaria[0]) ? $stBeneficiaria[0]['dsTipoSituacao'] : '';
             $dadosBeneficiaria['stTipoSituacao'] = isset($stBeneficiaria[0]) ? $stBeneficiaria[0]['stTipoSituacao'] : '';
@@ -414,7 +407,7 @@ class Minc_ConsultaController extends GenericController
             $whereS = array('p.ID_PESSOA_JURIDICA = ?' => $b->idPessoa, 'p.ST_CNAE = ?' => 'S');
             $cnaeSecundarios = $modelCNAE->listarCnae($whereS);
             $dadosBeneficiaria['cnaeSecundarios'] = $cnaeSecundarios;
-
+            
             $modelFaixaSalarial = new Application_Model_FaixaSalarialBeneficiaria();
             $faixaSalarial = $modelFaixaSalarial->listaFaixas(array('ID_BENEFICIARIA = ?' => $b->idPessoa), 'tp.DS_TIPO_FAIXA_SALARIAL asc');
 
@@ -423,26 +416,26 @@ class Minc_ConsultaController extends GenericController
 
         // Dados do responsável da operadora
         $modelPessoaVinculada = new Application_Model_PessoaVinculada();
-
+        
         $where = array(
             'pv.ID_TIPO_VINCULO_PESSOA = ?' => 16,
-            'pv.id_Pessoa = ?' => $idBeneficiaria,
-            'up.id_Perfil = ?' => 2,
-            'up.st_Usuario_Perfil = ?' => 'A'
+            'pv.id_Pessoa = ?'              => $idBeneficiaria, 
+            'up.id_Perfil = ?'              => 2, 
+            'up.st_Usuario_Perfil = ?'      => 'A'
         );
-
+        
         $responsavel = $modelPessoaVinculada->buscarDadosResponsavel($where);
 
         $listaResponsaveis = array();
         $r = 0;
-        foreach ($responsavel as $re) {
-
-            $listaResponsaveis[$r]['idResponsavel'] = $re->idPessoaVinculada;
-            $listaResponsaveis[$r]['nmResponsavel'] = $re->nmPessoaFisica;
+        foreach ($responsavel as $re){
+            
+            $listaResponsaveis[$r]['idResponsavel']    = $re->idPessoaVinculada;
+            $listaResponsaveis[$r]['nmResponsavel']    = $re->nmPessoaFisica;
             $listaResponsaveis[$r]['nrCpfResponsavel'] = $re->nrCpf;
             $listaResponsaveis[$r]['cargoResponsavel'] = $re->nmCbo;
-
-
+            
+            
             // Email do responsável da operadora
             $modelEmail = new Application_Model_Email();
             $listaEmailsResponsaveis = array();
@@ -452,13 +445,13 @@ class Minc_ConsultaController extends GenericController
                 $listaEmailsResponsaveis[$em]['emailResponsavel'] = $e->dsEmail;
                 $em++;
             }
-
+            
             $listaResponsaveis[$r]['emailsResponsavel'] = $listaEmailsResponsaveis;
 
-
+            
             // Telefones do responsável da operadora
-            $modelTelefone = new Application_Model_Telefone();
-            $telefones = $modelTelefone->buscarTelefones(array('ID_PESSOA = ?' => $re->idPessoaVinculada));
+            $modelTelefone  = new Application_Model_Telefone();
+            $telefones      = $modelTelefone->buscarTelefones(array('ID_PESSOA = ?' => $re->idPessoaVinculada));
 
             $listaTelefonesResponsaveis = array();
             $tel = 0;
@@ -473,12 +466,12 @@ class Minc_ConsultaController extends GenericController
                 }
                 $tel++;
             }
-
+            
             $listaResponsaveis[$r]['telefonesResponsavel'] = $listaTelefonesResponsaveis;
-
+            
             $r++;
         }
-
+        
         $dadosBeneficiaria['responsaveis'] = $listaResponsaveis;
 
         // Dados da Operadora (Bandeira)
@@ -489,11 +482,11 @@ class Minc_ConsultaController extends GenericController
         $dadosBeneficiaria['NM_FANTASIA_OPERADORA'] = $operadora[0]['nmFantasia'];
         $dadosBeneficiaria['NM_RAZAO_SOCIAL_OPERADORA'] = $operadora[0]['nmRazaoSocial'];
         // Situacao do Operador
-        if (count($stOperadora) > 0) {
-            $dadosBeneficiaria['dtSituacaoOperadora'] = $stOperadora[0]['dtSituacao'];
-            $dadosBeneficiaria['idTipoSituacaoOperadora'] = $stOperadora[0]['idTipoSituacao'];
-            $dadosBeneficiaria['dsTipoSituacaoOperadora'] = $stOperadora[0]['dsTipoSituacao'];
-            $dadosBeneficiaria['stTipoSituacaoOperadora'] = $stOperadora[0]['stTipoSituacao'];
+        if(count($stOperadora) > 0){
+            $dadosBeneficiaria['dtSituacaoOperadora']       = $stOperadora[0]['dtSituacao'];
+            $dadosBeneficiaria['idTipoSituacaoOperadora']   = $stOperadora[0]['idTipoSituacao'];
+            $dadosBeneficiaria['dsTipoSituacaoOperadora']   = $stOperadora[0]['dsTipoSituacao'];
+            $dadosBeneficiaria['stTipoSituacaoOperadora']   = $stOperadora[0]['stTipoSituacao'];
         }
         // Envia as informações para a view
         $this->view->assign('beneficiaria', $dadosBeneficiaria);
@@ -501,8 +494,7 @@ class Minc_ConsultaController extends GenericController
         $this->view->assign('historico', $historico);
     }
 
-    public function abrirArquivoAction()
-    {
+    public function abrirArquivoAction() {
         $uploaddir = "/var/arquivos/arquivos-valecultura/";
         $arquivo = $this->getRequest()->getParam('arquivo');
         if (file_exists($uploaddir . $arquivo)) {
@@ -517,13 +509,11 @@ class Minc_ConsultaController extends GenericController
         die;
     }
 
-    public function alterarsenhaAction()
-    {
-
+    public function alterarsenhaAction() {
+        
     }
 
-    public function alterarsenhaactionAction()
-    {
+    public function alterarsenhaactionAction() {
         if ($_POST) {
 
             $modelUsuario = new Application_Model_Usuario;
@@ -562,26 +552,25 @@ class Minc_ConsultaController extends GenericController
         }
     }
 
-    public function relatorioBeneficiariasAction()
-    {
+    public function relatorioBeneficiariasAction() {
         // Listar todas as operadoras
-        $modelBeneficiaria = new Application_Model_Beneficiaria();
-        $modelSituacoes = new Application_Model_TipoSituacao();
-        $modelUf = new Application_Model_Uf();
-        $modelSituacao = new Application_Model_Situacao();
+        $modelBeneficiaria  = new Application_Model_Beneficiaria();
+        $modelSituacoes     = new Application_Model_TipoSituacao();
+        $modelUf            = new Application_Model_Uf();
+        $modelSituacao      = new Application_Model_Situacao();
 
         $where = array();
         if ($_POST) {
 
-            $CNPJ = $this->getRequest()->getParam('CNPJ');
-            $NOME = $this->getRequest()->getParam('NOME');
-            $SITUACAO = $this->getRequest()->getParam('SITUACAO');
-            $UF = $this->getRequest()->getParam('UF');
-            $OPERADORA = $this->getRequest()->getParam('OPERADORA');
-            $DTINICIO = $this->getRequest()->getParam('DTINICIO');
-            $DTFIM = $this->getRequest()->getParam('DTFIM');
-            $DTINICIO = $this->getRequest()->getParam('DTINICIO');
-            $DTFIM = $this->getRequest()->getParam('DTFIM');
+            $CNPJ       = $this->getRequest()->getParam('CNPJ');
+            $NOME       = $this->getRequest()->getParam('NOME');
+            $SITUACAO   = $this->getRequest()->getParam('SITUACAO');
+            $UF         = $this->getRequest()->getParam('UF');
+            $OPERADORA  = $this->getRequest()->getParam('OPERADORA');
+            $DTINICIO   = $this->getRequest()->getParam('DTINICIO');
+            $DTFIM      = $this->getRequest()->getParam('DTFIM');
+            $DTINICIO   = $this->getRequest()->getParam('DTINICIO');
+            $DTFIM      = $this->getRequest()->getParam('DTFIM');
 
             if ($CNPJ) {
                 $where['pj.NR_CNPJ = ?'] = str_replace('/', '', str_replace('-', '', str_replace('.', '', $CNPJ)));
@@ -637,7 +626,7 @@ class Minc_ConsultaController extends GenericController
                     parent::message('Data de Cadastro (Máxima) inválida.', '/minc/consulta/relatorio-beneficiarias/', 'error');
                 }
             }
-
+            
         } else {
             $this->view->assign('cnpj', '');
             $this->view->assign('nome', '');
@@ -651,7 +640,7 @@ class Minc_ConsultaController extends GenericController
         //$beneficiarias = $modelBeneficiaria->buscarDados($where, array("uf.nmUf asc", "mu.nmMunicipio", "pj.nmFantasia asc"));
         $beneficiarias = $modelBeneficiaria->buscarDados($where, array("pj.NM_FANTASIA asc"));
         $situacoes = $modelSituacoes->select();
-        $ufs = $modelUf->select(array(), 'NM_UF asc');
+        $ufs = $modelUf->select(array(),'NM_UF asc');
         $operadorasAtivas = $modelSituacao->selecionaOperadorasAtivas();
 
         $this->view->assign('beneficiarias', $beneficiarias);
@@ -661,8 +650,7 @@ class Minc_ConsultaController extends GenericController
         $this->view->assign('qtdBeneficiarias', count($beneficiarias));
     }
 
-    public function gerarPdfAction()
-    {
+    public function gerarPdfAction() {
         $this->getHelper('layout')->disableLayout();
         if ($_POST) {
             $html = $this->getRequest()->getParam('HTML');

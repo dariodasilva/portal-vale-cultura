@@ -1,20 +1,17 @@
 <?php
 
-class Application_Model_ArquivoOperadora
-{
+class Application_Model_ArquivoOperadora {
 
     private $table = null;
 
-    public function getTable()
-    {
+    public function getTable() {
         if (is_null($this->table)) {
             $this->table = new Application_Model_DbTable_ArquivoOperadora();
         }
         return $this->table;
     }
 
-    public function select($where = array(), $order = null, $limit = null)
-    {
+    public function select($where = array(), $order = null, $limit = null) {
         $select = $this->getTable()->select()->order($order)->limit($limit);
 
         foreach ($where as $coluna => $valor) :
@@ -24,19 +21,17 @@ class Application_Model_ArquivoOperadora
         return $this->getTable()->fetchAll($select)->toArray();
     }
 
-    public function buscarArquivos($where = array(), $order = null, $limit = null)
-    {
+    public function buscarArquivos($where = array(), $order = null, $limit = null) {
         $select = $this->getTable()->select()->from(
-            array('aq' => 'VALE_CULTURA.S_ARQUIVO_OPERADORA'),
-            array(
-                'idArquivo' => 'ID_ARQUIVO'
-            , 'idOperadora' => 'ID_OPERADORA'
-            , 'dsCaminhoArquivo' => 'DS_CAMINHO_ARQUIVO'
-            , 'dsArquivo' => 'DS_ARQUIVO'
-            , 'dtUploadArquivo' => 'DT_UPLOAD_ARQUIVO'
-            , 'idResponsavel' => 'ID_RESPONSAVEL'
-            )
-        )->order($order)->limit($limit);
+                     array('aq' => 'VALE_CULTURA.S_ARQUIVO_OPERADORA'),
+                     array(
+                         'idArquivo'        => 'ID_ARQUIVO'
+                        ,'idOperadora'      => 'ID_OPERADORA'
+                        ,'dsCaminhoArquivo' => 'DS_CAMINHO_ARQUIVO'
+                        ,'dsArquivo'        => 'DS_ARQUIVO'
+                        ,'dtUploadArquivo'  => 'DT_UPLOAD_ARQUIVO'
+                    )
+                )->order($order)->limit($limit);
 
         foreach ($where as $coluna => $valor) :
             $select->where($coluna, $valor);
@@ -47,18 +42,15 @@ class Application_Model_ArquivoOperadora
         return $this->getTable()->fetchAll($select)->toArray();
     }
 
-    public function find($id)
-    {
+    public function find($id) {
         return $this->getTable()->find($id)->current();
     }
 
-    public function insert(array $request)
-    {
+    public function insert(array $request) {
         return $this->getTable()->createRow()->setFromArray($request)->save();
     }
 
-    public function update(array $request, $id)
-    {
+    public function update(array $request, $id) {
         if (is_array($id)) {
             $where = $id;
         } else {
@@ -67,9 +59,10 @@ class Application_Model_ArquivoOperadora
         return $this->getTable()->update($request, $where);
     }
 
-    public function delete($id)
-    {
+    public function delete($id) {
         return $this->getTable()->find($id)->current()->delete();
     }
 
 }
+
+?>

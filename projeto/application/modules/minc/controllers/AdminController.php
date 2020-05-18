@@ -168,6 +168,7 @@ class Minc_AdminController extends GenericController
                 }
                 parent::message('Operação realizada com sucesso!', '/minc/admin/avaliar-operadora/operadora/' . $id, 'success');
             } else {
+
                 if ($atualiza) {
                     // Gerar numeração do certificado
                     if ($idTipoSituacao == 2) {
@@ -401,6 +402,7 @@ class Minc_AdminController extends GenericController
 
     public function avaliarOperadoraAction()
     {
+
         // Manter Autenticado
         parent::autenticar(array('A'));
 
@@ -460,10 +462,65 @@ class Minc_AdminController extends GenericController
         }
 
         // Dados do responsável da operadora
-        $dadosOperadora['responsaveis'] = $this->_retornaResponsaveis($idOperadora, 17, 3);
+        $modelPessoaVinculada = new Application_Model_PessoaVinculada();
 
-        // Dados do não responsável da operadora
-        $dadosOperadora['nao-responsaveis'] = $this->_retornaResponsaveis($idOperadora, 13, 3);
+        $where = array(
+            'pv.ID_TIPO_VINCULO_PESSOA = ?' => 17,
+            'pv.id_Pessoa = ?' => $idOperadora,
+            'up.id_Perfil = ?' => 3,
+            'up.st_Usuario_Perfil = ?' => 'A'
+        );
+
+        $responsavel = $modelPessoaVinculada->buscarDadosResponsavel($where);
+
+        $listaResponsaveis = array();
+        $r = 0;
+        foreach ($responsavel as $re) {
+
+            $listaResponsaveis[$r]['idResponsavel'] = $re->idPessoaVinculada;
+            $listaResponsaveis[$r]['nmResponsavel'] = $re->nmPessoaFisica;
+            $listaResponsaveis[$r]['nrCpfResponsavel'] = $re->nrCpf;
+            $listaResponsaveis[$r]['cargoResponsavel'] = $re->nmCbo;
+            $listaResponsaveis[$r]['stAtivo'] = $re->ST_PESSOA_VINCULADA;
+
+
+            // Email do responsável da operadora
+            $modelEmail = new Application_Model_Email();
+            $listaEmailsResponsaveis = array();
+            $em = 0;
+            $emails = $modelEmail->buscarEmails(array('ID_PESSOA = ?' => $re->idPessoaVinculada));
+            foreach ($emails as $e) {
+                $listaEmailsResponsaveis[$em]['emailResponsavel'] = $e->dsEmail;
+                $em++;
+            }
+
+            $listaResponsaveis[$r]['emailsResponsavel'] = $listaEmailsResponsaveis;
+
+
+            // Telefones do responsável da operadora
+            $modelTelefone = new Application_Model_Telefone();
+            $telefones = $modelTelefone->buscarTelefones(array('ID_PESSOA = ?' => $re->idPessoaVinculada));
+
+            $listaTelefonesResponsaveis = array();
+            $tel = 0;
+            foreach ($telefones as $t) {
+                if ($t->idTipoTelefone == 2) {
+                    $listaTelefonesResponsaveis[$tel]['tipoTel'] = 2;
+                    $listaTelefonesResponsaveis[$tel]['TelResponsavel'] = addMascara($t->cdDDD . $t->nrTelefone, 'telefone');
+                }
+                if ($t->idTipoTelefone == 4) {
+                    $listaTelefonesResponsaveis[$tel]['tipoTel'] = 4;
+                    $listaTelefonesResponsaveis[$tel]['TelResponsavel'] = addMascara($t->cdDDD . $t->nrTelefone, 'telefone');
+                }
+                $tel++;
+            }
+
+            $listaResponsaveis[$r]['telefonesResponsavel'] = $listaTelefonesResponsaveis;
+
+            $r++;
+        }
+
+        $dadosOperadora['responsaveis'] = $listaResponsaveis;
 
         // Email Institucional
         $emailInstitucional = array();
@@ -691,13 +748,67 @@ class Minc_AdminController extends GenericController
             $faixaSalarial = $modelFaixaSalarial->listaFaixas(array('ID_BENEFICIARIA = ?' => $b->idPessoa), 'idTipoFaixaSalarial asc');
 
             $dadosBeneficiaria['faixaSalarial'] = $faixaSalarial;
-            $dadosBeneficiaria['idOperadoraAutorizada'] = $b->idOperadoraAutorizada;
         }
-        // Dados do responsável da beneficiaria
-        $dadosBeneficiaria['responsaveis'] = $this->_retornaResponsaveis($idBeneficiaria, 16);
 
-        // Dados do não responsável da beneficiaria
-        $dadosBeneficiaria['nao-responsaveis'] = $this->_retornaResponsaveis($idBeneficiaria, 13);
+        // Dados do responsável da operadora
+        $modelPessoaVinculada = new Application_Model_PessoaVinculada();
+
+        $where = array(
+            'pv.ID_TIPO_VINCULO_PESSOA = ?' => 16,
+            'pv.id_Pessoa = ?' => $idBeneficiaria,
+            'up.id_Perfil = ?' => 2,
+            'up.st_Usuario_Perfil = ?' => 'A'
+        );
+
+        $responsavel = $modelPessoaVinculada->buscarDadosResponsavel($where);
+
+        $listaResponsaveis = array();
+        $r = 0;
+        foreach ($responsavel as $re) {
+
+            $listaResponsaveis[$r]['idResponsavel'] = $re->idPessoaVinculada;
+            $listaResponsaveis[$r]['nmResponsavel'] = $re->nmPessoaFisica;
+            $listaResponsaveis[$r]['nrCpfResponsavel'] = $re->nrCpf;
+            $listaResponsaveis[$r]['cargoResponsavel'] = $re->nmCbo;
+
+
+            // Email do responsável da operadora
+            $modelEmail = new Application_Model_Email();
+            $listaEmailsResponsaveis = array();
+            $em = 0;
+            $emails = $modelEmail->buscarEmails(array('ID_PESSOA = ?' => $re->idPessoaVinculada));
+            foreach ($emails as $e) {
+                $listaEmailsResponsaveis[$em]['emailResponsavel'] = $e->dsEmail;
+                $em++;
+            }
+
+            $listaResponsaveis[$r]['emailsResponsavel'] = $listaEmailsResponsaveis;
+
+
+            // Telefones do responsável da operadora
+            $modelTelefone = new Application_Model_Telefone();
+            $telefones = $modelTelefone->buscarTelefones(array('ID_PESSOA = ?' => $re->idPessoaVinculada));
+
+            $listaTelefonesResponsaveis = array();
+            $tel = 0;
+            foreach ($telefones as $t) {
+                if ($t->idTipoTelefone == 2) {
+                    $listaTelefonesResponsaveis[$tel]['tipoTel'] = 2;
+                    $listaTelefonesResponsaveis[$tel]['TelResponsavel'] = addMascara($t->cdDDD . $t->nrTelefone, 'telefone');
+                }
+                if ($t->idTipoTelefone == 4) {
+                    $listaTelefonesResponsaveis[$tel]['tipoTel'] = 4;
+                    $listaTelefonesResponsaveis[$tel]['TelResponsavel'] = addMascara($t->cdDDD . $t->nrTelefone, 'telefone');
+                }
+                $tel++;
+            }
+
+            $listaResponsaveis[$r]['telefonesResponsavel'] = $listaTelefonesResponsaveis;
+
+            $r++;
+        }
+
+        $dadosBeneficiaria['responsaveis'] = $listaResponsaveis;
 
         // Dados da Operadora (Bandeira)
         $operadora = $modelOperadora->buscarDados(array('o.ID_OPERADORA = ?' => $dadosBeneficiaria['idOperadora']));
@@ -705,7 +816,6 @@ class Minc_AdminController extends GenericController
 
         $dadosBeneficiaria['nmFantasiaOperadora'] = $operadora[0]['nmFantasia'];
         $dadosBeneficiaria['nmRazaoSocialOperadora'] = $operadora[0]['nmRazaoSocial'];
-
         // Situacao do Operador
         if (count($stOperadora) > 0) {
             $dadosBeneficiaria['dtSituacaoOperadora'] = $stOperadora[0]['dtSituacao'];
@@ -900,82 +1010,4 @@ class Minc_AdminController extends GenericController
         }
     }
 
-    private function _retornaResponsaveis($idPessoaJuridica, $tipoVinculoPessoa = 16, $idPerfil = 2)
-    {
-        // Dados do responsável da operadora
-        $modelPessoaVinculada = new Application_Model_PessoaVinculada();
-
-        $where = array(
-            'pv.id_Pessoa = ?' => $idPessoaJuridica,
-            'pv.ID_TIPO_VINCULO_PESSOA = ?' => $tipoVinculoPessoa,
-            'up.id_Perfil = ?' => $idPerfil,
-            'up.st_Usuario_Perfil = ?' => 'A'
-        );
-
-        $responsavel = $modelPessoaVinculada->buscarDadosResponsavel($where);
-
-        $listaResponsaveis = array();
-        $r = 0;
-        foreach ($responsavel as $re) {
-
-            $listaResponsaveis[$r]['idResponsavel'] = $re->idPessoaVinculada;
-            $listaResponsaveis[$r]['nmResponsavel'] = $re->nmPessoaFisica;
-            $listaResponsaveis[$r]['nrCpfResponsavel'] = $re->nrCpf;
-            $listaResponsaveis[$r]['cargoResponsavel'] = $re->nmCbo;
-
-            // Email do responsável da operadora
-            $modelEmail = new Application_Model_Email();
-            $listaEmailsResponsaveis = array();
-            $em = 0;
-            $emails = $modelEmail->buscarEmails(array('ID_PESSOA = ?' => $re->idPessoaVinculada));
-            foreach ($emails as $e) {
-                $listaEmailsResponsaveis[$em]['emailResponsavel'] = $e->dsEmail;
-                $em++;
-            }
-
-            $listaResponsaveis[$r]['emailsResponsavel'] = $listaEmailsResponsaveis;
-
-            // Telefones do responsável da operadora
-            $modelTelefone = new Application_Model_Telefone();
-            $telefones = $modelTelefone->buscarTelefones(array('ID_PESSOA = ?' => $re->idPessoaVinculada));
-
-            $listaTelefonesResponsaveis = array();
-            $tel = 0;
-            foreach ($telefones as $t) {
-                if ($t->idTipoTelefone == 2) {
-                    $listaTelefonesResponsaveis[$tel]['tipoTel'] = 2;
-                    $listaTelefonesResponsaveis[$tel]['TelResponsavel'] = addMascara($t->cdDDD . $t->nrTelefone, 'telefone');
-                }
-                if ($t->idTipoTelefone == 4) {
-                    $listaTelefonesResponsaveis[$tel]['tipoTel'] = 4;
-                    $listaTelefonesResponsaveis[$tel]['TelResponsavel'] = addMascara($t->cdDDD . $t->nrTelefone, 'telefone');
-                }
-                $tel++;
-            }
-
-            $listaResponsaveis[$r]['telefonesResponsavel'] = $listaTelefonesResponsaveis;
-
-            if (in_array($tipoVinculoPessoa, array(16, 17))) {
-                $where = array();
-                $where[17 == $tipoVinculoPessoa ? 'ID_OPERADORA = ?' : 'ID_BENEFICIARIA = ?'] = $idPessoaJuridica;
-                $where['ID_RESPONSAVEL = ?'] = $re->idPessoaVinculada;
-
-                $modelArquivo = 17 == $tipoVinculoPessoa ? new Application_Model_ArquivoOperadora() : new Application_Model_ArquivoBeneficiaria();
-                $arquivoAtual = $modelArquivo->select($where, "DT_UPLOAD_ARQUIVO DESC", 1);
-
-                if (count($arquivoAtual) > 0) {
-                    $arquivo = $arquivoAtual[0]['DS_CAMINHO_ARQUIVO'];
-                    $urlArquivo = $this->view->url(array('module' => (17 == $tipoVinculoPessoa ? 'operadora' : 'beneficiaria'),
-                        'controller' => 'index',
-                        'action' => 'abrir-arquivo',
-                        'arquivo' => $arquivo));
-                    $listaResponsaveis[$r]['urlArquivo'] = $urlArquivo;
-                }
-            }
-
-            $r++;
-        }
-
-        return $listaResponsaveis;
-    }
 }

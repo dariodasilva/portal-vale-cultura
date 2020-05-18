@@ -1,6 +1,4 @@
 <?php
-
-class Beneficiaria_Bootstrap extends Zend_Application_Module_Bootstrap
-{
-
+class Beneficiaria_Bootstrap extends Zend_Application_Module_Bootstrap {
+    
 }

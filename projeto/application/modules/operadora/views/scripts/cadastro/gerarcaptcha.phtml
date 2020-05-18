@@ -1,14 +1,13 @@
 <table>
     <tr>
         <td>
-            <img src="<?php echo $this->baseUrl('/imagens/captcha/' . $this->idCaptcha . '.png'); ?>" alt="captcha"/>
+            <img src="<?php echo $this->baseUrl('/imagens/captcha/' . $this->idCaptcha . '.png'); ?>" alt="captcha" />
         </td>
         <td>
-            Se os caracteres da imagem<Br> estiverem ileg&iacute;veis, <a href="#" onclick="gerarCaptcha();"
-                                                                          style="color: #888"> gerar outra imagem </a>
+            Se os caracteres da imagem<Br> estiverem ileg&iacute;veis, <a href="#" onclick="gerarCaptcha();" style="color: #888" > gerar outra imagem </a>
         </td>
     </tr>
 </table>
 
-<!-- campo para armazenar o id do captcha -->
+<!-- campo para armazenar o id do captcha -->  
 <input name="captcha[id]" value="<?php echo $this->idCaptcha; ?>" type="hidden">
