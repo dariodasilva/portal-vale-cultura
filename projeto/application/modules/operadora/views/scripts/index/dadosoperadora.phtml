@@ -6,7 +6,7 @@
         <div id="sidebar-left" class="span2">
             <div class="row-fluid actions">
                 <input type="text" class="search span12" placeholder="O que deseja buscar?" />
-            </div>	
+            </div>
             <?php include_once 'menu.phtml'; ?>
         </div>
         <!-- end: Main Menu -->
@@ -80,7 +80,7 @@
                                         </tr>
                                         <tr>
                                             <td class="destacar bold">Complemento:</td>
-                                            <td class="destacar bold" colspan="2">Número:</td>
+                                            <td class="destacar bold" colspan="2">Nï¿½mero:</td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -102,7 +102,7 @@
                                             <td>
                                                 <select disabled="disabled" class="input_simples w150" name="Estado" id="Estado">
                                                     <option value="<?php echo $this->operadora['sgUF']; ?>"> <?php echo $this->operadora['nmUf']; ?> </option>
-                                                </select> 
+                                                </select>
                                             </td>
                                             <td>
                                                 <select disabled="disabled" class="input_simples w150" name="Municipio" id="Municipio">
@@ -123,11 +123,11 @@
                                     </table>
                                     <table class="table table-striped table-bordered bootstrap-datatable ">
                                         <div class="box-header">
-                                            <h2><i class="icon-edit"></i>Início da Comercializa&ccedil;&atilde;o</h2>
+                                            <h2><i class="icon-edit"></i>Inï¿½cio da Comercializa&ccedil;&atilde;o</h2>
                                             <div class="box-icon"></div>
                                         </div>
                                         <tr>
-                                            <td class="destacar bold"><strong>Data de Início das opera&ccedil;&otilde;es</strong></td>
+                                            <td class="destacar bold"><strong>Data de Inï¿½cio das opera&ccedil;&otilde;es</strong></td>
                                             <td class="destacar bold"><strong><?php echo $this->operadora['inicioComercializacao']; ?></strong></td>
                                         </tr>
                                     </table>
@@ -151,9 +151,9 @@
                                         <?php endforeach; ?>
                                     </table>
                             </div>
-                                
-                                                       
-                            
+
+
+
                             <div class="form-actions">
                                 <a id="btnAprovar" onclick="$('#dadosEmpresa').submit();" class="btn btn-primary">Atualizar</a>
                                 <a id="btnVoltar"   class="btn">Voltar</a>
@@ -178,134 +178,137 @@
 
 <script>
 
-                                                    jQuery(document).ready(function() {
-                                                        buscaCep($('#cep'));
+    jQuery(document).ready(function () {
+        buscaCep($('#cep'));
 
-                                                        $(".data").mask("99/99/9999");
-                                                        $(".cpf").mask("999.999.999-99");
-                                                        $(".cnpj").mask("99.999.999/9999-99");
-                                                        $(".telefone").mask("(99) 9999-9999");
-                                                        $(".cep").mask("99999-999");
-                                                        $("#dadosEmpresa").validate({
-                                                            rules: {
-                                                                EMPRESA_CNPJ: {
-                                                                    required: true
-                                                                },
-                                                                nmRazaoSocial: {
-                                                                    required: true
-                                                                },
-                                                                nmFantasia: {
-                                                                    required: true
-                                                                },
-                                                                EMPRESA_CEP: {
-                                                                    required: true
-                                                                },
-                                                                logradouro: {
-                                                                    required: true
-                                                                }
-                                                            },
-                                                            messages: {
-                                                                EMPRESA_CNPJ: {
-                                                                    required: "Informe o CNPJ"
-                                                                },
-                                                                nmRazaoSocial: {
-                                                                    required: "Informe a razão social"
-                                                                },
-                                                                nmFantasia: {
-                                                                    required: "Informe o nome fantasia"
-                                                                },
-                                                                EMPRESA_CEP: {
-                                                                    required: "Informe o CEP"
-                                                                },
-                                                                logradouro: {
-                                                                    required: "Informe o endereço"
-                                                                }
-                                                            },
-                                                        });
-                                                    });
+        $(".data").mask("99/99/9999");
+        $(".cpf").mask("999.999.999-99");
+        $(".cnpj").mask("99.999.999/9999-99");
+        $(".telefone").mask("(99) 9999-9999");
+        $(".cep").mask("99999-999");
+        $("#dadosEmpresa").validate({
+            rules: {
+                EMPRESA_CNPJ: {
+                    required: true
+                },
+                nmRazaoSocial: {
+                    required: true
+                },
+                nmFantasia: {
+                    required: true
+                },
+                EMPRESA_CEP: {
+                    required: true
+                },
+                logradouro: {
+                    required: true
+                }
+            },
+            messages: {
+                EMPRESA_CNPJ: {
+                    required: "Informe o CNPJ"
+                },
+                nmRazaoSocial: {
+                    required: "Informe a razï¿½o social"
+                },
+                nmFantasia: {
+                    required: "Informe o nome fantasia"
+                },
+                EMPRESA_CEP: {
+                    required: "Informe o CEP"
+                },
+                logradouro: {
+                    required: "Informe o endereï¿½o"
+                }
+            },
+        });
 
+        $('#btnVoltar').click(function () {
+            window.location.href = "/admin/lista-operadora";
+        });
+    });
 
-                                                    function buscaCep(obj) {
-                                                        var cep = $(obj).val();
-                                                        if (cep.length >= 9) {
-                                                            $.ajax({
-                                                                type: "POST",
-                                                                url: '<?php echo $this->url(array('module' => 'operadora', 'controller' => 'cadastro', 'action' => 'buscaenderecoporcep')); ?>',
-                                                                data: {CEP: $(obj).val()},
-                                                                dataType: 'json',
-                                                                success: function(data) {
-                                                                    carregaEndereco(data);
-                                                                }
-                                                            });
-                                                        } else {
-                                                            cepInvalido();
-                                                        }
-                                                    }
+    function buscaCep(obj) {
+        var cep = $(obj).val();
+        if (cep.length >= 9) {
+            $.ajax({
+                type: "POST",
+                url: '<?php echo $this->url(array('module' => 'operadora', 'controller' => 'cadastro', 'action' => 'buscaenderecoporcep')); ?>',
+                data: {CEP: $(obj).val()},
+                dataType: 'json',
+                success: function (data) {
+                    carregaEndereco(data);
+                }
+            });
+        } else {
+            cepInvalido();
+        }
+    }
 
-                                                    function carregaEndereco(data) {
-                                                        if (!data.error) {
-                                                            $('#EMPRESA_CEP_VALIDADOR').fadeOut();
-                                                            if (data.dados.TPCEP != 0) {
-                                                                if (data.dados.NM_LOGRADOURO.length > 0) {
-                                                                    $('#logradouro').val(data.dados.DS_TIPO_LOGRADOURO + ' ' + data.dados.NM_LOGRADOURO);
-                                                                    if (data.dados.DS_TIPO_LOGRADOURO !== 'M' && data.dados.DS_TIPO_LOGRADOURO !== 'D' && data.dados.DS_TIPO_LOGRADOURO !== 'P') {
-                                                                        $('#logradouro').attr('disabled', 'true');
-                                                                    } else {
-                                                                        $('#logradouro').removeAttr('disabled');
-                                                                    }
-                                                                }
+    function carregaEndereco(data) {
+        if (!data.error) {
+            $('#EMPRESA_CEP_VALIDADOR').fadeOut();
+            if (data.dados.TPCEP != 0) {
+                if (data.dados.NM_LOGRADOURO.length > 0) {
+                    $('#logradouro').val(data.dados.DS_TIPO_LOGRADOURO + ' ' + data.dados.NM_LOGRADOURO);
+                    if (data.dados.DS_TIPO_LOGRADOURO !== 'M' && data.dados.DS_TIPO_LOGRADOURO !== 'D' && data.dados.DS_TIPO_LOGRADOURO !== 'P') {
+                        $('#logradouro').attr('disabled', 'true');
+                    } else {
+                        $('#logradouro').removeAttr('disabled');
+                    }
+                }
 
-                                                                if (data.dados.DS_COMPLEMENTO.length > 2) {
-                                                                    $('#dsComplementoEndereco').val(data.dados.DS_COMPLEMENTO);
-                                                                    $('#dsComplementoEndereco').attr('disabled', 'true');
-                                                                }
+                if (data.dados.DS_COMPLEMENTO.length > 2) {
+                    $('#dsComplementoEndereco').val(data.dados.DS_COMPLEMENTO);
+                    $('#dsComplementoEndereco').attr('disabled', 'true');
+                }
 
-                                                                $('#nmBairro').html('');
-                                                                for (var i = 0; i < data.dados.bairros.length; i++) {
-                                                                    var complemento = '';
+                $('#nmBairro').html('');
+                for (var i = 0; i < data.dados.bairros.length; i++) {
+                    var complemento = '';
 
-                                                                    if (i == 0) {
-                                                                        complemento = 'selected';
-                                                                    }
+                    if (i == 0) {
+                        complemento = 'selected';
+                    }
 
-                                                                    var option = "<option value='" + data.dados.bairros[i].ID_BAIRRO + "' " + complemento + ">" + data.dados.bairros[i].NM_BAIRRO + "</option>";
-                                                                    $('#nmBairro').append(option);
-                                                                }
+                    var option = "<option value='" + data.dados.bairros[i].ID_BAIRRO + "' " + complemento + ">" + data.dados.bairros[i].NM_BAIRRO + "</option>";
+                    $('#nmBairro').append(option);
+                }
 
-                                                                if (data.dados.bairros.length > 1) {
-                                                                    $('#nmBairro').removeAttr('disabled');
-                                                                } else {
-                                                                    $('#nmBairro').attr('disabled', 'true');
-                                                                }
+                if (data.dados.bairros.length > 1) {
+                    $('#nmBairro').removeAttr('disabled');
+                } else {
+                    $('#nmBairro').attr('disabled', 'true');
+                }
 
-                                                                $('#Estado').html('');
-                                                                var option = "<option value='" + data.dados.SG_UF + "' selected >" + data.dados.NM_UF + "</option>";
-                                                                $('#Estado').append(option);
-                                                                $('#Estado').attr('disabled', 'true');
-                                                                $('#Municipio').html('');
-                                                                var option = "<option value='" + data.dados.ID_MUNICIPIO + "' selected >" + data.dados.NM_MUNICIPIO + "</option>";
-                                                                $('#Municipio').append(option);
-                                                                $('#Municipio').attr('disabled', 'true');
-                                                            } else {
-                                                                //libera campos para preenchimento
-                                                                $('#nmBairro').removeAttr('disabled');
-                                                                $('#logradouro').removeAttr('disabled');
-                                                            }
-                                                        } else {
-                                                            cepInvalido();
-                                                        }
-                                                    }
+                $('#Estado').html('');
+                var option = "<option value='" + data.dados.SG_UF + "' selected >" + data.dados.NM_UF + "</option>";
+                $('#Estado').append(option);
+                $('#Estado').attr('disabled', 'true');
+                $('#Municipio').html('');
+                var option = "<option value='" + data.dados.ID_MUNICIPIO + "' selected >" + data.dados.NM_MUNICIPIO + "</option>";
+                $('#Municipio').append(option);
+                $('#Municipio').attr('disabled', 'true');
+            } else {
+                //libera campos para preenchimento
+                $('#nmBairro').removeAttr('disabled');
+                $('#logradouro').removeAttr('disabled');
+            }
+        } else {
+            cepInvalido();
+        }
+    }
 
-                                                    function cepInvalido() {
-                                                        //CEP INVALIDO
-                                                        $('#EMPRESA_CEP_VALIDADOR').html('CEP inválido');
-                                                        $('#EMPRESA_CEP_VALIDADOR').fadeIn();
-                                                        var option = "<option> - Informe o CEP - </option>";
-                                                        $('#nmBairro').html(option);
-                                                        $('#Estado').html(option);
-                                                        $('#Municipio').html(option);
-                                                        $('#logradouro').val('');
-                                                        $('#dsComplementoEndereco').val('');
-                                                    }
+    function cepInvalido() {
+        //CEP INVALIDO
+        $('#EMPRESA_CEP_VALIDADOR').html('CEP invï¿½lido');
+        $('#EMPRESA_CEP_VALIDADOR').fadeIn();
+        var option = "<option> - Informe o CEP - </option>";
+        $('#nmBairro').html(option);
+        $('#Estado').html(option);
+        $('#Municipio').html(option);
+        $('#logradouro').val('');
+        $('#dsComplementoEndereco').val('');
+    }
 
 </script>
